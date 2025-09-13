@@ -45,6 +45,8 @@ if results.get("success"):
         person = analysis["structured_data"]
         print(f"\n👤 Name: {person.personal_info.full_name or 'Unknown'}")
         print(f"💼 Job: {person.professional_info.current_position or 'Unknown'}")
+        if person.overview:
+            print(f"📝 Overview: {person.overview}")
         if person.social_media:
             print(f"📱 Social: {len(person.social_media)} platforms found")
     elif analysis.get("analysis"):
