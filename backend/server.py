@@ -1,14 +1,16 @@
 import os
 import sys
 import asyncio
-from typing import Any, Dict
+from typing import Any, Dict, Optional
 import uuid
 import json
 import base64
 import io
+import time
 
-from fastapi import FastAPI, UploadFile, File, HTTPException
-from fastapi.responses import JSONResponse
+from fastapi import FastAPI, UploadFile, File, HTTPException, WebSocket, WebSocketDisconnect
+from fastapi.responses import JSONResponse, StreamingResponse
+from fastapi.staticfiles import StaticFiles
 from PIL import Image
 
 # Ensure the backend directory is on sys.path so imports like `pipeline`, `search`, `llm` work
@@ -20,14 +22,57 @@ if BACKEND_DIR not in sys.path:
 CACHE_DIR = os.path.join(BACKEND_DIR, "cache")
 os.makedirs(CACHE_DIR, exist_ok=True)
 
+# Static directory for serving sample HTML (e.g., camera viewer)
+STATIC_DIR = os.path.join(BACKEND_DIR, "static")
+os.makedirs(STATIC_DIR, exist_ok=True)
+
 from pipeline import complete_face_analysis  # noqa: E402
 from output_schema import OutputSchemaManager  # noqa: E402
 from local_face_recognition import recognize  # noqa: E402
 
 app = FastAPI(title="Orbit Face Analysis Server")
+app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
 
 # Global lock to ensure only one request is processed at a time
 _request_lock = asyncio.Lock()
+
+
+class ConnectionManager:
+    """Manages WebSocket connections for publishing analysis results."""
+    def __init__(self) -> None:
+        self._connections: set[WebSocket] = set()
+        self._lock = asyncio.Lock()
+
+    async def connect(self, websocket: WebSocket) -> None:
+        await websocket.accept()
+        async with self._lock:
+            self._connections.add(websocket)
+
+    async def disconnect(self, websocket: WebSocket) -> None:
+        async with self._lock:
+            if websocket in self._connections:
+                self._connections.remove(websocket)
+
+    async def broadcast(self, message: Dict[str, Any]) -> None:
+        async with self._lock:
+            dead: list[WebSocket] = []
+            for ws in list(self._connections):
+                try:
+                    await ws.send_json(message)
+                except Exception:
+                    dead.append(ws)
+            for ws in dead:
+                try:
+                    await ws.close()
+                except Exception:
+                    pass
+                if ws in self._connections:
+                    self._connections.remove(ws)
+
+
+manager = ConnectionManager()
+ 
+# is_new_person heuristic removed; is_new is determined by early local match in analyze()
 
 
 @app.post("/analyze")
@@ -71,6 +116,53 @@ async def analyze(image: UploadFile = File(...)):
         except Exception as e:
             raise HTTPException(status_code=500, detail=f"Failed to save image: {e}")
 
+        # Attempt fast local match against existing cache; if found, return existing JSON
+        candidates: list[str] = []
+        try:
+            for name in os.listdir(CACHE_DIR):
+                if name.endswith(".jpg"):
+                    p = os.path.join(CACHE_DIR, name)
+                    if p != image_path:  # avoid matching the just-saved image
+                        candidates.append(p)
+        except Exception:
+            candidates = []
+
+        try:
+            best_match_path = recognize(image_path, candidates)
+        except Exception:
+            best_match_path = None
+
+        if isinstance(best_match_path, str) and os.path.exists(best_match_path):
+            matched_id = os.path.splitext(os.path.basename(best_match_path))[0]
+            matched_json_path = os.path.join(CACHE_DIR, f"{matched_id}.json")
+            try:
+                with open(matched_json_path, "r", encoding="utf-8") as jf:
+                    existing_obj = json.load(jf)
+            except Exception:
+                existing_obj = None
+
+            if isinstance(existing_obj, dict):
+                # Ensure no base64 payloads are present in face_results
+                try:
+                    face_results = existing_obj.get("face_results")
+                    if isinstance(face_results, list):
+                        for fr in face_results:
+                            if isinstance(fr, dict) and "base64" in fr:
+                                fr.pop("base64", None)
+                except Exception:
+                    pass
+
+                # Notify subscribers (is_new = False) and return existing JSON immediately
+                try:
+                    await manager.broadcast({
+                        "is_new": False,
+                        "result": existing_obj,
+                    })
+                except Exception:
+                    pass
+
+                return JSONResponse(content=existing_obj)
+
         # Run the analysis pipeline (structured output like example.py)
         try:
             results: Dict[str, Any] = complete_face_analysis(
@@ -107,13 +199,6 @@ async def analyze(image: UploadFile = File(...)):
         except Exception:
             pass
 
-        # Call local face recognition (stubbed; returns None for now)
-        try:
-            best_match = recognize(image_path, [])
-        except Exception:
-            best_match = None
-        results["local_face_recognition"] = {"best_match": best_match}
-
         # Save results JSON to cache (best-effort)
         try:
             with open(results_path, "w", encoding="utf-8") as f:
@@ -124,6 +209,18 @@ async def analyze(image: UploadFile = File(...)):
 
         # Include request ID in response
         results["request_id"] = request_id
+
+        # Mark as new (no local match was found earlier) and broadcast
+        results["is_new_person"] = True
+
+        try:
+            await manager.broadcast({
+                "is_new": True,
+                "result": results,
+            })
+        except Exception:
+            # Do not fail the request if broadcast fails
+            pass
 
         return JSONResponse(content=results)
 
@@ -182,6 +279,91 @@ async def list_cache():
 @app.get("/health")
 async def health():
     return {"status": "ok"}
+
+
+def _mjpeg_generator(cap):
+    try:
+        import cv2  # type: ignore
+        while True:
+            ok, frame = cap.read()
+            if not ok:
+                break
+            ok, encoded = cv2.imencode(".jpg", frame, [int(cv2.IMWRITE_JPEG_QUALITY), 80])
+            if not ok:
+                continue
+            frame_bytes = encoded.tobytes()
+            yield (
+                b"--frame\r\n"
+                b"Content-Type: image/jpeg\r\n\r\n" + frame_bytes + b"\r\n"
+            )
+            time.sleep(0.033)
+    except GeneratorExit:
+        pass
+    except Exception:
+        pass
+    finally:
+        try:
+            cap.release()
+        except Exception:
+            pass
+
+@app.get("/camera/stream")
+async def camera_stream(index: int = 0, width: Optional[int] = None, height: Optional[int] = None):
+    """
+    MJPEG camera stream. Open http://127.0.0.1:8000/static/camera.html to view.
+    Query params:
+      - index: camera index (default 0)
+      - width: desired frame width (optional)
+      - height: desired frame height (optional)
+    """
+    try:
+        import cv2  # type: ignore
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"OpenCV not installed. Please install 'opencv-python'. {e}")
+    cap = cv2.VideoCapture(int(index))
+    if width is not None:
+        cap.set(cv2.CAP_PROP_FRAME_WIDTH, int(width))
+    if height is not None:
+        cap.set(cv2.CAP_PROP_FRAME_HEIGHT, int(height))
+    if not cap.isOpened():
+        try:
+            cap.release()
+        except Exception:
+            pass
+        raise HTTPException(status_code=500, detail=f"Could not open camera at index {index}")
+    headers = {
+        "Cache-Control": "no-cache, no-store, must-revalidate",
+        "Pragma": "no-cache",
+        "Expires": "0",
+    }
+    return StreamingResponse(
+        _mjpeg_generator(cap),
+        media_type="multipart/x-mixed-replace; boundary=frame",
+        headers=headers,
+    )
+
+@app.websocket("/ws")
+async def ws_endpoint(websocket: WebSocket):
+    """WebSocket publisher endpoint for analysis results.
+
+    Clients can connect here to receive a JSON message when an analysis completes:
+    {
+      "event": "analysis_complete",
+      "is_new": bool,
+      "request_id": str,
+      "result": { ... full analysis JSON ... }
+    }
+    """
+    await manager.connect(websocket)
+    try:
+        while True:
+            # We don't expect incoming messages; keep the connection alive
+            # by reading and ignoring ping/pong/text frames.
+            await websocket.receive_text()
+    except WebSocketDisconnect:
+        await manager.disconnect(websocket)
+    except Exception:
+        await manager.disconnect(websocket)
 
 
 # Note: To keep the server single-threaded and process only one request at a time,
