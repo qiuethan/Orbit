@@ -366,6 +366,30 @@ async def ws_endpoint(websocket: WebSocket):
         await manager.disconnect(websocket)
 
 
+@app.websocket("/overlay_ws")
+async def overlay_ws(websocket: WebSocket):
+    """WebSocket endpoint that streams a constant overlay [x1, y1, x2, y2].
+
+    Sends the JSON list [100, 100, 200, 200] every 0.1 seconds until the client disconnects.
+    """
+    await websocket.accept()
+    try:
+        while True:
+            await websocket.send_json([100, 100, 200, 200])
+            await asyncio.sleep(0.1)
+    except WebSocketDisconnect:
+        pass
+    except asyncio.CancelledError:
+        pass
+    except Exception:
+        # Swallow any send/connection errors on disconnect
+        pass
+    finally:
+        try:
+            await websocket.close()
+        except Exception:
+            pass
+
 # Note: To keep the server single-threaded and process only one request at a time,
 # run uvicorn with a single worker:
 #   uvicorn server:app --host 127.0.0.1 --port 8000 --workers 1
