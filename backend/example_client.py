@@ -20,8 +20,15 @@ def main():
     script_dir = os.path.dirname(os.path.abspath(__file__))
     url = os.environ.get("ANALYZE_URL", "http://127.0.0.1:8000/analyze")
 
-    # Default image file is image2.jpg in the same directory as this script
-    default_image = os.path.join(script_dir, "image2.jpg")
+    default_jpg = os.path.join(script_dir, "image2.jpg")
+    default_png = os.path.join(script_dir, "image2.png")
+    if os.path.isfile(default_jpg):
+        default_image = default_jpg
+    elif os.path.isfile(default_png):
+        default_image = default_png
+    else:
+        default_image = default_jpg 
+
     image_path = sys.argv[1] if len(sys.argv) > 1 else default_image
 
     if not os.path.isfile(image_path):
