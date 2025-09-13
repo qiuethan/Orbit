@@ -240,10 +240,29 @@ if __name__ == "__main__":
     error, urls_images = api.search_by_image(image_file)
 
     if urls_images:
-        for im in urls_images:      # Iterate search results
-            score = im['score']     # 0 to 100 score how well the face is matching found image
-            url = im['url']         # url to webpage where the person was found
-            image_base64 = im['base64']     # thumbnail image encoded as base64 string
-            print(f"{score} {url} {image_base64[:32]}...")
+        # Filter results: top 5 with score above 85
+        filtered_results = []
+        for im in urls_images[:5]:  # Only consider top 5 results
+            if im['score'] >= 85:   # Only scores 85 and above
+                filtered_results.append(im)
+        
+        if filtered_results:
+            print(f"Found {len(filtered_results)} high-quality matches (score >= 85 in top 5):")
+            print("=" * 80)
+            
+            for i, im in enumerate(filtered_results, 1):
+                print(f"Result #{i}:")
+                print(f"  Score: {im['score']}")
+                print(f"  URL: {im['url']}")
+                print(f"  Image (base64): {im['base64'][:50]}..." if len(im['base64']) > 50 else f"  Image (base64): {im['base64']}")
+                
+                # Display any additional fields that might be available
+                for key, value in im.items():
+                    if key not in ['score', 'url', 'base64']:
+                        print(f"  {key.capitalize()}: {value}")
+                
+                print("-" * 40)
+        else:
+            print("No high-quality matches found (no results with score >= 85 in top 5)")
     else:
         print(error)
