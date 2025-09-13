@@ -4,5 +4,4 @@ image.jpg
 /logs
 /__pycache__
 */__pycache__
-analysis_*.json
 /cache/

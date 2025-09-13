@@ -82,6 +82,7 @@ class PersonAnalysis:
     potential_red_flags: Optional[List[str]] = None
     
     # Summary
+    overview: Optional[str] = None  # Natural language overview of the person
     executive_summary: Optional[str] = None
     key_insights: Optional[List[str]] = None
     
@@ -147,6 +148,7 @@ REQUIRED JSON STRUCTURE (use null for unverified/unavailable data):
   "public_presence_score": "High/Medium/Low or null",
   "credibility_indicators": ["string"] or null,
   "potential_red_flags": ["string"] or null,
+  "overview": "string or null",
   "executive_summary": "string or null",
   "key_insights": ["string"] or null,
   "confidence_level": "High/Medium/Low or null",
@@ -162,6 +164,7 @@ CRITICAL INSTRUCTIONS - READ CAREFULLY:
 3. FILTER OUT information that is clearly about different people, places, or unrelated topics
 4. CROSS-REFERENCE information across multiple sources before including it
 5. ONLY include information you can reasonably verify relates to the target person
+6. ALWAYS provide an "overview" - a natural summary of who this person is based on the available data
 
 📋 DATA QUALITY STANDARDS:
 - Use null for any fields where you cannot find VERIFIED information
@@ -174,6 +177,7 @@ CRITICAL INSTRUCTIONS - READ CAREFULLY:
 - professional_info: Verify job titles and companies are current/accurate
 - social_media: Only include verified social profiles that match the person
 - talking_points: Base on actual achievements and interests, not generic topics
+- overview: REQUIRED - Write a natural, engaging 2-3 sentence summary that captures who this person is, their role, and what they're known for. Make it conversational and informative. Do not leave this null unless absolutely no information is available.
 - confidence_level: 
   * "High": Multiple independent sources confirm the same information
   * "Medium": Some sources support the information, minor inconsistencies
@@ -270,6 +274,7 @@ Return your ANALYZED and VERIFIED findings as pure JSON:
                 public_presence_score=data.get('public_presence_score'),
                 credibility_indicators=data.get('credibility_indicators'),
                 potential_red_flags=data.get('potential_red_flags'),
+                overview=data.get('overview'),
                 executive_summary=data.get('executive_summary'),
                 key_insights=data.get('key_insights'),
                 confidence_level=data.get('confidence_level'),
@@ -357,6 +362,7 @@ if __name__ == "__main__":
         public_presence_score="Medium",
         credibility_indicators=["Verified LinkedIn", "Active GitHub contributions"],
         potential_red_flags=None,
+        overview="John Doe is a senior software engineer at TechCorp who specializes in cloud architecture and microservices. He's known for his contributions to open-source projects and is an active speaker in the tech community.",
         executive_summary="Experienced software engineer with strong technical background and growing leadership experience.",
         key_insights=["Strong technical expertise", "Active in tech community", "Career progression"],
         confidence_level="High",
