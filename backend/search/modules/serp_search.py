@@ -329,21 +329,21 @@ def search_terms(terms: List[str], search_types: List[str] = None,
 
 # Example usage
 if __name__ == "__main__":
-    print("🔍 Testing SERP Search Module")
+    print("🔍 SERP Search Module")
     print("=" * 40)
     
     module = SerpSearchModule()
     
-    # Test URL search
-    print("\n📄 Testing URL search:")
+    # Example URL search
+    print("\n📄 URL search example:")
     test_urls = ["https://www.imdb.com/name/nm0185819/"]
     url_results = module.search_urls(test_urls, max_results_per_url=3)
     
     for url, mentions in url_results.items():
         print(f"Found {len(mentions)} mentions for {url}")
     
-    # Test term search
-    print("\n🔍 Testing term search:")
+    # Example term search
+    print("\n🔍 Term search example:")
     test_terms = ["Daniel Craig"]
     term_results = module.search_terms(test_terms, ["general", "news"], max_results_per_term=2)
     

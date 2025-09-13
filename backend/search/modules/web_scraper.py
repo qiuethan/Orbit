@@ -341,7 +341,7 @@ def scrape_urls(urls: List[str], delay: float = 1.0) -> List[Dict]:
 
 # Example usage
 if __name__ == "__main__":
-    print("🕷️  Testing Web Scraper Module")
+    print("🕷️  Web Scraper Module")
     print("=" * 40)
     
     # Test URLs

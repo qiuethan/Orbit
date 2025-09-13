@@ -1,88 +1,101 @@
 {
-  "personal_info": {
-    "full_name": "Richard Junghyun Han",
-    "age": null,
-    "location": "New York, USA",
-    "nationality": null,
-    "languages": null,
-    "interests": [
-      "University of Toronto",
-      "Higher education",
-      "Computer Science education",
-      "Consulting",
-      "Finance"
-    ]
-  },
-  "professional_info": {
-    "current_position": "Consultant",
-    "company": "Cognizant",
-    "industry": "Consulting",
-    "previous_positions": null,
-    "skills": null,
-    "achievements": [
-      "High Distinction Graduate (University of Toronto Rotman BCom)",
-      "Secured a $100K+ consulting role immediately after graduation"
-    ]
-  },
-  "education_info": {
-    "current_institution": "University of Toronto",
-    "degree": "Bachelor of Commerce (BCom)",
-    "field_of_study": "Commerce",
-    "graduation_year": null,
-    "previous_education": null
-  },
-  "social_media": [
-    {
-      "platform": "LinkedIn",
-      "username": "richard-junghyun-han",
-      "url": "https://linkedin.com/in/richard-junghyun-han",
-      "verified": null,
-      "followers_count": null
+  "person_analysis": {
+    "personal_info": {
+      "full_name": "Richard Junghyun Han",
+      "age": null,
+      "location": "New York",
+      "nationality": null,
+      "languages": null,
+      "interests": [
+        "Consulting",
+        "Finance",
+        "University of Toronto",
+        "Computer Science"
+      ]
     },
-    {
-      "platform": "YouTube",
-      "username": "RichardHan",
-      "url": "https://www.youtube.com/c/RichardHan",
-      "verified": null,
-      "followers_count": null
-    }
-  ],
-  "talking_points": {
-    "recent_achievements": [
-      "Landed a $100K+ consulting job right after university",
-      "Graduated with High Distinction from Rotman School of Management"
+    "professional_info": {
+      "current_position": "Consultant",
+      "company": "Cognizant",
+      "industry": "Consulting / IT Services",
+      "previous_positions": null,
+      "skills": null,
+      "achievements": [
+        "Landed $100K+ job right after university",
+        "Graduated with High Distinction from University of Toronto Rotman BCom"
+      ]
+    },
+    "education_info": {
+      "current_institution": null,
+      "degree": "Bachelor of Commerce",
+      "field_of_study": "Business/Finance",
+      "graduation_year": null,
+      "previous_education": null
+    },
+    "social_media": [
+      {
+        "platform": "LinkedIn",
+        "username": "richard-junghyun-han",
+        "url": "https://linkedin.com/in/richard-junghyun-han",
+        "verified": null,
+        "followers_count": null
+      },
+      {
+        "platform": "YouTube",
+        "username": "RichardHan",
+        "url": "https://www.youtube.com/c/RichardHan",
+        "verified": null,
+        "followers_count": null
+      }
     ],
-    "shared_connections": null,
-    "common_interests": [
-      "University of Toronto admissions and student life",
-      "First-year Computer Science curriculum",
-      "Consulting and finance career pathways"
+    "talking_points": {
+      "recent_achievements": [
+        "Landed $100K+ consulting role after graduation",
+        "Created a YouTube channel offering advice on University of Toronto and career planning"
+      ],
+      "shared_connections": null,
+      "common_interests": [
+        "Consulting",
+        "Finance",
+        "Higher Education",
+        "Computer Science"
+      ],
+      "conversation_starters": [
+        "Your transition from a Rotman BCom to a consulting role at Cognizant",
+        "Tips for recent graduates aiming for high‑paying consulting positions",
+        "Your YouTube series on navigating University of Toronto"
+      ],
+      "notable_projects": [
+        "YouTube series on University of Toronto admissions and first‑year CS experience",
+        "Consulting projects at Cognizant (unspecified)"
+      ]
+    },
+    "public_presence_score": "Medium",
+    "credibility_indicators": [
+      "LinkedIn profile with detailed employment and education",
+      "YouTube channel discussing personal career journey",
+      "Multiple high‑confidence facial matches to the same individual"
     ],
-    "conversation_starters": [
-      "His experience transitioning from a high-distinction BCom graduate to a consultant at Cognizant",
-      "Tips for prospective UofT students based on his YouTube series",
-      "Insights into securing high-paying consulting roles early in a career"
+    "potential_red_flags": null,
+    "executive_summary": "Richard Junghyun Han is a New York‑based consultant at Cognizant who graduated with High Distinction from the University of Toronto Rotman School of Management (BCom). He actively shares career and university advice through a YouTube channel, highlighting his rapid entry into a high‑paying consulting role.",
+    "key_insights": [
+      "Recent high‑distinction graduate now working in consulting",
+      "Active content creator focusing on university and career guidance",
+      "Strong online presence across LinkedIn and YouTube"
     ],
-    "notable_projects": [
-      "YouTube series covering University of Toronto admissions, residence applications, and first-year CS guidance"
-    ]
+    "confidence_level": "High",
+    "sources_quality": "Good",
+    "last_updated": "2025-09-13"
   },
-  "public_presence_score": "Medium",
-  "credibility_indicators": [
-    "LinkedIn profile with detailed professional background",
-    "Verified academic credentials from University of Toronto",
-    "Current employment at a globally recognized consulting firm (Cognizant)",
-    "Active YouTube channel providing educational content"
-  ],
-  "potential_red_flags": null,
-  "executive_summary": "Richard Junghyun Han is a New York‑based consultant at Cognizant who graduated with High Distinction from the University of Toronto's Rotman School of Management (BCom). He actively shares educational content about University of Toronto admissions and first‑year computer science on his YouTube channel, highlighting his rapid entry into a high‑earning consulting role.",
-  "key_insights": [
-    "Strong academic background from a top Canadian university",
-    "Current role in consulting provides industry relevance",
-    "Engages in content creation aimed at prospective university students",
-    "Demonstrates ability to translate academic success into a high‑salary career"
-  ],
-  "confidence_level": "High",
-  "sources_quality": "Good",
-  "last_updated": "2025-09-13"
+  "best_match_photo": {
+    "base64_data": "data:image/webp;base64, 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",
+    "source_url": "https://linkedin.com/in/richard-junghyun-han",
+    "confidence_score": 99,
+    "description": "Highest scoring face match (score: 99)"
+  },
+  "metadata": {
+    "llm_provider": "cerebras",
+    "llm_model": "gpt-oss-120b",
+    "face_matches": 5,
+    "total_mentions": 8
+  }
 }

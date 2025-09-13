@@ -47,6 +47,7 @@ if results["success"]:
 - **Social Media**: Verified profiles with URLs
 - **Talking Points**: Recent achievements, conversation starters
 - **Confidence Metrics**: Quality assessment of sources
+- **Best Match Photo**: Highest scoring face match image with source and confidence
 
 ### Pipeline Steps
 1. **🔍 Face Recognition** - FaceCheck.id finds matching faces (top 5, 85+ score)
@@ -97,6 +98,12 @@ results = pipeline.complete_face_search(
 {
     "success": True,
     "face_results": [...],           # Face matches with scores
+    "best_match_photo": {            # Highest scoring face match photo
+        "base64_data": "data:image/webp;base64,...",
+        "source_url": "https://github.com/username",
+        "confidence_score": 90,
+        "description": "Highest scoring face match (score: 90)"
+    },
     "serp_results": {...},           # Web search results per URL
     "scraped_results": {...},        # Full content from web pages
     "llm_analysis": {
@@ -149,6 +156,19 @@ python example.py  # Edit settings in the file
 
 ### Save Results to Files
 The system automatically saves detailed logs to `logs/` folder and can save structured output to JSON files for analysis.
+
+**Structured Output with Photo:**
+```json
+{
+  "person_analysis": { ... },      // PersonAnalysis schema data
+  "best_match_photo": {            // Best face match photo
+    "base64_data": "data:image/webp;base64,...",
+    "source_url": "https://github.com/username",
+    "confidence_score": 90
+  },
+  "metadata": { ... }              // Pipeline metadata
+}
+```
 
 ## 📁 Project Structure
 

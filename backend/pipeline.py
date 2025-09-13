@@ -196,6 +196,25 @@ class SearchAnalysisPipeline:
         
         return "\n".join(context_parts)
     
+    def _extract_best_match_photo(self, search_results: Dict) -> Optional[Dict[str, Any]]:
+        """Extract the highest scoring face match photo from search results."""
+        face_results = search_results.get("face_results", [])
+        if not face_results:
+            return None
+        
+        # Find the highest scoring match (first one if tied)
+        best_match = max(face_results, key=lambda x: x.get("score", 0))
+        
+        if best_match.get("base64") and best_match.get("score", 0) >= 85:
+            return {
+                "base64_data": best_match["base64"],
+                "source_url": best_match.get("url", "Unknown"),
+                "confidence_score": best_match.get("score", 0),
+                "description": f"Highest scoring face match (score: {best_match.get('score', 0)})"
+            }
+        
+        return None
+
     def complete_face_search(self, 
                             image_input,
                             min_score: int = 85,
@@ -235,6 +254,12 @@ class SearchAnalysisPipeline:
             print("✅ Search operations completed successfully")
             summary = search_results.get("summary", {})
             print(f"   📊 Results: {summary.get('face_matches', 0)} faces, {summary.get('total_mentions', 0)} mentions, {summary.get('scraped_pages', 0)} pages")
+            
+            # Extract the best matching photo
+            best_photo = self._extract_best_match_photo(search_results)
+            if best_photo:
+                search_results["best_match_photo"] = best_photo
+                print(f"   📸 Best match photo extracted (score: {best_photo['confidence_score']})")
             
             # Phase 2: LLM Analysis
             if self.llm_available and self._has_meaningful_results(search_results):
@@ -377,6 +402,6 @@ def complete_face_analysis(image_input, custom_prompt: str = None, use_structure
 
 
 if __name__ == "__main__":
-    print("🚀 Testing Complete Face Analysis Pipeline")
-    print("Use: from pipeline import complete_face_analysis")
-    print("     results = complete_face_analysis('image.jpg')")
+    print("🚀 Complete Face Analysis Pipeline")
+    print("Usage: from pipeline import complete_face_analysis")
+    print("       results = complete_face_analysis('image.jpg')")

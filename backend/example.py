@@ -30,6 +30,14 @@ if results.get("success"):
     summary = results.get("summary", {})
     print(f"Found: {summary.get('face_matches', 0)} faces, {summary.get('total_mentions', 0)} mentions")
     
+    # Show best match photo
+    best_photo = results.get("best_match_photo")
+    if best_photo:
+        print(f"\n📸 Best match photo found:")
+        print(f"   Source: {best_photo['source_url']}")
+        print(f"   Confidence: {best_photo['confidence_score']}/100")
+        print(f"   Data: {len(best_photo['base64_data'])} bytes (base64)")
+
     # Show AI analysis
     analysis = results.get("llm_analysis", {})
     if use_structured_output and analysis.get("structured_data"):
@@ -48,13 +56,22 @@ if results.get("success"):
     # --- Save to File ---
     if save_to_file:
         if use_structured_output and analysis.get("structured_data"):
-            # Save structured data as JSON
+            # Save structured data with photo as JSON
             schema_manager = OutputSchemaManager()
-            json_output = schema_manager.to_json(analysis["structured_data"])
+            structured_output = {
+                "person_analysis": json.loads(schema_manager.to_json(analysis["structured_data"])),
+                "best_match_photo": results.get("best_match_photo"),
+                "metadata": {
+                    "llm_provider": analysis.get("provider"),
+                    "llm_model": analysis.get("model"),
+                    "face_matches": results.get("summary", {}).get("face_matches", 0),
+                    "total_mentions": results.get("summary", {}).get("total_mentions", 0)
+                }
+            }
             filename = "analysis_structured.json"
             with open(filename, "w", encoding="utf-8") as f:
-                f.write(json_output)
-            print(f"\n💾 Structured data saved to: {filename}")
+                json.dump(structured_output, f, indent=2, ensure_ascii=False)
+            print(f"\n💾 Structured data with photo saved to: {filename}")
         else:
             # Save full results as JSON
             filename = "analysis_results.json"

@@ -297,7 +297,7 @@ def structured_analyze_person(search_results: str,
 
 # Example usage
 if __name__ == "__main__":
-    print("🤖 Testing LLM Interface")
+    print("🤖 LLM Interface")
     print("=" * 40)
     
     try:
@@ -307,12 +307,12 @@ if __name__ == "__main__":
         print(f"✅ LLM initialized: {info['provider'].title()} ({info['model']})")
         
         # Test simple chat
-        print("\n💬 Testing chat...")
+        print("\n💬 Chat example:")
         response = llm.chat("What is artificial intelligence in one sentence?")
         print(f"Response: {response}")
         
         # Test analysis
-        print("\n📊 Testing analysis...")
+        print("\n📊 Analysis example:")
         sample_data = """
         Search Results:
         - Article: "Tech CEO announces AI breakthrough"
@@ -327,11 +327,11 @@ if __name__ == "__main__":
         print(f"Analysis: {analysis}")
         
         # Test function interface
-        print("\n🔧 Testing function interface...")
+        print("\n🔧 Function interface example:")
         quick_response = call_llm("List 3 benefits of AI in one line each.")
         print(f"Quick response: {quick_response}")
         
-        print("\n✅ All tests passed!")
+        print("\n✅ All examples completed!")
         
     except Exception as e:
         print(f"❌ Error: {e}")
