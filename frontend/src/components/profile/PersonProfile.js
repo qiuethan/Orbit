@@ -14,7 +14,6 @@ import {
   User,
   Tag,
   Activity,
-  TrendingUp,
   Users,
   FileText,
   GraduationCap,
@@ -378,62 +377,6 @@ export default function PersonProfile({ person }) {
               </div>
             </div>
 
-            {/* Pipeline Status */}
-            <div className="bg-white border border-gray-200 rounded-lg p-4">
-              <h3 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
-                <TrendingUp className="w-4 h-4" />
-                Pipeline
-              </h3>
-              <div className="space-y-2">
-                <div>
-                  <label className="text-xs font-medium text-gray-500">Stage</label>
-                  <p className={classNames('text-sm font-semibold mt-1', getStageColor(person.stage))}>
-                    {person.stage?.replace('_', ' ')}
-                  </p>
-                </div>
-                <div>
-                  <label className="text-xs font-medium text-gray-500">Next Follow-up</label>
-                  <p className={classNames(
-                    'text-sm font-semibold mt-1',
-                    new Date(person.nextFollowUp) < new Date() ? 'text-red-600' : 'text-gray-900'
-                  )}>
-                    {formatDate(person.nextFollowUp)}
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Data Quality Metrics */}
-            <div className="bg-white border border-gray-200 rounded-lg p-4">
-              <h3 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
-                <Shield className="w-4 h-4" />
-                Data Quality
-              </h3>
-              <div className="space-y-2">
-                <div className="flex justify-between">
-                  <span className="text-xs text-gray-500">Presence</span>
-                  <span className={`text-xs font-semibold ${
-                    scrapedData.publicPresenceScore === 'High' ? 'text-green-600' :
-                    scrapedData.publicPresenceScore === 'Medium' ? 'text-yellow-600' : 'text-gray-600'
-                  }`}>
-                    {scrapedData.publicPresenceScore}
-                  </span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-xs text-gray-500">Confidence</span>
-                  <span className={`text-xs font-semibold ${
-                    scrapedData.confidenceLevel === 'High' ? 'text-green-600' :
-                    scrapedData.confidenceLevel === 'Medium' ? 'text-yellow-600' : 'text-gray-600'
-                  }`}>
-                    {scrapedData.confidenceLevel}
-                  </span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-xs text-gray-500">Sources</span>
-                  <span className="text-xs font-semibold text-gray-900">{scrapedData.sourcesQuality}</span>
-                </div>
-              </div>
-            </div>
 
             {/* Quick Stats */}
             <div className="bg-white border border-gray-200 rounded-lg p-4">

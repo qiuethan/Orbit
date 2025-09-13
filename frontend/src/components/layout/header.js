@@ -9,9 +9,7 @@ import { MagnifyingGlassIcon } from '@heroicons/react/20/solid'
 import { 
   Bars3Icon, 
   BellIcon, 
-  XMarkIcon,
-  CalendarDaysIcon,
-  RectangleGroupIcon
+  XMarkIcon
 } from '@heroicons/react/24/outline'
 
 const user = {
@@ -33,10 +31,6 @@ const userNavigation = [
   { name: 'Sign out', href: '#' },
 ]
 
-const viewOptions = [
-  { name: 'Calendar', icon: CalendarDaysIcon, value: 'calendar' },
-  { name: 'Flowchart', icon: RectangleGroupIcon, value: 'flowchart' },
-]
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -44,7 +38,6 @@ function classNames(...classes) {
 
 export default function Header() {
   const pathname = usePathname();
-  const [currentView, setCurrentView] = useState('calendar')
   const [notifications] = useState([
     { id: 1, title: 'Workflow completed', time: '2m ago', unread: true },
     { id: 2, title: 'Approval required', time: '5m ago', unread: true },
@@ -107,25 +100,6 @@ export default function Header() {
           {/* Right Section - Actions & Profile */}
           <div className="flex items-center space-x-3">
             
-            {/* View Switcher */}
-            <div className="hidden lg:flex rounded-lg border border-gray-200 p-1 bg-gray-50">
-              {viewOptions.map((option) => (
-                <button
-                  key={option.value}
-                  onClick={() => setCurrentView(option.value)}
-                  className={classNames(
-                    currentView === option.value
-                      ? 'bg-white text-gray-900 shadow-sm'
-                      : 'text-gray-500 hover:text-gray-700',
-                    'flex items-center px-3 py-1.5 rounded-md text-sm font-medium transition-all'
-                  )}
-                >
-                  <option.icon className="h-4 w-4 mr-2" />
-                  {option.name}
-                </button>
-              ))}
-            </div>
-
             {/* Notifications */}
             <Menu as="div" className="relative">
               <MenuButton className="relative p-2 text-gray-400 hover:text-gray-600 rounded-lg hover:bg-gray-50 transition-colors">
@@ -204,27 +178,6 @@ export default function Header() {
       {/* Mobile Panel */}
       <DisclosurePanel className="lg:hidden border-t border-gray-200">
         <div className="px-4 pt-2 pb-3 space-y-1">
-          {/* Mobile View Switcher */}
-          <div className="pb-3">
-            <div className="flex rounded-lg border border-gray-200 p-1 bg-gray-50">
-              {viewOptions.map((option) => (
-                <button
-                  key={option.value}
-                  onClick={() => setCurrentView(option.value)}
-                  className={classNames(
-                    currentView === option.value
-                      ? 'bg-white text-gray-900 shadow-sm'
-                      : 'text-gray-500',
-                    'flex-1 flex items-center justify-center px-3 py-2 rounded-md text-sm font-medium'
-                  )}
-                >
-                  <option.icon className="h-4 w-4 mr-2" />
-                  {option.name}
-                </button>
-              ))}
-            </div>
-          </div>
-
           {/* Mobile Navigation */}
           {navigation.map((item) => (
             <DisclosureButton
