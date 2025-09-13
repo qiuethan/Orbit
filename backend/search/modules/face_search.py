@@ -21,17 +21,22 @@ class FaceSearchModule:
     A clean module for face recognition searches using FaceCheck.id API.
     """
     
-    def __init__(self, api_token: Optional[str] = None, testing_mode: bool = True):
+    def __init__(self, api_token: Optional[str] = None, testing_mode: Optional[bool] = None):
         """
         Initialize the Face Search Module.
         
         Args:
             api_token (str, optional): FaceCheck.id API token. If None, loads from env.
-            testing_mode (bool): If True, uses demo mode (no credits deducted)
+            testing_mode (bool, optional): If True, uses demo mode (no credits deducted). If None, reads from TESTING_MODE env.
         """
         self.api_token = api_token or os.getenv('FACECHECK_API_TOKEN')
         if not self.api_token:
             raise ValueError("FaceCheck API token is required. Set FACECHECK_API_TOKEN environment variable or pass api_token parameter.")
+        
+        # Determine testing mode from environment if not specified
+        if testing_mode is None:
+            testing_mode_env = os.getenv('TESTING_MODE', 'true').lower()
+            testing_mode = testing_mode_env in ('true', '1', 'yes', 'on')
         
         self.testing_mode = testing_mode
         self.base_url = 'https://facecheck.id'

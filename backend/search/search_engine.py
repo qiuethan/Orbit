@@ -11,9 +11,9 @@ from typing import Dict, List, Optional
 from dotenv import load_dotenv
 
 # Import our modules
-from modules.face_search import FaceSearchModule
-from modules.serp_search import SerpSearchModule
-from modules.web_scraper import WebScraperModule
+from .modules.face_search import FaceSearchModule
+from .modules.serp_search import SerpSearchModule
+from .modules.web_scraper import WebScraperModule
 
 # Load environment variables
 load_dotenv()
@@ -26,15 +26,20 @@ class SearchEngine:
     
     def __init__(self, face_api_token: Optional[str] = None, 
                  serp_api_key: Optional[str] = None,
-                 testing_mode: bool = True):
+                 testing_mode: Optional[bool] = None):
         """
         Initialize the Search Engine with all modules.
         
         Args:
             face_api_token: FaceCheck.id API token
             serp_api_key: SERP API key
-            testing_mode: Use testing mode for face search
+            testing_mode: Use testing mode for face search (reads from TESTING_MODE env if None)
         """
+        # Determine testing mode from environment if not specified
+        if testing_mode is None:
+            testing_mode_env = os.getenv('TESTING_MODE', 'true').lower()
+            testing_mode = testing_mode_env in ('true', '1', 'yes', 'on')
+        
         # Initialize modules
         self.face_module = FaceSearchModule(face_api_token, testing_mode)
         self.serp_module = SerpSearchModule(serp_api_key)
