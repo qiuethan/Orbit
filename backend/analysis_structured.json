@@ -3,31 +3,31 @@
     "personal_info": {
       "full_name": "Richard Junghyun Han",
       "age": null,
-      "location": "New York",
+      "location": "New York, USA",
       "nationality": null,
       "languages": null,
       "interests": [
         "Consulting",
         "Finance",
-        "University of Toronto",
-        "Computer Science"
+        "University of Toronto admissions and student life",
+        "Computer Science education"
       ]
     },
     "professional_info": {
       "current_position": "Consultant",
       "company": "Cognizant",
-      "industry": "Consulting / IT Services",
+      "industry": "Management Consulting / IT Services",
       "previous_positions": null,
       "skills": null,
       "achievements": [
-        "Landed $100K+ job right after university",
-        "Graduated with High Distinction from University of Toronto Rotman BCom"
+        "Secured a $100K+ consulting role immediately after graduating",
+        "Built a YouTube channel offering guidance on University of Toronto admissions and first‑year CS experience"
       ]
     },
     "education_info": {
       "current_institution": null,
-      "degree": "Bachelor of Commerce",
-      "field_of_study": "Business/Finance",
+      "degree": "Bachelor of Commerce (BCom)",
+      "field_of_study": "Business/Commerce (Rotman School of Management)",
       "graduation_year": null,
       "previous_education": null
     },
@@ -42,45 +42,41 @@
       {
         "platform": "YouTube",
         "username": "RichardHan",
-        "url": "https://www.youtube.com/c/RichardHan",
+        "url": "https://youtube.com/c/RichardHan",
         "verified": null,
         "followers_count": null
       }
     ],
     "talking_points": {
       "recent_achievements": [
-        "Landed $100K+ consulting role after graduation",
-        "Created a YouTube channel offering advice on University of Toronto and career planning"
+        "Landed a $100K+ consulting position at Cognizant right after university",
+        "Created popular YouTube videos about University of Toronto admissions and first‑year CS experience"
       ],
       "shared_connections": null,
       "common_interests": [
-        "Consulting",
-        "Finance",
-        "Higher Education",
-        "Computer Science"
+        "Higher education in Canada",
+        "Consulting career paths",
+        "Finance and business strategy"
       ],
       "conversation_starters": [
-        "Your transition from a Rotman BCom to a consulting role at Cognizant",
-        "Tips for recent graduates aiming for high‑paying consulting positions",
-        "Your YouTube series on navigating University of Toronto"
+        "Ask about his transition from a BCom degree to a consulting role at Cognizant",
+        "Discuss tips for prospective University of Toronto students",
+        "Explore his perspective on the value of a CS education at UofT"
       ],
-      "notable_projects": [
-        "YouTube series on University of Toronto admissions and first‑year CS experience",
-        "Consulting projects at Cognizant (unspecified)"
-      ]
+      "notable_projects": null
     },
     "public_presence_score": "Medium",
     "credibility_indicators": [
-      "LinkedIn profile with detailed employment and education",
-      "YouTube channel discussing personal career journey",
-      "Multiple high‑confidence facial matches to the same individual"
+      "Verified LinkedIn professional profile",
+      "Active YouTube channel with educational content"
     ],
     "potential_red_flags": null,
-    "executive_summary": "Richard Junghyun Han is a New York‑based consultant at Cognizant who graduated with High Distinction from the University of Toronto Rotman School of Management (BCom). He actively shares career and university advice through a YouTube channel, highlighting his rapid entry into a high‑paying consulting role.",
+    "overview": "Richard Junghyun Han is a consultant at Cognizant based in New York. He graduated from the University of Toronto's Rotman School of Management with a BCom and quickly secured a high‑paying consulting role. He also runs a YouTube channel where he shares advice on University of Toronto admissions, first‑year CS studies, and career planning.",
+    "executive_summary": "Richard Han combines a strong academic background from UofT Rotman with hands‑on consulting experience at Cognizant. Known for his practical career guidance videos, he helps students navigate university decisions and early‑career moves in finance and consulting.",
     "key_insights": [
-      "Recent high‑distinction graduate now working in consulting",
-      "Active content creator focusing on university and career guidance",
-      "Strong online presence across LinkedIn and YouTube"
+      "Fast career progression from university to a $100K+ consulting role",
+      "Active content creator focusing on Canadian higher education",
+      "Based in New York while maintaining strong ties to the Canadian academic community"
     ],
     "confidence_level": "High",
     "sources_quality": "Good",

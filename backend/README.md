@@ -45,6 +45,7 @@ if results["success"]:
 - **Professional Info**: Current position, company, skills, previous roles
 - **Education**: Degree, institution, field of study
 - **Social Media**: Verified profiles with URLs
+- **Overview**: Natural language summary of who the person is and what they're known for
 - **Talking Points**: Recent achievements, conversation starters
 - **Confidence Metrics**: Quality assessment of sources
 - **Best Match Photo**: Highest scoring face match image with source and confidence
