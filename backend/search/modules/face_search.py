@@ -279,7 +279,7 @@ def search_face(image_input: Union[str, bytes], api_token: Optional[str] = None,
 
 # Example usage
 if __name__ == "__main__":
-    print("🔍 Testing Face Search Module")
+    print("🔍 Face Search Module")
     print("=" * 40)
     
     # Test with image file
