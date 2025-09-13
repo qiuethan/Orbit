@@ -184,96 +184,97 @@ const TaskQueue = ({ activeWorkflow }) => {
     const isCurrent = type === 'current';
 
     return (
-      <div className={`p-5 rounded-lg border transition-all duration-150 hover:shadow-sm ${
-        isCompleted ? 'bg-green-50 border-green-200 hover:bg-green-100' :
-        isFailed ? 'bg-red-50 border-red-200 hover:bg-red-100' :
-        isCurrent ? 'bg-blue-50 border-blue-200 hover:bg-blue-100' :
-        'bg-gray-50 border-gray-200 opacity-70 hover:opacity-90'
+      <div className={`group relative cursor-pointer transition-all duration-150 hover:bg-gray-50 border-b border-gray-100 ${
+        isCompleted ? '' :
+        isFailed ? '' :
+        isCurrent ? 'bg-blue-50' :
+        'opacity-70 hover:opacity-90'
       }`}>
-        <div className="flex items-start gap-4 mb-4">
-          <div className={`p-2 rounded-lg ${
-            isCompleted ? 'bg-green-100 text-green-700' :
-            isFailed ? 'bg-red-100 text-red-700' :
-            isCurrent ? 'bg-blue-100 text-blue-700' :
-            'bg-gray-100 text-gray-500'
-          }`}>
-            {isCompleted ? <Check className="w-4 h-4" /> :
-             isFailed ? <AlertTriangle className="w-4 h-4" /> :
-             getTaskIcon(task.type, "w-4 h-4")}
-          </div>
-          <div className="flex-1">
-            <h4 className={`font-semibold mb-2 text-base ${
-              isCompleted ? 'text-green-800' :
-              isFailed ? 'text-red-800' :
-              isCurrent ? 'text-blue-800' :
-              'text-gray-700'
-            }`}>
-              {task.title}
-            </h4>
-            <p className={`text-sm leading-relaxed ${
-              isCompleted ? 'text-green-700' :
-              isFailed ? 'text-red-700' :
-              isCurrent ? 'text-blue-700' :
-              'text-gray-600'
-            }`}>
-              {task.description}
-            </p>
-            {isCompleted && task.completedAt && (
-              <div className="flex items-center gap-2 mt-3 px-3 py-2 bg-green-100 border border-green-200 rounded-lg">
-                <Check className="w-4 h-4 text-green-600" />
-                <p className="text-sm text-green-700 font-medium">
-                  Completed {new Date(task.completedAt).toLocaleTimeString()}
-                </p>
+        <div className="px-3 py-2">
+          <div className="flex items-start gap-3">
+            <div className="relative flex-shrink-0">
+              <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
+                isCompleted ? 'bg-green-100' :
+                isFailed ? 'bg-red-100' :
+                isCurrent ? 'bg-blue-100' :
+                'bg-gray-100'
+              }`}>
+                {isCompleted ? <Check className="w-4 h-4 text-green-600" /> :
+                 isFailed ? <AlertTriangle className="w-4 h-4 text-red-600" /> :
+                 getTaskIcon(task.type, "w-4 h-4")}
               </div>
-            )}
-            {isFailed && task.error && (
-              <div className="flex items-center gap-2 mt-3 px-3 py-2 bg-red-100 border border-red-200 rounded-lg">
-                <AlertTriangle className="w-4 h-4 text-red-600" />
-                <p className="text-sm text-red-700 font-medium">
+            </div>
+            <div className="flex-1 min-w-0">
+              <div className="flex items-start justify-between mb-1">
+                <h3 className="font-medium text-gray-900 text-sm leading-tight truncate">
+                  {task.title}
+                </h3>
+                {isFailed && (
+                  <button
+                    onClick={() => onRetry(task)}
+                    className="opacity-0 group-hover:opacity-100 p-0.5 hover:bg-gray-200 rounded transition-all duration-150 ml-2"
+                  >
+                    <RotateCcw className="w-3.5 h-3.5 text-gray-400" />
+                  </button>
+                )}
+              </div>
+              <p className="text-xs text-gray-500 leading-tight mb-1 truncate">
+                {task.description}
+              </p>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <span className={`inline-flex items-center px-1.5 py-0.5 rounded text-xs font-medium ${
+                    isCompleted ? 'bg-green-100 text-green-800 border-green-200' :
+                    isFailed ? 'bg-red-100 text-red-800 border-red-200' :
+                    isCurrent ? 'bg-blue-100 text-blue-800 border-blue-200' :
+                    'bg-gray-100 text-gray-600 border-gray-200'
+                  }`}>
+                    {isCompleted ? 'Completed' : isFailed ? 'Failed' : isCurrent ? 'Current' : 'Pending'}
+                  </span>
+                  {isCompleted && task.completedAt && (
+                    <span className="text-xs text-gray-400">
+                      {new Date(task.completedAt).toLocaleTimeString()}
+                    </span>
+                  )}
+                </div>
+              </div>
+              {isFailed && task.error && (
+                <p className="text-xs text-red-600 mt-1">
                   {task.error}
                 </p>
-              </div>
-            )}
+              )}
+            </div>
           </div>
-          {isFailed && (
-            <button
-              onClick={() => onRetry(task)}
-              className="flex items-center gap-2 px-4 py-2 bg-red-600 text-white text-sm font-medium rounded-lg hover:bg-red-700 transition-colors"
-            >
-              <RotateCcw className="w-4 h-4" />
-              Retry
-            </button>
-          )}
         </div>
 
         {/* Show config for current task only */}
         {isCurrent && (
-          <>
+          <div className="px-3 py-3 border-t border-gray-100 bg-gray-50">
             {/* Save/Reset Controls */}
             {hasUnsavedChanges && (
-              <div className="flex items-center gap-3 mb-5 p-4 bg-amber-50 border border-amber-200 rounded-lg">
+              <div className="flex items-center gap-3 mb-4 p-3 bg-amber-50 border border-amber-200 rounded-lg">
                 <div className="flex-1 text-sm text-amber-800">
                   <span className="font-semibold">Unsaved Changes</span>
                   <span className="text-xs block mt-1 text-amber-700">Press Cmd+S to save or Esc to reset</span>
                 </div>
                 <button
                   onClick={handleSave}
-                  className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors"
+                  className="flex items-center gap-2 px-3 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors"
                 >
-                  <Save className="w-4 h-4" />
+                  <Save className="w-3 h-3" />
                   Save
                 </button>
                 <button
                   onClick={handleReset}
-                  className="flex items-center gap-2 px-4 py-2 bg-gray-600 text-white text-sm font-medium rounded-lg hover:bg-gray-700 transition-colors"
+                  className="flex items-center gap-2 px-3 py-2 bg-gray-600 text-white text-sm font-medium rounded-lg hover:bg-gray-700 transition-colors"
                 >
-                  <X className="w-4 h-4" />
+                  <X className="w-3 h-3" />
                   Reset
                 </button>
               </div>
             )}
 
-            <div className="space-y-4 mb-6 border-t border-gray-200 pt-5">
+            <div className="space-y-3 mb-4">
               {Object.entries(localConfig || {}).map(([key, value]) => (
                 <div key={key}>
                   <label className="block text-sm font-semibold text-gray-900 mb-2">
@@ -284,8 +285,8 @@ const TaskQueue = ({ activeWorkflow }) => {
                       value={value || ''}
                       onChange={(e) => handleInputChange(key, e.target.value)}
                       onBlur={handleBlur}
-                      className="w-full px-4 py-3 text-sm border border-gray-300 rounded-lg bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-none transition-colors"
-                      rows={key === 'project' ? 6 : 4}
+                      className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-none transition-colors"
+                      rows={key === 'project' ? 4 : 3}
                       placeholder={
                         key === 'project' ? 'Enter your project idea or description...' :
                         key === 'content' ? 'Enter page content...' :
@@ -298,7 +299,7 @@ const TaskQueue = ({ activeWorkflow }) => {
                       value={value || ''}
                       onChange={(e) => handleInputChange(key, e.target.value)}
                       onBlur={handleBlur}
-                      className="w-full px-4 py-3 text-sm border border-gray-300 rounded-lg bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                      className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
                       placeholder={
                         key === 'title' ? 'Enter page title...' :
                         `Enter ${key}...`
@@ -309,27 +310,32 @@ const TaskQueue = ({ activeWorkflow }) => {
               ))}
             </div>
             
-            <div className="flex gap-3">
+            <div className="flex gap-2">
               <button
                 onClick={() => onExecute(task)}
                 disabled={executing}
-                className="flex items-center gap-2 px-6 py-3 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
               >
-                <Play className="w-4 h-4" />
+                <Play className="w-3 h-3" />
                 {executing ? 'Executing...' : 'Execute Task'}
               </button>
               
               {hasUnsavedChanges && (
                 <button
                   onClick={handleSave}
-                  className="flex items-center gap-2 px-6 py-3 bg-green-600 text-white text-sm font-medium rounded-lg hover:bg-green-700 transition-colors"
+                  className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white text-sm font-medium rounded-lg hover:bg-green-700 transition-colors"
                 >
-                  <Save className="w-4 h-4" />
+                  <Save className="w-3 h-3" />
                   Save Changes
                 </button>
               )}
             </div>
-          </>
+          </div>
+        )}
+
+        {/* Active indicator */}
+        {isCurrent && (
+          <div className="absolute left-0 top-0 bottom-0 w-0.5 bg-blue-500"></div>
         )}
       </div>
     );
@@ -338,7 +344,7 @@ const TaskQueue = ({ activeWorkflow }) => {
   return (
     <div className="h-full flex flex-col bg-white">
       {/* Header - cleaner design matching sidebar */}
-      <div className="bg-white border-b border-gray-200 px-4 py-4">
+      <div className="bg-white border-b border-gray-200 px-6 py-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <div className="p-2 bg-gray-50 rounded-lg">
@@ -358,27 +364,14 @@ const TaskQueue = ({ activeWorkflow }) => {
               </span>
             )}
           </div>
-          <div className="flex gap-2 text-sm">
-            <span className="inline-flex items-center px-3 py-1 bg-green-100 text-green-800 border border-green-200 text-xs font-medium rounded-full">
-              {completedTasks.length} Completed
-            </span>
-            <span className="inline-flex items-center px-3 py-1 bg-blue-100 text-blue-800 border border-blue-200 text-xs font-medium rounded-full">
-              {pendingTasks.length} Pending
-            </span>
-            {failedTasks.length > 0 && (
-              <span className="inline-flex items-center px-3 py-1 bg-red-100 text-red-800 border border-red-200 text-xs font-medium rounded-full">
-                {failedTasks.length} Failed
-              </span>
-            )}
-          </div>
         </div>
       </div>
 
-      <div className="flex-1 overflow-y-auto p-6 space-y-6 bg-gray-50">
+      <div className="flex-1 overflow-y-auto bg-white">
         {/* Completed Tasks */}
         {completedTasks.length > 0 && (
-          <div>
-            <div className="flex items-center gap-2 mb-4">
+          <div className="px-6 py-4 border-b border-gray-100">
+            <div className="flex items-center gap-2 mb-3">
               <div className="p-1 bg-green-100 rounded">
                 <Check className="w-4 h-4 text-green-600" />
               </div>
@@ -386,7 +379,7 @@ const TaskQueue = ({ activeWorkflow }) => {
                 Completed Tasks ({completedTasks.length})
               </h4>
             </div>
-            <div className="space-y-3">
+            <div className="space-y-2">
               {completedTasks.map(task => (
                 <TaskCard
                   key={task.id}
@@ -400,8 +393,8 @@ const TaskQueue = ({ activeWorkflow }) => {
 
         {/* Failed Tasks */}
         {failedTasks.length > 0 && (
-          <div>
-            <div className="flex items-center gap-2 mb-4">
+          <div className="px-6 py-4 border-b border-gray-100">
+            <div className="flex items-center gap-2 mb-3">
               <div className="p-1 bg-red-100 rounded">
                 <AlertTriangle className="w-4 h-4 text-red-600" />
               </div>
@@ -409,7 +402,7 @@ const TaskQueue = ({ activeWorkflow }) => {
                 Failed Tasks ({failedTasks.length})
               </h4>
             </div>
-            <div className="space-y-3">
+            <div className="space-y-2">
               {failedTasks.map(task => (
                 <TaskCard
                   key={task.id}
@@ -424,8 +417,8 @@ const TaskQueue = ({ activeWorkflow }) => {
 
         {/* Current Task */}
         {currentTask ? (
-          <div>
-            <div className="flex items-center gap-2 mb-4">
+          <div className="px-6 py-4 border-b border-gray-100">
+            <div className="flex items-center gap-2 mb-3">
               <div className="p-1 bg-blue-100 rounded">
                 <Play className="w-4 h-4 text-blue-600" />
               </div>
@@ -440,7 +433,7 @@ const TaskQueue = ({ activeWorkflow }) => {
             />
           </div>
         ) : (
-          <div className="text-center py-12">
+          <div className="px-6 py-12 text-center">
             <div className="w-24 h-24 bg-green-50 border border-green-200 rounded-2xl flex items-center justify-center mx-auto mb-6">
               <Check className="w-12 h-12 text-green-600" />
             </div>
@@ -451,8 +444,8 @@ const TaskQueue = ({ activeWorkflow }) => {
 
         {/* Upcoming Tasks */}
         {pendingTasks.length > 1 && (
-          <div>
-            <div className="flex items-center gap-2 mb-4">
+          <div className="px-6 py-4">
+            <div className="flex items-center gap-2 mb-3">
               <div className="p-1 bg-gray-100 rounded">
                 <Clock className="w-4 h-4 text-gray-600" />
               </div>
@@ -460,7 +453,7 @@ const TaskQueue = ({ activeWorkflow }) => {
                 Up Next ({pendingTasks.length - 1})
               </h4>
             </div>
-            <div className="space-y-3">
+            <div className="space-y-2">
               {pendingTasks.slice(1).map(task => (
                 <TaskCard
                   key={task.id}

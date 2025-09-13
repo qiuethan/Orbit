@@ -195,9 +195,6 @@ const WorkflowFlowContent = () => {
     );
   }
 
-  const completedCount = workflowData.tasks.filter(t => t.status === 'completed').length;
-  const pendingCount = workflowData.tasks.filter(t => t.status === 'pending').length;
-  const failedCount = workflowData.tasks.filter(t => t.status === 'failed').length;
 
   return (
     <div className="h-full flex">
@@ -235,35 +232,6 @@ const WorkflowFlowContent = () => {
             position="bottom-right"
           />
           
-          {/* Control Panel - Slightly solarized */}
-          <Panel position="top-right" className="bg-gray-200 border border-gray-300 p-3 rounded shadow-sm max-w-sm font-mono">
-            <div className="flex items-center justify-between mb-2">
-              <div className="flex items-center space-x-2">
-                <div className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></div>
-                <h3 className="font-medium text-xs text-gray-800 truncate">
-                  {workflowData.name}
-                </h3>
-              </div>
-            </div>
-            
-            <div className="flex gap-1 text-xs mb-2">
-              <span className="px-2 py-0.5 bg-green-100 border border-green-200 text-green-700 rounded font-medium">
-                {completedCount}✓
-              </span>
-              <span className="px-2 py-0.5 bg-blue-100 border border-blue-200 text-blue-700 rounded font-medium">
-                {pendingCount}⏳
-              </span>
-              {failedCount > 0 && (
-                <span className="px-2 py-0.5 bg-red-100 border border-red-200 text-red-700 rounded font-medium">
-                  {failedCount}✗
-                </span>
-              )}
-            </div>
-            
-            <div className="text-xs text-gray-600 border-t border-gray-300 pt-2">
-              <span className="text-gray-500">$</span> drag actions from sidebar
-            </div>
-          </Panel>
         </ReactFlow>
       </div>
     </div>
