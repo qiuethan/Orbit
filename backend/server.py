@@ -10,6 +10,7 @@ import io
 import cv2
 import numpy as np
 import time
+from datetime import datetime
 
 from fastapi import FastAPI, UploadFile, File, HTTPException, WebSocket, WebSocketDisconnect
 from fastapi.responses import JSONResponse, StreamingResponse
@@ -193,22 +194,32 @@ async def analyze(image: UploadFile = File(...)):
         except Exception as e:
             raise HTTPException(status_code=500, detail=f"Analysis failed: {e}")
 
-        # Ensure any dataclass-based structured data is JSON-serializable
+        # Format output to match example.py structure
         try:
-            llm_analysis = results.get("llm_analysis")
-            if isinstance(llm_analysis, dict) and "structured_data" in llm_analysis:
-                sd = llm_analysis.get("structured_data")
-                if sd is not None and not isinstance(sd, dict):
-                    # Convert dataclass PersonAnalysis -> dict
-                    results["llm_analysis"]["structured_data"] = OutputSchemaManager.to_dict(sd)
+            if results.get("success"):
+                analysis = results.get("llm_analysis", {})
+                if analysis.get("structured_data"):
+                    # Create structured output like example.py
+                    schema_manager = OutputSchemaManager()
+                    structured_output = {
+                        "person_analysis": json.loads(schema_manager.to_json(analysis["structured_data"])),
+                        "best_match_photo": results.get("best_match_photo"),
+                        "metadata": {
+                            "llm_provider": analysis.get("provider"),
+                            "llm_model": analysis.get("model"),
+                            "face_matches": results.get("summary", {}).get("face_matches", 0),
+                            "total_mentions": results.get("summary", {}).get("total_mentions", 0)
+                        }
+                    }
+                    # Replace the results with the structured format
+                    results["structured_analysis"] = structured_output
+                    # Keep original results for compatibility but remove large base64 data
+                    if "llm_analysis" in results and "structured_data" in results["llm_analysis"]:
+                        # Remove the dataclass object and keep only serializable data
+                        results["llm_analysis"]["structured_data"] = "See structured_analysis field"
         except Exception as e:
-            # If conversion fails, remove non-serializable field and include an error note
-            try:
-                if isinstance(results.get("llm_analysis"), dict):
-                    results["llm_analysis"].pop("structured_data", None)
-                    results["llm_analysis"]["serialization_error"] = str(e)
-            except Exception:
-                pass
+            # If conversion fails, add error note
+            results["structured_analysis_error"] = str(e)
 
         # Remove large base64 payloads from face_results before caching/returning
         try:
@@ -220,16 +231,49 @@ async def analyze(image: UploadFile = File(...)):
         except Exception:
             pass
 
-        # Save results JSON to cache (best-effort)
+        # STEP 1: Save structured analysis to cache FIRST
+        cache_saved = False
         try:
-            with open(results_path, "w", encoding="utf-8") as f:
-                json.dump(results, f, indent=2, ensure_ascii=False)
+            # Only cache the structured analysis part
+            cache_data = results.get("structured_analysis", {})
+            if cache_data:
+                # Add essential metadata for the cache
+                cache_data["request_id"] = request_id
+                cache_data["cached_at"] = results.get("timestamp", "unknown")
+                
+                with open(results_path, "w", encoding="utf-8") as f:
+                    json.dump(cache_data, f, indent=2, ensure_ascii=False)
+                cache_saved = True
+            else:
+                # Fallback: save minimal info if no structured analysis
+                fallback_data = {
+                    "request_id": request_id,
+                    "success": results.get("success", False),
+                    "error": results.get("error", "No structured analysis available"),
+                    "summary": results.get("summary", {}),
+                    "cached_at": results.get("timestamp", "unknown")
+                }
+                with open(results_path, "w", encoding="utf-8") as f:
+                    json.dump(fallback_data, f, indent=2, ensure_ascii=False)
+                cache_saved = True
         except Exception:
             # Do not fail the request if caching fails
             pass
 
-        # Include request ID in response
+        # STEP 2: Now run local face recognition on the complete cache (including newly created item)
+        try:
+            if cache_saved:
+                # Now that cache is complete, run facial recognition
+                best_match = recognize(image_path, [])
+            else:
+                best_match = None
+        except Exception:
+            best_match = None
+        results["local_face_recognition"] = {"best_match": best_match}
+
+        # Include request ID and timestamp in response
         results["request_id"] = request_id
+        results["timestamp"] = datetime.now().isoformat()
 
         # Mark as new (no local match was found earlier) and broadcast
         results["is_new_person"] = True

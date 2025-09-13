@@ -218,12 +218,22 @@ class SearchAnalysisPipeline:
     def complete_face_search(self, 
                             image_input,
                             min_score: int = 85,
-                            max_face_results: int = 5,
+                            max_face_results: int = 10,
                             max_serp_per_url: int = 5,
                             custom_prompt: str = None,
-                            use_structured_output: bool = False) -> Dict[str, Any]:
+                            use_structured_output: bool = False,
+                            max_working_results: int = 5) -> Dict[str, Any]:
         """
         Complete face search pipeline: Image → Face Search → URL Search → Web Scraping → LLM Analysis.
+        
+        Args:
+            image_input: Image to search (file path, URL, base64, or bytes)
+            min_score: Minimum face match score (default: 85)
+            max_face_results: Maximum face search results to retrieve as backup pool (default: 10)
+            max_serp_per_url: Maximum SERP results per URL (default: 5)
+            custom_prompt: Custom LLM prompt (optional)
+            use_structured_output: Whether to use structured JSON schema output
+            max_working_results: Maximum working results to actually process (default: 5)
         """
         print("🚀 COMPLETE FACE SEARCH PIPELINE")
         print("📸 Image → 🔍 Face Search → 🌐 URL Search → 📄 Web Scraping → 🤖 LLM Analysis")
@@ -237,7 +247,8 @@ class SearchAnalysisPipeline:
                 min_score=min_score,
                 max_face_results=max_face_results,
                 max_serp_per_url=max_serp_per_url,
-                scrape_content=True
+                scrape_content=True,
+                max_working_results=max_working_results
             )
             
             # Log Phase 1 results
@@ -384,6 +395,7 @@ Please provide a detailed but well-structured analysis based on the available se
 def complete_face_analysis(image_input, custom_prompt: str = None, use_structured_output: bool = False) -> Dict[str, Any]:
     """
     Complete face analysis: Image → Face Search → URL Search → Web Scraping → LLM Analysis.
+    Uses backup system: retrieves top 10 face matches >= 85 score, but only processes top 5 that work.
     
     Args:
         image_input: Image to search (file path, URL, base64, or bytes)

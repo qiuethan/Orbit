@@ -2,7 +2,7 @@ import os
 import sys
 import cv2
 import json
-import subprocess
+import requests
 import logging
 from typing import List, Optional, Tuple
 
@@ -106,102 +106,98 @@ def recognize(target_image_path: str, candidate_image_paths: List[str] = None) -
                         logger.error(f"Error creating result file: {e}")
                         return json_path  # Return the original path even if None
             else:
-                logger.info(f"❌ No match found (best similarity: {similarity:.4f}), running example_client")
+                logger.info(f"❌ No match found (best similarity: {similarity:.4f}), running direct HTTP analysis")
                 
         except Exception as e:
             logger.error(f"Error in facial recognition: {e}")
-            logger.info("Falling back to example_client")
+            logger.info("Falling back to direct HTTP analysis")
             
-        # No match found, run example_client
-        return run_example_client(input_image, backend_dir)
+        # No match found, run direct analysis via HTTP
+        return run_direct_analysis(input_image, backend_dir)
         
     except Exception as e:
         logger.error(f"Error in recognize function: {e}")
         return None
 
 
-def run_example_client(image_path: str, backend_dir: str) -> Optional[str]:
+def run_direct_analysis(image_path: str, backend_dir: str) -> Optional[str]:
     """
-    Run example_client.py on the given image and return the path to the resulting JSON.
+    Make HTTP request directly to the FastAPI server to analyze the image.
     
     Args:
         image_path: Path to the image to process
         backend_dir: Backend directory path
         
     Returns:
-        str: Path to the resulting JSON file
+        str: Path to the resulting JSON file in cache
     """
     try:
-        logger.info(f"Running example_client on: {image_path}")
+        logger.info(f"Making direct HTTP request for: {image_path}")
         
-        # Path to example_client.py
-        example_client_path = os.path.join(backend_dir, "example_client.py")
-        
-        if not os.path.exists(example_client_path):
-            logger.error(f"example_client.py not found at: {example_client_path}")
+        # Check if image exists
+        if not os.path.exists(image_path):
+            logger.error(f"Image file not found: {image_path}")
             return None
-            
-        # Run example_client.py with the image
+        
+        # Server URL (can be configured via environment variable)
+        server_url = os.environ.get("ANALYZE_URL", "http://127.0.0.1:8000/analyze")
+        
         try:
-            # Change to backend directory and run example_client
-            original_cwd = os.getcwd()
-            os.chdir(backend_dir)
-            
-            # Run the client
-            result = subprocess.run(
-                [sys.executable, "example_client.py", image_path],
-                capture_output=True,
-                text=True,
-                timeout=300  # 5 minute timeout
-            )
-            
-            os.chdir(original_cwd)
-            
-            if result.returncode == 0:
-                logger.info("example_client.py completed successfully")
-                logger.info(f"Output: {result.stdout}")
+            # Prepare the file for upload
+            with open(image_path, "rb") as f:
+                files = {
+                    "image": (os.path.basename(image_path), f, "image/jpeg"),
+                }
                 
-                # Look for the generated JSON file in client_results.json
-                client_results_path = os.path.join(backend_dir, "client_results.json")
-                if os.path.exists(client_results_path):
-                    # Read the client results to get the request_id
-                    try:
-                        with open(client_results_path, 'r') as f:
-                            client_data = json.load(f)
-                            
-                        request_id = client_data.get('request_id')
-                        if request_id:
-                            # The actual JSON file should be in cache
-                            cache_json_path = os.path.join(backend_dir, "cache", f"{request_id}.json")
-                            if os.path.exists(cache_json_path):
-                                logger.info(f"Found generated JSON: {cache_json_path}")
-                                return cache_json_path
-                            else:
-                                logger.warning(f"Cache JSON not found: {cache_json_path}")
-                                return client_results_path
+                # Make the HTTP request
+                logger.info(f"POST {server_url}")
+                response = requests.post(server_url, files=files, timeout=300)
+                
+            logger.info(f"Response status: {response.status_code}")
+            
+            if response.status_code == 200:
+                try:
+                    # Parse the JSON response
+                    data = response.json()
+                    
+                    # Get the request_id from the response
+                    request_id = data.get('request_id')
+                    if request_id:
+                        # The cache JSON file should exist
+                        cache_json_path = os.path.join(backend_dir, "cache", f"{request_id}.json")
+                        if os.path.exists(cache_json_path):
+                            logger.info(f"✅ Analysis completed successfully")
+                            logger.info(f"📄 Cache JSON found: {cache_json_path}")
+                            return cache_json_path
                         else:
-                            logger.warning("No request_id found in client_results.json")
-                            return client_results_path
-                    except Exception as e:
-                        logger.error(f"Error reading client_results.json: {e}")
-                        return client_results_path
-                else:
-                    logger.warning("client_results.json not found after running example_client")
+                            logger.warning(f"⚠️  Response received but cache JSON not found: {cache_json_path}")
+                            # Create a fallback file with the response data
+                            fallback_path = os.path.join(backend_dir, f"fallback_{request_id}.json")
+                            with open(fallback_path, 'w', encoding='utf-8') as f:
+                                json.dump(data, f, indent=2, ensure_ascii=False)
+                            logger.info(f"📄 Created fallback file: {fallback_path}")
+                            return fallback_path
+                    else:
+                        logger.warning("No request_id found in server response")
+                        return None
+                        
+                except ValueError as e:
+                    logger.error(f"Failed to parse JSON response: {e}")
                     return None
             else:
-                logger.error(f"example_client.py failed with return code {result.returncode}")
-                logger.error(f"Error output: {result.stderr}")
+                logger.error(f"Server returned error status {response.status_code}")
+                logger.error(f"Response: {response.text}")
                 return None
                 
-        except subprocess.TimeoutExpired:
-            logger.error("example_client.py timed out")
+        except requests.RequestException as e:
+            logger.error(f"HTTP request failed: {e}")
             return None
         except Exception as e:
-            logger.error(f"Error running example_client.py: {e}")
+            logger.error(f"Error making HTTP request: {e}")
             return None
             
     except Exception as e:
-        logger.error(f"Error in run_example_client: {e}")
+        logger.error(f"Error in run_direct_analysis: {e}")
         return None
 
 

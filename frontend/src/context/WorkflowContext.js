@@ -298,11 +298,25 @@ export function WorkflowProvider({ children }) {
     });
   }, []);
 
-  // Poll for new workflows from API
+  // Poll for new workflows from API - with exponential backoff on errors
   useEffect(() => {
+    let interval;
+    let consecutiveErrors = 0;
+    let isPollingActive = true;
+
     const pollForWorkflows = async () => {
+      if (!isPollingActive) return;
+      
       try {
-        const response = await fetch('/api/workflows');
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 8000); // 8 second timeout
+        
+        const response = await fetch('/api/workflows', {
+          signal: controller.signal
+        });
+        
+        clearTimeout(timeoutId);
+        
         if (response.ok) {
           const data = await response.json();
           if (data.workflows && data.workflows.length > 0) {
@@ -315,15 +329,44 @@ export function WorkflowProvider({ children }) {
               });
             });
           }
+          consecutiveErrors = 0; // Reset error count on success
         }
       } catch (error) {
-        console.error('❌ Error polling for workflows:', error);
+        consecutiveErrors++;
+        console.error('❌ Error polling for workflows:', error.message);
+        
+        // Stop polling after 5 consecutive errors to prevent spam
+        if (consecutiveErrors >= 5) {
+          console.warn('🛑 Stopping workflow polling due to consecutive errors');
+          isPollingActive = false;
+          if (interval) {
+            clearInterval(interval);
+          }
+          return;
+        }
+      }
+      
+      if (isPollingActive) {
+        // Exponential backoff: 10s, 20s, 40s, max 60s
+        const delay = Math.min(10000 * Math.pow(2, consecutiveErrors), 60000);
+        setTimeout(() => {
+          if (isPollingActive) {
+            interval = setTimeout(pollForWorkflows, delay);
+          }
+        }, delay);
       }
     };
 
-    // Poll every 2 seconds
-    const interval = setInterval(pollForWorkflows, 2000);
-    return () => clearInterval(interval);
+    // Start initial poll after 5 seconds to let app initialize
+    const initialTimeout = setTimeout(pollForWorkflows, 5000);
+
+    return () => {
+      isPollingActive = false;
+      clearTimeout(initialTimeout);
+      if (interval) {
+        clearTimeout(interval);
+      }
+    };
   }, []);
 
   // Actions

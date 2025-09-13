@@ -48,17 +48,18 @@ class SearchEngine:
         self.testing_mode = testing_mode
     
     def search_face_with_serp(self, image_input, min_score: int = 85, 
-                             max_face_results: int = 5, max_serp_per_url: int = 5,
-                             scrape_content: bool = False) -> Dict:
+                             max_face_results: int = 10, max_serp_per_url: int = 5,
+                             scrape_content: bool = False, max_working_results: int = 5) -> Dict:
         """
         Perform face search followed by SERP search for found URLs.
         
         Args:
             image_input: Image to search (file path, URL, base64, or bytes)
             min_score: Minimum face match score
-            max_face_results: Maximum face search results to process
+            max_face_results: Maximum face search results to retrieve (backup pool)
             max_serp_per_url: Maximum SERP results per face match URL
             scrape_content: Whether to scrape full content from SERP results
+            max_working_results: Maximum working results to use (top N that work)
             
         Returns:
             Dictionary containing all search results
@@ -99,8 +100,8 @@ class SearchEngine:
             
             print(f"✅ Found {len(face_results)} face matches with score >= {min_score}")
             
-            # Step 2: SERP Search for each face match URL
-            print("🔍 Step 2: Searching for mentions of face match URLs...")
+            # Step 2: SERP Search for each face match URL (with backup system)
+            print(f"🔍 Step 2: Searching for mentions of face match URLs (using top {max_working_results} that work from {len(face_results)} candidates)...")
             face_urls = [result.get('url', '') for result in face_results if result.get('url')]
             
             # Handle case where no valid URLs are found
@@ -118,7 +119,36 @@ class SearchEngine:
                     }
                 }
             
-            serp_results = self.serp_module.search_urls(face_urls, max_serp_per_url)
+            # Implement backup system: try URLs one by one until we get max_working_results that work
+            working_urls = []
+            serp_results = {}
+            
+            for i, url in enumerate(face_urls):
+                if len(working_urls) >= max_working_results:
+                    print(f"✅ Reached target of {max_working_results} working URLs, stopping search")
+                    break
+                    
+                print(f"   Trying URL {i+1}/{len(face_urls)}: {url[:60]}...")
+                try:
+                    # Search this single URL
+                    single_result = self.serp_module.search_urls([url], max_serp_per_url)
+                    
+                    # Check if we got valid results
+                    if isinstance(single_result, dict) and url in single_result:
+                        mentions = single_result[url]
+                        if isinstance(mentions, list) and len(mentions) > 0:
+                            # This URL worked - add it to our working set
+                            working_urls.append(url)
+                            serp_results[url] = mentions
+                            print(f"   ✅ Success: Found {len(mentions)} mentions")
+                        else:
+                            print(f"   ⚠️  No mentions found for this URL, skipping")
+                    else:
+                        print(f"   ⚠️  Invalid response for this URL, skipping")
+                        
+                except Exception as e:
+                    print(f"   ❌ Error searching URL (skipping): {str(e)[:100]}")
+                    continue  # Skip this URL and try the next one
             
             # Safely calculate total mentions
             total_mentions = 0

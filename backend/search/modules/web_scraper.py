@@ -114,6 +114,36 @@ class WebScraperModule:
                 "content": {}
             }
         
+        # Check for problematic URL patterns that are likely to fail
+        problematic_patterns = [
+            'youtube.com/watch',
+            'youtu.be/',
+            'vimeo.com/',
+            'tiktok.com/',
+            'instagram.com/p/',
+            'twitter.com/i/web/',
+            'facebook.com/watch',
+            'pinterest.com/pin/',
+            'snapchat.com/',
+            'spotify.com/track',
+            'soundcloud.com/',
+            '.pdf',
+            '.mp4',
+            '.mp3',
+            '.avi',
+            '.mov'
+        ]
+        
+        url_lower = url.lower()
+        for pattern in problematic_patterns:
+            if pattern in url_lower:
+                return {
+                    "url": url,
+                    "success": False,
+                    "error": f"Skipping {pattern.split('.')[0] if '.' in pattern else pattern.split('/')[0]} content (not suitable for text extraction)",
+                    "content": {}
+                }
+        
         # Try newspaper3k first (best for articles)
         content = self._extract_with_newspaper(url)
         

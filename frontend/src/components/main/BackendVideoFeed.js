@@ -155,8 +155,18 @@ const BackendVideoFeed = () => {
       const timestamp = new Date().getTime();
       const url = `http://localhost:8000/video/frame?t=${timestamp}`;
       
+      // Add timeout and abort controller to prevent hanging requests
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 5000); // 5 second timeout
+      
       // Direct fetch approach - simpler and more reliable
-      const response = await fetch(url);
+      const response = await fetch(url, {
+        signal: controller.signal,
+        cache: 'no-cache'
+      });
+      
+      clearTimeout(timeoutId);
+      
       if (response.ok) {
         // Create blob URL for the image
         const blob = await response.blob();
@@ -169,7 +179,7 @@ const BackendVideoFeed = () => {
         // Clean up previous blob URL to prevent memory leaks
         setTimeout(() => URL.revokeObjectURL(imageUrl), 1000);
       } else if (response.status === 400) {
-        // Camera stopped - try to restart it
+        // Camera stopped - try to restart it (with rate limiting)
         console.log('Camera stopped, attempting restart...');
         setError('Camera disconnected, restarting...');
         
@@ -179,24 +189,36 @@ const BackendVideoFeed = () => {
           frameIntervalRef.current = null;
         }
         
-        // Try to restart video after a short delay
+        // Try to restart video after a longer delay to prevent spam
         setTimeout(async () => {
           try {
             const startResult = await videoAPI.start();
             if (startResult.status === 'started') {
               setIsStreamActive(true);
-              frameIntervalRef.current = setInterval(refreshFrame, 50);
+              frameIntervalRef.current = setInterval(refreshFrame, 200); // 5 FPS
               setError(null);
             }
           } catch (restartErr) {
             setError('Failed to restart camera');
+            // Stop trying if restart fails
+            setIsStreamActive(false);
           }
-        }, 1000);
+        }, 5000); // Wait 5 seconds before restart attempt
       } else {
         setError('Failed to fetch video frame');
+        // If we get too many errors, stop the stream
+        if (response.status >= 500) {
+          console.warn('Server error, stopping video stream');
+          setIsStreamActive(false);
+        }
       }
       
     } catch (err) {
+      if (err.name === 'AbortError') {
+        console.warn('Frame request timed out');
+      } else {
+        console.error('Frame request failed:', err);
+      }
       setError('Frame request failed');
     } finally {
       // Always release the lock
@@ -220,8 +242,8 @@ const BackendVideoFeed = () => {
       if (result.status === 'started') {
         setIsStreamActive(true);
         
-        // Start refreshing frames at 20 FPS for maximum speed
-        frameIntervalRef.current = setInterval(refreshFrame, 50); // 20 FPS
+        // Start refreshing frames at 5 FPS to reduce server load
+        frameIntervalRef.current = setInterval(refreshFrame, 200); // 5 FPS
         refreshFrame(); // Initial frame
       } else {
         setError('Failed to start video stream');
@@ -295,7 +317,7 @@ const BackendVideoFeed = () => {
             frameIntervalRef.current = null;
           }
           
-          frameIntervalRef.current = setInterval(refreshFrame, 50); // 20 FPS
+          frameIntervalRef.current = setInterval(refreshFrame, 200); // 5 FPS
           refreshFrame(); // Initial frame
         } else {
           // Not active, start it automatically
