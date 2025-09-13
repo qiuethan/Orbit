@@ -13,7 +13,7 @@ import time
 
 from fastapi import FastAPI, UploadFile, File, HTTPException, WebSocket, WebSocketDisconnect
 from fastapi.responses import JSONResponse, StreamingResponse
-from fastapi.middleware.cors import CORSMiddleware, StreamingResponse
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from PIL import Image
 
@@ -93,7 +93,7 @@ async def analyze(image: UploadFile = File(...)):
     """
     Upload a JPG image of a person's face, save it under /cache/<request_id>.jpg,
     run analysis, save results to /cache/<request_id>.json, and return the results as JSON.
-    Only one request is processed at a time.
+    Processes concurrently; this endpoint no longer uses a global lock.
     """
     filename = (image.filename or "").lower()
     content_type = (image.content_type or "").lower()
@@ -106,8 +106,8 @@ async def analyze(image: UploadFile = File(...)):
     ):
         raise HTTPException(status_code=400, detail="Only JPG images (.jpg, .jpeg) are accepted")
 
-    # Enforce single-request processing
-    async with _request_lock:
+    # Process request concurrently (no global lock)
+    if True:
         # Generate unique request ID and file paths
         request_id = uuid.uuid4().hex
         image_path = os.path.join(CACHE_DIR, f"{request_id}.jpg")
@@ -141,7 +141,7 @@ async def analyze(image: UploadFile = File(...)):
             candidates = []
 
         try:
-            best_match_path = recognize(image_path, candidates)
+            best_match_path = await asyncio.to_thread(recognize, image_path, candidates)
         except Exception:
             best_match_path = None
 
@@ -165,6 +165,13 @@ async def analyze(image: UploadFile = File(...)):
                 except Exception:
                     pass
 
+                # Remove uploaded image since a match was found and we won't use it further
+                try:
+                    if os.path.exists(image_path):
+                        os.remove(image_path)
+                except Exception:
+                    pass
+
                 # Notify subscribers (is_new = False) and return existing JSON immediately
                 try:
                     await manager.broadcast({
@@ -178,7 +185,8 @@ async def analyze(image: UploadFile = File(...)):
 
         # Run the analysis pipeline (structured output like example.py)
         try:
-            results: Dict[str, Any] = complete_face_analysis(
+            results: Dict[str, Any] = await asyncio.to_thread(
+                complete_face_analysis,
                 image_path,
                 use_structured_output=True,
             )
