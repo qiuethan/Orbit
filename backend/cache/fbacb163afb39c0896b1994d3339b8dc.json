@@ -1,0 +1,125 @@
+{
+  "person_analysis": {
+    "personal_info": {
+      "full_name": "Alvina Yang",
+      "age": null,
+      "location": "Toronto, Ontario, Canada",
+      "nationality": null,
+      "languages": null,
+      "interests": [
+        "NLP / LLMs",
+        "AI agents and multi-agent systems",
+        "Coffee culture (visited ~100 Toronto cafés)",
+        "Reading contemporary fiction",
+        "Frontend & backend web development"
+      ]
+    },
+    "professional_info": {
+      "current_position": "Software Development Engineer Intern",
+      "company": "Amazon (SCOT Forecasting)",
+      "industry": "Software Engineering / E-commerce / Data & Forecasting",
+      "previous_positions": [
+        "VP Engineering — UTMIST (May 2025 – Present)",
+        "Machine Learning Engineer Intern — Seismic (Jan 2025 – Apr 2025)",
+        "Undergraduate Researcher — Intelligent Adaptive Interventions Lab (May 2024 – Jan 2025)",
+        "Software Developer Intern — BlackBerry QNX (May 2024 – Aug 2024)",
+        "ML Project Team Lead — UTMIST (Oct 2024 – May 2025)"
+      ],
+      "skills": [
+        "Python",
+        "JavaScript / TypeScript",
+        "React / Next.js / Tailwind CSS",
+        "Java / Kotlin (microservices)",
+        "SQL",
+        "TensorFlow / PyTorch",
+        "LangChain / LlamaIndex",
+        "FastAPI / Flask",
+        "OpenCV"
+      ],
+      "achievements": [
+        "Timothy P. Morton Scholarship (>$30,000)",
+        "VP Engineering for UTMIST, overseeing multiple AI/ML student projects",
+        "Multiple hackathon wins/awards (e.g., Best Use of Databricks at UofTHacks; RBC category winner for Remi)",
+        "Built high-visibility projects such as HackerQuest, Pitch, Please, and Rizz Khalifa (Meta Ray-Bans + AI agents)"
+      ]
+    },
+    "education_info": {
+      "current_institution": "University of Toronto",
+      "degree": "Bachelor of Science (BSc)",
+      "field_of_study": "Computer Science Specialist; Mathematics Major",
+      "graduation_year": "2026",
+      "previous_education": null
+    },
+    "social_media": [
+      {
+        "platform": "LinkedIn",
+        "username": null,
+        "url": null,
+        "verified": null,
+        "followers_count": 2871
+      },
+      {
+        "platform": "Website / Personal Portfolio",
+        "username": null,
+        "url": null,
+        "verified": null,
+        "followers_count": null
+      }
+    ],
+    "talking_points": {
+      "recent_achievements": [
+        "Joined Amazon’s SCOT Forecasting team as an SDE intern (May 2025)",
+        "Appointed VP Engineering at UTMIST, leading multi-team AI/ML initiatives",
+        "Launched agentic projects integrating Meta Ray-Bans with real-time AI assistants"
+      ],
+      "shared_connections": null,
+      "common_interests": [
+        "Applied LLMs and agent workflows",
+        "Human-centered AI and education",
+        "Frontend craft with strong backend systems",
+        "Coffee and contemporary literature"
+      ],
+      "conversation_starters": [
+        "Ask about turning a CLI-only data quality checker into a full-stack app on the SCOT team",
+        "Discuss building real-time agentic systems on wearables (Meta Ray-Bans)",
+        "Explore how UTMIST’s Engineering Department mentors and scales student AI projects"
+      ],
+      "notable_projects": [
+        "HackerQuest — AI-driven mock interview and feedback platform",
+        "Pitch, Please — judge-aware pitch preparation assistant (Databricks award)",
+        "Remi — reminiscence therapy app (RBC category winner)",
+        "Rizz Khalifa — real-time rizz assistant with facial recognition + Ray-Bans"
+      ]
+    },
+    "public_presence_score": "High",
+    "credibility_indicators": [
+      "Leadership role (VP Engineering) at UTMIST",
+      "Internships at Amazon, Seismic, and BlackBerry QNX",
+      "Research experience at UofT’s Intelligent Adaptive Interventions Lab",
+      "Hackathon awards and active project portfolio"
+    ],
+    "potential_red_flags": null,
+    "overview": "Alvina Yang is a University of Toronto CS Specialist and Mathematics Major based in Toronto, Canada. She is currently an SDE intern on Amazon’s SCOT Forecasting team and serves as VP Engineering at UTMIST, where she leads multi-team AI/ML projects. Her portfolio features award-winning hackathon work and practical, agentic LLM systems including real-time assistants on Meta Ray-Bans.",
+    "executive_summary": "Alvina combines strong software engineering fundamentals with hands-on LLM/agent systems. With leadership at UTMIST, internships across Amazon/Seismic/QNX, and award-winning projects, she bridges frontend craft, backend services, and applied AI to ship impactful, demo-ready systems.",
+    "key_insights": [
+      "Balances leadership (VP Engineering) with high-impact internships and research",
+      "Builds end-to-end, demo-ready agentic LLM applications on modern stacks",
+      "Strong community presence with 500+ connections and ~2.8K followers on LinkedIn"
+    ],
+    "confidence_level": "High",
+    "sources_quality": "Excellent",
+    "last_updated": "2025-09-13"
+  },
+  "best_match_photo": {
+    "base64_data": null,
+    "source_url": null,
+    "confidence_score": null,
+    "description": "No photo provided"
+  },
+  "metadata": {
+    "llm_provider": "cerebras",
+    "llm_model": "gpt-oss-120b",
+    "face_matches": 0,
+    "total_mentions": 1
+  }
+}

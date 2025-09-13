@@ -2,6 +2,7 @@ import os
 import sys
 import asyncio
 import time
+import logging
 from typing import Any, Dict, Optional
 import uuid
 import json
@@ -11,6 +12,9 @@ import cv2
 import numpy as np
 import time
 from datetime import datetime
+
+# Configure logging
+logger = logging.getLogger(__name__)
 
 from fastapi import FastAPI, UploadFile, File, HTTPException, WebSocket, WebSocketDisconnect
 from fastapi.responses import JSONResponse, StreamingResponse
@@ -35,6 +39,7 @@ from pipeline import complete_face_analysis  # noqa: E402
 from output_schema import OutputSchemaManager  # noqa: E402
 from facial_recognition.local_face_recognition import recognize  # noqa: E402
 from analysis_pipeline.main_pipeline import run_on_server_startup  # noqa: E402
+from facial_recognition.webcam_recognition import get_webcam_instance, start_webcam_recognition, stop_webcam_recognition  # noqa: E402
 
 app = FastAPI(title="Orbit Face Analysis Server")
 
@@ -606,6 +611,178 @@ async def health():
 #         media_type="multipart/x-mixed-replace; boundary=frame",
 #         headers=headers,
 #     )
+
+@app.post("/webcam/start")
+async def start_webcam(camera_index: int = 0):
+    """
+    Start webcam facial recognition.
+    
+    Args:
+        camera_index: Camera index (default: 0)
+        
+    Returns:
+        JSON response with status
+    """
+    try:
+        success = start_webcam_recognition(camera_index)
+        if success:
+            return {"status": "success", "message": f"Webcam started on camera {camera_index}"}
+        else:
+            raise HTTPException(status_code=500, detail="Failed to start webcam")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error starting webcam: {e}")
+
+
+@app.post("/webcam/stop")
+async def stop_webcam():
+    """
+    Stop webcam facial recognition.
+    
+    Returns:
+        JSON response with status
+    """
+    try:
+        stop_webcam_recognition()
+        return {"status": "success", "message": "Webcam stopped"}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error stopping webcam: {e}")
+
+
+@app.get("/webcam/frame")
+async def get_webcam_frame():
+    """
+    Get current webcam frame with face detections.
+    
+    Returns:
+        JSON response with frame data and detections
+    """
+    try:
+        webcam = get_webcam_instance()
+        success, frame, detections = webcam.get_frame_with_detections()
+        
+        if not success or frame is None:
+            raise HTTPException(status_code=404, detail="No frame available")
+        
+        # Encode frame to base64
+        _, buffer = cv2.imencode('.jpg', frame)
+        frame_base64 = base64.b64encode(buffer).decode('utf-8')
+        
+        return {
+            "status": "success",
+            "frame": f"data:image/jpeg;base64,{frame_base64}",
+            "detections": detections,
+            "timestamp": time.time()
+        }
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error getting webcam frame: {e}")
+
+
+@app.get("/webcam/stream")
+async def webcam_stream_sse():
+    """
+    Server-Sent Events endpoint for reliable real-time webcam streaming.
+    """
+    async def generate_stream():
+        # Start webcam if not already started
+        webcam = get_webcam_instance()
+        logger.info(f"SSE: Webcam running status: {webcam.is_running}")
+        
+        if not webcam.is_running:
+            logger.info("SSE: Starting webcam...")
+            success = webcam.start_webcam(0)
+            if not success:
+                logger.error("SSE: Failed to start webcam")
+                yield f"data: {json.dumps({'type': 'error', 'message': 'Failed to start webcam'})}\n\n"
+                return
+            logger.info("SSE: Webcam started successfully")
+        
+        frame_count = 0
+        try:
+            while True:
+                success, frame, detections = webcam.get_frame_with_detections()
+                
+                if success and frame is not None:
+                    # Encode frame to base64 with good quality
+                    encode_param = [int(cv2.IMWRITE_JPEG_QUALITY), 80]
+                    _, buffer = cv2.imencode('.jpg', frame, encode_param)
+                    frame_base64 = base64.b64encode(buffer).decode('utf-8')
+                    
+                    # Send frame and detection data
+                    data = {
+                        "type": "frame",
+                        "frame": f"data:image/jpeg;base64,{frame_base64}",
+                        "detections": detections,
+                        "timestamp": time.time(),
+                        "frame_count": frame_count
+                    }
+                    
+                    # Debug detection data to ensure JSON serialization works
+                    if detections:
+                        logger.debug(f"SSE: Sending {len(detections)} detections: {[d.get('name', 'analyzing/unknown') for d in detections]}")
+                    
+                    yield f"data: {json.dumps(data)}\n\n"
+                    frame_count += 1
+                    
+                    if frame_count % 30 == 0:  # Log every 30 frames
+                        logger.info(f"SSE: Sent frame {frame_count}, detections: {len(detections)}")
+                else:
+                    # Send status update if no frame available
+                    yield f"data: {json.dumps({'type': 'status', 'message': 'No frame available'})}\n\n"
+                
+                # Control frame rate (10 FPS for reliable streaming)
+                await asyncio.sleep(0.1)
+                
+        except Exception as e:
+            logger.error(f"SSE Error: {e}")
+            yield f"data: {json.dumps({'type': 'error', 'message': str(e)})}\n\n"
+
+    headers = {
+        "Content-Type": "text/event-stream",
+        "Cache-Control": "no-cache",
+        "Connection": "keep-alive",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "Cache-Control"
+    }
+    
+    return StreamingResponse(generate_stream(), media_type="text/event-stream", headers=headers)
+
+
+@app.get("/webcam/live-frame")
+async def get_live_frame_with_detections():
+    """
+    Get current webcam frame with face detections as JSON.
+    This provides a fallback for polling-based updates.
+    """
+    try:
+        webcam = get_webcam_instance()
+        
+        # Start webcam if not running
+        if not webcam.is_running:
+            success = webcam.start_webcam(0)
+            if not success:
+                raise HTTPException(status_code=500, detail="Failed to start webcam")
+        
+        success, frame, detections = webcam.get_frame_with_detections()
+        
+        if not success or frame is None:
+            raise HTTPException(status_code=404, detail="No frame available")
+        
+        # Encode frame to base64
+        encode_param = [int(cv2.IMWRITE_JPEG_QUALITY), 85]
+        _, buffer = cv2.imencode('.jpg', frame, encode_param)
+        frame_base64 = base64.b64encode(buffer).decode('utf-8')
+        
+        return {
+            "status": "success",
+            "frame": f"data:image/jpeg;base64,{frame_base64}",
+            "detections": detections,
+            "timestamp": time.time()
+        }
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error getting live frame: {e}")
+
 
 @app.websocket("/ws")
 async def ws_endpoint(websocket: WebSocket):

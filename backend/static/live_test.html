@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Webcam Test - Polling Mode</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #000;
+            color: white;
+            text-align: center;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .video-container {
+            position: relative;
+            display: inline-block;
+            margin: 20px auto;
+            background: #222;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 2px solid #333;
+        }
+        
+        .video-feed {
+            max-width: 800px;
+            height: auto;
+            display: block;
+        }
+        
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        
+        .status {
+            background: rgba(0,0,0,0.8);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: left;
+        }
+        
+        .detection-info {
+            background: rgba(0,100,0,0.2);
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        
+        .btn {
+            background: #4CAF50;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px;
+            font-size: 16px;
+        }
+        
+        .btn:hover {
+            background: #45a049;
+        }
+        
+        .btn.stop {
+            background: #f44336;
+        }
+        
+        .btn.stop:hover {
+            background: #da190b;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎥 Live Webcam Face Recognition</h1>
+        <p>Real-time face detection with bounding boxes and name recognition</p>
+        
+        <div class="controls">
+            <button id="startBtn" class="btn">Start Live Feed</button>
+            <button id="stopBtn" class="btn stop" style="display: none;">Stop Feed</button>
+        </div>
+        
+        <div id="status" class="status">
+            <strong>Status:</strong> <span id="statusText">Ready</span><br>
+            <strong>Method:</strong> <span id="methodText">Polling</span><br>
+            <strong>Frames:</strong> <span id="frameCount">0</span><br>
+            <strong>FPS:</strong> <span id="fps">0</span>
+        </div>
+        
+        <div class="video-container">
+            <img id="videoFeed" class="video-feed" style="display: none;" />
+            <canvas id="overlay" class="overlay"></canvas>
+        </div>
+        
+        <div id="detectionInfo" class="detection-info" style="display: none;">
+            <h3>🎯 Face Detections:</h3>
+            <div id="detectionsList"></div>
+        </div>
+    </div>
+
+    <script>
+        let pollingInterval = null;
+        let isRunning = false;
+        let frameCount = 0;
+        let startTime = Date.now();
+        
+        const statusText = document.getElementById('statusText');
+        const methodText = document.getElementById('methodText');
+        const frameCountEl = document.getElementById('frameCount');
+        const fpsEl = document.getElementById('fps');
+        const videoEl = document.getElementById('videoFeed');
+        const overlayEl = document.getElementById('overlay');
+        const detectionInfo = document.getElementById('detectionInfo');
+        const detectionsList = document.getElementById('detectionsList');
+        const startBtn = document.getElementById('startBtn');
+        const stopBtn = document.getElementById('stopBtn');
+        
+        function updateStatus(status) {
+            statusText.textContent = status;
+        }
+        
+        function updateFPS() {
+            const elapsed = (Date.now() - startTime) / 1000;
+            const fps = Math.round(frameCount / elapsed);
+            fpsEl.textContent = fps;
+        }
+        
+        function drawDetections(detections) {
+            const canvas = overlayEl;
+            const ctx = canvas.getContext('2d');
+            
+            // Set canvas size to match image
+            canvas.width = videoEl.naturalWidth;
+            canvas.height = videoEl.naturalHeight;
+            
+            // Clear canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Draw bounding boxes
+            detections.forEach((detection, index) => {
+                const [x1, y1, x2, y2] = detection.bbox;
+                const width = x2 - x1;
+                const height = y2 - y1;
+                
+                // Determine color and label
+                let color, label;
+                if (detection.is_analyzing) {
+                    color = '#ffeb3b'; // Yellow
+                    label = 'Analyzing...';
+                } else if (detection.name && detection.name !== 'Unknown' && detection.name !== null) {
+                    color = '#4caf50'; // Green
+                    label = detection.name;
+                    if (detection.similarity > 0) {
+                        label += ` (${Math.round(detection.similarity * 100)}%)`;
+                    }
+                } else {
+                    color = '#f44336'; // Red
+                    label = 'Unknown';
+                }
+                
+                // Draw bounding box
+                ctx.strokeStyle = color;
+                ctx.lineWidth = 3;
+                ctx.strokeRect(x1, y1, width, height);
+                
+                // Draw label background
+                ctx.font = '16px Arial';
+                const textWidth = ctx.measureText(label).width;
+                ctx.fillStyle = color;
+                ctx.fillRect(x1, y1 - 25, textWidth + 10, 25);
+                
+                // Draw label text
+                ctx.fillStyle = '#000';
+                ctx.fillText(label, x1 + 5, y1 - 8);
+            });
+        }
+        
+        function updateDetectionsList(detections) {
+            if (detections.length === 0) {
+                detectionInfo.style.display = 'none';
+                return;
+            }
+            
+            detectionInfo.style.display = 'block';
+            detectionsList.innerHTML = '';
+            
+            detections.forEach((detection, index) => {
+                const div = document.createElement('div');
+                const name = detection.name || 'Unknown';
+                const similarity = detection.similarity > 0 ? ` (${Math.round(detection.similarity * 100)}%)` : '';
+                const status = detection.is_analyzing ? ' - Analyzing...' : '';
+                
+                div.innerHTML = `<strong>Face ${index + 1}:</strong> ${name}${similarity}${status}`;
+                detectionsList.appendChild(div);
+            });
+        }
+        
+        async function pollFrame() {
+            try {
+                const response = await fetch('http://localhost:8000/webcam/live-frame');
+                if (response.ok) {
+                    const data = await response.json();
+                    
+                    // Update video
+                    videoEl.src = data.frame;
+                    videoEl.style.display = 'block';
+                    
+                    // Update detections
+                    const detections = data.detections || [];
+                    drawDetections(detections);
+                    updateDetectionsList(detections);
+                    
+                    // Update stats
+                    frameCount++;
+                    frameCountEl.textContent = frameCount;
+                    updateFPS();
+                    
+                    updateStatus('✅ Live streaming');
+                } else {
+                    updateStatus(`❌ HTTP ${response.status}`);
+                }
+            } catch (err) {
+                updateStatus(`❌ Error: ${err.message}`);
+            }
+        }
+        
+        function startStream() {
+            if (isRunning) return;
+            
+            isRunning = true;
+            frameCount = 0;
+            startTime = Date.now();
+            
+            startBtn.style.display = 'none';
+            stopBtn.style.display = 'inline-block';
+            
+            updateStatus('🔄 Starting...');
+            
+            // Poll every 100ms (10 FPS)
+            pollingInterval = setInterval(pollFrame, 100);
+            pollFrame(); // Initial frame
+        }
+        
+        function stopStream() {
+            if (!isRunning) return;
+            
+            isRunning = false;
+            
+            if (pollingInterval) {
+                clearInterval(pollingInterval);
+                pollingInterval = null;
+            }
+            
+            startBtn.style.display = 'inline-block';
+            stopBtn.style.display = 'none';
+            
+            videoEl.style.display = 'none';
+            detectionInfo.style.display = 'none';
+            
+            updateStatus('⭕ Stopped');
+        }
+        
+        startBtn.addEventListener('click', startStream);
+        stopBtn.addEventListener('click', stopStream);
+        
+        // Auto-start on page load
+        window.addEventListener('load', () => {
+            setTimeout(startStream, 1000);
+        });
+    </script>
+</body>
+</html>

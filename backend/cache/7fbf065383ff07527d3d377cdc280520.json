@@ -1,0 +1,130 @@
+{
+  "person_analysis": {
+    "personal_info": {
+      "full_name": "James Han",
+      "age": null,
+      "location": "Greater Toronto Area, Canada",
+      "nationality": null,
+      "languages": null,
+      "interests": [
+        "Machine learning and computer vision",
+        "Real-time interactive systems",
+        "Full-stack web development",
+        "Hackathons and technical demos",
+        "Running and campus communities",
+        "Developer education tools"
+      ]
+    },
+    "professional_info": {
+      "current_position": "Software Engineering Co-op",
+      "company": "Canada Life",
+      "industry": "Software Engineering / Financial Services",
+      "previous_positions": [
+        "Builder Ambassador — Anthropic (Aug 2025 – Present, part-time, remote)",
+        "Software Engineer — Department of Computer Science, University of Toronto (PythonTA, May 2025 – Aug 2025; Markus, Aug 2025 – Present)",
+        "Vice President, Events — UofT Blueprint (May 2025 – Present)",
+        "Software Engineer — UofT Blueprint (City of Brampton Project, Oct 2024 – Jun 2025)",
+        "Director of Campus Strategy — UofT AI (May 2025 – Present)",
+        "Community Engagement Associate — UofT AI (Sep 2024 – Apr 2025)"
+      ],
+      "skills": [
+        "Python",
+        "TypeScript / JavaScript",
+        "React / Next.js / Vite",
+        "Ruby on Rails",
+        "Flask / Node.js",
+        "PyTorch",
+        "Computer Vision",
+        "Three.js / Blender / Mixamo",
+        "CI/CD",
+        "Static analysis (ASTs)"
+      ],
+      "achievements": [
+        "1st Place Overall — UofT Hacks 12 (Persona: real-time AI language learning avatar)",
+        "1st Place — Hack the 6ix (Game Track) for Polaris (CV-driven multiplayer fitness platformer)",
+        "1st Place — Google x Hack The Future (Mar 2025)",
+        "Positive recommendations for impact on PythonTA UI/UX and reliable team collaboration",
+        "Leadership roles across UofT Blueprint and UofT AI; 5× hackathon winner"
+      ]
+    },
+    "education_info": {
+      "current_institution": "University of Toronto",
+      "degree": "Bachelor of Science (BSc)",
+      "field_of_study": "Computer Science",
+      "graduation_year": "2027",
+      "previous_education": "Upper Canada College (IB + OSSD, 2019–2023; 97% average)"
+    },
+    "social_media": [
+      {
+        "platform": "LinkedIn",
+        "username": null,
+        "url": null,
+        "verified": null,
+        "followers_count": 1037
+      },
+      {
+        "platform": "Website / Personal Portfolio",
+        "username": null,
+        "url": null,
+        "verified": null,
+        "followers_count": null
+      }
+    ],
+    "talking_points": {
+      "recent_achievements": [
+        "Started Software Engineering Co-op at Canada Life (Aug 2025)",
+        "Joined Anthropic as a Builder Ambassador (Aug 2025, part-time)",
+        "UofT Hacks 12 overall winner for Persona (real-time ML avatar tutor)"
+      ],
+      "shared_connections": ["Albert Huynh", "Mohamed Tarek"],
+      "common_interests": [
+        "Applied ML and computer vision",
+        "Education tooling (Markus, PythonTA)",
+        "Full-stack product engineering",
+        "Running and student leadership communities"
+      ],
+      "conversation_starters": [
+        "Ask about synchronizing CV, speech, and animation pipelines for Persona with low latency.",
+        "Discuss contributions to PythonTA (static analysis, CI/CD) and incoming work on Markus (Rails/React).",
+        "Explore event operations and community impact as VP, Events at UofT Blueprint.",
+        "Chat about onboarding and tech stack focus at Canada Life and the Builder Ambassador role at Anthropic."
+      ],
+      "notable_projects": [
+        "Persona — real-time AI language tutor with CV, Whisper, ElevenLabs, Claude, and a 3D avatar (UofT Hacks 12 winner).",
+        "Polaris — CV-powered multiplayer fitness platformer with custom Three.js engine and 60+ FPS performance.",
+        "PythonTA — code analysis and UI modernization for teaching Python (used by 1,500+ undergrads).",
+        "Markus — contributions to UofT’s course platform (Ruby on Rails, TypeScript, React; used by 3,300+ undergrads)."
+      ]
+    },
+    "public_presence_score": "High",
+    "credibility_indicators": [
+      "Multiple first-place hackathon wins with live demos",
+      "Professional roles at Canada Life, Anthropic (Builder Ambassador), and UofT DCS",
+      "Strong peer recommendations highlighting impact and leadership",
+      "500+ LinkedIn connections and ~1K followers"
+    ],
+    "potential_red_flags": null,
+    "overview": "James Han is a University of Toronto Computer Science student with a track record of building real-time, ML-driven interactive systems. He is a Software Engineering Co-op at Canada Life, a Builder Ambassador at Anthropic, and holds leadership roles at UofT Blueprint and UofT AI. His projects, including Persona and Polaris, demonstrate strong end-to-end engineering across CV, speech, and 3D animation.",
+    "executive_summary": "Combining applied ML, performant web graphics, and community leadership, James ships polished, demo-ready products. With wins at major hackathons, hands-on experience in education tooling (PythonTA, Markus), and current roles at Canada Life and Anthropic, he brings both technical depth and high-energy execution.",
+    "key_insights": [
+      "Proven ability to orchestrate multi-model real-time ML systems with low-latency UX.",
+      "Bridges academic platforms (PythonTA, Markus) with industry co-op work and community leadership.",
+      "Consistent top performance at hackathons, translating into compelling product demos."
+    ],
+    "confidence_level": "High",
+    "sources_quality": "Good",
+    "last_updated": "2025-09-13"
+  },
+  "best_match_photo": {
+    "base64_data": null,
+    "source_url": null,
+    "confidence_score": null,
+    "description": "No photo provided"
+  },
+  "metadata": {
+    "llm_provider": "cerebras",
+    "llm_model": "gpt-oss-120b",
+    "face_matches": 0,
+    "total_mentions": 1
+  }
+}

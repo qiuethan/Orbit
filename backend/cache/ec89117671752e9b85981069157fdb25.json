@@ -1,0 +1,97 @@
+{
+  "person_analysis": {
+    "personal_info": {
+      "full_name": "Paul Chen",
+      "age": null,
+      "location": "Ottawa, Ontario, Canada",
+      "nationality": null,
+      "languages": null,
+      "interests": [
+        "Algorithms and data structures",
+        "Competitive programming (ICPC)",
+        "Mathematical problem solving (Putnam)",
+        "Software engineering internships",
+        "Computer science education"
+      ]
+    },
+    "professional_info": {
+      "current_position": "Computer Science Student",
+      "company": "University of Waterloo",
+      "industry": "Computer Science / Higher Education",
+      "previous_positions": [
+        "Algorithms Developer Intern — Lisplogics (May 2025 – Aug 2025, Montreal, QC · Hybrid)"
+      ],
+      "skills": null,
+      "achievements": [
+        "Putnam Top 500 (Dec 2024)",
+        "East Central North America ICPC Regionals — 14th Place (Nov 2024)"
+      ]
+    },
+    "education_info": {
+      "current_institution": "University of Waterloo",
+      "degree": null,
+      "field_of_study": "Computer Science",
+      "graduation_year": "2029",
+      "previous_education": "Merivale High School (IB Diploma Programme, OSSD, French Immersion Certificate; 2020–2024)"
+    },
+    "social_media": [
+      {
+        "platform": "LinkedIn",
+        "username": null,
+        "url": null,
+        "verified": null,
+        "followers_count": 275
+      }
+    ],
+    "talking_points": {
+      "recent_achievements": [
+        "Completed an Algorithms Developer Internship at Lisplogics (Summer 2025)",
+        "Putnam Top 500 distinction (2024)",
+        "Placed 14th at the ECNA ICPC Regionals (2024)"
+      ],
+      "shared_connections": ["Naman Biyani", "Ammielle Wambo Becker"],
+      "common_interests": [
+        "Algorithm design and optimization",
+        "Competitive programming (ICPC, Codeforces, etc.)",
+        "Mathematics contests and training",
+        "Internships and co-op pathways in software"
+      ],
+      "conversation_starters": [
+        "Ask about the algorithmic problems tackled during the Lisplogics internship.",
+        "Discuss strategies for Putnam prep and lessons learned from the 2024 exam.",
+        "Explore takeaways from ECNA ICPC Regionals and preferred problem categories.",
+        "Chat about coursework and co-op planning at Waterloo CS."
+      ],
+      "notable_projects": null
+    },
+    "public_presence_score": "Low",
+    "credibility_indicators": [
+      "LinkedIn profile with academic and internship details",
+      "Recognized results in Putnam and ICPC competitions",
+      "Industry internship experience (Lisplogics)"
+    ],
+    "potential_red_flags": null,
+    "overview": "Paul Chen is a University of Waterloo Computer Science student with strong interests in algorithms and competitive programming. He completed a Summer 2025 internship as an Algorithms Developer at Lisplogics in Montreal and has competitive mathematics credentials including Putnam Top 500 and a 14th-place finish at the ECNA ICPC Regionals.",
+    "executive_summary": "Waterloo CS student with proven algorithmic aptitude through Putnam and ICPC results and practical experience from an algorithms-focused internship at Lisplogics. Interests lie at the intersection of theoretical problem solving and applied software engineering.",
+    "key_insights": [
+      "Balances theoretical strength (Putnam, ICPC) with applied work in an algorithms developer role.",
+      "Early trajectory suggests focus on algorithm-heavy software or research-oriented tracks.",
+      "Active in competitive programming and mathematics communities."
+    ],
+    "confidence_level": "High",
+    "sources_quality": "Good",
+    "last_updated": "2025-09-13"
+  },
+  "best_match_photo": {
+    "base64_data": null,
+    "source_url": null,
+    "confidence_score": null,
+    "description": "No photo provided"
+  },
+  "metadata": {
+    "llm_provider": "cerebras",
+    "llm_model": "gpt-oss-120b",
+    "face_matches": 0,
+    "total_mentions": 1
+  }
+}

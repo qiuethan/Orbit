@@ -1,0 +1,138 @@
+{
+  "person_analysis": {
+    "personal_info": {
+      "full_name": "Ethan Qiu",
+      "age": null,
+      "location": "Toronto, Ontario, Canada",
+      "nationality": null,
+      "languages": null,
+      "interests": [
+        "Machine Learning",
+        "Computer Vision",
+        "Full-stack web development",
+        "Competitive programming",
+        "Debate and tournaments",
+        "Personal finance apps"
+      ]
+    },
+    "professional_info": {
+      "current_position": "Engineering Director — Industry Collaborations",
+      "company": "University of Toronto Machine Intelligence Student Team (UTMIST)",
+      "industry": "AI/ML • Software Engineering • Student Organization",
+      "previous_positions": [
+        "Software Engineer (Co-op) — General Dynamics Mission Systems–Canada (May 2025 – Aug 2025, Ottawa)",
+        "Tournaments Director — Hart House Debating Club (Jun 2024 – Feb 2025)",
+        "Problem Writer — United Coding Tournament (May 2022 – May 2024)",
+        "Python & Java Instructor — Ottawa Jay Learning Centre (Sep 2020 – Sep 2023)"
+      ],
+      "skills": [
+        "Python",
+        "Java",
+        "JavaScript",
+        "TypeScript",
+        "React.js",
+        "Node.js",
+        "Django",
+        "PyTorch",
+        "OpenCV",
+        "C++",
+        "HTML/CSS",
+        "Three.js"
+      ],
+      "achievements": [
+        "Won 1st in Best Game Hack track at Hack the 6ix; live-demoed ‘Polaris’ in finals",
+        "Built a dual-player pose-to-action ML pipeline with real-time CV and a custom Three.js engine (60+ FPS)",
+        "Industry Collaborations Director and ML developer at UTMIST, contributing to multiple AI/ML initiatives",
+        "Delivered software and event outcomes as Hart House Tournaments Director (450+ participants, 91% satisfaction, +$7,000 revenue)",
+        "Developed AI-powered apps including Shop Buddy and RT1M (financial planning with AI assistant)"
+      ]
+    },
+    "education_info": {
+      "current_institution": "University of Toronto",
+      "degree": "Bachelor of Science (BSc)",
+      "field_of_study": "Computer Science",
+      "graduation_year": "2028",
+      "previous_education": "Merivale High School (High School Diploma, 2021–2024)"
+    },
+    "social_media": [
+      {
+        "platform": "LinkedIn",
+        "username": null,
+        "url": null,
+        "verified": null,
+        "followers_count": 287
+      },
+      {
+        "platform": "GitHub",
+        "username": "qiuethan",
+        "url": "https://github.com/qiuethan",
+        "verified": null,
+        "followers_count": null
+      },
+      {
+        "platform": "Portfolio",
+        "username": null,
+        "url": null,
+        "verified": null,
+        "followers_count": null
+      }
+    ],
+    "talking_points": {
+      "recent_achievements": [
+        "Best Game Hack track winner and finals demo at Hack the 6ix with ‘Polaris’ (real-time CV fitness platformer)",
+        "Started as Engineering Director — Industry Collaborations and as ML Engineer at UTMIST (Summer 2025)",
+        "Completed SWE co-op at General Dynamics Mission Systems–Canada (Java-based mission-critical apps)"
+      ],
+      "shared_connections": ["Albert Huynh", "Abdul Fatir"],
+      "common_interests": [
+        "Applied ML and computer vision",
+        "Full-stack product building",
+        "Developer education and problem setting",
+        "Debate and tournaments",
+        "Financial technology for consumers"
+      ],
+      "conversation_starters": [
+        "Ask about the pose-to-action ML pipeline and performance tuning for ‘Polaris’.",
+        "Discuss how Industry Collaborations at UTMIST bridges student teams with external partners.",
+        "Explore lessons learned building AI-powered consumer apps like Shop Buddy and RT1M.",
+        "Chat about mission-critical Java development at GDMS-Canada and practices for reliability."
+      ],
+      "notable_projects": [
+        "Polaris — Multiplayer fitness platformer controlled via real-time computer vision (dual-player tracking, custom Three.js engine).",
+        "Shop Buddy — AI-powered shopping assistant providing step-by-step solutions with product recommendations.",
+        "RT1M (Road to 1 Million) — Personal finance app with AI chatbot, analytics dashboard, and goal tracking.",
+        "Safety & accessibility ML — Prototypes for pedestrian safety and real-time navigation for the visually impaired."
+      ]
+    },
+    "public_presence_score": "Medium",
+    "credibility_indicators": [
+      "Hackathon track winner with live finals demo",
+      "Professional experience at General Dynamics Mission Systems–Canada",
+      "Multiple technical leadership and developer roles at UTMIST",
+      "Consistent project portfolio and open willingness to collaborate"
+    ],
+    "potential_red_flags": null,
+    "overview": "Ethan Qiu is a Computer Science student at the University of Toronto focused on applied machine learning, computer vision, and full-stack development. He serves as UTMIST’s Engineering Director for Industry Collaborations and contributes as an ML developer and infrastructure engineer. He previously completed a SWE co-op at General Dynamics Mission Systems–Canada and has built award-winning, demo-ready projects such as ‘Polaris,’ an ML-powered fitness game.",
+    "executive_summary": "Ethan blends ML and product engineering to ship interactive, real-time systems. With leadership at UTMIST, a GDMS-Canada co-op, and hackathon-proven CV work, he demonstrates strong end-to-end skills—from model-driven pipelines to performant web experiences—grounded in collaborative, community-oriented initiatives.",
+    "key_insights": [
+      "Strong intersection of ML (pose/gesture) with performant web graphics and real-time UX.",
+      "Leadership and cross-team coordination via UTMIST Industry Collaborations.",
+      "A track record of practical, user-facing apps in shopping assistance and personal finance."
+    ],
+    "confidence_level": "High",
+    "sources_quality": "Good",
+    "last_updated": "2025-09-13"
+  },
+  "best_match_photo": {
+    "base64_data": null,
+    "source_url": null,
+    "confidence_score": null,
+    "description": "No photo provided"
+  },
+  "metadata": {
+    "llm_provider": "cerebras",
+    "llm_model": "gpt-oss-120b",
+    "face_matches": 0,
+    "total_mentions": 1
+  }
+}

@@ -216,7 +216,8 @@ class FaceRecognition:
             # Convert to a 0-1 range
             similarity = max(0, min(1, (similarity + 1) / 2))
             
-            return similarity
+            # Convert numpy type to Python float for JSON serialization
+            return float(similarity)
         except Exception as e:
             self.logger.error(f"Error calculating similarity: {e}")
-            return 0.0
+            return float(0.0)

@@ -1,7 +1,11 @@
 'use client';
 
-import BackendVideoFeed from '../../components/main/BackendVideoFeed';
+import WebcamFaceRecognition from '../../components/main/WebcamFaceRecognition';
 
 export default function VisionPage() {
-  return <BackendVideoFeed />;
+  return (
+    <div className="w-full h-screen">
+      <WebcamFaceRecognition />
+    </div>
+  );
 }

@@ -1,0 +1,115 @@
+{
+  "llm_analysis": {
+    "structured_data": {
+      "personal_info": {
+        "full_name": "Advait Maybhate",
+        "age": null,
+        "location": "Waterloo, Ontario, Canada",
+        "nationality": null,
+        "languages": null,
+        "interests": [
+          "software development",
+          "hackathons",
+          "AI-powered terminal tools",
+          "marathon running",
+          "building cool stuff"
+        ]
+      },
+      "professional_info": {
+        "current_position": "Software Engineer",
+        "company": "Warp",
+        "industry": "Software / AI",
+        "previous_positions": [
+          "Software Engineering Intern at Google",
+          "Software Engineering Intern at Instabase",
+          "Software Engineering Intern at Riot Games",
+          "Software Engineering Intern at Social Capital"
+        ],
+        "skills": [
+          "software development",
+          "Rust",
+          "full‑stack development"
+        ],
+        "achievements": [
+          "Nearly $100,000 in scholarships (Meridian and Schulich Leaders)",
+          "Schulich Leader Scholar",
+          "SHAD program participant",
+          "Hack the North participant",
+          "Completed first marathon"
+        ]
+      },
+      "education_info": {
+        "current_institution": "University of Waterloo",
+        "degree": "Bachelor of Computer Science",
+        "field_of_study": "Computer Science",
+        "graduation_year": null,
+        "previous_education": [
+          "Sir John A. Macdonald Secondary School"
+        ]
+      },
+      "social_media": [
+        {
+          "platform": "Medium",
+          "username": "advait.m",
+          "url": "https://medium.com/@advait.m",
+          "verified": true,
+          "followers_count": null
+        },
+        {
+          "platform": "LinkedIn",
+          "username": "advait-m",
+          "url": "https://linkedin.com/posts/advait-m_warp-the-intelligent-terminal-activity-7114457838285922304-4QgA",
+          "verified": true,
+          "followers_count": null
+        }
+      ],
+      "talking_points": {
+        "recent_achievements": [
+          "Started full‑time role as Software Engineer at Warp in NYC",
+          "Earned nearly $100K in scholarships"
+        ],
+        "shared_connections": null,
+        "common_interests": [
+          "hackathons",
+          "software development",
+          "AI‑powered terminal tools",
+          "marathon running"
+        ],
+        "conversation_starters": [
+          "Ask about his experience transitioning from internships at Google to a full‑time role at Warp",
+          "Discuss his marathon training in Canadian winters",
+          "Talk about the SHAD program and its impact on his career"
+        ],
+        "notable_projects": [
+          "Agentic Development Environment at Warp",
+          "Hack the North projects",
+          "Personal marathon blog post on Medium"
+        ]
+      },
+      "public_presence_score": "Medium",
+      "credibility_indicators": [
+        "Scholarships from reputable programs",
+        "Internships at top tech companies",
+        "Featured in University of Waterloo news article",
+        "Active Medium writer"
+      ],
+      "potential_red_flags": null,
+      "overview": "Advait Maybhate is a Canadian software developer and recent Computer Science graduate from the University of Waterloo. He has interned at Google, Instabase, Riot Games, and Social Capital, and now works full‑time as a Software Engineer at Warp in New York City. Known for his strong academic record, including nearly $100K in scholarships, he is also an avid hackathon participant and marathon runner.",
+      "executive_summary": "Advait Maybhate combines top‑tier academic achievements with hands‑on experience at leading tech firms, now contributing to Warp's AI‑driven terminal platform. His background in hackathons, SHAD, and endurance sports makes him a well‑rounded technologist and engaging conversationalist.",
+      "key_insights": [
+        "Strong scholarship record highlights academic excellence",
+        "Diverse internship experience across major tech companies",
+        "Active contributor to open‑source and community platforms (Medium, LinkedIn)",
+        "Recent relocation to NYC for a full‑time engineering role"
+      ],
+      "confidence_level": "High",
+      "sources_quality": "Good",
+      "last_updated": "2025-09-13"
+    },
+    "raw_response": "{\n  \"personal_info\": {\n    \"full_name\": \"Advait Maybhate\",\n    \"age\": null,\n    \"location\": \"Waterloo, Ontario, Canada\",\n    \"nationality\": null,\n    \"languages\": null,\n    \"interests\": [\n      \"software development\",\n      \"hackathons\",\n      \"AI-powered terminal tools\",\n      \"marathon running\",\n      \"building cool stuff\"\n    ]\n  },\n  \"professional_info\": {\n    \"current_position\": \"Software Engineer\",\n    \"company\": \"Warp\",\n    \"industry\": \"Software / AI\",\n    \"previous_positions\": [\n      \"Software Engineering Intern at Google\",\n      \"Software Engineering Intern at Instabase\",\n      \"Software Engineering Intern at Riot Games\",\n      \"Software Engineering Intern at Social Capital\"\n    ],\n    \"skills\": [\n      \"software development\",\n      \"Rust\",\n      \"full‑stack development\"\n    ],\n    \"achievements\": [\n      \"Nearly $100,000 in scholarships (Meridian and Schulich Leaders)\",\n      \"Schulich Leader Scholar\",\n      \"SHAD program participant\",\n      \"Hack the North participant\",\n      \"Completed first marathon\"\n    ]\n  },\n  \"education_info\": {\n    \"current_institution\": \"University of Waterloo\",\n    \"degree\": \"Bachelor of Computer Science\",\n    \"field_of_study\": \"Computer Science\",\n    \"graduation_year\": null,\n    \"previous_education\": [\n      \"Sir John A. Macdonald Secondary School\"\n    ]\n  },\n  \"social_media\": [\n    {\n      \"platform\": \"Medium\",\n      \"username\": \"advait.m\",\n      \"url\": \"https://medium.com/@advait.m\",\n      \"verified\": true,\n      \"followers_count\": null\n    },\n    {\n      \"platform\": \"LinkedIn\",\n      \"username\": \"advait-m\",\n      \"url\": \"https://linkedin.com/posts/advait-m_warp-the-intelligent-terminal-activity-7114457838285922304-4QgA\",\n      \"verified\": true,\n      \"followers_count\": null\n    }\n  ],\n  \"talking_points\": {\n    \"recent_achievements\": [\n      \"Started full‑time role as Software Engineer at Warp in NYC\",\n      \"Earned nearly $100K in scholarships\"\n    ],\n    \"shared_connections\": null,\n    \"common_interests\": [\n      \"hackathons\",\n      \"software development\",\n      \"AI‑powered terminal tools\",\n      \"marathon running\"\n    ],\n    \"conversation_starters\": [\n      \"Ask about his experience transitioning from internships at Google to a full‑time role at Warp\",\n      \"Discuss his marathon training in Canadian winters\",\n      \"Talk about the SHAD program and its impact on his career\"\n    ],\n    \"notable_projects\": [\n      \"Agentic Development Environment at Warp\",\n      \"Hack the North projects\",\n      \"Personal marathon blog post on Medium\"\n    ]\n  },\n  \"public_presence_score\": \"Medium\",\n  \"credibility_indicators\": [\n    \"Scholarships from reputable programs\",\n    \"Internships at top tech companies\",\n    \"Featured in University of Waterloo news article\",\n    \"Active Medium writer\"\n  ],\n  \"potential_red_flags\": null,\n  \"overview\": \"Advait Maybhate is a Canadian software developer and recent Computer Science graduate from the University of Waterloo. He has interned at Google, Instabase, Riot Games, and Social Capital, and now works full‑time as a Software Engineer at Warp in New York City. Known for his strong academic record, including nearly $100K in scholarships, he is also an avid hackathon participant and marathon runner.\",\n  \"executive_summary\": \"Advait Maybhate combines top‑tier academic achievements with hands‑on experience at leading tech firms, now contributing to Warp's AI‑driven terminal platform. His background in hackathons, SHAD, and endurance sports makes him a well‑rounded technologist and engaging conversationalist.\",\n  \"key_insights\": [\n    \"Strong scholarship record highlights academic excellence\",\n    \"Diverse internship experience across major tech companies\",\n    \"Active contributor to open‑source and community platforms (Medium, LinkedIn)\",\n    \"Recent relocation to NYC for a full‑time engineering role\"\n  ],\n  \"confidence_level\": \"High\",\n  \"sources_quality\": \"Good\",\n  \"last_updated\": \"2025-09-13\"\n}",
+    "provider": "cerebras",
+    "model": "gpt-oss-120b",
+    "format": "structured",
+    "custom_instructions": null
+  }
+}
