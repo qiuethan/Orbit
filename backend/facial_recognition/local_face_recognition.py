@@ -46,21 +46,28 @@ def recognize(target_image_path: str, candidate_image_paths: List[str] = None) -
             logger.error(f"Target image not found: {target_image_path}")
             return None
             
-        # Check for image2.png or image2.jpg in backend directory
-        image2_png = os.path.join(backend_dir, "image2.png")
-        image2_jpg = os.path.join(backend_dir, "image2.jpg")
+        # If it's a relative path, resolve it relative to backend directory
+        if not os.path.isabs(target_image_path):
+            target_image_path = os.path.join(backend_dir, target_image_path)
         
-        # Determine which image to use
-        if target_image_path == image2_png and os.path.exists(image2_png):
-            input_image = image2_png
-        elif target_image_path == image2_jpg and os.path.exists(image2_jpg):
-            input_image = image2_jpg
-        elif os.path.exists(image2_png):
-            input_image = image2_png
-        elif os.path.exists(image2_jpg):
-            input_image = image2_jpg
-        else:
-            input_image = target_image_path
+        # Determine which image to use - priority order
+        possible_images = [
+            target_image_path,
+            os.path.join(backend_dir, "image.jpg"),
+            os.path.join(backend_dir, "image.png"),
+            os.path.join(backend_dir, "image2.jpg"),
+            os.path.join(backend_dir, "image2.png")
+        ]
+        
+        input_image = None
+        for img_path in possible_images:
+            if os.path.exists(img_path):
+                input_image = img_path
+                break
+                
+        if not input_image:
+            logger.error(f"No valid input image found. Tried: {possible_images}")
+            return None
             
         logger.info(f"Using input image: {input_image}")
         
@@ -83,28 +90,11 @@ def recognize(target_image_path: str, candidate_image_paths: List[str] = None) -
                     logger.info(f"📄 Returning JSON path: {json_path}")
                     return json_path
                 else:
-                    # Found a face match but no JSON file - create a minimal result
-                    logger.info(f"⚠️  Face match found but no JSON file exists for {hash_name}")
-                    logger.info(f"📁 Image file exists at: cache/{hash_name}.jpg")
-                    
-                    # Create a simple result structure
-                    result_data = {
-                        "match_found": True,
-                        "hash_name": hash_name,
-                        "similarity": similarity,
-                        "message": f"Face matched against cached image {hash_name} but no detailed JSON data available"
-                    }
-                    
-                    # Save a simple result file
-                    result_path = os.path.join(cache_dir, f"{hash_name}_match_result.json")
-                    try:
-                        with open(result_path, 'w') as f:
-                            json.dump(result_data, f, indent=2)
-                        logger.info(f"📄 Created match result file: {result_path}")
-                        return result_path
-                    except Exception as e:
-                        logger.error(f"Error creating result file: {e}")
-                        return json_path  # Return the original path even if None
+                    # Found a face match but no JSON file - this shouldn't happen in a proper cache
+                    logger.warning(f"⚠️  Face match found but no JSON file exists for {hash_name}")
+                    logger.warning(f"📁 Image file exists at: cache/{hash_name}.jpg but missing JSON")
+                    logger.warning(f"🔄 This indicates an incomplete cache entry - should regenerate")
+                    return None  # Let the pipeline regenerate the analysis
             else:
                 logger.info(f"❌ No match found (best similarity: {similarity:.4f}), running direct HTTP analysis")
                 
@@ -112,8 +102,8 @@ def recognize(target_image_path: str, candidate_image_paths: List[str] = None) -
             logger.error(f"Error in facial recognition: {e}")
             logger.info("Falling back to direct HTTP analysis")
             
-        # No match found, run direct analysis via HTTP
-        return run_direct_analysis(input_image, backend_dir)
+        # No match found, return None so main pipeline can handle it
+        return None
         
     except Exception as e:
         logger.error(f"Error in recognize function: {e}")
