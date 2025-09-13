@@ -1,14 +1,24 @@
 // Data adapter to transform mock_data.json into our app's format
 import mockData from './mock_data.json';
 
+// Fixed timestamp for deterministic data generation (avoids hydration errors)
+const FIXED_BASE_DATE = new Date('2024-01-01T00:00:00Z').getTime();
+
 // Transform mock data into people format
 export function transformMockDataToPeople() {
   const people = {};
   
   mockData.forEach((entry, index) => {
-    const llmData = entry.llm_analysis?.structured_data;
-    const personalInfo = llmData?.personal_info || {};
-    const professionalInfo = llmData?.professional_info || {};
+    // Handle both old format (entry.llm_analysis?.structured_data) and new format (entry.person_analysis)
+    const personAnalysis = entry.person_analysis;
+    const llmData = personAnalysis || entry.llm_analysis?.structured_data;
+    
+    // Extract data based on new format structure
+    const personalInfo = personAnalysis?.personal_info || llmData?.personal_info || {};
+    const professionalInfo = personAnalysis?.professional_info || llmData?.professional_info || {};
+    const educationInfo = personAnalysis?.education_info || llmData?.education_info || {};
+    const socialMedia = personAnalysis?.social_media || llmData?.social_media || [];
+    const talkingPoints = personAnalysis?.talking_points || llmData?.talking_points || {};
     
     // Generate person ID from request_id or fallback to index
     const personId = entry.request_id || `person-${index + 1}`;
@@ -16,6 +26,10 @@ export function transformMockDataToPeople() {
     // Extract name from full_name or use request_id
     const fullName = personalInfo.full_name || entry.request_id?.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
     const nameParts = fullName?.split(' ') || ['Unknown', 'Person'];
+    
+    // Get best match photo if available
+    const bestMatchPhoto = entry.best_match_photo;
+    const photoUrl = bestMatchPhoto?.base64_data || `https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(fullName || personId)}`;
     
     people[personId] = {
       id: personId,
@@ -25,56 +39,61 @@ export function transformMockDataToPeople() {
       title: professionalInfo.current_position || 'Professional',
       company: extractCompanyFromPosition(professionalInfo.current_position),
       email: generateEmail(fullName, professionalInfo.current_position),
-      phone: '+1 (555) 123-4567', // Mock phone
-      avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(fullName || personId)}`,
+      phone: personalInfo.phone || '+1 (555) 123-4567', // Use phone from data or mock
+      avatar: photoUrl,
       status: 'active',
-      priority: determinePriority(llmData?.public_presence_score),
+      priority: determinePriority(personAnalysis?.public_presence_score || llmData?.public_presence_score),
       stage: 'prospect',
       location: personalInfo.location || 'Unknown',
       
       // Enhanced data from LLM analysis
-      llmDescription: llmData?.executive_summary || `${professionalInfo.current_position || 'Professional'} with expertise in ${professionalInfo.industry || 'their field'}.`,
+      llmDescription: personAnalysis?.executive_summary || llmData?.executive_summary || `${professionalInfo.current_position || 'Professional'} with expertise in ${professionalInfo.industry || 'their field'}.`,
       
-      // Timestamps
-      lastContact: new Date(Date.now() - Math.random() * 30 * 24 * 60 * 60 * 1000).toISOString(),
-      nextFollowUp: new Date(Date.now() + Math.random() * 14 * 24 * 60 * 60 * 1000).toISOString(),
-      addedAt: new Date(Date.now() - Math.random() * 90 * 24 * 60 * 60 * 1000).toISOString(),
+      // Timestamps (deterministic based on index using fixed base date)
+      lastContact: new Date(FIXED_BASE_DATE - (index * 2 + 1) * 24 * 60 * 60 * 1000).toISOString(),
+      nextFollowUp: new Date(FIXED_BASE_DATE + ((index % 7) + 1) * 24 * 60 * 60 * 1000).toISOString(),
+      addedAt: new Date(FIXED_BASE_DATE - ((index * 3) + 10) * 24 * 60 * 60 * 1000).toISOString(),
       
       // Tags from analysis
-      tags: generateTagsFromData(llmData, professionalInfo),
+      tags: generateTagsFromData(personAnalysis || llmData, professionalInfo),
       
       // Comprehensive scraped data
       scrapedData: {
         location: personalInfo.location || 'Unknown',
         industry: professionalInfo.industry || 'Technology',
-        publicPresenceScore: llmData?.public_presence_score || 'Medium',
-        confidenceLevel: llmData?.confidence_level || 'Medium',
-        sourcesQuality: llmData?.sources_quality || 'Medium',
-        keyInsights: llmData?.key_insights || [],
-        credibilityIndicators: llmData?.credibility_indicators || [],
+        publicPresenceScore: personAnalysis?.public_presence_score || llmData?.public_presence_score || 'Medium',
+        confidenceLevel: personAnalysis?.confidence_level || llmData?.confidence_level || 'Medium',
+        sourcesQuality: personAnalysis?.sources_quality || llmData?.sources_quality || 'Medium',
+        keyInsights: personAnalysis?.key_insights || llmData?.key_insights || [],
+        credibilityIndicators: personAnalysis?.credibility_indicators || llmData?.credibility_indicators || [],
         
         // Talking points from LLM analysis
-        talkingPoints: llmData?.talking_points || {},
-        recentAchievements: llmData?.talking_points?.recent_achievements || [],
-        commonInterests: llmData?.talking_points?.common_interests || [],
+        talkingPoints: talkingPoints,
+        recentAchievements: talkingPoints?.recent_achievements || [],
+        commonInterests: talkingPoints?.common_interests || [],
+        conversationStarters: talkingPoints?.conversation_starters || [],
+        notableProjects: talkingPoints?.notable_projects || [],
+        sharedConnections: talkingPoints?.shared_connections || [],
         
         // Education from structured data
-        education: professionalInfo.current_institution ? [{
-          school: professionalInfo.current_institution,
-          degree: 'Alumni',
-          year: 'Graduate',
-          details: `Graduated from ${professionalInfo.current_institution}`
+        education: educationInfo.current_institution ? [{
+          school: educationInfo.current_institution,
+          degree: educationInfo.degree || 'Alumni',
+          year: educationInfo.graduation_year || 'Graduate',
+          field: educationInfo.field_of_study || null,
+          details: `${educationInfo.degree || 'Graduate'} from ${educationInfo.current_institution}${educationInfo.field_of_study ? ` in ${educationInfo.field_of_study}` : ''}`
         }] : [],
         
         // Previous positions from analysis
         previousPositions: professionalInfo.previous_positions || [],
         
-        // Social media from the data
+        // Social media from the data - handle both array and object formats
         socialMedia: {
-          linkedin: findLinkedInUrl(entry),
-          twitter: findTwitterUrl(entry),
+          linkedin: findLinkedInFromSocialMedia(socialMedia) || findLinkedInUrl(entry),
+          twitter: findTwitterFromSocialMedia(socialMedia) || findTwitterUrl(entry),
+          youtube: findYouTubeFromSocialMedia(socialMedia),
           website: findWebsiteUrl(entry),
-          all: personalInfo.social_media || []
+          all: Array.isArray(socialMedia) ? socialMedia : (personalInfo.social_media || [])
         },
         
         // Work history with more detail
@@ -86,9 +105,19 @@ export function transformMockDataToPeople() {
         // Interests from personal info and insights
         interests: [
           ...(personalInfo.interests || []),
-          ...(llmData?.key_insights || []),
+          ...(personAnalysis?.key_insights || llmData?.key_insights || []),
           professionalInfo.industry || 'Technology'
         ].slice(0, 8), // More interests
+        
+        // Photo information from best match
+        bestMatchPhoto: bestMatchPhoto ? {
+          sourceUrl: bestMatchPhoto.source_url,
+          confidenceScore: bestMatchPhoto.confidence_score,
+          description: bestMatchPhoto.description
+        } : null,
+        
+        // Metadata from the new format
+        metadata: entry.metadata || null,
         
         // Web presence and mentions
         webMentions: entry.serp_results ? Object.values(entry.serp_results).flat().map(result => ({
@@ -116,7 +145,10 @@ export function transformMockDataToPeople() {
       },
       
       // Connections (mock for now, could be enhanced with actual relationship data)
-      connections: generateMockConnections(personId, index)
+      connections: generateMockConnections(personId, index),
+      
+      // Conversation notes (this would be populated from actual conversation data)
+      conversationNotes: generateMockConversationNotes(personId, index)
     };
   });
   
@@ -160,6 +192,41 @@ function findLinkedInUrl(entry) {
     result.link?.includes('linkedin.com') || result.displayed_link?.includes('linkedin.com')
   );
   return linkedInResult?.link || null;
+}
+
+function findLinkedInFromSocialMedia(socialMedia) {
+  if (Array.isArray(socialMedia)) {
+    const linkedInEntry = socialMedia.find(entry => 
+      entry.platform?.toLowerCase() === 'linkedin' || 
+      entry.url?.includes('linkedin.com')
+    );
+    return linkedInEntry?.url || null;
+  }
+  return null;
+}
+
+function findTwitterFromSocialMedia(socialMedia) {
+  if (Array.isArray(socialMedia)) {
+    const twitterEntry = socialMedia.find(entry => 
+      entry.platform?.toLowerCase() === 'twitter' ||
+      entry.platform?.toLowerCase() === 'x' ||
+      entry.url?.includes('twitter.com') ||
+      entry.url?.includes('x.com')
+    );
+    return twitterEntry?.url || null;
+  }
+  return null;
+}
+
+function findYouTubeFromSocialMedia(socialMedia) {
+  if (Array.isArray(socialMedia)) {
+    const youtubeEntry = socialMedia.find(entry => 
+      entry.platform?.toLowerCase() === 'youtube' ||
+      entry.url?.includes('youtube.com')
+    );
+    return youtubeEntry?.url || null;
+  }
+  return null;
 }
 
 function findTwitterUrl(entry) {
@@ -261,12 +328,59 @@ function generateMockConnections(personId, index) {
       company: `Company ${i + 1}`,
       howTheyMet: ['LinkedIn', 'Conference', 'Mutual friend', 'Previous job'][i % 4],
       strength: ['strong', 'medium', 'weak'][i % 3],
-      lastContact: new Date(Date.now() - (i + 1) * 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
+      lastContact: new Date(FIXED_BASE_DATE - (i + 1) * 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
     });
   }
   
   console.log(`Generated ${connections.length} connections for ${personId}:`, connections);
   return connections;
+}
+
+function generateMockConversationNotes(personId, index) {
+  const conversationTemplates = [
+    {
+      summary: "Discussed potential partnership opportunities and their current tech stack challenges. Very interested in our solutions for scaling their infrastructure.",
+      keyPoints: ["Partnership interest", "Tech scaling challenges", "Infrastructure needs"],
+      nextSteps: "Schedule technical demo for next week",
+      type: "Discovery Call"
+    },
+    {
+      summary: "Follow-up on the demo. Positive feedback on the product capabilities. Mentioned budget approval process typically takes 2-3 weeks.",
+      keyPoints: ["Demo feedback", "Budget process", "Timeline concerns"],
+      nextSteps: "Send proposal and connect with procurement team",
+      type: "Follow-up Call"
+    },
+    {
+      summary: "Initial outreach via LinkedIn. Responded positively to our message about industry trends and expressed interest in learning more.",
+      keyPoints: ["LinkedIn outreach", "Industry interest", "Positive response"],
+      nextSteps: "Schedule intro call",
+      type: "LinkedIn Message"
+    },
+    {
+      summary: "Met at industry conference. Had great conversation about emerging technologies and exchanged contact information.",
+      keyPoints: ["Conference meeting", "Tech discussion", "Contact exchange"],
+      nextSteps: "Send conference follow-up email",
+      type: "Conference"
+    }
+  ];
+
+  // Generate 1-3 conversation notes per person
+  const noteCount = 1 + (index % 3);
+  const notes = [];
+  
+  for (let i = 0; i < noteCount; i++) {
+    const template = conversationTemplates[i % conversationTemplates.length];
+    notes.push({
+      id: `conv-${personId}-${i + 1}`,
+      date: new Date(FIXED_BASE_DATE - (i * 7 + index) * 24 * 60 * 60 * 1000).toISOString(),
+      ...template,
+      // Add some variation based on person and iteration
+      summary: template.summary + (i > 0 ? ` (Follow-up ${i})` : ''),
+    });
+  }
+  
+  // Sort by date (most recent first)
+  return notes.sort((a, b) => new Date(b.date) - new Date(a.date));
 }
 
 // Transform people data into workflows
@@ -283,7 +397,7 @@ export function generateWorkflowsFromPeople(people) {
       description: `${getWorkflowDescription(person, index)}`,
       status: 'active',
       priority: person.priority,
-      generatedAt: new Date(Date.now() - index * 24 * 60 * 60 * 1000).toISOString(),
+      generatedAt: new Date(FIXED_BASE_DATE - index * 24 * 60 * 60 * 1000).toISOString(),
       tasks: generateTasksForPerson(person, index)
     };
   });

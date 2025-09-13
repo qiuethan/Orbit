@@ -52,99 +52,104 @@ const TaskNode = memo(({ data, selected }) => {
   };
 
   return (
-    <div className={`relative min-w-48 max-w-56 ${selected ? 'ring-2 ring-blue-500' : ''}`}>
+    <div className={`relative min-w-48 max-w-56 group ${selected ? 'ring-1 ring-blue-400' : ''}`}>
       <Handle
         type="target"
         position={Position.Left}
         className="w-2 h-2 !bg-gray-400 border border-white"
       />
 
-      <div className={`border-2 rounded-lg p-3 shadow-sm ${getStatusColor(data.status)}`}>
-        {/* Header */}
-        <div className="flex items-start justify-between mb-2">
-          <div className="flex items-center gap-2 min-w-0">
-            <div className={`p-1 rounded ${
-              data.status === 'completed' ? 'bg-green-100 text-green-600' :
-              data.status === 'failed' ? 'bg-red-100 text-red-600' :
-              data.status === 'executing' ? 'bg-yellow-100 text-yellow-600' :
-              'bg-gray-100 text-gray-600'
-            }`}>
-              {getTaskIcon(data.type)}
-            </div>
-            <div className="min-w-0">
-              <h3 className="font-medium text-xs text-gray-900 truncate">{data.title}</h3>
+      <div className={`bg-white border rounded-md shadow-sm transition-all duration-150 ${
+        selected ? 'border-blue-400' : 'border-gray-200 hover:border-gray-300'
+      } ${
+        data.status === 'completed' ? 'border-l-4 border-l-green-500' :
+        data.status === 'failed' ? 'border-l-4 border-l-red-500' :
+        data.status === 'executing' ? 'border-l-4 border-l-yellow-500' :
+        'border-l-4 border-l-gray-300'
+      }`}>
+        
+        <div className="p-3">
+          <div className="flex items-start justify-between mb-2">
+            {/* Content */}
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center gap-2 mb-1">
+                {/* Simple icon without background */}
+                <div className={`${
+                  data.status === 'completed' ? 'text-green-600' :
+                  data.status === 'failed' ? 'text-red-600' :
+                  data.status === 'executing' ? 'text-yellow-600' :
+                  'text-gray-500'
+                }`}>
+                  {getTaskIcon(data.type)}
+                </div>
+                <h3 className="font-medium text-sm text-gray-900 truncate">
+                  {data.title}
+                </h3>
+              </div>
               <p className="text-xs text-gray-500 truncate">{data.description}</p>
             </div>
-          </div>
-          
-          <div className="flex items-center gap-0.5">
-            {getStatusIcon(data.status)}
-            <button
-              onClick={() => setShowConfig(!showConfig)}
-              className="p-0.5 text-gray-400 hover:text-gray-600 transition-colors"
-            >
-              <Cog6ToothIcon className="w-3 h-3" />
-            </button>
-            {data.isNew && (
+
+            {/* Status and actions */}
+            <div className="flex items-center gap-1 ml-2">
+              {getStatusIcon(data.status)}
               <button
-                onClick={() => data.onDelete?.(data.id)}
-                className="p-0.5 text-red-400 hover:text-red-600 transition-colors text-xs"
+                onClick={() => setShowConfig(!showConfig)}
+                className="opacity-0 group-hover:opacity-100 p-0.5 hover:bg-gray-100 rounded transition-all"
+                title="Configure"
               >
-                ✕
+                <Cog6ToothIcon className="w-3 h-3 text-gray-400" />
+              </button>
+            </div>
+          </div>
+
+          {/* Compact tags */}
+          <div className="flex items-center justify-between text-xs">
+            <div className="flex gap-1">
+              <span className={`px-1.5 py-0.5 rounded text-xs ${
+                data.priority === 'high' ? 'bg-red-100 text-red-600' :
+                data.priority === 'medium' ? 'bg-yellow-100 text-yellow-600' :
+                'bg-gray-100 text-gray-600'
+              }`}>
+                {data.priority || 'med'}
+              </span>
+              <span className="px-1.5 py-0.5 bg-gray-100 text-gray-600 rounded text-xs">
+                {data.estimatedTime || '1m'}
+              </span>
+            </div>
+
+            {/* Simple action button */}
+            {data.status === 'pending' && (
+              <button
+                onClick={() => data.onExecute?.(data)}
+                className="px-2 py-0.5 bg-blue-600 text-white text-xs rounded hover:bg-blue-700 transition-colors"
+              >
+                Run
               </button>
             )}
+            
+            {data.status === 'failed' && (
+              <button
+                onClick={() => data.onRetry?.(data)}
+                className="px-2 py-0.5 bg-red-600 text-white text-xs rounded hover:bg-red-700 transition-colors"
+              >
+                Retry
+              </button>
+            )}
+
+            {data.status === 'completed' && (
+              <span className="text-xs text-green-600 font-medium">
+                ✓ Done
+              </span>
+            )}
           </div>
-        </div>
 
-        {/* Priority and Time */}
-        <div className="flex gap-1 mb-2">
-          <span className={`px-1.5 py-0.5 text-xs rounded-full ${
-            data.priority === 'high' ? 'bg-red-100 text-red-800' :
-            data.priority === 'medium' ? 'bg-yellow-100 text-yellow-800' :
-            'bg-gray-100 text-gray-800'
-          }`}>
-            {data.priority || 'med'}
-          </span>
-          <span className="px-1.5 py-0.5 text-xs bg-gray-100 text-gray-800 rounded-full">
-            {data.estimatedTime || '1m'}
-          </span>
-        </div>
-
-        {/* Action Buttons */}
-        <div className="flex gap-1">
-          {data.status === 'pending' && (
-            <button
-              onClick={() => data.onExecute?.(data)}
-              className="flex items-center gap-1 px-2 py-1 bg-blue-600 text-white text-xs rounded hover:bg-blue-700 transition-colors"
-            >
-              <PlayIcon className="w-2 h-2" />
-              Run
-            </button>
-          )}
-          
-          {data.status === 'failed' && (
-            <button
-              onClick={() => data.onRetry?.(data)}
-              className="flex items-center gap-1 px-2 py-1 bg-red-600 text-white text-xs rounded hover:bg-red-700 transition-colors"
-            >
-              <ArrowPathIcon className="w-2 h-2" />
-              Retry
-            </button>
-          )}
-
-          {data.status === 'completed' && data.completedAt && (
-            <div className="text-xs text-green-600">
-              ✓ {new Date(data.completedAt).toLocaleTimeString()}
+          {/* Error Message */}
+          {data.status === 'failed' && data.error && (
+            <div className="mt-2 p-2 bg-red-50 border border-red-200 rounded text-xs text-red-700">
+              {data.error}
             </div>
           )}
         </div>
-
-        {/* Error Message */}
-        {data.status === 'failed' && data.error && (
-          <div className="mt-2 p-1.5 bg-red-100 border border-red-200 rounded text-xs text-red-800">
-            {data.error}
-          </div>
-        )}
       </div>
 
       {/* Configuration Panel */}

@@ -9,14 +9,26 @@ const DraggableActionBlock = ({ actionType, onDragStart }) => {
     <div
       draggable
       onDragStart={(e) => onDragStart(e, actionType)}
-      className="flex items-center gap-2 p-2 bg-white border border-gray-200 rounded-md cursor-grab hover:border-blue-300 hover:shadow-sm transition-all group mb-1"
+      className="group relative cursor-grab transition-all duration-150 hover:bg-gray-50 border-b border-gray-100"
       title={actionType.label}
     >
-      <div className="p-1 bg-gray-100 rounded group-hover:bg-blue-100 transition-colors">
-        <IconComponent className="w-3 h-3 text-gray-600 group-hover:text-blue-600" />
-      </div>
-      <div className="flex-1 min-w-0">
-        <h4 className="text-xs font-medium text-gray-900 truncate">{actionType.label}</h4>
+      <div className="px-3 py-2">
+        <div className="flex items-start gap-3">
+          {/* Icon */}
+          <div className="p-1.5 bg-gray-100 rounded-full flex-shrink-0 group-hover:bg-blue-100 transition-colors">
+            <IconComponent className="w-3 h-3 text-gray-600 group-hover:text-blue-600" />
+          </div>
+          
+          {/* Content */}
+          <div className="flex-1 min-w-0">
+            <h4 className="font-medium text-sm text-gray-900 leading-tight truncate">
+              {actionType.label}
+            </h4>
+            <p className="text-xs text-gray-500 mt-0.5">
+              {actionType.category}
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -26,19 +38,25 @@ const ActionPalette = ({ onDragStart }) => {
   const actionsByCategory = getActionsByCategory();
 
   return (
-    <div className="w-44 bg-gray-50 border-r border-gray-200 overflow-y-auto">
+    <div className="w-80 bg-white border-r border-gray-200 overflow-y-auto">
       {/* Header */}
-      <div className="p-3 border-b border-gray-200">
-        <h3 className="text-sm font-semibold text-gray-900">Actions</h3>
-        <p className="text-xs text-gray-500 mt-1">Drag to canvas</p>
+      <div className="bg-white border-b border-gray-200 px-6 py-4">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-3">
+            <span className="text-lg font-semibold text-gray-900">Actions</span>
+          </div>
+        </div>
+        <p className="text-sm text-gray-500 mt-1">Drag actions to create workflow</p>
       </div>
       
       {/* Action Categories */}
-      <div className="p-2">
+      <div className="flex-1 overflow-y-auto bg-white">
         {Object.entries(actionsByCategory).map(([category, actions]) => (
-          <div key={category} className="mb-3">
-            <h4 className="text-xs font-medium text-gray-700 mb-1 px-1">{category}</h4>
-            <div className="space-y-1">
+          <div key={category}>
+            <div className="px-6 py-2 bg-gray-50 border-b border-gray-100">
+              <h4 className="text-xs font-medium text-gray-700 uppercase tracking-wide">{category}</h4>
+            </div>
+            <div>
               {actions.map((actionType) => (
                 <DraggableActionBlock
                   key={actionType.type}

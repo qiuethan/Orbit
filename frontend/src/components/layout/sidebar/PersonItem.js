@@ -5,12 +5,8 @@ import {
   Mail, 
   Phone, 
   Linkedin, 
-  Github, 
-  Globe, 
-  Info, 
   Edit3, 
-  Archive, 
-  Trash2,
+  Archive,
   Users
 } from 'lucide-react';
 import { getStatusBadgeColor, isOverdue } from '../../../utils/personUtils';
@@ -35,22 +31,9 @@ export default function PersonItem({
     { id: 'call', label: 'Call', icon: Phone },
     { id: 'linkedin', label: 'LinkedIn', icon: Linkedin },
     { id: 'edit', label: 'Edit Contact', icon: Edit3 },
-    { type: 'divider' },
-    { id: 'archive', label: 'Archive', icon: Archive },
-    { id: 'delete', label: 'Delete', icon: Trash2, className: 'text-red-600 hover:bg-red-50' }
+    { id: 'archive', label: 'Archive', icon: Archive, className: 'text-orange-600 hover:bg-orange-50' }
   ];
 
-  // Clean status colors - Notion style
-  const getStatusStyle = (status) => {
-    const styles = {
-      'active': 'bg-green-100 text-green-800 border-green-200',
-      'prospect': 'bg-blue-100 text-blue-800 border-blue-200',
-      'following_up': 'bg-yellow-100 text-yellow-800 border-yellow-200',
-      'cold': 'bg-gray-100 text-gray-600 border-gray-200',
-      'archived': 'bg-gray-100 text-gray-500 border-gray-200'
-    };
-    return styles[status] || styles['cold'];
-  };
 
   return (
     <div
@@ -115,16 +98,9 @@ export default function PersonItem({
               </p>
             )}
 
-            {/* Status and metadata row */}
+            {/* Metadata row */}
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <span className={classNames(
-                  'inline-flex items-center px-1.5 py-0.5 rounded text-xs font-medium',
-                  getStatusStyle(person.status)
-                )}>
-                  {person.status.replace('_', ' ')}
-                </span>
-                
                 {person.mutualConnections > 0 && (
                   <span className="inline-flex items-center gap-1 text-xs text-gray-400">
                     <Users className="w-3 h-3" />

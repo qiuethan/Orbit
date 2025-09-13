@@ -2,11 +2,8 @@ import {
     EnvelopeIcon,
     PhoneIcon,
     CalendarIcon,
-    ChatBubbleLeftIcon,
-    DocumentTextIcon,
-    BellIcon,
-    CloudIcon,
-    CogIcon,
+    UserGroupIcon,
+    CameraIcon,
   } from '@heroicons/react/24/outline';
   
   export const ACTION_TYPES = [
@@ -33,71 +30,38 @@ import {
     },
     {
       type: 'calendar',
-      label: 'Calendar',
+      label: 'Schedule Meeting',
       icon: CalendarIcon,
       category: 'Scheduling',
       defaultConfig: {
-        title: 'Meeting',
+        title: 'Business Meeting',
         attendees: 'user@example.com',
         duration: '30 minutes',
         date: new Date().toISOString().split('T')[0],
         time: '2:00 PM',
-        notes: 'Meeting agenda to be discussed'
+        notes: 'Discussion about partnership opportunities'
       }
     },
     {
-      type: 'slack',
-      label: 'Slack',
-      icon: ChatBubbleLeftIcon,
-      category: 'Communication',
+      type: 'linkedin',
+      label: 'LinkedIn Outreach',
+      icon: UserGroupIcon,
+      category: 'Social Networking',
       defaultConfig: {
-        channel: '#general',
-        message: 'New update from the workflow system.'
+        action: 'connect',
+        message: 'Hi [Name], I would like to connect and explore potential collaboration opportunities.',
+        profile: 'https://linkedin.com/in/username'
       }
     },
     {
-      type: 'document',
-      label: 'Document',
-      icon: DocumentTextIcon,
-      category: 'Files',
+      type: 'instagram',
+      label: 'Instagram Engagement',
+      icon: CameraIcon,
+      category: 'Social Media',
       defaultConfig: {
-        title: 'New Document',
-        content: 'Document content here...',
-        format: 'pdf'
-      }
-    },
-    {
-      type: 'notification',
-      label: 'Notification',
-      icon: BellIcon,
-      category: 'Alerts',
-      defaultConfig: {
-        title: 'Alert',
-        message: 'This is a notification message',
-        priority: 'medium'
-      }
-    },
-    {
-      type: 'api',
-      label: 'API Call',
-      icon: CloudIcon,
-      category: 'Integration',
-      defaultConfig: {
-        url: 'https://api.example.com/endpoint',
-        method: 'GET',
-        headers: '{}',
-        body: '{}'
-      }
-    },
-    {
-      type: 'automation',
-      label: 'Automation',
-      icon: CogIcon,
-      category: 'Logic',
-      defaultConfig: {
-        trigger: 'manual',
-        conditions: '{}',
-        actions: '{}'
+        action: 'follow',
+        message: 'Great content! Looking forward to your updates.',
+        profile: 'https://instagram.com/username'
       }
     },
   ];

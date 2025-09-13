@@ -19,10 +19,10 @@ const user = {
 }
 
 const navigation = [
-  { name: 'Workflow', href: '/', current: true },
+  { name: 'Automation', href: '/', current: true },
   { name: 'Vision', href: '/vision', current: false },
   { name: 'Graph', href: '/graph', current: false },
-  { name: 'Dashboard', href: '/dashboard', current: false },
+  { name: 'Contacts', href: '/dashboard', current: false },
 ]
 
 const userNavigation = [
@@ -72,9 +72,9 @@ export default function Header() {
                   href={item.href}
                   className={classNames(
                     pathname === item.href 
-                      ? 'bg-gray-100 text-gray-900' 
-                      : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50',
-                    'px-3 py-2 rounded-md text-sm font-medium transition-colors'
+                      ? 'bg-blue-50 text-blue-700 border-b-2 border-blue-500' 
+                      : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50 border-b-2 border-transparent',
+                    'px-3 py-2 rounded-t-md text-sm font-medium transition-all duration-200'
                   )}
                 >
                   {item.name}
@@ -186,9 +186,9 @@ export default function Header() {
               href={item.href}
               className={classNames(
                 pathname === item.href 
-                  ? 'bg-gray-100 text-gray-900' 
-                  : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
-                'block px-3 py-2 rounded-md text-base font-medium'
+                  ? 'bg-blue-50 text-blue-700 border-l-4 border-blue-500' 
+                  : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900 border-l-4 border-transparent',
+                'block px-3 py-2 rounded-r-md text-base font-medium transition-all duration-200'
               )}
             >
               {item.name}

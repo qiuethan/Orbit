@@ -140,10 +140,10 @@ const TaskQueue = ({ activeWorkflow }) => {
       <div className="h-full flex items-center justify-center bg-gray-50">
         <div className="text-center">
           <div className="w-20 h-20 bg-gray-100 border border-gray-200 rounded-2xl flex items-center justify-center mb-6 mx-auto">
-            <Terminal className="w-10 h-10 text-gray-500" />
+            <MessageSquare className="w-10 h-10 text-gray-500" />
           </div>
-          <h3 className="font-semibold text-gray-900 mb-2 text-lg">No Workflow Selected</h3>
-          <p className="text-sm text-gray-600">Select a workflow to view tasks</p>
+          <h3 className="font-semibold text-gray-900 mb-2 text-lg">No Contact Selected</h3>
+          <p className="text-sm text-gray-600">Select a contact to see networking tasks</p>
         </div>
       </div>
     );
@@ -153,27 +153,27 @@ const TaskQueue = ({ activeWorkflow }) => {
   const getTaskIcon = (type, className = "w-5 h-5") => {
     switch (type) {
       case 'email': 
-        return <img src="/icons/gmail.png" className={className} alt="Email" />;
+        return <Mail className={className} />;
       case 'phone': 
         return <Phone className={className} />;
-      case 'calendar': 
-        return <img src="/icons/gcal.png" className={className} alt="Calendar" />;
-      case 'slack': 
-        return <img src="/icons/slack.png" className={className} alt="Slack" />;
-      case 'notion':
-        return <BookOpen className={className} />; // Using BookOpen as Notion icon
-      case 'document': 
+      case 'coffee_chat':
+        return <MessageSquare className={className} />;
+      case 'linkedin_connect':
+        return <img src="/icons/linkedin.png" className={className} alt="LinkedIn" />;
+      case 'follow_up': 
+        return <Calendar className={className} />;
+      case 'introduction':
+        return <Mail className={className} />;
+      case 'thank_you':
+        return <Edit3 className={className} />;
+      case 'research':
         return <FileText className={className} />;
-      case 'notification': 
-        return <Bell className={className} />;
-      case 'api': 
-        return <Cloud className={className} />;
-      case 'automation': 
-        return <Settings className={className} />;
-      case 'drive': 
-        return <HardDrive className={className} />;
+      case 'event_follow_up':
+        return <Calendar className={className} />;
+      case 'referral_request':
+        return <MessageSquare className={className} />;
       default: 
-        return <div className={`${className} bg-gray-400 rounded`}></div>;
+        return <MessageSquare className={className} />;
     }
   };
 
@@ -278,7 +278,14 @@ const TaskQueue = ({ activeWorkflow }) => {
               {Object.entries(localConfig || {}).map(([key, value]) => (
                 <div key={key}>
                   <label className="block text-sm font-semibold text-gray-900 mb-2">
-                    {key.replace(/([A-Z])/g, ' $1').toLowerCase().replace(/^\w/, c => c.toUpperCase())}
+                    {key === 'recipient' ? 'To' : 
+                     key === 'subject' ? 'Subject' :
+                     key === 'message' ? 'Message' :
+                     key === 'notes' ? 'Personal Notes' :
+                     key === 'meetingType' ? 'Meeting Type' :
+                     key === 'duration' ? 'Duration' :
+                     key === 'platform' ? 'Platform' :
+                     key.replace(/([A-Z])/g, ' $1').toLowerCase().replace(/^\w/, c => c.toUpperCase())}
                   </label>
                   {key === 'message' || key === 'notes' || key === 'project' || key === 'content' ? (
                     <textarea
@@ -288,6 +295,8 @@ const TaskQueue = ({ activeWorkflow }) => {
                       className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-none transition-colors"
                       rows={key === 'project' ? 4 : 3}
                       placeholder={
+                        key === 'message' ? 'Write your message...' :
+                        key === 'notes' ? 'Add personal notes about this outreach...' :
                         key === 'project' ? 'Enter your project idea or description...' :
                         key === 'content' ? 'Enter page content...' :
                         `Enter ${key}...`
@@ -301,7 +310,10 @@ const TaskQueue = ({ activeWorkflow }) => {
                       onBlur={handleBlur}
                       className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
                       placeholder={
-                        key === 'title' ? 'Enter page title...' :
+                        key === 'subject' ? 'Email subject line...' :
+                        key === 'recipient' ? 'Contact name or email...' :
+                        key === 'platform' ? 'Zoom, Teams, Coffee shop...' :
+                        key === 'duration' ? '30 minutes, 1 hour...' :
                         `Enter ${key}...`
                       }
                     />
@@ -317,7 +329,7 @@ const TaskQueue = ({ activeWorkflow }) => {
                 className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
               >
                 <Play className="w-3 h-3" />
-                {executing ? 'Executing...' : 'Execute Task'}
+                {executing ? 'Sending...' : 'Send Message'}
               </button>
               
               {hasUnsavedChanges && (
@@ -351,7 +363,7 @@ const TaskQueue = ({ activeWorkflow }) => {
               <Activity className="w-5 h-5 text-gray-600" />
             </div>
             <div>
-              <h3 className="font-medium text-gray-900 text-base">Task Queue</h3>
+              <h3 className="font-medium text-gray-900 text-base">Networking Tasks</h3>
               {workflowData && (
                 <p className="text-sm text-gray-500 truncate max-w-60">
                   {workflowData.name}
@@ -376,7 +388,7 @@ const TaskQueue = ({ activeWorkflow }) => {
                 <Check className="w-4 h-4 text-green-600" />
               </div>
               <h4 className="text-sm font-semibold text-gray-900">
-                Completed Tasks ({completedTasks.length})
+                Completed Outreach ({completedTasks.length})
               </h4>
             </div>
             <div className="space-y-2">
@@ -399,7 +411,7 @@ const TaskQueue = ({ activeWorkflow }) => {
                 <AlertTriangle className="w-4 h-4 text-red-600" />
               </div>
               <h4 className="text-sm font-semibold text-gray-900">
-                Failed Tasks ({failedTasks.length})
+                Failed Outreach ({failedTasks.length})
               </h4>
             </div>
             <div className="space-y-2">
@@ -423,7 +435,7 @@ const TaskQueue = ({ activeWorkflow }) => {
                 <Play className="w-4 h-4 text-blue-600" />
               </div>
               <h4 className="text-sm font-semibold text-gray-900">
-                Current Task
+                Next Outreach
               </h4>
             </div>
             <TaskCard
@@ -437,8 +449,8 @@ const TaskQueue = ({ activeWorkflow }) => {
             <div className="w-24 h-24 bg-green-50 border border-green-200 rounded-2xl flex items-center justify-center mx-auto mb-6">
               <Check className="w-12 h-12 text-green-600" />
             </div>
-            <h3 className="font-semibold text-gray-900 mb-2 text-lg">All Tasks Completed</h3>
-            <p className="text-sm text-gray-600">Workflow execution finished successfully</p>
+            <h3 className="font-semibold text-gray-900 mb-2 text-lg">All networking tasks completed!</h3>
+            <p className="text-sm text-gray-600">You're all caught up with your outreach</p>
           </div>
         )}
 
