@@ -1,10 +1,11 @@
 """
 LLM Package
 
-Simple interface for Cerebras and OpenAI LLMs.
+Interface for Cerebras and OpenAI LLMs.
 Users provide their own prompts and get responses back.
+Now includes structured output support with schema validation.
 """
 
-from .simple_llm import SimpleLLM, call_llm, analyze_with_llm
+from .llm import LLM, call_llm, analyze_with_llm, structured_analyze_person
 
-__all__ = ['SimpleLLM', 'call_llm', 'analyze_with_llm']
+__all__ = ['LLM', 'call_llm', 'analyze_with_llm', 'structured_analyze_person']

@@ -1,0 +1,77 @@
+{
+  "personal_info": {
+    "full_name": "Edward Kim",
+    "age": null,
+    "location": null,
+    "nationality": null,
+    "languages": null,
+    "interests": [
+      "machine learning",
+      "natural language processing",
+      "applied science"
+    ]
+  },
+  "professional_info": {
+    "current_position": "Manager of Technical Staff at Cohere AI",
+    "company": "Cohere AI",
+    "industry": "Artificial Intelligence",
+    "previous_positions": [
+      "Principal Applied Scientist at Xero",
+      "Senior Data Scientist at Citrine Informatics"
+    ],
+    "skills": [
+      "machine learning",
+      "natural language processing"
+    ],
+    "achievements": null
+  },
+  "education_info": {
+    "current_institution": null,
+    "degree": "PhD in Materials Science & Engineering",
+    "field_of_study": "Materials Science & Engineering",
+    "graduation_year": "MIT",
+    "previous_education": null
+  },
+  "social_media": [
+    {
+      "platform": "GitHub",
+      "username": "eddotman",
+      "url": "https://github.com/eddotman",
+      "verified": true,
+      "followers_count": null
+    },
+    {
+      "platform": "Twitter",
+      "username": "eddotman",
+      "url": "https://twitter.com/eddotman",
+      "verified": null,
+      "followers_count": null
+    }
+  ],
+  "talking_points": {
+    "recent_achievements": [
+      "joined Cohere AI as Manager of Technical Staff"
+    ],
+    "shared_connections": null,
+    "common_interests": [
+      "machine learning",
+      "natural language processing"
+    ],
+    "conversation_starters": null,
+    "notable_projects": null
+  },
+  "public_presence_score": "High",
+  "credibility_indicators": [
+    "GitHub profile",
+    "Twitter profile"
+  ],
+  "potential_red_flags": null,
+  "executive_summary": "Experienced machine learning scientist with a focus on applied machine learning and natural language processing.",
+  "key_insights": [
+    "machine learning expertise",
+    "natural language processing expertise"
+  ],
+  "confidence_level": "High",
+  "sources_quality": "Excellent",
+  "last_updated": null
+}

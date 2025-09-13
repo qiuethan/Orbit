@@ -11,8 +11,8 @@ from dotenv import load_dotenv
 # Import search engine
 from search import SearchEngine
 
-# Import simple LLM interface
-from llm import SimpleLLM
+# Import LLM interface
+from llm import LLM
 
 # Load environment variables
 load_dotenv()
@@ -43,12 +43,12 @@ class SearchAnalysisPipeline:
             testing_mode=testing_mode
         )
         
-        # Initialize simple LLM interface
+        # Initialize LLM interface
         self.llm = None
         self.llm_available = False
         
         try:
-            self.llm = SimpleLLM(api_key=openai_api_key)
+            self.llm = LLM(api_key=openai_api_key)
             self.llm_available = True
             info = self.llm.get_info()
             print(f"✅ LLM initialized with {info['provider'].title()} ({info['model']})")
@@ -68,6 +68,36 @@ class SearchAnalysisPipeline:
             return self.llm.analyze(context, custom_prompt)
         except Exception as e:
             return f"LLM analysis error: {str(e)}"
+    
+    def analyze_results_structured(self, search_results: Dict, custom_instructions: Optional[str] = None) -> Dict:
+        """
+        Analyze search results and return structured PersonAnalysis data.
+        
+        Args:
+            search_results: Dictionary containing search results
+            custom_instructions: Additional instructions for the analysis
+            
+        Returns:
+            Dict containing structured analysis results
+        """
+        if not self.llm_available:
+            return {
+                "success": False,
+                "error": "LLM not available for analysis",
+                "provider": None,
+                "model": None
+            }
+        
+        try:
+            context = self._format_results_for_llm(search_results)
+            return self.llm.structured_analyze(context, custom_instructions)
+        except Exception as e:
+            return {
+                "success": False,
+                "error": f"Structured analysis error: {str(e)}",
+                "provider": self.llm.provider if self.llm else None,
+                "model": self.llm.model if self.llm else None
+            }
     
     def _format_results_for_llm(self, search_results: Dict) -> str:
         """Convert search results to a readable format for LLM analysis."""
@@ -134,7 +164,8 @@ class SearchAnalysisPipeline:
                             min_score: int = 85,
                             max_face_results: int = 5,
                             max_serp_per_url: int = 5,
-                            custom_prompt: str = None) -> Dict[str, Any]:
+                            custom_prompt: str = None,
+                            use_structured_output: bool = False) -> Dict[str, Any]:
         """
         Complete face search pipeline: Image → Face Search → URL Search → Web Scraping → LLM Analysis.
         """
@@ -183,17 +214,46 @@ Please provide a detailed but well-structured analysis based on the available se
                     print("   Using default comprehensive analysis prompt")
                 
                 try:
-                    analysis_result = self.analyze_results_with_llm(search_results, analysis_prompt)
-                    search_results["llm_analysis"] = {
-                        "analysis": analysis_result,
-                        "prompt_used": analysis_prompt,
-                        "provider": self.llm.get_info()["provider"] if self.llm else "unknown",
-                        "model": self.llm.get_info()["model"] if self.llm else "unknown"
-                    }
-                    print("✅ LLM analysis completed successfully")
+                    if use_structured_output:
+                        # Use structured analysis for JSON output
+                        print("   Using structured JSON output schema")
+                        analysis_result = self.analyze_results_structured(search_results, custom_prompt)
+                        
+                        if analysis_result.get("success"):
+                            search_results["llm_analysis"] = {
+                                "structured_data": analysis_result["analysis"],
+                                "raw_response": analysis_result.get("raw_response", ""),
+                                "provider": analysis_result.get("provider", "unknown"),
+                                "model": analysis_result.get("model", "unknown"),
+                                "format": "structured",
+                                "custom_instructions": custom_prompt
+                            }
+                            print("✅ Structured LLM analysis completed successfully")
+                        else:
+                            search_results["llm_analysis"] = {
+                                "error": analysis_result.get("error", "Unknown structured analysis error"),
+                                "raw_response": analysis_result.get("raw_response", ""),
+                                "provider": analysis_result.get("provider", "unknown"),
+                                "model": analysis_result.get("model", "unknown"),
+                                "format": "structured"
+                            }
+                            print(f"⚠️  Structured LLM analysis failed: {analysis_result.get('error')}")
+                    else:
+                        # Use traditional text analysis
+                        analysis_result = self.analyze_results_with_llm(search_results, analysis_prompt)
+                        search_results["llm_analysis"] = {
+                            "analysis": analysis_result,
+                            "prompt_used": analysis_prompt,
+                            "provider": self.llm.get_info()["provider"] if self.llm else "unknown",
+                            "model": self.llm.get_info()["model"] if self.llm else "unknown",
+                            "format": "text"
+                        }
+                        print("✅ LLM analysis completed successfully")
+                        
                 except Exception as e:
                     search_results["llm_analysis"] = {
-                        "error": f"LLM analysis failed: {str(e)}"
+                        "error": f"LLM analysis failed: {str(e)}",
+                        "format": "structured" if use_structured_output else "text"
                     }
                     print(f"⚠️  LLM analysis failed: {str(e)}")
             
@@ -227,13 +287,14 @@ Please provide a detailed but well-structured analysis based on the available se
 
 
 # Simple function interface
-def complete_face_analysis(image_input, custom_prompt: str = None) -> Dict[str, Any]:
+def complete_face_analysis(image_input, custom_prompt: str = None, use_structured_output: bool = False) -> Dict[str, Any]:
     """
     Complete face analysis: Image → Face Search → URL Search → Web Scraping → LLM Analysis.
     
     Args:
         image_input: Image to search (file path, URL, base64, or bytes)
         custom_prompt: Custom prompt for LLM analysis (optional)
+        use_structured_output: If True, returns structured PersonAnalysis JSON instead of text
         
     Returns:
         Complete pipeline results with LLM analysis
@@ -241,7 +302,8 @@ def complete_face_analysis(image_input, custom_prompt: str = None) -> Dict[str, 
     pipeline = SearchAnalysisPipeline()
     return pipeline.complete_face_search(
         image_input=image_input,
-        custom_prompt=custom_prompt
+        custom_prompt=custom_prompt,
+        use_structured_output=use_structured_output
     )
 
 

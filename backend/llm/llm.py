@@ -1,12 +1,19 @@
 """
-Simple LLM Interface
+LLM Interface
 
 A lightweight interface for Cerebras and OpenAI that lets users provide their own prompts.
+Now includes structured output support with schema validation.
 """
 
 import os
-from typing import Optional
+from typing import Optional, Dict, Any
 from dotenv import load_dotenv
+import sys
+import json
+
+# Add the backend directory to the path so we can import output_schema
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from output_schema import OutputSchemaManager, PersonAnalysis
 
 # Load environment variables
 load_dotenv()
@@ -26,9 +33,9 @@ except ImportError:
     OPENAI_AVAILABLE = False
 
 
-class SimpleLLM:
+class LLM:
     """
-    Simple LLM interface supporting Cerebras and OpenAI.
+    LLM interface supporting Cerebras and OpenAI.
     Users provide their own prompts and get responses back.
     """
     
@@ -38,7 +45,7 @@ class SimpleLLM:
                  model: Optional[str] = None,
                  temperature: float = 0.3):
         """
-        Initialize the Simple LLM interface.
+        Initialize the LLM interface.
         
         Args:
             provider: 'cerebras', 'openai', or None for auto-detection
@@ -149,6 +156,64 @@ Analysis:
 """
         return self.chat(prompt, max_tokens)
     
+    def structured_analyze(self, search_results: str, custom_instructions: Optional[str] = None, max_tokens: int = 4096) -> Dict[str, Any]:
+        """
+        Analyze search results and return structured PersonAnalysis data.
+        
+        Args:
+            search_results: The search results to analyze (formatted string)
+            custom_instructions: Additional custom instructions (optional)
+            max_tokens: Maximum tokens in response
+            
+        Returns:
+            Dict containing either:
+            - {"success": True, "analysis": PersonAnalysis, "raw_response": str}
+            - {"success": False, "error": str, "raw_response": str}
+        """
+        # Get the schema prompt
+        schema_manager = OutputSchemaManager()
+        schema_prompt = schema_manager.get_schema_prompt()
+        
+        # Add custom instructions if provided
+        if custom_instructions:
+            schema_prompt += f"\n\nADDITIONAL INSTRUCTIONS:\n{custom_instructions}\n"
+        
+        # Combine with search results
+        full_prompt = f"{schema_prompt}\n{search_results}"
+        
+        try:
+            # Get LLM response
+            raw_response = self.chat(full_prompt, max_tokens)
+            
+            # Parse the structured response
+            analysis = schema_manager.parse_llm_response(raw_response)
+            
+            if analysis:
+                return {
+                    "success": True,
+                    "analysis": analysis,
+                    "raw_response": raw_response,
+                    "provider": self.provider,
+                    "model": self.model
+                }
+            else:
+                return {
+                    "success": False,
+                    "error": "Failed to parse LLM response into structured format",
+                    "raw_response": raw_response,
+                    "provider": self.provider,
+                    "model": self.model
+                }
+                
+        except Exception as e:
+            return {
+                "success": False,
+                "error": f"LLM analysis failed: {str(e)}",
+                "raw_response": "",
+                "provider": self.provider,
+                "model": self.model
+            }
+    
     def get_info(self) -> dict:
         """Get information about the current LLM configuration."""
         return {
@@ -159,14 +224,14 @@ Analysis:
         }
 
 
-# Simple function interface
+# Function interface
 def call_llm(prompt: str, 
              provider: Optional[str] = None, 
              model: Optional[str] = None, 
              temperature: float = 0.3,
              max_tokens: int = 2048) -> str:
     """
-    Simple function to call LLM with a prompt.
+    Function to call LLM with a prompt.
     
     Args:
         prompt: The prompt to send
@@ -178,7 +243,7 @@ def call_llm(prompt: str,
     Returns:
         LLM response as string
     """
-    llm = SimpleLLM(provider=provider, model=model, temperature=temperature)
+    llm = LLM(provider=provider, model=model, temperature=temperature)
     return llm.chat(prompt, max_tokens)
 
 
@@ -189,7 +254,7 @@ def analyze_with_llm(context: str,
                      temperature: float = 0.3,
                      max_tokens: int = 2048) -> str:
     """
-    Simple function to analyze context with custom instructions.
+    Function to analyze context with custom instructions.
     
     Args:
         context: Data to analyze
@@ -202,18 +267,42 @@ def analyze_with_llm(context: str,
     Returns:
         Analysis result as string
     """
-    llm = SimpleLLM(provider=provider, model=model, temperature=temperature)
+    llm = LLM(provider=provider, model=model, temperature=temperature)
     return llm.analyze(context, instruction, max_tokens)
+
+
+def structured_analyze_person(search_results: str,
+                             custom_instructions: Optional[str] = None,
+                             provider: Optional[str] = None,
+                             model: Optional[str] = None,
+                             temperature: float = 0.1,
+                             max_tokens: int = 4096) -> Dict[str, Any]:
+    """
+    Function to analyze search results and get structured PersonAnalysis.
+    
+    Args:
+        search_results: The search results to analyze (formatted string)
+        custom_instructions: Additional custom instructions (optional)
+        provider: LLM provider ('cerebras', 'openai', or None for auto)
+        model: Model name (optional)
+        temperature: Response randomness (lower for more structured output)
+        max_tokens: Maximum response length
+        
+    Returns:
+        Dict with structured analysis results
+    """
+    llm = LLM(provider=provider, model=model, temperature=temperature)
+    return llm.structured_analyze(search_results, custom_instructions, max_tokens)
 
 
 # Example usage
 if __name__ == "__main__":
-    print("🤖 Testing Simple LLM Interface")
+    print("🤖 Testing LLM Interface")
     print("=" * 40)
     
     try:
         # Test initialization
-        llm = SimpleLLM()
+        llm = LLM()
         info = llm.get_info()
         print(f"✅ LLM initialized: {info['provider'].title()} ({info['model']})")
         
