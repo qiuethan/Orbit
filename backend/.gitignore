@@ -1,3 +1,4 @@
 .env
 /venv
 image.jpg
+/__pycache__
