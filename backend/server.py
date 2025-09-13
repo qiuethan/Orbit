@@ -1,14 +1,18 @@
 import os
 import sys
 import asyncio
+import time
 from typing import Any, Dict
 import uuid
 import json
 import base64
 import io
+import cv2
+import numpy as np
 
 from fastapi import FastAPI, UploadFile, File, HTTPException
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, StreamingResponse
+from fastapi.middleware.cors import CORSMiddleware
 from PIL import Image
 
 # Ensure the backend directory is on sys.path so imports like `pipeline`, `search`, `llm` work
@@ -25,6 +29,15 @@ from output_schema import OutputSchemaManager  # noqa: E402
 from local_face_recognition import recognize  # noqa: E402
 
 app = FastAPI(title="Orbit Face Analysis Server")
+
+# Add CORS middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000", "http://localhost:3001"],  # Frontend URLs
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Global lock to ensure only one request is processed at a time
 _request_lock = asyncio.Lock()
@@ -182,6 +195,202 @@ async def list_cache():
 @app.get("/health")
 async def health():
     return {"status": "ok"}
+
+
+# Global camera object
+camera = None
+
+@app.get("/video/start")
+async def start_video():
+    """Start the video stream from webcam"""
+    global camera
+    try:
+        if camera is not None:
+            camera.release()
+        
+        camera = cv2.VideoCapture(0)  # Use default camera
+        
+        if not camera.isOpened():
+            raise HTTPException(status_code=500, detail="Could not open camera")
+            
+        # Set camera properties for maximum frame rate
+        camera.set(cv2.CAP_PROP_FRAME_WIDTH, 320)
+        camera.set(cv2.CAP_PROP_FRAME_HEIGHT, 240)
+        camera.set(cv2.CAP_PROP_FPS, 30)
+        camera.set(cv2.CAP_PROP_BUFFERSIZE, 1)  # Reduce buffer lag
+        
+        return {"status": "started", "message": "Video stream started"}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to start camera: {str(e)}")
+
+
+@app.get("/video/stop")
+async def stop_video():
+    """Stop the video stream"""
+    global camera
+    try:
+        if camera is not None:
+            camera.release()
+            camera = None
+        return {"status": "stopped", "message": "Video stream stopped"}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to stop camera: {str(e)}")
+
+
+def generate_frames():
+    """Generate video frames for streaming"""
+    global camera
+    while camera is not None and camera.isOpened():
+        success, frame = camera.read()
+        if not success:
+            break
+        else:
+            # Encode frame as JPEG optimized for maximum speed
+            ret, buffer = cv2.imencode('.jpg', frame, [cv2.IMWRITE_JPEG_QUALITY, 30])
+            if ret:
+                frame_bytes = buffer.tobytes()
+                yield (b'--frame\r\n'
+                       b'Content-Type: image/jpeg\r\n'
+                       b'Content-Length: ' + str(len(frame_bytes)).encode() + b'\r\n\r\n' + 
+                       frame_bytes + b'\r\n')
+
+
+@app.get("/video/stream")
+async def video_stream():
+    """Stream video frames"""
+    global camera
+    if camera is None or not camera.isOpened():
+        raise HTTPException(status_code=400, detail="Camera not started. Call /video/start first")
+    
+    return StreamingResponse(
+        generate_frames(),
+        media_type="multipart/x-mixed-replace; boundary=frame",
+        headers={
+            "Cache-Control": "no-cache, no-store, must-revalidate",
+            "Pragma": "no-cache",
+            "Expires": "0",
+            "Connection": "close"
+        }
+    )
+
+
+@app.post("/video/capture")
+async def capture_frame():
+    """Capture a single frame and analyze it"""
+    global camera
+    if camera is None or not camera.isOpened():
+        raise HTTPException(status_code=400, detail="Camera not started. Call /video/start first")
+    
+    # Capture frame
+    success, frame = camera.read()
+    if not success:
+        raise HTTPException(status_code=500, detail="Failed to capture frame")
+    
+    # Save frame to temporary file
+    request_id = uuid.uuid4().hex
+    image_path = os.path.join(CACHE_DIR, f"{request_id}.jpg")
+    
+    try:
+        cv2.imwrite(image_path, frame)
+        
+        # Run analysis
+        async with _request_lock:
+            results: Dict[str, Any] = complete_face_analysis(
+                image_path,
+                use_structured_output=True,
+            )
+            
+            # Process results same as /analyze endpoint
+            try:
+                llm_analysis = results.get("llm_analysis")
+                if isinstance(llm_analysis, dict) and "structured_data" in llm_analysis:
+                    sd = llm_analysis.get("structured_data")
+                    if sd is not None and not isinstance(sd, dict):
+                        results["llm_analysis"]["structured_data"] = OutputSchemaManager.to_dict(sd)
+            except Exception as e:
+                try:
+                    if isinstance(results.get("llm_analysis"), dict):
+                        results["llm_analysis"].pop("structured_data", None)
+                        results["llm_analysis"]["serialization_error"] = str(e)
+                except Exception:
+                    pass
+            
+            # Remove large base64 payloads
+            try:
+                face_results = results.get("face_results")
+                if isinstance(face_results, list):
+                    for fr in face_results:
+                        if isinstance(fr, dict) and "base64" in fr:
+                            fr.pop("base64", None)
+            except Exception:
+                pass
+            
+            # Add thumbnail
+            try:
+                with Image.open(image_path) as img:
+                    img = img.convert("RGB")
+                    if img.width > 0:
+                        ratio = 100.0 / float(img.width)
+                        new_size = (100, max(1, int(img.height * ratio)))
+                        img = img.resize(new_size, Image.LANCZOS)
+                    buf = io.BytesIO()
+                    img.save(buf, format="JPEG", quality=85)
+                    results["thumbnail_base64"] = "data:image/jpeg;base64," + base64.b64encode(buf.getvalue()).decode("ascii")
+            except Exception:
+                results["thumbnail_base64"] = None
+            
+            results["request_id"] = request_id
+            
+            # Save results
+            results_path = os.path.join(CACHE_DIR, f"{request_id}.json")
+            try:
+                with open(results_path, "w", encoding="utf-8") as f:
+                    json.dump(results, f, indent=2, ensure_ascii=False)
+            except Exception:
+                pass
+            
+            return JSONResponse(content=results)
+            
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Analysis failed: {str(e)}")
+
+
+@app.get("/video/status")
+async def video_status():
+    """Get current video stream status"""
+    global camera
+    is_active = camera is not None and camera.isOpened()
+    return {
+        "active": is_active,
+        "message": "Camera is active" if is_active else "Camera is not active"
+    }
+
+
+@app.get("/video/frame")
+async def video_frame():
+    """Get a single frame from the video stream"""
+    global camera
+    if camera is None or not camera.isOpened():
+        raise HTTPException(status_code=400, detail="Camera not started. Call /video/start first")
+    
+    success, frame = camera.read()
+    if not success:
+        raise HTTPException(status_code=500, detail="Failed to capture frame")
+    
+    # Encode frame as JPEG optimized for maximum speed
+    ret, buffer = cv2.imencode('.jpg', frame, [cv2.IMWRITE_JPEG_QUALITY, 30])
+    if not ret:
+        raise HTTPException(status_code=500, detail="Failed to encode frame")
+    
+    return StreamingResponse(
+        io.BytesIO(buffer.tobytes()),
+        media_type="image/jpeg",
+        headers={
+            "Cache-Control": "no-cache, no-store, must-revalidate",
+            "Pragma": "no-cache",
+            "Expires": "0"
+        }
+    )
 
 
 # Note: To keep the server single-threaded and process only one request at a time,
