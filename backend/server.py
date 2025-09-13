@@ -26,7 +26,7 @@ os.makedirs(CACHE_DIR, exist_ok=True)
 
 from pipeline import complete_face_analysis  # noqa: E402
 from output_schema import OutputSchemaManager  # noqa: E402
-from local_face_recognition import recognize  # noqa: E402
+from facial_recognition.local_face_recognition import recognize  # noqa: E402
 
 app = FastAPI(title="Orbit Face Analysis Server")
 
