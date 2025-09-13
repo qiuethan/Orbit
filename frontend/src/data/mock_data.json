@@ -1,0 +1,846 @@
+[
+  {
+    "success": true,
+    "face_results": [],
+    "serp_results": {
+      "https://www.businessinsider.com/interned-google-but-chose-start-career-ai-startup-2025-8": [
+        {
+          "rank": 1,
+          "title": "I Interned at Google but Chose to Start My Career at an AI Startup",
+          "link": "https://www.businessinsider.com/interned-google-but-chose-start-career-ai-startup-2025-8",
+          "snippet": "Profile of Advait Maybhate, software engineer at Warp.",
+          "displayed_link": "businessinsider.com",
+          "source_url": "https://www.businessinsider.com/interned-google-but-chose-start-career-ai-startup-2025-8"
+        },
+        {
+          "rank": 2,
+          "title": "Advait Maybhate - LinkedIn",
+          "link": "https://www.linkedin.com/in/advait-m",
+          "snippet": "Software Engineer at Warp; ex-Google/Ramp; University of Waterloo.",
+          "displayed_link": "linkedin.com/in/advait-m",
+          "source_url": "https://www.linkedin.com/in/advait-m"
+        },
+        {
+          "rank": 3,
+          "title": "Advait Maybhate (@AdvaitMaybhate) on X",
+          "link": "https://x.com/AdvaitMaybhate",
+          "snippet": "SWE @warpdotdev; ex-@google; @uwaterloo.",
+          "displayed_link": "x.com/AdvaitMaybhate",
+          "source_url": "https://x.com/AdvaitMaybhate"
+        }
+      ]
+    },
+    "scraped_results": {
+      "https://www.businessinsider.com/interned-google-but-chose-start-career-ai-startup-2025-8": [
+        {
+          "serp_data": {
+            "rank": 1,
+            "title": "I Interned at Google but Chose to Start My Career at an AI Startup",
+            "link": "https://www.businessinsider.com/interned-google-but-chose-start-career-ai-startup-2025-8",
+            "snippet": "Profile of Advait Maybhate, software engineer at Warp.",
+            "displayed_link": "businessinsider.com",
+            "source_url": "https://www.businessinsider.com/interned-google-but-chose-start-career-ai-startup-2025-8"
+          },
+          "scraped_content": {
+            "url": "https://www.businessinsider.com/interned-google-but-chose-start-career-ai-startup-2025-8",
+            "success": true,
+            "scraped_at": "2025-09-13",
+            "content": {
+              "method": "summary",
+              "title": "I Interned at Google but Chose to Start My Career at an AI Startup",
+              "text": "Article notes that Advait Maybhate is a software engineer at Warp and previously interned multiple times including at Google.",
+              "summary": "BI profile of Advait’s decision to join Warp.",
+              "authors": [],
+              "publish_date": "2025-09-01",
+              "top_image": "",
+              "keywords": [],
+              "meta_description": "A profile of Advait Maybhate, SWE at Warp, on choosing a startup over Big Tech.",
+              "word_count": 0
+            }
+          },
+          "enhanced_info": {
+            "has_deep_content": true,
+            "content_length": 50,
+            "extraction_method": "summary"
+          }
+        }
+      ]
+    },
+    "summary": {
+      "face_matches": 0,
+      "total_mentions": 3,
+      "urls_with_mentions": 1,
+      "scraped_pages": 1
+    },
+    "llm_analysis": {
+      "structured_data": {
+        "personal_info": {
+          "full_name": "Advait Maybhate",
+          "location": "San Francisco (approx.)",
+          "interests": ["AI agents", "developer tools"]
+        },
+        "professional_info": {
+          "current_position": "Software Engineer at Warp",
+          "industry": "Developer Tools / AI",
+          "previous_positions": ["Intern at Google", "Intern at Ramp"]
+        },
+        "education_info": {
+          "current_institution": "University of Waterloo (alumnus)"
+        },
+        "social_media": ["https://x.com/AdvaitMaybhate", "https://www.linkedin.com/in/advait-m"],
+        "talking_points": {
+          "recent_achievements": ["Joined Warp full-time", "Multiple internships including Google"],
+          "common_interests": ["AI infra", "Dev productivity"]
+        },
+        "public_presence_score": "Medium",
+        "credibility_indicators": ["Business Insider profile", "LinkedIn profile"],
+        "executive_summary": "Software engineer at Warp focused on AI developer tooling; Waterloo background with multiple internships.",
+        "key_insights": ["Startup-first mindset", "Strong internship track record"],
+        "confidence_level": "High",
+        "sources_quality": "Good",
+        "last_updated": null
+      },
+      "raw_response": null,
+      "provider": "compiled",
+      "model": "manual-curation",
+      "format": "structured",
+      "custom_instructions": null
+    },
+    "thumbnail_base64": "",
+    "request_id": "advait-maybhate-01"
+  },
+  {
+    "success": true,
+    "face_results": [],
+    "serp_results": {
+      "https://www.linkedin.com/in/alexei-schiopu": [
+        {
+          "rank": 1,
+          "title": "Alexei Schiopu - LinkedIn",
+          "link": "https://www.linkedin.com/in/alexei-schiopu",
+          "snippet": "Head of EPD at Pallet (per posts); University of Waterloo alumnus.",
+          "displayed_link": "linkedin.com/in/alexei-schiopu",
+          "source_url": "https://www.linkedin.com/in/alexei-schiopu"
+        },
+        {
+          "rank": 2,
+          "title": "Alexei Schiopu’s Post about Pallet",
+          "link": "https://www.linkedin.com/posts/alexei-schiopu_after-5-months-at-pallet-ive-gotten-a-real-activity-7250640915508125696-9oxF",
+          "snippet": "Reflection post referencing work at Pallet.",
+          "displayed_link": "linkedin.com/posts/alexei-schiopu",
+          "source_url": "https://www.linkedin.com/posts/alexei-schiopu_after-5-months-at-pallet-ive-gotten-a-real-activity-7250640915508125696-9oxF"
+        },
+        {
+          "rank": 3,
+          "title": "Hack the North 2025 Judges",
+          "link": "https://hackthenorth2025.devpost.com/?ref_feature=challenge&ref_medium=discover",
+          "snippet": "Event judges list includes Alexei Schiopu — Pallet, Head of EPD.",
+          "displayed_link": "hackthenorth2025.devpost.com",
+          "source_url": "https://hackthenorth2025.devpost.com/?ref_feature=challenge&ref_medium=discover"
+        }
+      ]
+    },
+    "scraped_results": {
+      "https://hackthenorth2025.devpost.com/?ref_feature=challenge&ref_medium=discover": [
+        {
+          "serp_data": {
+            "rank": 3,
+            "title": "Hack the North 2025: Judges",
+            "link": "https://hackthenorth2025.devpost.com/?ref_feature=challenge&ref_medium=discover",
+            "snippet": "Judges list with roles including Pallet, Head of EPD.",
+            "displayed_link": "devpost.com",
+            "source_url": "https://hackthenorth2025.devpost.com/?ref_feature=challenge&ref_medium=discover"
+          },
+          "scraped_content": {
+            "url": "https://hackthenorth2025.devpost.com/?ref_feature=challenge&ref_medium=discover",
+            "success": true,
+            "scraped_at": "2025-09-13",
+            "content": {
+              "method": "summary",
+              "title": "Hack the North 2025",
+              "text": "Page shows judges including Alexei Schiopu — Pallet, Head of EPD.",
+              "summary": "Event page listing judges and affiliations.",
+              "authors": [],
+              "publish_date": "2025-09-08",
+              "top_image": "",
+              "keywords": [],
+              "meta_description": "Official Devpost page for Hack the North 2025.",
+              "word_count": 0
+            }
+          },
+          "enhanced_info": {
+            "has_deep_content": false,
+            "content_length": 30,
+            "extraction_method": "summary"
+          }
+        }
+      ]
+    },
+    "summary": {
+      "face_matches": 0,
+      "total_mentions": 3,
+      "urls_with_mentions": 1,
+      "scraped_pages": 1
+    },
+    "llm_analysis": {
+      "structured_data": {
+        "personal_info": {
+          "full_name": "Alexei Schiopu",
+          "location": "Canada (approx.)"
+        },
+        "professional_info": {
+          "current_position": "Head of EPD (Engineering/Product/Design) at Pallet",
+          "industry": "Recruiting / Talent / Platforms"
+        },
+        "education_info": {
+          "current_institution": "University of Waterloo (alumnus)"
+        },
+        "social_media": ["https://www.linkedin.com/in/alexei-schiopu"],
+        "talking_points": {
+          "recent_achievements": ["Leadership role at Pallet"],
+          "common_interests": ["Hiring platforms", "Product & eng orgs"]
+        },
+        "public_presence_score": "Low",
+        "credibility_indicators": ["Event listing", "LinkedIn"],
+        "executive_summary": "Pallet team leader overseeing EPD; Waterloo background.",
+        "key_insights": ["Hands-on startup operator"],
+        "confidence_level": "Medium",
+        "sources_quality": "Okay",
+        "last_updated": null
+      },
+      "raw_response": null,
+      "provider": "compiled",
+      "model": "manual-curation",
+      "format": "structured",
+      "custom_instructions": null
+    },
+    "thumbnail_base64": "",
+    "request_id": "alexei-schiopu-01"
+  },
+  {
+    "success": true,
+    "face_results": [],
+    "serp_results": {
+      "https://www.ycombinator.com/people/andrew-miklas": [
+        {
+          "rank": 1,
+          "title": "Andrew Miklas — YC",
+          "link": "https://www.ycombinator.com/people/andrew-miklas",
+          "snippet": "General Partner at Y Combinator; previously co-founded PagerDuty.",
+          "displayed_link": "ycombinator.com/people/andrew-miklas",
+          "source_url": "https://www.ycombinator.com/people/andrew-miklas"
+        },
+        {
+          "rank": 2,
+          "title": "Welcoming Jon Xu and Andrew Miklas as YC’s Newest General Partners",
+          "link": "https://www.ycombinator.com/blog/welcome-jon-and-andrew",
+          "snippet": "YC blog post announcing Andrew as General Partner (May 2025).",
+          "displayed_link": "ycombinator.com/blog/welcome-jon-and-andrew",
+          "source_url": "https://www.ycombinator.com/blog/welcome-jon-and-andrew"
+        },
+        {
+          "rank": 3,
+          "title": "Andrew Miklas - LinkedIn",
+          "link": "https://www.linkedin.com/in/amiklas",
+          "snippet": "Partner at Y Combinator; co-founded PagerDuty.",
+          "displayed_link": "linkedin.com/in/amiklas",
+          "source_url": "https://www.linkedin.com/in/amiklas"
+        }
+      ]
+    },
+    "scraped_results": {
+      "https://www.ycombinator.com/people/andrew-miklas": [
+        {
+          "serp_data": {
+            "rank": 1,
+            "title": "Andrew Miklas — YC",
+            "link": "https://www.ycombinator.com/people/andrew-miklas",
+            "snippet": "General Partner at YC; co-founded PagerDuty.",
+            "displayed_link": "ycombinator.com",
+            "source_url": "https://www.ycombinator.com/people/andrew-miklas"
+          },
+          "scraped_content": {
+            "url": "https://www.ycombinator.com/people/andrew-miklas",
+            "success": true,
+            "scraped_at": "2025-09-13",
+            "content": {
+              "method": "html",
+              "title": "Andrew Miklas — General Partner",
+              "text": "YC bio page noting General Partner; previously PagerDuty founding CTO and later investor at s28 Capital.",
+              "summary": "YC profile.",
+              "authors": [],
+              "publish_date": "2025-05-21",
+              "top_image": "",
+              "keywords": [],
+              "meta_description": "Andrew is a General Partner at YC; previously co-founded PagerDuty.",
+              "word_count": 0
+            }
+          },
+          "enhanced_info": {
+            "has_deep_content": true,
+            "content_length": 60,
+            "extraction_method": "html"
+          }
+        }
+      ]
+    },
+    "summary": {
+      "face_matches": 0,
+      "total_mentions": 3,
+      "urls_with_mentions": 1,
+      "scraped_pages": 1
+    },
+    "llm_analysis": {
+      "structured_data": {
+        "personal_info": {
+          "full_name": "Andrew Miklas",
+          "location": "San Francisco (approx.)"
+        },
+        "professional_info": {
+          "current_position": "General Partner at Y Combinator",
+          "previous_positions": ["Co-founder & founding CTO, PagerDuty", "Investor, s28 Capital"],
+          "industry": "Venture Capital / DevOps / SaaS"
+        },
+        "education_info": {},
+        "social_media": ["https://www.linkedin.com/in/amiklas"],
+        "talking_points": {
+          "recent_achievements": ["Named YC General Partner in 2025"],
+          "notable_projects": ["PagerDuty"]
+        },
+        "public_presence_score": "High",
+        "credibility_indicators": ["Official YC site", "YC blog post"],
+        "executive_summary": "Ex-PagerDuty founder; now GP at YC.",
+        "key_insights": ["Deep infra/ops background"],
+        "confidence_level": "High",
+        "sources_quality": "High",
+        "last_updated": null
+      },
+      "raw_response": null,
+      "provider": "compiled",
+      "model": "manual-curation",
+      "format": "structured",
+      "custom_instructions": null
+    },
+    "thumbnail_base64": "",
+    "request_id": "andrew-miklas-01"
+  },
+  {
+    "success": true,
+    "face_results": [],
+    "serp_results": {
+      "https://ca.linkedin.com/in/bradtgmurray": [
+        {
+          "rank": 1,
+          "title": "Brad Murray - LinkedIn",
+          "link": "https://ca.linkedin.com/in/bradtgmurray",
+          "snippet": "Head of Engineering — Beeper (Automattic).",
+          "displayed_link": "linkedin.com/in/bradtgmurray",
+          "source_url": "https://ca.linkedin.com/in/bradtgmurray"
+        },
+        {
+          "rank": 2,
+          "title": "WordPress owner Automattic acquires Beeper",
+          "link": "https://betakit.com/wordpress-owner-acquires-eric-migicovskys-messaging-app-beeper-following-spar-with-apple/",
+          "snippet": "Acquisition news; Brad listed as CTO/engineering leader.",
+          "displayed_link": "betakit.com",
+          "source_url": "https://betakit.com/wordpress-owner-acquires-eric-migicovskys-messaging-app-beeper-following-spar-with-apple/"
+        },
+        {
+          "rank": 3,
+          "title": "Memfault CoreDump webinar page (bio blurb)",
+          "link": "https://go.memfault.com/coredump-pebble-part-2",
+          "snippet": "Bio: Co-Founder & Head of Engineering at Beeper (Automattic).",
+          "displayed_link": "memfault.com",
+          "source_url": "https://go.memfault.com/coredump-pebble-part-2"
+        }
+      ]
+    },
+    "scraped_results": {
+      "https://go.memfault.com/coredump-pebble-part-2": [
+        {
+          "serp_data": {
+            "rank": 3,
+            "title": "Memfault CoreDump — Pebble (Part 2)",
+            "link": "https://go.memfault.com/coredump-pebble-part-2",
+            "snippet": "Bio lists Brad Murray as Co-Founder & Head of Engineering at Beeper (Automattic).",
+            "displayed_link": "memfault.com",
+            "source_url": "https://go.memfault.com/coredump-pebble-part-2"
+          },
+          "scraped_content": {
+            "url": "https://go.memfault.com/coredump-pebble-part-2",
+            "success": true,
+            "scraped_at": "2025-09-13",
+            "content": {
+              "method": "html",
+              "title": "CoreDump: Pebble (Part 2)",
+              "text": "Event page includes short bio of Brad Murray: Co-Founder & Head of Engineering at Beeper (Automattic).",
+              "summary": "Event blurb with role.",
+              "authors": [],
+              "publish_date": "2024-2025",
+              "top_image": "",
+              "keywords": [],
+              "meta_description": "Webinar series page with speaker bios.",
+              "word_count": 0
+            }
+          },
+          "enhanced_info": {
+            "has_deep_content": false,
+            "content_length": 30,
+            "extraction_method": "html"
+          }
+        }
+      ]
+    },
+    "summary": {
+      "face_matches": 0,
+      "total_mentions": 3,
+      "urls_with_mentions": 1,
+      "scraped_pages": 1
+    },
+    "llm_analysis": {
+      "structured_data": {
+        "personal_info": {
+          "full_name": "Brad Murray",
+          "location": "Waterloo, Ontario (approx.)"
+        },
+        "professional_info": {
+          "current_position": "Head of Engineering — Beeper (Automattic)",
+          "previous_positions": ["Faire", "Fitbit", "Pebble"],
+          "industry": "Messaging / Consumer Software"
+        },
+        "education_info": {
+          "degree": "BASc, University of Waterloo"
+        },
+        "social_media": ["https://ca.linkedin.com/in/bradtgmurray"],
+        "public_presence_score": "Medium",
+        "credibility_indicators": ["Company acquisition coverage", "Professional bios"],
+        "executive_summary": "Engineering leader at Beeper (Automattic), ex-Pebble/Fitbit/Faire.",
+        "key_insights": ["Embedded + product eng leadership"],
+        "confidence_level": "High",
+        "sources_quality": "Good",
+        "last_updated": null
+      },
+      "raw_response": null,
+      "provider": "compiled",
+      "model": "manual-curation",
+      "format": "structured",
+      "custom_instructions": null
+    },
+    "thumbnail_base64": "",
+    "request_id": "brad-murray-01"
+  },
+  {
+    "success": true,
+    "face_results": [],
+    "serp_results": {
+      "https://twosmallfish.vc/team/albert-chen": [
+        {
+          "rank": 1,
+          "title": "Albert Chen — Two Small Fish Ventures",
+          "link": "https://twosmallfish.vc/team/albert-chen",
+          "snippet": "Venture Partner; previously CTO at Forcen; Waterloo Systems Design alum.",
+          "displayed_link": "twosmallfish.vc/team/albert-chen",
+          "source_url": "https://twosmallfish.vc/team/albert-chen"
+        },
+        {
+          "rank": 2,
+          "title": "Welcoming Albert Chen as a Venture Partner at Two Small Fish Ventures",
+          "link": "https://allensthoughts.com/2025/01/16/welcoming-albert-chen-as-a-venture-partner-at-two-small-fish-ventures/",
+          "snippet": "Blog post with background; mentions Forcen CTO role.",
+          "displayed_link": "allensthoughts.com",
+          "source_url": "https://allensthoughts.com/2025/01/16/welcoming-albert-chen-as-a-venture-partner-at-two-small-fish-ventures/"
+        },
+        {
+          "rank": 3,
+          "title": "Albert Chen - LinkedIn",
+          "link": "https://ca.linkedin.com/in/albert-chen-4599055",
+          "snippet": "Venture/Partner at Two Small Fish Ventures; prior Forcen CTO.",
+          "displayed_link": "linkedin.com/in/albert-chen-4599055",
+          "source_url": "https://ca.linkedin.com/in/albert-chen-4599055"
+        }
+      ]
+    },
+    "scraped_results": {
+      "https://twosmallfish.vc/team/albert-chen": [
+        {
+          "serp_data": {
+            "rank": 1,
+            "title": "Albert Chen — Two Small Fish Ventures",
+            "link": "https://twosmallfish.vc/team/albert-chen",
+            "snippet": "Venture Partner; previously Forcen CTO; Waterloo alum.",
+            "displayed_link": "twosmallfish.vc",
+            "source_url": "https://twosmallfish.vc/team/albert-chen"
+          },
+          "scraped_content": {
+            "url": "https://twosmallfish.vc/team/albert-chen",
+            "success": true,
+            "scraped_at": "2025-09-13",
+            "content": {
+              "method": "html",
+              "title": "Albert Chen — Team",
+              "text": "Bio highlights: Venture Partner at Two Small Fish Ventures; former CTO at Forcen; roles at Metergy, Excelitas, and North; Waterloo Systems Design alum with exchange at NTU.",
+              "summary": "Official TSF bio.",
+              "authors": [],
+              "publish_date": "2025-01-16",
+              "top_image": "",
+              "keywords": [],
+              "meta_description": "TSF team biography for Albert Chen.",
+              "word_count": 0
+            }
+          },
+          "enhanced_info": {
+            "has_deep_content": true,
+            "content_length": 70,
+            "extraction_method": "html"
+          }
+        }
+      ]
+    },
+    "summary": {
+      "face_matches": 0,
+      "total_mentions": 3,
+      "urls_with_mentions": 1,
+      "scraped_pages": 1
+    },
+    "llm_analysis": {
+      "structured_data": {
+        "personal_info": {
+          "full_name": "Albert Chen",
+          "location": "Toronto area (approx.)"
+        },
+        "professional_info": {
+          "current_position": "Venture Partner at Two Small Fish Ventures",
+          "previous_positions": ["CTO, Forcen", "Engineering roles at Metergy, Excelitas, North"],
+          "industry": "Venture Capital / Robotics & Edge AI"
+        },
+        "education_info": {
+          "degree": "BASc, Systems Design Engineering (Waterloo); exchange at National Taiwan University"
+        },
+        "social_media": ["https://ca.linkedin.com/in/albert-chen-4599055"],
+        "public_presence_score": "Medium",
+        "credibility_indicators": ["Official firm bio"],
+        "executive_summary": "VC partner with deep robotics/edge-AI engineering background; ex-CTO at Forcen.",
+        "key_insights": ["Operator-turned-investor", "Hardware/AI domain expertise"],
+        "confidence_level": "High",
+        "sources_quality": "High",
+        "last_updated": null
+      },
+      "raw_response": null,
+      "provider": "compiled",
+      "model": "manual-curation",
+      "format": "structured",
+      "custom_instructions": null
+    },
+    "thumbnail_base64": "",
+    "request_id": "albert-chen-01"
+  },
+  {
+    "success": true,
+    "face_results": [],
+    "serp_results": {
+      "https://www.velocityincubator.com/about": [
+        {
+          "rank": 1,
+          "title": "About | Velocity — Our Team",
+          "link": "https://www.velocityincubator.com/about",
+          "snippet": "Team page lists Alroy Almeida as Director (Deep Tech).",
+          "displayed_link": "velocityincubator.com/about",
+          "source_url": "https://www.velocityincubator.com/about"
+        },
+        {
+          "rank": 2,
+          "title": "The method and magic of finding a co-founder",
+          "link": "https://www.velocityincubator.com/news/the-method-and-magic-of-finding-a-co-founder",
+          "snippet": "Article mentions Alroy as Director of Deep Tech and co-founder of Voltera.",
+          "displayed_link": "velocityincubator.com/news/…",
+          "source_url": "https://www.velocityincubator.com/news/the-method-and-magic-of-finding-a-co-founder"
+        },
+        {
+          "rank": 3,
+          "title": "UW News: The method and magic of finding a co-founder",
+          "link": "https://uwaterloo.ca/news/method-and-magic-finding-co-founder",
+          "snippet": "UW story on Alroy Almeida, Director of Deep Tech at Velocity; Voltera co-founder.",
+          "displayed_link": "uwaterloo.ca/news/…",
+          "source_url": "https://uwaterloo.ca/news/method-and-magic-finding-co-founder"
+        }
+      ]
+    },
+    "scraped_results": {
+      "https://www.velocityincubator.com/about": [
+        {
+          "serp_data": {
+            "rank": 1,
+            "title": "About | Velocity",
+            "link": "https://www.velocityincubator.com/about",
+            "snippet": "Team page lists Alroy Almeida as Director.",
+            "displayed_link": "velocityincubator.com",
+            "source_url": "https://www.velocityincubator.com/about"
+          },
+          "scraped_content": {
+            "url": "https://www.velocityincubator.com/about",
+            "success": true,
+            "scraped_at": "2025-09-13",
+            "content": {
+              "method": "html",
+              "title": "About | Velocity",
+              "text": "Our team section shows Alroy Almeida — Director (Deep Tech).",
+              "summary": "Org team listing.",
+              "authors": [],
+              "publish_date": "2023-2025",
+              "top_image": "",
+              "keywords": [],
+              "meta_description": "Velocity team page.",
+              "word_count": 0
+            }
+          },
+          "enhanced_info": {
+            "has_deep_content": false,
+            "content_length": 25,
+            "extraction_method": "html"
+          }
+        }
+      ]
+    },
+    "summary": {
+      "face_matches": 0,
+      "total_mentions": 3,
+      "urls_with_mentions": 1,
+      "scraped_pages": 1
+    },
+    "llm_analysis": {
+      "structured_data": {
+        "personal_info": {
+          "full_name": "Alroy Almeida",
+          "location": "Waterloo, Ontario (approx.)"
+        },
+        "professional_info": {
+          "current_position": "Director (Deep Tech) at Velocity Incubator",
+          "previous_positions": ["Co-founder, Voltera"],
+          "industry": "Startup Incubation / Hardware"
+        },
+        "education_info": {
+          "degree": "BASc ’13, University of Waterloo"
+        },
+        "social_media": ["https://ca.linkedin.com/in/alroyalmeida"],
+        "executive_summary": "Deep-tech startup leader at Waterloo’s Velocity; co-founded Voltera.",
+        "key_insights": ["Hardware startup ecosystem", "Founder support"],
+        "public_presence_score": "Medium",
+        "credibility_indicators": ["Official org page", "University news"],
+        "confidence_level": "High",
+        "sources_quality": "High",
+        "last_updated": null
+      },
+      "raw_response": null,
+      "provider": "compiled",
+      "model": "manual-curation",
+      "format": "structured",
+      "custom_instructions": null
+    },
+    "thumbnail_base64": "",
+    "request_id": "alroy-almeida-01"
+  },
+  {
+    "success": true,
+    "face_results": [],
+    "serp_results": {
+      "https://www.f6s.com/artemalekhin": [
+        {
+          "rank": 1,
+          "title": "Artem Alekhin | CTO at Voiceform — F6S",
+          "link": "https://www.f6s.com/artemalekhin",
+          "snippet": "Profile lists Artem as CTO @ Voiceform.",
+          "displayed_link": "f6s.com/artemalekhin",
+          "source_url": "https://www.f6s.com/artemalekhin"
+        },
+        {
+          "rank": 2,
+          "title": "Voiceform — People (Wellfound)",
+          "link": "https://wellfound.com/company/voiceform/people",
+          "snippet": "Shows founders/people incl. Artem Alekhin (CTO).",
+          "displayed_link": "wellfound.com/company/voiceform/people",
+          "source_url": "https://wellfound.com/company/voiceform/people"
+        },
+        {
+          "rank": 3,
+          "title": "Artem Alekhin — LinkedIn",
+          "link": "https://ca.linkedin.com/in/artem-alekhin",
+          "snippet": "Web developer/engineer; CTO at Voiceform.",
+          "displayed_link": "linkedin.com/in/artem-alekhin",
+          "source_url": "https://ca.linkedin.com/in/artem-alekhin"
+        }
+      ]
+    },
+    "scraped_results": {
+      "https://www.f6s.com/artemalekhin": [
+        {
+          "serp_data": {
+            "rank": 1,
+            "title": "Artem Alekhin | CTO at Voiceform",
+            "link": "https://www.f6s.com/artemalekhin",
+            "snippet": "Profile listing CTO @ Voiceform.",
+            "displayed_link": "f6s.com",
+            "source_url": "https://www.f6s.com/artemalekhin"
+          },
+          "scraped_content": {
+            "url": "https://www.f6s.com/artemalekhin",
+            "success": true,
+            "scraped_at": "2025-09-13",
+            "content": {
+              "method": "html",
+              "title": "Artem Alekhin",
+              "text": "F6S profile: Software Engineer with 5+ years experience; CTO @ Voiceform.",
+              "summary": "Directory profile.",
+              "authors": [],
+              "publish_date": "",
+              "top_image": "",
+              "keywords": [],
+              "meta_description": "CTO @ Voiceform.",
+              "word_count": 0
+            }
+          },
+          "enhanced_info": {
+            "has_deep_content": false,
+            "content_length": 25,
+            "extraction_method": "html"
+          }
+        }
+      ]
+    },
+    "summary": {
+      "face_matches": 0,
+      "total_mentions": 3,
+      "urls_with_mentions": 1,
+      "scraped_pages": 1
+    },
+    "llm_analysis": {
+      "structured_data": {
+        "personal_info": {
+          "full_name": "Artem Alekhin",
+          "location": "Toronto (approx.)"
+        },
+        "professional_info": {
+          "current_position": "Co-founder & CTO at Voiceform",
+          "industry": "SaaS / Survey & AI forms"
+        },
+        "education_info": {},
+        "social_media": ["https://ca.linkedin.com/in/artem-alekhin"],
+        "executive_summary": "Technical co-founder and CTO at Voiceform.",
+        "key_insights": ["Full-stack leadership"],
+        "public_presence_score": "Low",
+        "credibility_indicators": ["Company listings", "Professional profiles"],
+        "confidence_level": "Medium",
+        "sources_quality": "Okay",
+        "last_updated": null
+      },
+      "raw_response": null,
+      "provider": "compiled",
+      "model": "manual-curation",
+      "format": "structured",
+      "custom_instructions": null
+    },
+    "thumbnail_base64": "",
+    "request_id": "artem-alekhin-01"
+  },
+  {
+    "success": true,
+    "face_results": [],
+    "serp_results": {
+      "https://www.voiceflow.com/contributors/braden-ream": [
+        {
+          "rank": 1,
+          "title": "Braden Ream — Voiceflow Contributor",
+          "link": "https://www.voiceflow.com/contributors/braden-ream",
+          "snippet": "Company page with multiple posts by Braden Ream.",
+          "displayed_link": "voiceflow.com/contributors/braden-ream",
+          "source_url": "https://www.voiceflow.com/contributors/braden-ream"
+        },
+        {
+          "rank": 2,
+          "title": "Braden Ream — LinkedIn",
+          "link": "https://ca.linkedin.com/in/braden-ream",
+          "snippet": "Co-founder & CEO at Voiceflow.",
+          "displayed_link": "linkedin.com/in/braden-ream",
+          "source_url": "https://ca.linkedin.com/in/braden-ream"
+        },
+        {
+          "rank": 3,
+          "title": "Thought Leaders #4: Braden Ream, CEO of Voiceflow",
+          "link": "https://jurgengravestein.substack.com/p/thought-leaders-4-braden-ream-ceo",
+          "snippet": "Interview/profile of Voiceflow CEO.",
+          "displayed_link": "substack.com/p/thought-leaders-4-braden-ream-ceo",
+          "source_url": "https://jurgengravestein.substack.com/p/thought-leaders-4-braden-ream-ceo"
+        }
+      ]
+    },
+    "scraped_results": {
+      "https://www.voiceflow.com/contributors/braden-ream": [
+        {
+          "serp_data": {
+            "rank": 1,
+            "title": "Braden Ream — Voiceflow",
+            "link": "https://www.voiceflow.com/contributors/braden-ream",
+            "snippet": "Articles and contributions by Braden Ream.",
+            "displayed_link": "voiceflow.com",
+            "source_url": "https://www.voiceflow.com/contributors/braden-ream"
+          },
+          "scraped_content": {
+            "url": "https://www.voiceflow.com/contributors/braden-ream",
+            "success": true,
+            "scraped_at": "2025-09-13",
+            "content": {
+              "method": "html",
+              "title": "Braden Ream — Voiceflow",
+              "text": "Contributor page with posts by Braden Ream; reflects role as company leader.",
+              "summary": "Company page with author profile.",
+              "authors": [],
+              "publish_date": "",
+              "top_image": "",
+              "keywords": [],
+              "meta_description": "Articles by Braden Ream on Voiceflow.",
+              "word_count": 0
+            }
+          },
+          "enhanced_info": {
+            "has_deep_content": false,
+            "content_length": 30,
+            "extraction_method": "html"
+          }
+        }
+      ]
+    },
+    "summary": {
+      "face_matches": 0,
+      "total_mentions": 3,
+      "urls_with_mentions": 1,
+      "scraped_pages": 1
+    },
+    "llm_analysis": {
+      "structured_data": {
+        "personal_info": {
+          "full_name": "Braden Ream",
+          "location": "San Francisco / Toronto (approx.)"
+        },
+        "professional_info": {
+          "current_position": "Co-founder & CEO at Voiceflow",
+          "industry": "Conversational AI"
+        },
+        "education_info": {},
+        "social_media": ["https://ca.linkedin.com/in/braden-ream"],
+        "executive_summary": "Founder-CEO leading Voiceflow’s conversational AI platform.",
+        "key_insights": ["Agent tooling focus"],
+        "public_presence_score": "High",
+        "credibility_indicators": ["Official company site", "Interviews"],
+        "confidence_level": "High",
+        "sources_quality": "High",
+        "last_updated": null
+      },
+      "raw_response": null,
+      "provider": "compiled",
+      "model": "manual-curation",
+      "format": "structured",
+      "custom_instructions": null
+    },
+    "thumbnail_base64": "",
+    "request_id": "braden-ream-01"
+  }
+]
