@@ -60,7 +60,8 @@ class SerpSearchModule:
             print(f"🔍 Searching for mentions of URL {i}/{len(valid_urls)}: {url}")
             
             try:
-                search_query = f'"{url}"'
+                # Simple Google search with the URL (like typing it in Google search bar)
+                search_query = url
                 search = GoogleSearch({
                     "q": search_query,
                     "api_key": self.api_key,

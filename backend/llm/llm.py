@@ -86,7 +86,7 @@ class LLM:
         if not self.api_key:
             raise ValueError("Cerebras API key required. Set CEREBRAS_KEY or pass api_key parameter.")
         
-        self.model = model or "llama3.1-8b"
+        self.model = model or os.getenv('CEREBRAS_MODEL', "gpt-oss-120b")  # Default to GPT-OSS-120B for best performance
         self.client = Cerebras(api_key=self.api_key)
     
     def _init_openai(self, api_key: Optional[str], model: Optional[str]):
@@ -98,7 +98,7 @@ class LLM:
         if not self.api_key:
             raise ValueError("OpenAI API key required. Set OPENAI_API_KEY or pass api_key parameter.")
         
-        self.model = model or "gpt-3.5-turbo"
+        self.model = model or os.getenv('OPENAI_MODEL', "gpt-4o")  # Default to GPT-4o, override with env var
         self.client = OpenAI(api_key=self.api_key)
     
     def chat(self, prompt: str, max_tokens: int = 2048) -> str:

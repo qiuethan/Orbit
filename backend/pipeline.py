@@ -5,6 +5,8 @@ This module orchestrates the complete search and analysis pipeline.
 """
 
 import os
+import json
+from datetime import datetime
 from typing import Dict, List, Optional, Any
 from dotenv import load_dotenv
 
@@ -55,6 +57,41 @@ class SearchAnalysisPipeline:
         except Exception as e:
             print(f"⚠️  LLM not available: {e}")
             print("   Pipeline will work without AI analysis")
+    
+    def _save_step_log(self, step_name: str, data: Any, step_number: int = None) -> str:
+        """
+        Save pipeline step data to a timestamped file for debugging.
+        
+        Args:
+            step_name: Name of the pipeline step
+            data: Data to save
+            step_number: Optional step number for ordering
+            
+        Returns:
+            Filename where data was saved
+        """
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        step_prefix = f"{step_number:02d}_" if step_number else ""
+        filename = f"logs/pipeline_log_{timestamp}_{step_prefix}{step_name}.json"
+        
+        try:
+            # Create log data with metadata
+            log_data = {
+                "timestamp": datetime.now().isoformat(),
+                "step": step_name,
+                "step_number": step_number,
+                "data": data
+            }
+            
+            with open(filename, "w", encoding="utf-8") as f:
+                json.dump(log_data, f, indent=2, ensure_ascii=False, default=str)
+            
+            print(f"   📁 Step logged to: {filename}")
+            return filename
+            
+        except Exception as e:
+            print(f"   ⚠️  Failed to save step log: {e}")
+            return ""
     
     def analyze_results_with_llm(self, search_results: Dict, custom_prompt: str) -> str:
         """
@@ -184,11 +221,16 @@ class SearchAnalysisPipeline:
                 scrape_content=True
             )
             
+            # Log Phase 1 results
+            self._save_step_log("01_search_results", search_results, 1)
+            
             if not search_results.get("success"):
-                return {
+                error_result = {
                     "success": False,
                     "error": f"Search operations failed: {search_results.get('error', 'Unknown error')}",
                 }
+                self._save_step_log("error_search_failure", error_result)
+                return error_result
             
             print("✅ Search operations completed successfully")
             summary = search_results.get("summary", {})
@@ -212,6 +254,14 @@ class SearchAnalysisPipeline:
 
 Please provide a detailed but well-structured analysis based on the available search data."""
                     print("   Using default comprehensive analysis prompt")
+                
+                # Log LLM input data
+                llm_input_data = {
+                    "prompt": analysis_prompt if custom_prompt else "default_comprehensive_prompt",
+                    "use_structured_output": use_structured_output,
+                    "search_context": self._format_results_for_llm(search_results)
+                }
+                self._save_step_log("02_llm_input", llm_input_data, 2)
                 
                 try:
                     if use_structured_output:
@@ -249,6 +299,9 @@ Please provide a detailed but well-structured analysis based on the available se
                             "format": "text"
                         }
                         print("✅ LLM analysis completed successfully")
+                    
+                    # Log LLM output data
+                    self._save_step_log("03_llm_output", search_results.get("llm_analysis", {}), 3)
                         
                 except Exception as e:
                     search_results["llm_analysis"] = {
@@ -269,15 +322,31 @@ Please provide a detailed but well-structured analysis based on the available se
                 print("⚠️  LLM analysis skipped - insufficient data found")
             
             print("🎉 COMPLETE PIPELINE FINISHED SUCCESSFULLY!")
-            print(f"   🧠 LLM Analysis: {'✅ Completed' if 'analysis' in search_results.get('llm_analysis', {}) else '❌ Failed/Skipped'}")
+            
+            # Check if LLM analysis was successful (either text or structured)
+            llm_analysis = search_results.get('llm_analysis', {})
+            llm_success = ('analysis' in llm_analysis) or ('structured_data' in llm_analysis)
+            print(f"   🧠 LLM Analysis: {'✅ Completed' if llm_success else '❌ Failed/Skipped'}")
+            
+            # Log final pipeline results
+            final_results = {
+                **search_results,
+                "pipeline_success": True,
+                "llm_success": llm_success,
+                "completion_time": datetime.now().isoformat()
+            }
+            self._save_step_log("04_final_results", final_results, 4)
             
             return search_results
             
         except Exception as e:
-            return {
+            error_result = {
                 "success": False,
-                "error": f"Pipeline error: {str(e)}"
+                "error": f"Pipeline error: {str(e)}",
+                "failure_time": datetime.now().isoformat()
             }
+            self._save_step_log("error_pipeline_failure", error_result)
+            return error_result
     
     def _has_meaningful_results(self, search_results: Dict) -> bool:
         """Check if search results contain meaningful data for analysis."""
