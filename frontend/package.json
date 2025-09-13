@@ -1,0 +1,32 @@
+{
+  "name": "orbit-frontend",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@headlessui/react": "^2.2.4",
+    "@heroicons/react": "^2.2.0",
+    "@tiptap/react": "^2.22.0",
+    "@tiptap/starter-kit": "^2.22.0",
+    "graphology": "^0.26.0",
+    "graphology-layout-force": "^0.2.4",
+    "next": "15.3.4",
+    "novel": "^1.0.2",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "reactflow": "^11.11.4",
+    "sigma": "^3.0.2"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3",
+    "@tailwindcss/postcss": "^4",
+    "eslint": "^9",
+    "eslint-config-next": "15.3.4",
+    "tailwindcss": "^4"
+  }
+}

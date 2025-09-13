@@ -1,0 +1,56 @@
+@import "tailwindcss";
+
+/* Apple Liquid Glass Overlay Animations */
+@keyframes overlay-in {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) scale(0.8) translateY(10px);
+    backdrop-filter: blur(0px);
+  }
+  50% {
+    backdrop-filter: blur(8px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(-50%) scale(1) translateY(0px);
+    backdrop-filter: blur(20px);
+  }
+}
+
+@keyframes overlay-out {
+  0% {
+    opacity: 1;
+    transform: translateX(-50%) scale(1) translateY(0px);
+    backdrop-filter: blur(20px);
+  }
+  50% {
+    backdrop-filter: blur(8px);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) scale(0.8) translateY(-10px);
+    backdrop-filter: blur(0px);
+  }
+}
+
+.animate-overlay-in {
+  animation: overlay-in 0.4s ease-out forwards;
+}
+
+.animate-overlay-out {
+  animation: overlay-out 0.3s ease-in forwards;
+}
+
+/* Additional glass effects */
+.backdrop-blur-xl {
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+/* Line clamp utility */
+.line-clamp-3 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
