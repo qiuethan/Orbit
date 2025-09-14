@@ -1,0 +1,129 @@
+{
+    "person_analysis": {
+      "personal_info": {
+        "full_name": "Ryan Gariepy",
+        "age": null,
+        "location": "Waterloo, Ontario, Canada",
+        "nationality": "Canadian",
+        "languages": ["English"],
+        "interests": [
+          "Autonomous robotics",
+          "Mobile robots (ground, sea, aerial)",
+          "Robotics research and commercialization",
+          "Machine vision and controls",
+          "System architecture and state estimation",
+          "Robotics policy and ecosystem building",
+          "Mentorship in robotics and engineering"
+        ]
+      },
+      "professional_info": {
+        "current_position": "Vice President, Robotics",
+        "company": "Rockwell Automation",
+        "industry": "Robotics / Automation / Industrial Technology",
+        "previous_positions": [
+          "CTO – Clearpath Robotics by Rockwell Automation (2023–2025)",
+          "CTO – OTTO Motors by Rockwell Automation (2023–2025)",
+          "Board Member – Open Robotics (2012–Present)",
+          "Chair – Canadian Robotics Council (2021–Present)"
+        ],
+        "skills": [
+          "Autonomous Robotics",
+          "Machine Vision",
+          "Controls & Path Planning",
+          "Robot State Estimation & Localization",
+          "Multi-Robot Systems",
+          "System Architecture",
+          "Product Roadmaps",
+          "R&D Management",
+          "IP Strategy",
+          "Business Development"
+        ],
+        "achievements": [
+          "Co-founded and scaled **Clearpath Robotics**, a leader in autonomous mobile robots, acquired by Rockwell Automation.",
+          "Now serving as **VP Robotics at Rockwell Automation**, shaping the company’s global robotics strategy.",
+          "Over a decade as a **Board Member at Open Robotics**, supporting the development of **ROS (Robot Operating System)**, the most widely used open-source robotics framework.",
+          "Chair of the **Canadian Robotics Council**, working to position Canada as a global leader in robotics-driven economic development.",
+          "Recognized thought leader at conferences like **ROSCon**, helping advance open-source robotics adoption worldwide."
+        ]
+      },
+      "education_info": {
+        "degree": [
+          "MASc, Mechanical Engineering – University of Waterloo (2009–2011), research on visual state estimation for quadrotor UAVs",
+          "BASc, Mechatronics Engineering – University of Waterloo (2004–2009), active in UW Robotics Team, EngSoc, Frosh Week"
+        ],
+        "institution": "University of Waterloo",
+        "graduation_year": 2011
+      },
+      "social_media": [
+        {
+          "platform": "LinkedIn",
+          "username": null,
+          "url": null,
+          "verified": null,
+          "followers_count": 7423
+        }
+      ],
+      "talking_points": {
+        "recent_achievements": [
+          "Appointed **VP Robotics at Rockwell Automation (2025)**.",
+          "Chairing the **Canadian Robotics Council**, driving robotics adoption and economic growth in Canada.",
+          "Leading strategy at **ROSCon 2025 in Singapore**, which sold out exhibitor booths for the first time in its history."
+        ],
+        "shared_connections": ["Ali Seifeldin"],
+        "common_interests": [
+          "Open-source robotics",
+          "Autonomous vehicle systems",
+          "Industrial robotics",
+          "Canadian startup and robotics ecosystem"
+        ],
+        "conversation_starters": [
+          "Ask about the transition of **Clearpath Robotics into Rockwell Automation** and lessons from scaling.",
+          "Discuss his role at **Open Robotics** and how ROS has evolved since 2012.",
+          "Explore his vision for **Canadian robotics competitiveness** as Chair of the Canadian Robotics Council.",
+          "Ask about **ROSCon 2025 in Singapore** and the global robotics community."
+        ],
+        "notable_projects": [
+          "Clearpath Robotics – autonomous mobile robotics",
+          "OTTO Motors – industrial mobile robots",
+          "Open Robotics – strategic leadership for ROS ecosystem",
+          "Canadian Robotics Council – policy and industry advocacy"
+        ]
+      },
+      "public_presence_score": "High",
+      "credibility_indicators": [
+        "7,423 LinkedIn followers",
+        "High-profile executive role at Rockwell Automation",
+        "Board member of **Open Robotics** for over a decade",
+        "Frequent speaker at global robotics events (e.g., ROSCon)"
+      ],
+      "potential_red_flags": [
+        "Strong robotics background may overshadow experience in other adjacent industries.",
+        "Close identification with Clearpath/OTTO may make him less known outside robotics circles."
+      ],
+      "overview": "Ryan Gariepy is a robotics leader, engineer, and entrepreneur, currently serving as Vice President of Robotics at Rockwell Automation. A co-founder and former CTO of Clearpath Robotics and OTTO Motors, he played a key role in bringing autonomous mobile robots from research labs into industrial deployment. With a Master’s in Mechanical Engineering and a Bachelor’s in Mechatronics Engineering from the University of Waterloo, his career spans technical innovation, IP strategy, and ecosystem building. Ryan has been on the Board of Directors at Open Robotics since 2012, guiding the evolution of ROS, and chairs the Canadian Robotics Council, driving national robotics adoption and industry growth. A frequent speaker at global events like ROSCon, he is recognized as a leading voice in both the open-source robotics and industrial automation communities.",
+      "executive_summary": "Ryan Gariepy is VP of Robotics at Rockwell Automation, co-founder of Clearpath Robotics, and a board member at Open Robotics. With 15+ years of experience in robotics, he specializes in autonomous systems, machine vision, and system architecture. As Chair of the Canadian Robotics Council, he champions robotics adoption in Canada while shaping global strategy through Open Robotics and Rockwell.",
+      "key_insights": [
+        "Recently promoted to **VP Robotics at Rockwell Automation (2025)**.",
+        "Over 13 years on the **Board of Directors at Open Robotics**, helping guide the ROS ecosystem.",
+        "Founder/CTO experience at **Clearpath Robotics and OTTO Motors**, now integrated into Rockwell.",
+        "Leads **Canadian Robotics Council**, pushing for robotics-fueled economic growth.",
+        "Holds dual degrees in **Mechatronics and Mechanical Engineering** from University of Waterloo."
+      ],
+      "confidence_level": "High",
+      "sources_quality": "Strong",
+      "last_updated": "2025-09-13"
+    },
+    "best_match_photo": {
+      "base64_data": null,
+      "source_url": null,
+      "confidence_score": null,
+      "description": "Professional LinkedIn headshot, robotics executive style"
+    },
+    "metadata": {
+      "llm_provider": "cerebras",
+      "llm_model": "gpt-oss-120b",
+      "face_matches": 0,
+      "total_mentions": 1
+    }
+  }
+  

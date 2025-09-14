@@ -1,0 +1,129 @@
+{
+    "person_analysis": {
+      "personal_info": {
+        "full_name": "Sam Pasupalak",
+        "age": null,
+        "location": "New York, New York, United States",
+        "nationality": "Canadian (Waterloo background, working internationally)",
+        "languages": ["English", "Hindi"],
+        "interests": [
+          "Artificial Intelligence (AGI, enterprise applications)",
+          "Startups and venture building",
+          "Global economics and political economy",
+          "Travel and cross-cultural experiences",
+          "Backpacking and mountaineering",
+          "Reading and development economics"
+        ]
+      },
+      "professional_info": {
+        "current_position": "Co-Founder & CEO",
+        "company": "Skyfall AI",
+        "industry": "Artificial Intelligence / Enterprise Software",
+        "previous_positions": [
+          "CEO – Maluuba (acquired by Microsoft for $160M, 2017)",
+          "Entrepreneur in Residence – Inovia Capital (2018–2019, 2021–2022)",
+          "Co-Founder & CEO – Stealth Startup (2022–2024, San Francisco)",
+          "CEO – Maluuba at Microsoft (post-acquisition role)",
+          "Internships at SAP, Pitney Bowes, Economical Insurance (during university)"
+        ],
+        "skills": [
+          "Artificial Intelligence",
+          "Enterprise AGI",
+          "Startups & Entrepreneurship",
+          "Strategic Partnerships",
+          "Business Development",
+          "Fundraising",
+          "C++ Development",
+          "Robotics and Human-Computer Interaction"
+        ],
+        "achievements": [
+          "Co-founded **Maluuba**, an AI startup acquired by Microsoft in 2017 for **$160M**, where he led as CEO.",
+          "Built and exited one of Canada’s most successful early AI companies, contributing to Microsoft’s AI and Cortana platforms.",
+          "Founded **Skyfall AI (2024–Present)**, focused on **Enterprise AGI**, aiming to be the 'OpenAI for enterprise'.",
+          "Raised funding and built research teams in Toronto and New York, currently hiring for AI research scientists and engineers.",
+          "Filed multiple patents in conversational AI and intelligent assistant interfaces.",
+          "Recognized with the **Young Alumni Achievement Award (2018)** by the University of Waterloo for entrepreneurial contributions to AI."
+        ]
+      },
+      "education_info": {
+        "degree": [
+          "Master’s, Political Science & Government – The London School of Economics (2018–2019), focus on development economics (India & China).",
+          "Bachelor’s, Mathematics and Computer Science – University of Waterloo (2006–2011), active in CS Club, Math Society, and Robotics Club."
+        ],
+        "institution": ["The London School of Economics (LSE)", "University of Waterloo"],
+        "graduation_year": 2019
+      },
+      "social_media": [
+        {
+          "platform": "LinkedIn",
+          "username": null,
+          "url": null,
+          "verified": null,
+          "followers_count": 2840
+        }
+      ],
+      "talking_points": {
+        "recent_achievements": [
+          "Founded **Skyfall AI (2024)**, positioned as the 'next OpenAI for enterprise'.",
+          "Expanding research teams in Toronto and New York, actively hiring AI scientists.",
+          "Speaking at global AI conferences, including **ICML 2025**."
+        ],
+        "shared_connections": ["Ryan Xie"],
+        "common_interests": [
+          "Enterprise AI and AGI",
+          "Startup scaling and exits",
+          "AI patents and research commercialization",
+          "Travel and cultural exploration"
+        ],
+        "conversation_starters": [
+          "Ask about his journey building **Maluuba** and lessons from the Microsoft acquisition.",
+          "Discuss the mission of **Skyfall AI** and how it differentiates from OpenAI or Anthropic.",
+          "Explore his global perspective shaped by travels through 27 countries and his studies at LSE.",
+          "Ask about his views on **enterprise adoption of AGI** and where he sees the biggest opportunities."
+        ],
+        "notable_projects": [
+          "Maluuba – natural language AI startup (acquired by Microsoft, $160M)",
+          "Skyfall AI – enterprise-focused AGI startup",
+          "Patents in conversational AI and intelligent assistants",
+          "Research on political economy and development economics (LSE)"
+        ]
+      },
+      "public_presence_score": "High",
+      "credibility_indicators": [
+        "High-profile startup exit to Microsoft ($160M).",
+        "Founder of **Skyfall AI**, positioned as a leading enterprise AGI company.",
+        "Multiple AI patents granted.",
+        "Frequent posts about AI thought leadership and hiring.",
+        "Recognized with alumni awards and global visibility."
+      ],
+      "potential_red_flags": [
+        "Previous startup (Stealth consumer social, 2022–2024) did not achieve founder/market fit.",
+        "Strong views on AI debates (e.g., critiques of LLM hype) may polarize some audiences."
+      ],
+      "overview": "Sam Pasupalak is an AI entrepreneur best known for co-founding **Maluuba**, acquired by Microsoft for $160M in 2017, where he served as CEO and helped shape Microsoft’s AI strategy. He is now the Co-Founder and CEO of **Skyfall AI**, a company developing Enterprise AGI solutions to transform how organizations adopt AI at scale. Educated in **Mathematics & Computer Science at the University of Waterloo** and later completing a Master’s at **LSE**, he combines deep technical expertise with a global economic perspective. Beyond entrepreneurship, he has filed patents in conversational AI, advised startups as an Entrepreneur in Residence at Inovia Capital, and remains a visible figure in the AI community through conferences and thought leadership. His personal journey includes extensive world travel, mountaineering, and cultural exploration, reflecting a broad outlook beyond the tech industry.",
+      "executive_summary": "Sam Pasupalak is a serial AI entrepreneur and investor. He co-founded and scaled **Maluuba** to acquisition by Microsoft for $160M, then launched **Skyfall AI** in 2024, targeting Enterprise AGI. With dual backgrounds in Computer Science (Waterloo) and Political Economy (LSE), he blends technical depth with strategic insight, positioning him as one of Canada’s most prominent AI founders with global impact.",
+      "key_insights": [
+        "Sold **Maluuba to Microsoft for $160M**, one of Canada’s most successful AI exits.",
+        "Currently scaling **Skyfall AI**, focused on enterprise-grade AGI.",
+        "Holds **multiple AI patents** in conversational assistants.",
+        "Educated at **University of Waterloo (Math/CS)** and **LSE (Political Science)**, giving him both technical and policy perspectives.",
+        "Global outlook shaped by travel to 27 countries and cross-cultural experiences."
+      ],
+      "confidence_level": "High",
+      "sources_quality": "Strong",
+      "last_updated": "2025-09-13"
+    },
+    "best_match_photo": {
+      "base64_data": null,
+      "source_url": null,
+      "confidence_score": null,
+      "description": "Professional headshot used on LinkedIn, startup founder style"
+    },
+    "metadata": {
+      "llm_provider": "cerebras",
+      "llm_model": "gpt-oss-120b",
+      "face_matches": 0,
+      "total_mentions": 1
+    }
+  }
+  

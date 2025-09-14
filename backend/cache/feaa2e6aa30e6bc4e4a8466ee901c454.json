@@ -1,0 +1,128 @@
+{
+    "person_analysis": {
+      "personal_info": {
+        "full_name": "Tom Alterman",
+        "age": null,
+        "location": "San Francisco, California, United States",
+        "nationality": "Likely British (University of Bristol background, now based in US)",
+        "languages": ["English"],
+        "interests": [
+          "Product leadership in AI",
+          "Voice AI agents",
+          "Future of work and human-AI collaboration",
+          "Climate-focused investments",
+          "Startups and early-stage ventures",
+          "Networking and community events"
+        ]
+      },
+      "professional_info": {
+        "current_position": "Head of Product",
+        "company": "Stealth Startup (pre-launch)",
+        "industry": "Artificial Intelligence / Future of Work",
+        "previous_positions": [
+          "Head of Product – Notable (2023–2025)",
+          "Head of Product, Revenue & Monetization – Asana (2022–2023)",
+          "VP of Product – StructionSite (acquired by DroneDeploy, 2020–2021)",
+          "Director of Product – Lumosity",
+          "Product Lead – Khan Academy",
+          "Other senior product roles across healthcare, construction, and education technology"
+        ],
+        "skills": [
+          "Product Management",
+          "AI Product Strategy",
+          "User Experience Design",
+          "Voice AI Systems",
+          "Revenue & Monetization Strategy",
+          "Wireframing & Information Architecture",
+          "Cross-functional Team Leadership",
+          "Startup Advising and Angel Investing"
+        ],
+        "achievements": [
+          "15+ years of experience leading AI and product teams across healthcare, education, construction, and productivity software.",
+          "Built and scaled **Voice AI Agent products**, speaking at **ProductTank SF (2025)** on lessons learned.",
+          "Led revenue and monetization strategy at **Asana**, driving adoption and growth.",
+          "Served as **Head of Product at Notable**, guiding AI-driven healthcare automation.",
+          "Angel investor through **FWD Investments**, backing climate tech and social impact startups (e.g., Field, Levee).",
+          "Product leadership roles at mission-driven organizations including **Khan Academy** and **Lumosity**."
+        ]
+      },
+      "education_info": {
+        "degree": "MEng, Computer Science",
+        "institution": "University of Bristol",
+        "graduation_year": 2009,
+        "activities": ["President, International Affairs Society"]
+      },
+      "social_media": [
+        {
+          "platform": "LinkedIn",
+          "username": null,
+          "url": null,
+          "verified": null,
+          "followers_count": 2092
+        }
+      ],
+      "talking_points": {
+        "recent_achievements": [
+          "Began new role (2025) as **Head of Product at a stealth startup** reshaping work with AI.",
+          "Spoke at **ProductTank SF** on building voice AI agents and lessons from the field.",
+          "Expanded angel investment portfolio through FWD Investments, targeting climate solutions."
+        ],
+        "shared_connections": [],
+        "common_interests": [
+          "AI-driven product design",
+          "Future of work platforms",
+          "Healthcare automation",
+          "Climate and sustainability tech",
+          "Angel investing"
+        ],
+        "conversation_starters": [
+          "Ask about his **experience building AI voice agents** and where he sees the tech going.",
+          "Discuss his transition from established companies like **Asana** to early-stage startups.",
+          "Explore his climate-focused angel investments and why he backs companies like **Field** and **Levee**.",
+          "Talk about balancing intuitive user experience with complex AI systems in healthcare and productivity."
+        ],
+        "notable_projects": [
+          "Voice AI Agents – product leadership and field lessons",
+          "Healthcare automation at **Notable**",
+          "Revenue & Monetization strategy at **Asana**",
+          "Climate tech investments through **FWD Investments**"
+        ]
+      },
+      "public_presence_score": "Medium-High",
+      "credibility_indicators": [
+        "15+ years of product leadership across multiple industries.",
+        "Visible presence at SF product and AI events (e.g., ProductTank).",
+        "Track record of leadership at recognized startups and scale-ups (Asana, Notable, StructionSite).",
+        "Angel investor in early-stage companies tackling climate change."
+      ],
+      "potential_red_flags": [
+        "Currently at a stealth startup – details of product impact and traction are not yet public.",
+        "Frequent role changes (~1–2 years per position), though mostly due to startup lifecycle shifts (acquisitions, pivots)."
+      ],
+      "overview": "Tom Alterman is a seasoned product leader with 15+ years of experience designing intuitive AI-powered solutions across industries such as healthcare, education, construction, and productivity. Currently Head of Product at a stealth startup in San Francisco, he focuses on helping humans lead in the era of AI reshaping work. He has held senior leadership roles at Notable, Asana, and StructionSite, and has spoken on building AI voice agents at major product events. As an angel investor through FWD Investments, he also backs early-stage climate tech and impact-driven startups. With a foundation in Computer Science from the University of Bristol, Tom combines deep technical understanding with a strong user-first product philosophy.",
+      "executive_summary": "Tom Alterman is a **product leader specializing in AI-driven platforms** with over 15 years of experience. He has led teams at **Asana, Notable, and StructionSite**, focusing on AI, user experience, and monetization. Currently **Head of Product at a stealth AI startup**, he also angel invests in climate-focused companies. Known for bridging UX and AI innovation, Tom is a visible voice in the product community, speaking on voice AI and the future of human-AI collaboration.",
+      "key_insights": [
+        "Brings **cross-industry product leadership** experience (healthcare, education, construction, productivity).",
+        "Currently leading product at a **stealth AI startup (2025)** focused on the future of work.",
+        "Has been a visible speaker on **AI voice agents** and advanced product design.",
+        "Runs **FWD Investments**, backing climate and impact-driven startups.",
+        "Educated in **Computer Science at University of Bristol**, with early leadership roles in international affairs."
+      ],
+      "confidence_level": "High",
+      "sources_quality": "Strong",
+      "last_updated": "2025-09-13"
+    },
+    "best_match_photo": {
+      "base64_data": null,
+      "source_url": null,
+      "confidence_score": null,
+      "description": "Professional product leader headshot, San Francisco based, LinkedIn profile"
+    },
+    "metadata": {
+      "llm_provider": "cerebras",
+      "llm_model": "gpt-oss-120b",
+      "face_matches": 0,
+      "total_mentions": 1
+    }
+  }
+  

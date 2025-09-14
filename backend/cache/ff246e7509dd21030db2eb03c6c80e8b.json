@@ -1,0 +1,128 @@
+{
+    "person_analysis": {
+      "personal_info": {
+        "full_name": "Kyle Collier",
+        "age": null,
+        "location": "Toronto, Ontario, Canada",
+        "nationality": "Canadian",
+        "languages": ["English"],
+        "interests": [
+          "Fintech innovation",
+          "Blockchain and digital assets",
+          "Startup growth and scaling",
+          "Experimental marketing",
+          "Fitness and biomechanics (academic minor background)"
+        ]
+      },
+      "professional_info": {
+        "current_position": "Cofounder & CEO",
+        "company": "Neobanc",
+        "industry": "Fintech",
+        "previous_positions": [
+          "Founder & CEO – Phaze (2018 – Present)",
+          "EWOR Fellow (2024 – 2025)",
+          "ODF Fellow (2024)",
+          "Volunteer Blockchain Technical Advisor – Techstars (2018 – Present)",
+          "Co-Managing Director – Blockchain Accelerator (via Founder Institute, 2017–2018)"
+        ],
+        "skills": [
+          "Startup growth & scaling",
+          "Fundraising",
+          "Fintech product strategy",
+          "Blockchain",
+          "Business development",
+          "Team leadership",
+          "System design engineering",
+          "Prepaid payments infrastructure",
+          "Market adaptability"
+        ],
+        "achievements": [
+          "15+ years of startup experience, raising over $2.5M in funding and generating $45M in sales.",
+          "Founded and scaled **Phaze**, a prepaid payout API used by 80M+ users across 134 countries.",
+          "Launched multiple ventures (BoothPass, Noq, EveTab, Phaze) — 2.5 of which were acquired.",
+          "Currently leading **Neobanc**, transforming rent payments into cashback and ownership pathways.",
+          "Selected as 1 of 5 global EWOR Fellows from over 40,000 applicants.",
+          "Featured in CEO Monthly (2024) and multiple media outlets for fintech leadership."
+        ]
+      },
+      "education_info": {
+        "degree": "Bachelor of Applied Science, System Design Engineering",
+        "institution": "University of Waterloo",
+        "graduation_year": 2011,
+        "minors": ["Management Science", "Biomechanics"],
+        "activities": ["UW Fitness Trainer", "Velocity Incubator"]
+      },
+      "social_media": [
+        {
+          "platform": "LinkedIn",
+          "username": null,
+          "url": null,
+          "verified": null,
+          "followers_count": 6167
+        }
+      ],
+      "talking_points": {
+        "recent_achievements": [
+          "Founded **Neobanc** in 2024, focusing on turning rent into cashback and building renter-to-owner financial pathways.",
+          "Expanded **Phaze** to serve 80M+ users globally through prepaid digital payouts.",
+          "Earned media recognition in CEO Monthly, BetaKit, Libsyn, and Made in CA."
+        ],
+        "shared_connections": [
+          "Avril Sun"
+        ],
+        "common_interests": [
+          "Fintech disruption",
+          "Blockchain applications in finance",
+          "Startup ecosystem in Toronto & Waterloo",
+          "Scaling B2C to B2B transitions"
+        ],
+        "conversation_starters": [
+          "Ask about his strategy in scaling **Phaze** to 80M+ users.",
+          "Explore Neobanc’s vision of rebuilding the rent system in Canada.",
+          "Discuss his transition from B2C to B2B markets and lessons learned.",
+          "Talk about his EWOR fellowship experience and global founder network."
+        ],
+        "notable_projects": [
+          "Neobanc – Fintech platform turning rent into cashback and ownership opportunities",
+          "Phaze – Prepaid payout API trusted by fintechs and global users",
+          "BoothPass, Noq, EveTab – Previous ventures, partially acquired",
+          "Toronto Blockchain Startup Program – via Founder Institute & Anthony Di Iorio"
+        ]
+      },
+      "public_presence_score": "Very High",
+      "credibility_indicators": [
+        "15+ years of startup leadership",
+        "Multiple successful ventures with acquisitions",
+        "Recognized in CEO Monthly and other media",
+        "Founder in fintech with global reach"
+      ],
+      "potential_red_flags": [
+        "Frequent startup pivots may raise questions about stability, but track record of acquisitions offsets this.",
+        "High reliance on new fintech regulatory environments could pose scaling challenges."
+      ],
+      "overview": "Kyle Collier is a Toronto-based entrepreneur and fintech innovator with 15+ years of experience building and scaling startups. He is Cofounder & CEO of Neobanc, transforming rent into financial progress, and Founder & CEO of Phaze, a prepaid payout API serving 80M+ users globally. A University of Waterloo-trained System Design Engineer, Kyle has raised $2.5M+, generated $45M in sales, and guided multiple ventures through acquisition. He is also active in the blockchain ecosystem, serving as a Techstars advisor and fellow at EWOR and ODF.",
+      "executive_summary": "Kyle Collier is a Canadian fintech founder with a strong track record in launching and scaling startups. As Cofounder & CEO of Neobanc and Founder & CEO of Phaze, he has built ventures that serve millions worldwide. With roots in system design engineering at the University of Waterloo, Kyle combines technical insight with entrepreneurial execution. Recognized for his adaptability, fundraising, and leadership, he is shaping the future of fintech and digital payouts.",
+      "key_insights": [
+        "Proven founder with multiple ventures, exits, and global reach.",
+        "Deep expertise in fintech infrastructure and blockchain adoption.",
+        "Media-recognized thought leader in digital payments and renter-to-owner finance.",
+        "Networked within startup ecosystems (Techstars, Founder Institute, EWOR, ODF)."
+      ],
+      "confidence_level": "High",
+      "sources_quality": "Strong",
+      "last_updated": "2025-09-13"
+    },
+    "best_match_photo": {
+      "base64_data": null,
+      "source_url": null,
+      "confidence_score": null,
+      "description": "No photo provided"
+    },
+    "metadata": {
+      "llm_provider": "cerebras",
+      "llm_model": "gpt-oss-120b",
+      "face_matches": 0,
+      "total_mentions": 1
+    }
+  }
+  

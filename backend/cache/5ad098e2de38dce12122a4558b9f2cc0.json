@@ -1,0 +1,128 @@
+{
+    "person_analysis": {
+      "personal_info": {
+        "full_name": "Marcelo Cortes",
+        "age": null,
+        "location": "Kitchener, Ontario, Canada",
+        "nationality": "Brazilian-Canadian",
+        "languages": ["English", "Portuguese"],
+        "interests": [
+          "Entrepreneurship",
+          "E-commerce",
+          "AI & Agentic Tooling",
+          "Software Architecture",
+          "Startups & Scaling",
+          "Mentorship in tech communities"
+        ]
+      },
+      "professional_info": {
+        "current_position": "Co-Founder & Chief Architect",
+        "company": "Faire",
+        "industry": "E-commerce / Retail Technology",
+        "previous_positions": [
+          "CTO & Co-Founder – Faire (2016 – 2024)",
+          "Staff Software Engineer – Square (2013 – 2016, built Square Cash)",
+          "Co-Founder – FreePoint Inc. (2012)",
+          "Senior Software Engineer – Google (2010 – 2012, Google+ Messenger & Hangouts integration)",
+          "Senior Software Architect – Nikon Metrology (2008 – 2010)"
+        ],
+        "skills": [
+          "Software Development",
+          "Systems Architecture",
+          "E-commerce Platforms",
+          "Scaling Startups",
+          "Leadership",
+          "Java",
+          "Team Building",
+          "AI & ML Integration in Retail"
+        ],
+        "achievements": [
+          "Co-Founded **Faire**, one of the most successful wholesale/e-commerce platforms of the last decade, now projected to reach **$500M in revenue in 2025**.",
+          "Scaled Faire through pandemic disruptions, inflation, tariffs, and economic uncertainty while maintaining **95%+ gross retention and 110%+ net retention**.",
+          "Led engineering for **Square Cash**, taking it from prototype to large-scale consumer product.",
+          "At Google, integrated **Hangouts into Google+** and built core Android/iOS communication features used by millions."
+        ]
+      },
+      "education_info": {
+        "degree": "Bachelor’s Degree in Computer Science",
+        "institution": "University of Waterloo",
+        "graduation_year": 2004,
+        "activities": []
+      },
+      "social_media": [
+        {
+          "platform": "LinkedIn",
+          "username": null,
+          "url": null,
+          "verified": null,
+          "followers_count": 8008
+        }
+      ],
+      "talking_points": {
+        "recent_achievements": [
+          "Driving Faire’s technical architecture as the company expands into new AI-driven initiatives like agentic tooling and swarm-coding.",
+          "Faire highlighted in *The Information* for resilience and growth despite economic volatility.",
+          "Hosting events on **Transforming Wholesale with AI** to push innovation in retail/e-commerce."
+        ],
+        "shared_connections": [
+          "Chen Peng (Ex-Faire, Uber, Google)",
+          "Daniele Perito (Co-Founder, Faire)",
+          "Jeffrey Kolovson (COO, Faire)"
+        ],
+        "common_interests": [
+          "Marketplace scaling",
+          "Applied AI in commerce",
+          "Product-led growth in SaaS/E-commerce",
+          "Mentorship and startup building"
+        ],
+        "conversation_starters": [
+          "Ask about Faire’s expansion into AI-powered agentic tooling for retail.",
+          "Discuss his experience building Square Cash and what he learned transitioning into large-scale marketplace architecture.",
+          "Mention how Faire has become a benchmark for e-commerce resilience and growth.",
+          "Bring up Waterloo roots and startup culture (ties to Google, Square, and UW alumni network)."
+        ],
+        "notable_projects": [
+          "Faire – B2B wholesale/e-commerce platform serving independent retailers globally",
+          "Square Cash – grew from prototype to mainstream consumer product",
+          "Google+ Messenger and Hangouts integration – core Android/iOS communications",
+          "FreePoint Inc. – mobile applications startup",
+          "Large-scale metrology systems – Nikon Metrology"
+        ]
+      },
+      "public_presence_score": "High",
+      "credibility_indicators": [
+        "Co-Founder of Faire, a multi-billion-dollar company in e-commerce",
+        "Significant engineering leadership roles at Square and Google",
+        "Strong LinkedIn following (8,000+)",
+        "Recognized in media (The Information, event talks)"
+      ],
+      "potential_red_flags": [
+        "Very company-focused (primarily Faire) – limited visible activity beyond it.",
+        "Public commentary mostly through reposts rather than original thought leadership."
+      ],
+      "overview": "Marcelo Cortes is the Co-Founder and Chief Architect of Faire, one of the most successful wholesale/e-commerce platforms of the past decade, projected to hit $500M in revenue by 2025. With a background in software engineering at Google and Square, where he helped build and scale products like Square Cash and Google+ Messenger, Marcelo blends deep technical expertise with startup execution. He is known for driving resilient architecture and scaling Faire through economic headwinds, while pushing the boundaries of AI-driven innovation in retail.",
+      "executive_summary": "Marcelo Cortes is a Brazilian-Canadian entrepreneur and engineering leader, best known as Co-Founder and Chief Architect of Faire. He has a proven track record of scaling large-scale consumer and enterprise platforms, from Square Cash at Square to Faire’s global wholesale marketplace. A University of Waterloo graduate, he combines technical excellence, startup resilience, and architectural vision to shape the future of retail and AI-powered marketplaces.",
+      "key_insights": [
+        "Co-founded and scaled **Faire** into one of the leading global e-commerce marketplaces.",
+        "Experience bridging consumer apps (Square Cash, Google+) and enterprise platforms.",
+        "Technical leader skilled at resilient scaling during macroeconomic turbulence.",
+        "Influential in applying AI/agentic tooling to real-world retail problems."
+      ],
+      "confidence_level": "High",
+      "sources_quality": "Strong",
+      "last_updated": "2025-09-13"
+    },
+    "best_match_photo": {
+      "base64_data": null,
+      "source_url": null,
+      "confidence_score": null,
+      "description": "No photo provided"
+    },
+    "metadata": {
+      "llm_provider": "cerebras",
+      "llm_model": "gpt-oss-120b",
+      "face_matches": 0,
+      "total_mentions": 1
+    }
+  }
+  

@@ -1,0 +1,130 @@
+{
+    "person_analysis": {
+      "personal_info": {
+        "full_name": "Mike Kirkup",
+        "age": null,
+        "location": "Kitchener, Ontario, Canada",
+        "nationality": "Canadian",
+        "languages": ["English"],
+        "interests": [
+          "AI-powered development",
+          "Product leadership",
+          "Elder care innovation",
+          "Waterloo Region startup ecosystem",
+          "Energy tech",
+          "Mentorship and coaching founders"
+        ]
+      },
+      "professional_info": {
+        "current_position": "Co-Founder",
+        "company": "Elderella - Your Elder Care Administrator",
+        "industry": "Healthtech / Elder Care AI",
+        "previous_positions": [
+          "Growth Coach – Communitech (2021 – Present)",
+          "Founder – Arlo (2024 – 2025, AI-powered loan processing platform within EnPowered)",
+          "Chief Technology Officer – EnPowered (2020 – 2025)",
+          "Investment Advisor – Canada’s Tech Network (2015 – 2021)"
+        ],
+        "skills": [
+          "Product Leadership",
+          "AI-Powered Development",
+          "Mobile Technology",
+          "Fundraising Strategy",
+          "Startup Scaling",
+          "Team Building",
+          "Enterprise SaaS",
+          "Go-to-Market Strategy"
+        ],
+        "achievements": [
+          "Co-founded **Elderella**, an AI-powered platform to reduce the coordination burden of elder care as North America’s aging population surges.",
+          "Founded **Arlo**, an AI-native loan processing platform, leveraging Claude Code to speed AI-assisted development.",
+          "As CTO at **EnPowered**, helped scale tech to support energy customers in asset optimization, emissions management, and cost reduction.",
+          "At Communitech, coached dozens of startups on product-market fit, fundraising, and technical leadership transitions.",
+          "Nearly 20 years of experience guiding teams from early-stage startup to scaled enterprise platforms serving millions globally."
+        ]
+      },
+      "education_info": {
+        "degree": [
+          "Bachelor of Mathematics, Computer Science",
+          "Master of Management Science"
+        ],
+        "institution": "University of Waterloo",
+        "graduation_year": ["2001 (BMath)", "2007 (MMSc)"],
+        "activities": ["Management of Technology Distance program"]
+      },
+      "social_media": [
+        {
+          "platform": "LinkedIn",
+          "username": null,
+          "url": null,
+          "verified": null,
+          "followers_count": 5983
+        }
+      ],
+      "talking_points": {
+        "recent_achievements": [
+          "Launched **Elderella** with Jacqui Murphy to address the looming elder care crisis.",
+          "Shared transparent post-mortems on Arlo’s growth journey, including sales process learnings.",
+          "Recognized thought leader in **AI-native product building** and founder mentorship."
+        ],
+        "shared_connections": [
+          "Ilya Peskov 🚀 (mutual connection, Waterloo founder/mentor)",
+          "Brian Zubert (startup ecosystem leader)",
+          "Ronjon Nag (AI and mobile expert)"
+        ],
+        "common_interests": [
+          "AI in real-world problem solving",
+          "Waterloo tech ecosystem growth",
+          "Scaling startups sustainably",
+          "Blending technical leadership with business execution"
+        ],
+        "conversation_starters": [
+          "Ask about the challenges and opportunities of building an AI-native company like Arlo and Elderella.",
+          "Discuss his coaching experience at Communitech and insights from mentoring 100+ founders.",
+          "Mention the Waterloo ecosystem and his perspective on its evolution over the past decade.",
+          "Explore his philosophy of bridging technical and business leadership."
+        ],
+        "notable_projects": [
+          "Elderella – AI-powered elder care administrator",
+          "Arlo – AI-driven loan processing platform",
+          "EnPowered – Energy optimization SaaS",
+          "Communitech CTO peer group mentorship"
+        ]
+      },
+      "public_presence_score": "High",
+      "credibility_indicators": [
+        "Strong Waterloo Region startup ecosystem presence",
+        "Nearly 6,000 LinkedIn followers",
+        "Frequent speaker/poster on lessons from building AI-native companies",
+        "Endorsed by prominent startup and tech leaders"
+      ],
+      "potential_red_flags": [
+        "Arlo’s commercial traction challenges (as highlighted in his own post-mortems).",
+        "Multiple transitions between ventures in recent years, signaling experimentation stage."
+      ],
+      "overview": "Mike Kirkup is a Waterloo-based founder, product leader, and startup coach with nearly two decades of experience bridging technical leadership and business strategy. He is currently Co-Founder of Elderella, an AI-powered elder care administrator tackling the looming demographic shift in Canada and the US. Previously, he founded Arlo (AI loan processing) and served as CTO of EnPowered, while also mentoring dozens of startups through Communitech. Known for candid reflections on founder journeys and expertise in AI-native development, Mike is a driving force in scaling impactful products and mentoring the next generation of Waterloo entrepreneurs.",
+      "executive_summary": "Mike Kirkup is a Canadian founder and product leader specializing in AI-native product development and startup scaling. As Co-Founder of Elderella and former CTO of EnPowered, he combines technical expertise with strategic leadership to build impactful platforms. A University of Waterloo graduate with both Computer Science and Management Science degrees, Mike is also a Growth Coach at Communitech, where he helps founders navigate product-market fit, fundraising, and scaling challenges. His career reflects a blend of hands-on technical leadership, founder resilience, and ecosystem impact.",
+      "key_insights": [
+        "Currently co-building Elderella, tackling elder care coordination with AI.",
+        "Experienced in launching AI-native ventures, including Arlo.",
+        "Deep ties to Waterloo’s tech ecosystem via Communitech and Canada’s Tech Network.",
+        "Blends technical fluency with founder-level business strategy."
+      ],
+      "confidence_level": "High",
+      "sources_quality": "Strong",
+      "last_updated": "2025-09-13"
+    },
+    "best_match_photo": {
+      "base64_data": null,
+      "source_url": null,
+      "confidence_score": null,
+      "description": "No photo provided"
+    },
+    "metadata": {
+      "llm_provider": "cerebras",
+      "llm_model": "gpt-oss-120b",
+      "face_matches": 0,
+      "total_mentions": 1
+    }
+  }
+  

@@ -1,0 +1,137 @@
+{
+    "person_analysis": {
+      "personal_info": {
+        "full_name": "Nabil G. Fahel",
+        "age": null,
+        "location": "Waterloo, Ontario, Canada",
+        "nationality": "Canadian",
+        "languages": ["English (native/bilingual)", "Arabic (professional working proficiency)"],
+        "interests": [
+          "Startup growth",
+          "Venture building",
+          "Quantum computing",
+          "Blockchain and Ethereum ecosystem",
+          "Community-driven innovation",
+          "Economic development",
+          "Cycling, hockey, poker tournaments"
+        ]
+      },
+      "professional_info": {
+        "current_position": "Advisor",
+        "company": "Open Quantum Design",
+        "industry": "Quantum Computing / Venture Building",
+        "previous_positions": [
+          "Vice President – StartupSoft (2023 – 2025)",
+          "Co-Founder – ETHWaterloo (2017 – 2025)",
+          "Country Lead, Canada – Atomic (2017 – 2023)",
+          "Head of Partnerships – Terminal (2017 – 2022)",
+          "Head of Enterprise Partnerships – Shopify Plus (earlier role at Shopify)",
+          "Program Leader – Communitech (early career, startup services programs)"
+        ],
+        "skills": [
+          "Leadership",
+          "Entrepreneurship",
+          "Business Development",
+          "Strategic Partnerships",
+          "Business Expansion",
+          "Fundraising",
+          "Ecosystem Building",
+          "Community Engagement"
+        ],
+        "achievements": [
+          "Attracted **Shopify** to Waterloo Region, later joining as **Head of Enterprise Partnerships** and scaling Shopify Plus operations, contributing to 1,000+ local jobs.",
+          "As **Country Lead at Atomic**, spearheaded Canadian expansion of San Francisco startups through Terminal, creating **500+ engineering jobs** across Waterloo, Vancouver, Toronto, and Montreal.",
+          "Advisor to **Open Quantum Design**, building the world’s first open-source full-stack quantum computer in collaboration with leading scientists and institutions (e.g., University of Waterloo, Xanadu).",
+          "Served as EVP at **StartupSoft**, connecting Canadian engineers with startups and Fortune 10 companies.",
+          "Co-founded **ETHWaterloo**, the world’s largest Ethereum hackathon and the first ETHGlobal event.",
+          "Longtime mentor and volunteer with **Hack the North**, **Techstars NYC**, and the **Founder Institute**."
+        ]
+      },
+      "education_info": {
+        "degree": [
+          "M.B.A., Master of Business Administration",
+          "Business Advisory Board role (University of Waterloo)"
+        ],
+        "institution": ["Wilfrid Laurier University", "University of Waterloo"],
+        "graduation_year": null,
+        "activities": ["Business Advisory Board, Waterloo Region community leadership"]
+      },
+      "social_media": [
+        {
+          "platform": "LinkedIn",
+          "username": null,
+          "url": null,
+          "verified": null,
+          "followers_count": 12365
+        }
+      ],
+      "talking_points": {
+        "recent_achievements": [
+          "Joined **Open Quantum Design** as Advisor to help shape the world’s first open-source quantum computer.",
+          "Scaled Shopify Plus’ presence in Waterloo, contributing to Shopify’s hypergrowth era.",
+          "Expanded San Francisco startups into Canada, bridging ecosystems and creating hundreds of jobs."
+        ],
+        "shared_connections": [
+          "Aryan Vahi",
+          "Kalash Bhaiya",
+          "Artemy Kirnichansky",
+          "Jay Roy"
+        ],
+        "common_interests": [
+          "Quantum technology innovation",
+          "Ethereum and blockchain ecosystems",
+          "Startup ecosystem scaling",
+          "Waterloo tech community development"
+        ],
+        "conversation_starters": [
+          "Ask about Open Quantum Design’s mission and what it means to build the world’s first open-source full-stack quantum computer.",
+          "Discuss his role in bringing Shopify to Waterloo and lessons from scaling Shopify Plus.",
+          "Explore how he bridged Silicon Valley startups into Canada through Atomic and Terminal.",
+          "Mention ETHWaterloo and the global Ethereum ecosystem he helped foster."
+        ],
+        "notable_projects": [
+          "Open Quantum Design – first open-source full-stack quantum computer",
+          "ETHWaterloo – world’s largest Ethereum hackathon",
+          "Shopify Plus – enterprise scaling in Waterloo",
+          "Atomic/Terminal – Canadian expansion for SF startups",
+          "StartupSoft – connecting engineers with Fortune 10 companies"
+        ]
+      },
+      "public_presence_score": "High",
+      "credibility_indicators": [
+        "12k+ LinkedIn followers",
+        "Recognized leader in Waterloo tech ecosystem",
+        "Founder of ETHWaterloo and advisor to multiple global organizations",
+        "Track record of creating jobs and scaling ecosystems"
+      ],
+      "potential_red_flags": [
+        "Frequent transitions across organizations (reflective of ecosystem-building focus rather than long-term operator roles).",
+        "Heavily ecosystem/community-oriented, may not fit all purely corporate-focused contexts."
+      ],
+      "overview": "Nabil G. Fahel is a Waterloo-based founder, investor, and ecosystem builder with two decades of experience scaling startups, attracting global companies to Canada, and founding impactful initiatives. He played a pivotal role in Shopify’s hypergrowth by establishing Shopify Plus in Waterloo, co-founded ETHWaterloo (the world’s largest Ethereum hackathon), and led Atomic/Terminal’s Canadian expansion efforts, creating over 500 engineering jobs. Today, he advises Open Quantum Design, building the world’s first open-source full-stack quantum computer, while continuing to mentor founders through Hack the North, Techstars, and other programs. His career reflects a unique blend of business expansion, ecosystem building, and frontier tech innovation.",
+      "executive_summary": "Nabil G. Fahel is a founder, investor, and strategic ecosystem leader with deep roots in Waterloo’s tech community. He has scaled organizations like Shopify, Atomic, and Terminal while founding ETHWaterloo and advising next-generation ventures such as Open Quantum Design. With expertise in partnerships, entrepreneurship, and global expansion, he has facilitated the creation of thousands of jobs in Canada’s tech ecosystem. Nabil combines a global network with local community commitment, making him a key figure in bridging startups, investors, and emerging technologies.",
+      "key_insights": [
+        "Advisor at **Open Quantum Design**, helping build the first open-source full-stack quantum computer.",
+        "Founder of **ETHWaterloo**, which seeded ETHGlobal and became a global Ethereum landmark.",
+        "Scaled Shopify Plus operations in Waterloo, creating over 1,000 jobs.",
+        "Expanded Canadian engineering ecosystems for San Francisco startups through Atomic/Terminal.",
+        "Deeply community-driven with strong volunteer presence at Hack the North and Techstars."
+      ],
+      "confidence_level": "High",
+      "sources_quality": "Strong",
+      "last_updated": "2025-09-13"
+    },
+    "best_match_photo": {
+      "base64_data": null,
+      "source_url": null,
+      "confidence_score": null,
+      "description": "No photo provided"
+    },
+    "metadata": {
+      "llm_provider": "cerebras",
+      "llm_model": "gpt-oss-120b",
+      "face_matches": 0,
+      "total_mentions": 1
+    }
+  }
+  

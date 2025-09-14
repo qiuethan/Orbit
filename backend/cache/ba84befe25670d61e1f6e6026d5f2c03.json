@@ -1,0 +1,131 @@
+{
+    "person_analysis": {
+      "personal_info": {
+        "full_name": "Parth Sareen",
+        "age": null,
+        "location": "Palo Alto, California, United States",
+        "nationality": "Canadian (University of Waterloo background, now US-based)",
+        "languages": ["English"],
+        "interests": [
+          "Large Language Models (LLMs)",
+          "Distributed Systems",
+          "AI Agents",
+          "Developer tooling",
+          "Startup building",
+          "Mechatronics & robotics",
+          "Hackathons & community workshops"
+        ]
+      },
+      "professional_info": {
+        "current_position": "Software Engineer",
+        "company": "Ollama",
+        "industry": "Artificial Intelligence / LLMs / Developer Tools",
+        "previous_positions": [
+          "Co-Founder & CEO – Extensible AI (2024)",
+          "Software Engineer, Insights Platform – Autodesk (2023–2024)",
+          "Data & ML Engineer – Flagler Health (2022–2023)",
+          "Distributed Systems Engineer Intern – Tesla, Energy Products (2022)",
+          "Other internships and contract roles across ML and distributed systems"
+        ],
+        "skills": [
+          "Go (Programming Language)",
+          "Python",
+          "AWS",
+          "Scala",
+          "Distributed Systems",
+          "LLM Pipelines",
+          "Data Engineering",
+          "Leadership"
+        ],
+        "achievements": [
+          "Part of **Ollama’s core team**, helping scale adoption of open-source LLMs (gpt-oss, structured outputs, local AI research).",
+          "Co-founded **Extensible AI** (Betaworks W’23), building AI agent frameworks.",
+          "At **Tesla**, contributed to Energy Products distributed systems, launching cross-team features that impacted **300k+ users in under 3 months**.",
+          "At **Autodesk**, worked on real-time insights distributed systems while completing degree.",
+          "Frequent community presence: hosted/organized **gpt-oss meetups** with OpenAI, vLLM, YC; active in hackathons like Hack the North."
+        ]
+      },
+      "education_info": {
+        "degree": "Bachelor of Applied Science (BASc), Mechatronics, Robotics, and Automation Engineering",
+        "institution": "University of Waterloo",
+        "graduation_year": null,
+        "honors": ["Dean’s Honours List, Fall 2020"]
+      },
+      "social_media": [
+        {
+          "platform": "LinkedIn",
+          "username": null,
+          "url": "parthsareen.com",
+          "verified": null,
+          "followers_count": 7632
+        }
+      ],
+      "talking_points": {
+        "recent_achievements": [
+          "Hosting and leading **gpt-oss meetups** with OpenAI, NVIDIA, vLLM, and Y Combinator.",
+          "Driving **local-first AI workflows** at Ollama with web research integrations.",
+          "Co-founded and led **Extensible AI**, focusing on extensible AI agent frameworks."
+        ],
+        "shared_connections": [
+          "Ron Varshavsky",
+          "Luthira Abeykoon",
+          "14+ mutual Waterloo/AI community ties"
+        ],
+        "common_interests": [
+          "Open-source AI models",
+          "Distributed systems design",
+          "AI agents for productivity",
+          "Startup ecosystems in Palo Alto and Waterloo"
+        ],
+        "conversation_starters": [
+          "Ask about his role at **Ollama** and how they’re scaling gpt-oss adoption.",
+          "Discuss the design lessons from **Extensible AI** during Betaworks W’23.",
+          "Explore insights from his **Tesla distributed systems internship** and what it taught about high-scale infrastructure.",
+          "Mention the **gpt-oss USB distribution project with OpenAI & NVIDIA** — an unusual grassroots approach to AI deployment."
+        ],
+        "notable_projects": [
+          "Ollama – local-first AI platform for running and extending LLMs",
+          "Extensible AI – AI agents framework",
+          "Tesla Energy Products – distributed systems scaling",
+          "Autodesk Real Time Insights Platform",
+          "Hack the North workshops (AI & networking talks)"
+        ]
+      },
+      "public_presence_score": "High",
+      "credibility_indicators": [
+        "7.6k+ LinkedIn followers",
+        "Frequent public events (meetups, hackathons, demos)",
+        "Founder background (Extensible AI)",
+        "Visible contributions at Tesla, Autodesk, Ollama"
+      ],
+      "potential_red_flags": [
+        "Short tenure at Extensible AI (10 months, acquired/closed quickly).",
+        "Early-career with rapid role changes, though consistent within AI/startup context."
+      ],
+      "overview": "Parth Sareen is a Canadian engineer and entrepreneur based in Palo Alto, now a key contributor at Ollama. With a background in mechatronics from the University of Waterloo, he has built experience across Tesla, Autodesk, and health-tech before founding Extensible AI (Betaworks W’23). At Ollama, he is helping drive the adoption of open-source LLMs, structured outputs, and local AI workflows. A strong community builder, he organizes gpt-oss meetups and has volunteered at Hack the North and Socratica. His trajectory blends distributed systems engineering with a passion for democratizing AI through open-source tools.",
+      "executive_summary": "Parth Sareen is a software engineer at Ollama and former founder of Extensible AI, with a strong foundation in distributed systems, LLM infrastructure, and startup ecosystems. A University of Waterloo graduate, he has held impactful roles at Tesla and Autodesk while building in the AI agent and open-source model ecosystem. With 7,600+ followers and leadership in community meetups, Parth combines technical depth in Go, Python, and AWS with public presence as a connector in the AI developer world.",
+      "key_insights": [
+        "Currently at **Ollama**, driving gpt-oss and open-source AI integrations.",
+        "Former founder of **Extensible AI** (Betaworks W’23).",
+        "Past roles at **Tesla** and **Autodesk** in distributed systems.",
+        "Community leader: hosts **gpt-oss meetups** and hackathon workshops.",
+        "7.6k+ LinkedIn followers, strong credibility in AI/OSS developer community."
+      ],
+      "confidence_level": "High",
+      "sources_quality": "Strong",
+      "last_updated": "2025-09-13"
+    },
+    "best_match_photo": {
+      "base64_data": null,
+      "source_url": "parthsareen.com",
+      "confidence_score": null,
+      "description": "Professional profile photo likely available via LinkedIn / personal site"
+    },
+    "metadata": {
+      "llm_provider": "cerebras",
+      "llm_model": "gpt-oss-120b",
+      "face_matches": 0,
+      "total_mentions": 1
+    }
+  }
+  

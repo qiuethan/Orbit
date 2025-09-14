@@ -1,0 +1,118 @@
+{
+    "person_analysis": {
+      "personal_info": {
+        "full_name": "Linden Tibbets",
+        "age": null,
+        "location": "San Francisco, California, United States",
+        "nationality": "American",
+        "languages": ["English"],
+        "interests": [
+          "Automation and connectivity",
+          "Human-centered product design",
+          "Team building and leadership",
+          "Productivity and workplace empowerment",
+          "Sports (played NCAA Basketball)"
+        ]
+      },
+      "professional_info": {
+        "current_position": "CEO",
+        "company": "IFTTT",
+        "industry": "Software / Automation / Productivity Tools",
+        "previous_positions": [
+          "Communications Designer – IDEO (2007 – 2011)",
+          "Founder – foray interactive (2007)",
+          "Software Engineer – Wave Systems (2005 – 2007)",
+          "Development Tester – Electronic Arts (2005)"
+        ],
+        "skills": [
+          "Product Development",
+          "Interaction Design",
+          "Software Engineering",
+          "Leadership & Team Building",
+          "Human-centered Design",
+          "Automation Platforms",
+          "Entrepreneurship"
+        ],
+        "achievements": [
+          "Founded and has led **IFTTT** as CEO since 2010, growing it into a widely used automation platform with integrations across 900+ apps and services.",
+          "Featured in **Employee Benefit News** on empowering employees with productivity tools and AI guardrails.",
+          "Built strong experience at IDEO in design and communications before transitioning into entrepreneurship.",
+          "Blended technical and design expertise to bridge UI/UX, product, and engineering."
+        ]
+      },
+      "education_info": {
+        "degree": "Bachelor of Science in Computer Engineering",
+        "institution": "Santa Clara University",
+        "graduation_year": null,
+        "activities": ["NCAA Basketball Team"]
+      },
+      "social_media": [
+        {
+          "platform": "LinkedIn",
+          "username": null,
+          "url": null,
+          "verified": null,
+          "followers_count": 2367
+        }
+      ],
+      "talking_points": {
+        "recent_achievements": [
+          "Scaling IFTTT to support 900+ app integrations, including recent **Apify** integration for web scraping and automation.",
+          "Advocating for employee empowerment and better integration of AI in the workplace.",
+          "Maintained leadership at IFTTT for 15 years as both a founder and long-term CEO."
+        ],
+        "shared_connections": [],
+        "common_interests": [
+          "Automation in consumer and enterprise productivity",
+          "Bringing design thinking into tech products",
+          "Bridging engineering and leadership",
+          "Sports and team dynamics"
+        ],
+        "conversation_starters": [
+          "Ask about IFTTT’s roadmap and how AI/LLMs fit into automation workflows.",
+          "Discuss his experience transitioning from design roles at IDEO to tech entrepreneurship.",
+          "Explore how he sees productivity tools shaping the workplace of the future.",
+          "Mention NCAA basketball background as a light personal icebreaker."
+        ],
+        "notable_projects": [
+          "IFTTT – automation and connectivity platform enabling 900+ app integrations",
+          "foray interactive – early startup in interactive filmmaking",
+          "IDEO – design consultancy experience influencing his product approach"
+        ]
+      },
+      "public_presence_score": "High",
+      "credibility_indicators": [
+        "Long-standing CEO of IFTTT (15 years)",
+        "Thought leader on automation and productivity",
+        "Blend of design and engineering expertise"
+      ],
+      "potential_red_flags": [
+        "Limited diversification outside of IFTTT in the last 15 years may raise questions about adaptability.",
+        "Public updates are mostly through reposts rather than original long-form thought leadership."
+      ],
+      "overview": "Linden Tibbets is the CEO and Co-Founder of IFTTT, a widely adopted automation platform that connects 900+ apps and services. With a background in computer engineering from Santa Clara University and early career roles in design at IDEO and software engineering, Linden blends technical and creative skills. For over 15 years, he has built IFTTT into a trusted productivity and automation tool while advocating for human-centered integration of technology in daily workflows.",
+      "executive_summary": "Linden Tibbets is an American entrepreneur and product leader best known as the CEO of IFTTT, where he has driven the growth of one of the most widely used automation platforms since 2010. With roots in both engineering and design, he brings a unique perspective on building user-friendly yet technically robust products. His career reflects a dedication to improving how technology integrates into everyday life and empowering people to focus on meaningful work.",
+      "key_insights": [
+        "Long-term founder/CEO with proven stability and product scaling ability.",
+        "Expertise at the intersection of **design thinking** and **software engineering**.",
+        "Leader in automation tools, shaping workflows for both consumers and enterprises.",
+        "Advocate for responsible use of AI and productivity technologies in workplaces."
+      ],
+      "confidence_level": "High",
+      "sources_quality": "Strong",
+      "last_updated": "2025-09-13"
+    },
+    "best_match_photo": {
+      "base64_data": null,
+      "source_url": null,
+      "confidence_score": null,
+      "description": "No photo provided"
+    },
+    "metadata": {
+      "llm_provider": "cerebras",
+      "llm_model": "gpt-oss-120b",
+      "face_matches": 0,
+      "total_mentions": 1
+    }
+  }
+  
