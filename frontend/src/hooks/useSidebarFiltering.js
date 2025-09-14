@@ -4,6 +4,11 @@ import { useMemo } from 'react';
 
 export function useSidebarFiltering(displayItems, searchQuery, filterStatus, isWorkflowPage) {
   const filteredItems = useMemo(() => {
+    // Ensure displayItems is an array
+    if (!displayItems || !Array.isArray(displayItems)) {
+      return [];
+    }
+    
     let filtered = displayItems;
     
     if (isWorkflowPage) {

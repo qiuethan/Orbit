@@ -144,11 +144,10 @@ export const createNewPerson = (setActivePerson) => {
       stage: 'prospecting',
       notes: [],
       interactions: [],
-      mutualConnections: Math.floor(Math.random() * 20) // Mock mutual connections
+      mutualConnections: 0 // No mock data
     };
     
-    // Add to mock data (in real app, this would be an API call)
-    MOCK_PEOPLE[newPerson.id] = newPerson;
+    // No mock data storage - requires backend API
     
     // Set as active person
     if (setActivePerson) {
