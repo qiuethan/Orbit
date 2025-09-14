@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useContext, useState, useCallback } from 'react';
+import { createContext, useContext, useState, useCallback, useEffect } from 'react';
 
 const DetectionContext = createContext();
 
@@ -18,6 +18,28 @@ export function DetectionProvider({ children }) {
   const [sidebarLoading, setSidebarLoading] = useState(false);
   const [lastUpdateTime, setLastUpdateTime] = useState(0);
   const [lastDetectedCount, setLastDetectedCount] = useState(0);
+  const [isVisionPage, setIsVisionPage] = useState(false);
+
+  // Track page changes and reset detection state when leaving vision page
+  useEffect(() => {
+    const currentPath = typeof window !== 'undefined' ? window.location.pathname : '';
+    const currentlyOnVisionPage = currentPath === '/vision';
+    
+    if (currentlyOnVisionPage !== isVisionPage) {
+      setIsVisionPage(currentlyOnVisionPage);
+      
+      // If leaving vision page, reset detection state
+      if (!currentlyOnVisionPage) {
+        setDetectedPeople([]);
+        setTrackLabels({});
+        setSidebarLoading(false);
+        setLastDetectedCount(0);
+        console.log('Left vision page - reset detection state');
+      } else {
+        console.log('Entered vision page');
+      }
+    }
+  }, [typeof window !== 'undefined' ? window.location.pathname : '', isVisionPage]);
 
   const updateDetections = (detections, labels) => {
     const now = Date.now();
@@ -29,18 +51,26 @@ export function DetectionProvider({ children }) {
     
     setLastUpdateTime(now);
     
-    // Only show loading if the number of detected people actually changed
-    const currentDetectedCount = detections.filter(d => d.recognized && d.name).length;
-    if (currentDetectedCount !== lastDetectedCount && currentDetectedCount > 0) {
-      setSidebarLoading(true);
-      setTimeout(() => {
-        setSidebarLoading(false);
-      }, 2000 + Math.random() * 2000); // 2-4 second random delay
-    }
-    
-    setLastDetectedCount(currentDetectedCount);
+    // Always update the detection data (for overlay display)
     setDetectedPeople(detections);
     setTrackLabels(labels);
+    
+    // Only process sidebar filtering if we're on the vision page
+    const currentlyOnVisionPage = typeof window !== 'undefined' && window.location.pathname === '/vision';
+    if (currentlyOnVisionPage) {
+      // Only show loading if the number of detected people actually changed
+      const currentDetectedCount = detections.filter(d => d.recognized && d.name).length;
+      
+      // Only trigger sidebar loading on vision page
+      if (currentDetectedCount !== lastDetectedCount && currentDetectedCount > 0) {
+        setSidebarLoading(true);
+        setTimeout(() => {
+          setSidebarLoading(false);
+        }, 2000 + Math.random() * 2000); // 2-4 second random delay
+      }
+      
+      setLastDetectedCount(currentDetectedCount);
+    }
   };
 
   // Extract unique person names from detections with memoization

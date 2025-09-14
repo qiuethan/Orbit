@@ -32,6 +32,23 @@ export async function getAllPersonWorkflows() {
 
 // Get workflow for specific person (async only - no sync fallback)
 export async function getWorkflowForPerson(personId) {
+  // First try to get from localStorage
+  try {
+    if (typeof window !== 'undefined') {
+      const stored = localStorage.getItem('workflow_app_data');
+      if (stored) {
+        const data = JSON.parse(stored);
+        const workflow = Object.values(data.workflows || {}).find(w => w.personId === personId);
+        if (workflow) {
+          return workflow;
+        }
+      }
+    }
+  } catch (error) {
+    console.error('Error reading from localStorage:', error);
+  }
+  
+  // Fallback to generating workflows
   const workflows = await getPersonWorkflowsAsync();
   return workflows[personId] || null;
 }

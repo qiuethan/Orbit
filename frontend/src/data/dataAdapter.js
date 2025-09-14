@@ -319,8 +319,63 @@ export async function getPeopleFromBackendAsync() {
 
 export async function getWorkflowsFromBackendAsync() {
   if (!workflowDataCache) {
-    // For now, return empty workflows - they should come from backend
+    // Create workflows for each person from the people data
+    const people = await getPeopleFromBackendAsync();
     workflowDataCache = {};
+    
+    // Create a default workflow for each person
+    Object.values(people).forEach(person => {
+      const workflowId = `workflow-${person.id}`;
+      workflowDataCache[person.id] = {
+        id: workflowId,
+        personId: person.id,
+        name: `${person.name} - Outreach Workflow`,
+        description: `Automated outreach workflow for ${person.name}`,
+        generatedAt: new Date().toISOString(),
+        status: 'active',
+        notes: [
+          {
+            id: `note-${Date.now()}`,
+            type: 'system',
+            content: `📋 Created personalized workflow for ${person.name}`,
+            timestamp: new Date().toISOString()
+          }
+        ],
+        tasks: [
+          {
+            id: `${workflowId}-task-1`,
+            type: 'email',
+            title: `Initial outreach to ${person.name}`,
+            description: `Send personalized email to ${person.name}`,
+            priority: 'high',
+            estimatedTime: '30 seconds',
+            status: 'pending',
+            order: 1,
+            position: { x: 100, y: 100 },
+            config: {
+              recipient: person.email,
+              subject: `Hi ${person.name.split(' ')[0]}, Let's Connect!`,
+              message: `Hi ${person.name.split(' ')[0]},\n\nI hope this email finds you well. I came across your profile and was impressed by your work at ${person.company}.\n\nI'd love to connect and learn more about your experience in ${person.title}.\n\nBest regards`
+            }
+          },
+          {
+            id: `${workflowId}-task-2`,
+            type: 'slack',
+            title: `Follow up via Slack`,
+            description: `Send follow-up message on Slack`,
+            priority: 'medium',
+            estimatedTime: '5 seconds',
+            status: 'pending',
+            order: 2,
+            position: { x: 400, y: 100 },
+            config: {
+              channel: 'social',
+              message: `📧 Sent initial outreach email to ${person.name} at ${person.company}. Following up via Slack.`
+            }
+          }
+        ]
+      };
+    });
   }
   return workflowDataCache;
 }
