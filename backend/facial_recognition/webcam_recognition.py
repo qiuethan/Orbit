@@ -8,10 +8,12 @@ import numpy as np
 import json
 import time
 import logging
+import os
 from typing import Dict, List, Optional, Tuple, Any
 import threading
 import queue
 from dataclasses import dataclass
+from datetime import datetime
 
 from .local_face_recognition import recognize
 
@@ -61,6 +63,10 @@ class WebcamFaceRecognition:
         self.analysis_thread = None
         self.analysis_results = {}  # Cache for analysis results
         
+        # Search queue and threading for unknown person searches
+        self.search_queue = queue.Queue()  # No size limit for search requests
+        self.search_thread = None
+        
         # Face tracking/presence
         self.tracked_faces = {}  # legacy cooldown per face_key
         self.face_analysis_status = {}  # analysis status per face_key
@@ -70,7 +76,44 @@ class WebcamFaceRecognition:
         self.track_timeout = 1.5  # seconds without seeing -> consider left
         self.presence_events = []  # buffered presence events to emit via SSE
         
+        # Unknown person logging
+        self.unknown_person_timeout = 5.0  # Log after 5 seconds of being unknown
+        self.unknown_tracks = {}  # track_id -> first_unknown_time
+        self.logged_unknown_tracks = set()  # track_ids that have already been logged
+        self.face_regions = {}  # track_id -> latest face region for search
+        
+        # Setup log file path, cache directory, and logs directory
+        backend_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        self.unknown_log_path = os.path.join(backend_dir, "unknown_person.txt")
+        self.cache_dir = os.path.join(backend_dir, "cache")
+        self.logs_dir = os.path.join(backend_dir, "logs")
+        
+        # Ensure logs directory exists
+        os.makedirs(self.logs_dir, exist_ok=True)
+        
         self.logger.info("WebcamFaceRecognition initialized")
+        
+    def test_search_thread(self):
+        """Test method to verify search thread is working."""
+        if not self.is_running or not self.search_thread or not self.search_thread.is_alive():
+            self.logger.error("Search thread is not running - cannot test")
+            return False
+            
+        # Create a dummy search request
+        import numpy as np
+        dummy_face = np.zeros((50, 50, 3), dtype=np.uint8)
+        test_data = {
+            'track_id': 999,
+            'face_region': dummy_face
+        }
+        
+        try:
+            self.search_queue.put(test_data, block=False)
+            self.logger.info("✅ Test search request queued successfully")
+            return True
+        except Exception as e:
+            self.logger.error(f"❌ Failed to queue test search request: {e}")
+            return False
     
     def start_webcam(self, camera_index: int = 0) -> bool:
         """
@@ -99,6 +142,22 @@ class WebcamFaceRecognition:
             self.analysis_thread = threading.Thread(target=self._analysis_worker, daemon=True)
             self.analysis_thread.start()
             
+            # Start search worker thread
+            self.search_thread = threading.Thread(target=self._search_worker, daemon=True)
+            self.search_thread.start()
+            
+            # Verify threads started
+            time.sleep(0.1)  # Give threads a moment to start
+            if self.analysis_thread.is_alive():
+                self.logger.info("✅ Analysis thread is running")
+            else:
+                self.logger.error("❌ Analysis thread failed to start")
+                
+            if self.search_thread.is_alive():
+                self.logger.info("✅ Search thread is running")
+            else:
+                self.logger.error("❌ Search thread failed to start")
+            
             self.logger.info(f"Webcam started successfully on camera {camera_index}")
             return True
             
@@ -116,6 +175,9 @@ class WebcamFaceRecognition:
             
         if self.analysis_thread:
             self.analysis_thread.join(timeout=2.0)
+            
+        if self.search_thread:
+            self.search_thread.join(timeout=2.0)
             
         self.logger.info("Webcam stopped")
     
@@ -308,6 +370,566 @@ class WebcamFaceRecognition:
         
         self.logger.info("Analysis worker thread stopped")
     
+    def _search_worker(self):
+        """
+        Background worker thread for processing image search requests.
+        """
+        self.logger.info("🔍 Search worker thread started")
+        
+        while self.is_running:
+            try:
+                # Get search task from queue
+                self.logger.debug("Search worker waiting for tasks...")
+                search_data = self.search_queue.get(timeout=1.0)
+                
+                track_id = search_data['track_id']
+                face_region = search_data['face_region']
+                
+                self.logger.info(f"🔍 Processing search request for Track ID {track_id}")
+                
+                # Add a small delay to prevent resource conflicts
+                time.sleep(0.1)
+                
+                # Run the image search pipeline (synchronously in this thread)
+                try:
+                    # For now, let's do a simple test instead of the full pipeline
+                    # to see if the thread is working
+                    if track_id == 999:  # Test request
+                        self.logger.info(f"🧪 Processing test search request for Track ID {track_id}")
+                        time.sleep(1)  # Simulate work
+                        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                        test_log_entry = f"[{timestamp}] Test search completed for Track ID {track_id}\n"
+                        with open(self.unknown_log_path, "a", encoding="utf-8") as f:
+                            f.write(test_log_entry)
+                        self.logger.info(f"✅ Test search completed for Track ID {track_id}")
+                    else:
+                        # Real search request - run search and update cache
+                        result = self._run_image_search_sync(face_region, track_id)
+                        
+                        if result:
+                            # Save detailed search results to logs directory
+                            self._save_search_log(track_id, search_data, result)
+                            
+                            # Always update cache with search results (successful or failed)
+                            # This ensures the face image is saved for future recognition
+                            cache_hash = self._update_cache_with_search_results(track_id, face_region, result)
+                            
+                            if cache_hash:
+                                # Reload facial recognition cache to include new entry
+                                self._reload_facial_recognition_cache()
+                                
+                                # Notify server about new cache entry
+                                self._notify_server_new_cache_entry(cache_hash, track_id)
+                                
+                                self.logger.info(f"🎯 Complete cache integration successful for Track ID {track_id}")
+                            else:
+                                self.logger.error(f"❌ Failed to update cache for Track ID {track_id}")
+                        else:
+                            self.logger.error(f"❌ No search results received for Track ID {track_id}")
+                        
+                        self.logger.info(f"✅ Search completed for Track ID {track_id}")
+                except Exception as search_error:
+                    self.logger.error(f"❌ Search failed for Track ID {track_id}: {search_error}")
+                    # Log the error to file
+                    try:
+                        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                        error_log_entry = f"[{timestamp}] Search failed for Track ID {track_id} - Error: {str(search_error)}\n"
+                        with open(self.unknown_log_path, "a", encoding="utf-8") as f:
+                            f.write(error_log_entry)
+                    except Exception:
+                        pass
+                
+                # Mark task as done
+                self.search_queue.task_done()
+                
+            except queue.Empty:
+                self.logger.debug("Search worker timeout, checking if still running...")
+                continue
+            except Exception as e:
+                self.logger.error(f"Error in search worker: {e}")
+                # Continue running even if there's an error
+                continue
+        
+        self.logger.info("🔍 Search worker thread stopped")
+    
+    def _run_image_search_sync(self, face_region: np.ndarray, track_id: int) -> Optional[Dict]:
+        """
+        Run synchronous image search pipeline for an unknown person's face.
+        This runs in the dedicated search worker thread.
+        
+        Args:
+            face_region: The face image region to search
+            track_id: The track ID of the unknown person
+            
+        Returns:
+            Dict: Search pipeline results, or None if failed
+        """
+        try:
+            self.logger.info(f"🔍 Starting search pipeline import for Track ID {track_id}")
+            
+            # Import pipeline here to avoid circular imports
+            import sys
+            backend_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+            if backend_dir not in sys.path:
+                sys.path.append(backend_dir)
+                self.logger.debug(f"Added backend directory to path: {backend_dir}")
+            
+            try:
+                from pipeline import SearchAnalysisPipeline
+                self.logger.info(f"✅ Successfully imported SearchAnalysisPipeline for Track ID {track_id}")
+            except ImportError as import_error:
+                self.logger.error(f"❌ Failed to import SearchAnalysisPipeline: {import_error}")
+                raise
+            
+            self.logger.info(f"🔍 Starting image search for unknown person (Track ID: {track_id})")
+            
+            # Save the face region to a temporary file for the search pipeline
+            temp_image_path = os.path.join(self.cache_dir, f"unknown_track_{track_id}_{int(time.time())}.jpg")
+            cv2.imwrite(temp_image_path, face_region)
+            
+            # Initialize the search pipeline
+            pipeline = SearchAnalysisPipeline()
+            
+            # Run the complete face search pipeline with very conservative settings
+            # to prevent blocking and resource issues
+            self.logger.info(f"🔍 Initializing search pipeline for Track ID {track_id}")
+            result = pipeline.complete_face_search(
+                image_input=temp_image_path,
+                min_score=85,  # Higher threshold for faster processing
+                max_face_results=3,  # Very few results for speed
+                max_serp_per_url=2,  # Minimal SERP results
+                use_structured_output=True,
+                max_working_results=2  # Process very few URLs
+            )
+            self.logger.info(f"🔍 Search pipeline completed for Track ID {track_id}")
+            
+            # Save search results (with proper JSON serialization)
+            result_path = os.path.join(self.cache_dir, f"unknown_search_{track_id}_{int(time.time())}.json")
+            
+            # Convert result to JSON-serializable format
+            try:
+                serializable_result = self._make_json_serializable(result)
+                with open(result_path, "w", encoding="utf-8") as f:
+                    json.dump(serializable_result, f, indent=2, ensure_ascii=False)
+                self.logger.info(f"💾 Search results saved to: {result_path}")
+            except Exception as save_error:
+                self.logger.error(f"❌ Failed to save search results: {save_error}")
+                # Continue without saving file
+                pass
+            
+            # Log the search completion
+            timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            if result.get("success") and result.get("analysis", {}).get("found_person"):
+                person_info = result["analysis"]["found_person"]
+                self.logger.info(f"✅ Search found potential match for Track ID {track_id}: {person_info.get('name', 'Unknown name')}")
+                
+                # Update log with search results
+                search_log_entry = f"[{timestamp}] Search completed for Track ID {track_id} - Found: {person_info.get('name', 'No name')} (Confidence: {person_info.get('confidence', 'Unknown')}) - Adding to cache...\n"
+                
+                with open(self.unknown_log_path, "a", encoding="utf-8") as f:
+                    f.write(search_log_entry)
+            else:
+                self.logger.info(f"❌ No matches found in search for Track ID {track_id}")
+                
+                # Log no results
+                search_log_entry = f"[{timestamp}] Search completed for Track ID {track_id} - No matches found\n"
+                
+                with open(self.unknown_log_path, "a", encoding="utf-8") as f:
+                    f.write(search_log_entry)
+            
+            # Clean up temporary image
+            try:
+                os.remove(temp_image_path)
+            except Exception:
+                pass
+            
+            # Return the search results
+            return result
+                
+        except Exception as e:
+            self.logger.error(f"Error in image search for Track ID {track_id}: {e}")
+            
+            # Log the error
+            try:
+                timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                error_log_entry = f"[{timestamp}] Search failed for Track ID {track_id} - Error: {str(e)}\n"
+                
+                with open(self.unknown_log_path, "a", encoding="utf-8") as f:
+                    f.write(error_log_entry)
+            except Exception:
+                pass
+            
+            # Return None on error
+            return None
+    
+    def _log_unknown_person(self, track_id: int):
+        """
+        Log an unknown person to the log file and trigger async image search.
+        
+        Args:
+            track_id: The track ID of the unknown person
+        """
+        try:
+            timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            log_entry = f"[{timestamp}] Unknown person detected (Track ID: {track_id}) - present for 5+ seconds\n"
+            
+            with open(self.unknown_log_path, "a", encoding="utf-8") as f:
+                f.write(log_entry)
+            
+            self.logger.info(f"Logged unknown person: Track ID {track_id}")
+            
+            # Queue image search if we have a face region
+            if track_id in self.face_regions:
+                face_region = self.face_regions[track_id]
+                
+                # Log search initiation to the file
+                search_start_entry = f"[{timestamp}] Starting image search for Track ID {track_id}...\n"
+                with open(self.unknown_log_path, "a", encoding="utf-8") as f:
+                    f.write(search_start_entry)
+                
+                # Queue the search request (non-blocking)
+                search_data = {
+                    'track_id': track_id,
+                    'face_region': face_region.copy()  # Make a copy to avoid race conditions
+                }
+                
+                try:
+                    self.search_queue.put(search_data, block=False)
+                    queue_size = self.search_queue.qsize()
+                    self.logger.info(f"🚀 Queued image search for Track ID {track_id} (queue size: {queue_size})")
+                    
+                    # Log queue status to file as well
+                    queue_log_entry = f"[{timestamp}] Search queued for Track ID {track_id} (queue size: {queue_size})\n"
+                    with open(self.unknown_log_path, "a", encoding="utf-8") as f:
+                        f.write(queue_log_entry)
+                        
+                except queue.Full:
+                    self.logger.warning(f"Search queue is full, skipping search for Track ID {track_id}")
+                    # Log queue full
+                    queue_full_entry = f"[{timestamp}] Search queue full for Track ID {track_id} - search skipped\n"
+                    with open(self.unknown_log_path, "a", encoding="utf-8") as f:
+                        f.write(queue_full_entry)
+            else:
+                self.logger.warning(f"No face region available for Track ID {track_id} - skipping search")
+                
+                # Log that search was skipped
+                skip_entry = f"[{timestamp}] Search skipped for Track ID {track_id} - No face region available\n"
+                with open(self.unknown_log_path, "a", encoding="utf-8") as f:
+                    f.write(skip_entry)
+            
+        except Exception as e:
+            self.logger.error(f"Error logging unknown person: {e}")
+    
+    def _make_json_serializable(self, obj):
+        """
+        Convert objects to JSON-serializable format.
+        
+        Args:
+            obj: Object to convert
+            
+        Returns:
+            JSON-serializable version of the object
+        """
+        if hasattr(obj, '__dict__'):
+            # Convert custom objects to dictionaries
+            result = {}
+            for key, value in obj.__dict__.items():
+                try:
+                    # Recursively make nested objects serializable
+                    result[key] = self._make_json_serializable(value)
+                except Exception:
+                    # If we can't serialize it, convert to string
+                    result[key] = str(value)
+            return result
+        elif isinstance(obj, dict):
+            # Process dictionaries recursively
+            return {key: self._make_json_serializable(value) for key, value in obj.items()}
+        elif isinstance(obj, (list, tuple)):
+            # Process lists/tuples recursively
+            return [self._make_json_serializable(item) for item in obj]
+        elif isinstance(obj, (str, int, float, bool, type(None))):
+            # Already JSON serializable
+            return obj
+        else:
+            # Convert everything else to string
+            return str(obj)
+    
+    def _update_cache_with_search_results(self, track_id: int, face_region: np.ndarray, result: Dict) -> Optional[str]:
+        """
+        Update the facial recognition cache with search results (successful or failed).
+        Always saves the face image so it can be recognized later.
+        
+        Args:
+            track_id: The track ID of the unknown person
+            face_region: The face image region
+            result: The search pipeline results
+            
+        Returns:
+            Hash name of the cached entry, or None if failed
+        """
+        try:
+            # Generate hash name for cache (using timestamp and track_id for uniqueness)
+            import hashlib
+            unique_string = f"unknown_search_{track_id}_{int(time.time())}"
+            hash_name = hashlib.md5(unique_string.encode()).hexdigest()
+            
+            # Always save the face image, even if search failed
+            image_path = os.path.join(self.cache_dir, f"{hash_name}.jpg")
+            cv2.imwrite(image_path, face_region)
+            self.logger.info(f"💾 Saved face image to cache: {hash_name}.jpg")
+            
+            # Check if we found a person in the search results
+            search_successful = result.get("success") and result.get("analysis", {}).get("found_person")
+            
+            if search_successful:
+                person_info = result["analysis"]["found_person"]
+                person_name = person_info.get("name", f"Unknown_Track_{track_id}")
+                
+                self.logger.info(f"🔄 Updating cache with successful search results for {person_name} (Track ID: {track_id})")
+                
+                # Create structured cache data with search results
+                cache_data = {
+                    "request_id": hash_name,
+                    "cached_at": datetime.now().isoformat(),
+                    "source": "unknown_person_search",
+                    "track_id": track_id,
+                    "search_status": "successful",
+                    "person_analysis": {
+                        "personal_info": {
+                            "full_name": person_name,
+                            "description": person_info.get("description", ""),
+                            "confidence": person_info.get("confidence", "unknown"),
+                            "source": "facial_search_pipeline"
+                        }
+                    },
+                    "search_metadata": {
+                        "face_search_results": result.get("face_results", []),
+                        "serp_search_summary": result.get("serp_results", {}),
+                        "search_timestamp": datetime.now().isoformat(),
+                        "pipeline_version": "unknown_person_search"
+                    }
+                }
+                
+                # If we have structured LLM analysis, include it
+                if result.get("analysis", {}).get("structured_data"):
+                    cache_data["llm_analysis"] = {
+                        "structured_data": result["analysis"]["structured_data"],
+                        "provider": result.get("analysis", {}).get("provider", "unknown"),
+                        "model": result.get("analysis", {}).get("model", "unknown")
+                    }
+            else:
+                # Search failed, but still create a cache entry for the face
+                error_message = result.get("error", "Search failed - unknown reason")
+                person_name = f"Unknown_Track_{track_id}"
+                
+                self.logger.info(f"🔄 Creating cache entry for failed search (Track ID: {track_id}): {error_message}")
+                
+                cache_data = {
+                    "request_id": hash_name,
+                    "cached_at": datetime.now().isoformat(),
+                    "source": "unknown_person_search",
+                    "track_id": track_id,
+                    "search_status": "failed",
+                    "person_analysis": {
+                        "personal_info": {
+                            "full_name": person_name,
+                            "description": f"Face detected but search failed: {error_message}",
+                            "confidence": "low",
+                            "source": "facial_detection_only"
+                        }
+                    },
+                    "search_metadata": {
+                        "search_error": error_message,
+                        "search_timestamp": datetime.now().isoformat(),
+                        "pipeline_version": "unknown_person_search",
+                        "note": "Image saved for future recognition even though search failed"
+                    }
+                }
+            
+            # Save JSON to cache directory
+            json_path = os.path.join(self.cache_dir, f"{hash_name}.json")
+            with open(json_path, "w", encoding="utf-8") as f:
+                json.dump(cache_data, f, indent=2, ensure_ascii=False)
+            
+            self.logger.info(f"💾 Saved cache JSON: {hash_name}.json")
+            self.logger.info(f"✅ Cache updated successfully for {person_name} (Status: {cache_data['search_status']})")
+            
+            return hash_name
+            
+        except Exception as e:
+            self.logger.error(f"❌ Failed to update cache for Track ID {track_id}: {e}")
+            return None
+    
+    def _reload_facial_recognition_cache(self):
+        """
+        Reload the facial recognition cache to include new entries.
+        """
+        try:
+            self.logger.info("🔄 Reloading facial recognition cache...")
+            self.face_module.load_cached_faces()
+            self.logger.info(f"✅ Cache reloaded, now contains {len(self.face_module.known_faces)} faces")
+        except Exception as e:
+            self.logger.error(f"❌ Failed to reload facial recognition cache: {e}")
+    
+    def _notify_server_new_cache_entry(self, cache_hash: str, track_id: int):
+        """
+        Notify the server about a new cache entry so it can be included in listings.
+        
+        Args:
+            cache_hash: The hash name of the new cache entry
+            track_id: The track ID of the unknown person
+        """
+        try:
+            # For now, we'll use a simple log-based notification
+            # In a more advanced system, this could be a WebSocket message or API call
+            
+            timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            notification_entry = f"[{timestamp}] New cache entry added: {cache_hash}.jpg/.json for Track ID {track_id}\n"
+            
+            with open(self.unknown_log_path, "a", encoding="utf-8") as f:
+                f.write(notification_entry)
+            
+            self.logger.info(f"📢 Server notified of new cache entry: {cache_hash}")
+            
+            # TODO: In the future, this could trigger:
+            # - WebSocket broadcast to connected clients
+            # - Cache invalidation for /list endpoint
+            # - Real-time UI updates
+            
+        except Exception as e:
+            self.logger.error(f"❌ Failed to notify server of new cache entry: {e}")
+    
+    def _save_search_log(self, track_id: int, search_data: Dict, result: Dict) -> str:
+        """
+        Save search results to logs directory similar to pipeline logging.
+        
+        Args:
+            track_id: The track ID of the unknown person
+            search_data: The original search request data
+            result: The search pipeline results
+            
+        Returns:
+            Filename where data was saved
+        """
+        try:
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            filename = os.path.join(self.logs_dir, f"unknown_search_log_{timestamp}_track_{track_id}.json")
+            
+            # Create comprehensive log data
+            log_data = {
+                "timestamp": datetime.now().isoformat(),
+                "event_type": "unknown_person_search",
+                "track_id": track_id,
+                "search_request": {
+                    "track_id": track_id,
+                    "face_region_shape": search_data.get('face_region', np.array([])).shape if 'face_region' in search_data else None,
+                    "initiated_at": timestamp
+                },
+                "search_results": self._make_json_serializable(result),
+                "metadata": {
+                    "pipeline_version": "unknown_person_search",
+                    "search_parameters": {
+                        "min_score": 85,
+                        "max_face_results": 3,
+                        "max_serp_per_url": 2,
+                        "max_working_results": 2
+                    }
+                }
+            }
+            
+            with open(filename, "w", encoding="utf-8") as f:
+                json.dump(log_data, f, indent=2, ensure_ascii=False)
+            
+            self.logger.info(f"📁 Search results logged to: {filename}")
+            return filename
+            
+        except Exception as e:
+            self.logger.error(f"⚠️ Failed to save search log: {e}")
+            return ""
+    
+    def _check_unknown_person_timeout(self):
+        """
+        Check if any unknown persons have been present for longer than the timeout period.
+        Log them if they haven't been logged already.
+        """
+        current_time = time.time()
+        
+        for track_id, first_unknown_time in list(self.unknown_tracks.items()):
+            # Check if this track has been unknown for more than the timeout
+            if (current_time - first_unknown_time >= self.unknown_person_timeout and 
+                track_id not in self.logged_unknown_tracks):
+                
+                # Log this unknown person
+                self._log_unknown_person(track_id)
+                self.logged_unknown_tracks.add(track_id)
+    
+    def _update_unknown_person_tracking(self, detections_data: List[Dict], frame: np.ndarray):
+        """
+        Update unknown person tracking based on current detections and capture face regions.
+        
+        Args:
+            detections_data: List of detection data dictionaries
+            frame: Current video frame for face region extraction
+        """
+        current_time = time.time()
+        current_track_ids = set()
+        
+        for detection in detections_data:
+            track_id = detection.get('track_id')
+            if track_id is None:
+                continue
+                
+            current_track_ids.add(track_id)
+            
+            # Check if person is recognized (has a name and is not analyzing)
+            is_recognized = (detection.get('recognized', False) and 
+                           detection.get('name') is not None and 
+                           not detection.get('is_analyzing', False))
+            
+            if is_recognized:
+                # Person is recognized, remove from unknown tracking
+                if track_id in self.unknown_tracks:
+                    del self.unknown_tracks[track_id]
+                # Also remove from logged set when they become recognized
+                self.logged_unknown_tracks.discard(track_id)
+                # Remove face region since no longer needed
+                if track_id in self.face_regions:
+                    del self.face_regions[track_id]
+            else:
+                # Person is unknown or still analyzing
+                if track_id not in self.unknown_tracks:
+                    # First time seeing this person as unknown
+                    self.unknown_tracks[track_id] = current_time
+                    self.logger.debug(f"Started tracking unknown person: Track ID {track_id}")
+                
+                # Capture and store face region for potential search
+                bbox = detection.get('bbox')
+                if bbox and len(bbox) == 4:
+                    x1, y1, x2, y2 = bbox
+                    # Ensure coordinates are within frame bounds
+                    h, w = frame.shape[:2]
+                    x1, y1 = max(0, x1), max(0, y1)
+                    x2, y2 = min(w, x2), min(h, y2)
+                    
+                    if x2 > x1 and y2 > y1:
+                        face_region = frame[y1:y2, x1:x2]
+                        if face_region.size > 0:
+                            self.face_regions[track_id] = face_region.copy()
+        
+        # Clean up unknown tracks for people who are no longer detected
+        tracks_to_remove = []
+        for track_id in self.unknown_tracks:
+            if track_id not in current_track_ids:
+                tracks_to_remove.append(track_id)
+        
+        for track_id in tracks_to_remove:
+            del self.unknown_tracks[track_id]
+            self.logged_unknown_tracks.discard(track_id)
+            # Clean up face region
+            if track_id in self.face_regions:
+                del self.face_regions[track_id]
+            self.logger.debug(f"Stopped tracking unknown person: Track ID {track_id} (no longer detected)")
+    
     def process_frame_with_analysis(self, frame: np.ndarray) -> Tuple[np.ndarray, List[Dict]]:
         """
         Process frame with face detection and return annotated frame plus detection data.
@@ -323,6 +945,9 @@ class WebcamFaceRecognition:
         
         # Detect faces
         detections = self.detect_faces_in_frame(frame)
+        
+        # Check for unknown person timeouts
+        self._check_unknown_person_timeout()
         
         # Do not draw overlays on backend; return raw frame and data only
         annotated_frame = frame
@@ -358,6 +983,9 @@ class WebcamFaceRecognition:
                 'track_id': int(detection.track_id) if detection.track_id is not None else None
             }
             detections_data.append(detection_data)
+        
+        # Update unknown person tracking based on current detections
+        self._update_unknown_person_tracking(detections_data, frame)
         
         return annotated_frame, detections_data
 
@@ -443,6 +1071,13 @@ class WebcamFaceRecognition:
         for tid in to_delete:
             try:
                 del self.active_tracks[tid]
+                # Also clean up unknown person tracking
+                if tid in self.unknown_tracks:
+                    del self.unknown_tracks[tid]
+                self.logged_unknown_tracks.discard(tid)
+                # Clean up face regions
+                if tid in self.face_regions:
+                    del self.face_regions[tid]
             except Exception:
                 pass
 
