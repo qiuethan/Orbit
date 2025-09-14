@@ -91,6 +91,10 @@ class WebcamFaceRecognition:
         # Ensure logs directory exists
         os.makedirs(self.logs_dir, exist_ok=True)
         
+        # Audio recording setup
+        self.audio_recorder = None
+        self.is_recording_audio = False
+        
         self.logger.info("WebcamFaceRecognition initialized")
         
     def test_search_thread(self):
@@ -158,6 +162,9 @@ class WebcamFaceRecognition:
             else:
                 self.logger.error("❌ Search thread failed to start")
             
+            # Start audio recording
+            self._start_audio_recording()
+            
             self.logger.info(f"Webcam started successfully on camera {camera_index}")
             return True
             
@@ -178,6 +185,9 @@ class WebcamFaceRecognition:
             
         if self.search_thread:
             self.search_thread.join(timeout=2.0)
+        
+        # Stop audio recording
+        self._stop_audio_recording()
             
         self.logger.info("Webcam stopped")
     
@@ -798,6 +808,217 @@ class WebcamFaceRecognition:
             
         except Exception as e:
             self.logger.error(f"❌ Failed to notify server of new cache entry: {e}")
+    
+    def _start_audio_recording(self):
+        """
+        Start audio recording when webcam starts.
+        Saves audio without transcription to recorded_conversations directory.
+        """
+        try:
+            # Import AudioRecorder
+            from recording.recorder import AudioRecorder
+            
+            # Initialize audio recorder without transcription
+            self.audio_recorder = AudioRecorder(
+                output_dir="recorded_conversations", 
+                auto_transcribe=False,  # No transcription needed
+                keep_audio=True  # Keep the audio file
+            )
+            
+            # Start recording with webcam session title
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            title = f"Webcam_Session_{timestamp}"
+            
+            result = self.audio_recorder.start(title=title)
+            
+            if result.get("success"):
+                self.is_recording_audio = True
+                self.logger.info(f"🎙️ Audio recording started: {title}")
+            else:
+                error = result.get("error", "Unknown error")
+                self.logger.warning(f"⚠️ Failed to start audio recording: {error}")
+                self.audio_recorder = None
+                
+        except Exception as e:
+            self.logger.error(f"❌ Error starting audio recording: {e}")
+            self.audio_recorder = None
+    
+    def _stop_audio_recording(self):
+        """
+        Stop audio recording when webcam stops and generate transcript.
+        """
+        try:
+            if self.audio_recorder and self.is_recording_audio:
+                result = self.audio_recorder.stop()
+                
+                if result.get("success"):
+                    self.logger.info(f"🎙️ Audio recording stopped successfully")
+                    audio_filepath = result.get("filepath")
+                    
+                    if audio_filepath:
+                        self.logger.info(f"📁 Audio saved to: {audio_filepath}")
+                        
+                        # Generate transcript using Whisper Large Turbo
+                        self._generate_transcript(audio_filepath)
+                else:
+                    error = result.get("error", "Unknown error")
+                    self.logger.warning(f"⚠️ Error stopping audio recording: {error}")
+                
+                self.is_recording_audio = False
+                self.audio_recorder = None
+            else:
+                self.logger.debug("No active audio recording to stop")
+                
+        except Exception as e:
+            self.logger.error(f"❌ Error stopping audio recording: {e}")
+            self.is_recording_audio = False
+            self.audio_recorder = None
+    
+    def _generate_transcript(self, audio_filepath: str):
+        """
+        Generate transcript from audio file using Whisper Large Turbo.
+        
+        Args:
+            audio_filepath: Path to the audio file to transcribe
+        """
+        try:
+            # Import transcriber
+            from recording.transcriber import ConversationTranscriber
+            
+            self.logger.info(f"🤖 Starting transcription with Whisper Large Turbo...")
+            
+            # Initialize transcriber
+            transcriber = ConversationTranscriber()
+            
+            # Generate transcript
+            transcript_result = transcriber.transcribe_file(audio_filepath, language="auto")
+            
+            if transcript_result.get("success"):
+                # Create transcript filename
+                base_filename = audio_filepath.replace(".wav", "")
+                transcript_filepath = f"{base_filename}_transcript.json"
+                
+                # Save transcript to file
+                import json
+                with open(transcript_filepath, "w", encoding="utf-8") as f:
+                    json.dump(transcript_result, f, indent=2, ensure_ascii=False)
+                
+                self.logger.info(f"✅ Transcript generated successfully")
+                self.logger.info(f"📄 Transcript saved to: {transcript_filepath}")
+                
+                # Log transcript summary to unknown person log
+                timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                text_length = len(transcript_result.get("text", ""))
+                duration = transcript_result.get("duration", 0)
+                
+                transcript_summary = f"[{timestamp}] Webcam session transcript generated - Duration: {duration:.1f}s, Text length: {text_length} chars\n"
+                
+                with open(self.unknown_log_path, "a", encoding="utf-8") as f:
+                    f.write(transcript_summary)
+                
+            else:
+                error = transcript_result.get("error", "Unknown transcription error")
+                self.logger.warning(f"⚠️ Transcription failed: {error}")
+                
+                # Log transcription failure
+                timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                error_entry = f"[{timestamp}] Webcam session transcription failed - Error: {error}\n"
+                
+                with open(self.unknown_log_path, "a", encoding="utf-8") as f:
+                    f.write(error_entry)
+                
+        except Exception as e:
+            self.logger.error(f"❌ Error generating transcript: {e}")
+            
+            # Log transcription error
+            try:
+                timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                error_entry = f"[{timestamp}] Webcam session transcription error - Exception: {str(e)}\n"
+                
+                with open(self.unknown_log_path, "a", encoding="utf-8") as f:
+                    f.write(error_entry)
+            except Exception:
+                pass
+    
+    def get_audio_recording_status(self) -> Dict[str, Any]:
+        """
+        Get the current audio recording status.
+        
+        Returns:
+            Dict with recording status information
+        """
+        if self.is_recording_audio and self.audio_recorder:
+            return {
+                "is_recording": True,
+                "session": self.audio_recorder.current_session if self.audio_recorder.current_session else None,
+                "status": "Recording audio..."
+            }
+        else:
+            return {
+                "is_recording": False,
+                "session": None,
+                "status": "Audio recording inactive"
+            }
+    
+    def get_available_audio_devices(self) -> Dict[str, Any]:
+        """
+        Get information about available audio input devices and their capabilities.
+        
+        Returns:
+            Dict with device information and supported sample rates
+        """
+        try:
+            import sounddevice as sd
+            
+            devices = sd.query_devices()
+            hostapis = sd.query_hostapis()
+            
+            input_devices = []
+            for i, device in enumerate(devices):
+                if device['max_input_channels'] > 0:
+                    # Test supported sample rates
+                    supported_rates = []
+                    test_rates = [16000, 22050, 44100, 48000, 96000]
+                    
+                    for rate in test_rates:
+                        try:
+                            sd.check_input_settings(
+                                device=i,
+                                channels=min(device['max_input_channels'], 2),
+                                samplerate=rate
+                            )
+                            supported_rates.append(rate)
+                        except:
+                            continue
+                    
+                    input_devices.append({
+                        'index': i,
+                        'name': device['name'],
+                        'max_input_channels': device['max_input_channels'],
+                        'default_samplerate': device['default_samplerate'],
+                        'supported_rates': supported_rates,
+                        'hostapi': hostapis[device['hostapi']]['name'] if device['hostapi'] < len(hostapis) else 'Unknown'
+                    })
+            
+            default_device = sd.default.device[0] if sd.default.device else None
+            
+            return {
+                "success": True,
+                "default_input_device": default_device,
+                "input_devices": input_devices,
+                "recommended_settings": {
+                    "high_quality": {"sample_rate": 48000, "channels": 2},
+                    "standard_quality": {"sample_rate": 44100, "channels": 2},
+                    "speech_quality": {"sample_rate": 16000, "channels": 1}
+                }
+            }
+            
+        except Exception as e:
+            return {
+                "success": False,
+                "error": f"Failed to query audio devices: {e}",
+                "input_devices": []
+            }
     
     def _save_search_log(self, track_id: int, search_data: Dict, result: Dict) -> str:
         """

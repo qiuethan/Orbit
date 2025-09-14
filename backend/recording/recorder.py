@@ -69,8 +69,8 @@ class AudioRecorder:
                 "filename": filename,
                 "filepath": filepath,
                 "start_time": datetime.now().isoformat(),
-                "sample_rate": 16000,  # Good for speech
-                "channels": 1  # Mono - works with all microphones
+                "sample_rate": 48000,  # High quality for excellent audio
+                "channels": 1  # Mono - reliable across all devices
             }
             
             self.is_recording = True
@@ -207,42 +207,53 @@ class AudioRecorder:
             return {"success": False, "error": str(e)}
     
     def _record_continuously(self, sample_rate: int, channels: int):
-        """Record audio continuously in a separate thread."""
+        """Record audio continuously using streaming for smooth capture."""
         try:
-            print(f"🎤 Starting continuous recording at {sample_rate}Hz, {channels} channels")
+            print(f"🎤 Starting high-quality streaming recording at {sample_rate}Hz, {channels} channels")
             
-            # Record in chunks and accumulate
-            recorded_chunks = []
-            chunk_duration = 0.5  # 500ms chunks
+            # Use streaming recording for seamless audio capture
+            recorded_frames = []
             
-            while self.is_recording:
-                try:
-                    # Record a small chunk
-                    chunk = sd.rec(
-                        int(chunk_duration * sample_rate),
-                        samplerate=sample_rate,
-                        channels=channels,
-                        dtype='int16'
-                    )
-                    sd.wait()  # Wait for chunk to complete
-                    
-                    if self.is_recording:  # Still recording?
-                        recorded_chunks.append(chunk)
-                        
-                except Exception as e:
-                    print(f"⚠️ Error recording chunk: {e}")
-                    break
+            def audio_callback(indata, frames, time, status):
+                """Audio callback for streaming - called automatically by sounddevice."""
+                if status:
+                    print(f"⚠️ Audio status: {status}")
+                # Store the audio data (copy to avoid issues)
+                recorded_frames.append(indata.copy())
             
-            # Combine all chunks
-            if recorded_chunks:
-                self._recorded_audio = np.concatenate(recorded_chunks)
-                print(f"✅ Captured {len(recorded_chunks)} audio chunks")
+            # Start input stream for continuous recording
+            with sd.InputStream(
+                samplerate=sample_rate,
+                channels=channels,
+                callback=audio_callback,
+                dtype='float32',  # Use float32 for better quality
+                blocksize=1024,   # Small buffer for low latency
+                latency='low'     # Optimize for low latency
+            ):
+                print("🎵 Streaming audio capture started...")
+                
+                # Keep recording until stopped
+                while self.is_recording:
+                    sd.sleep(100)  # Check every 100ms
+            
+            # Combine all recorded frames
+            if recorded_frames:
+                # Concatenate all audio frames
+                self._recorded_audio = np.concatenate(recorded_frames, axis=0)
+                
+                # Convert from float32 to int16 for WAV compatibility
+                # Scale from [-1, 1] to [-32767, 32767]
+                audio_int16 = (self._recorded_audio * 32767).astype(np.int16)
+                self._recorded_audio = audio_int16
+                
+                print(f"✅ Captured {len(recorded_frames)} audio frames seamlessly")
+                print(f"📊 Total samples: {len(self._recorded_audio)}")
             else:
-                print("⚠️ No audio chunks captured")
+                print("⚠️ No audio frames captured")
                 self._recorded_audio = None
                 
         except Exception as e:
-            print(f"❌ Error in continuous recording: {e}")
+            print(f"❌ Error in streaming recording: {e}")
             self._recorded_audio = None
             
     def status(self) -> Dict[str, Any]:
