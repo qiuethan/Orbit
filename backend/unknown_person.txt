@@ -51,3 +51,14 @@
 [2025-09-14 03:48:35] Search queued for Track ID 42 (queue size: 1)
 [2025-09-14 03:48:36] Search completed for Track ID 42 - No matches found
 [2025-09-14 03:48:39] New cache entry added: 55b509abcd6e474014a3f282f4a99c69.jpg/.json for Track ID 42
+[2025-09-14 04:26:44] FRAME PRESENCE TRACKING SESSION STARTED
+[2025-09-14 04:29:14] Unknown person detected (Track ID: 2) - present for 5+ seconds
+[2025-09-14 04:29:14] Starting image search for Track ID 2...
+[2025-09-14 04:29:14] Search queued for Track ID 2 (queue size: 1)
+[2025-09-14 04:29:15] Search completed for Track ID 2 - No matches found
+[2025-09-14 04:29:18] New cache entry added: 132b28d4e7e9bb6daf92504b7ffa528b.jpg/.json for Track ID 2
+[2025-09-14 04:32:26] Unknown person detected (Track ID: 4) - present for 5+ seconds
+[2025-09-14 04:32:26] Starting image search for Track ID 4...
+[2025-09-14 04:32:26] Search queued for Track ID 4 (queue size: 1)
+[2025-09-14 04:32:26] Search completed for Track ID 4 - No matches found
+[2025-09-14 04:32:29] New cache entry added: b208061813149e231e14657ac1e13914.jpg/.json for Track ID 4

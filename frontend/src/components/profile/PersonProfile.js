@@ -42,9 +42,15 @@ function ConversationNotes({ person }) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [newNote, setNewNote] = useState('');
   
-  // Get conversation notes from the person data
+  // Get conversation data from the person data
   const conversationNotes = person.conversationNotes || [];
-  const latestConversation = conversationNotes[0]; // Most recent conversation
+  const conversationHistory = person.conversationHistory || [];
+  const previousTopics = person.previousConversationTopics || [];
+  const totalConversations = person.totalConversations || 0;
+  
+  // Use conversation history if available, otherwise fall back to conversation notes
+  const hasConversationHistory = conversationHistory.length > 0;
+  const latestConversation = hasConversationHistory ? conversationHistory[0] : conversationNotes[0];
   
   const handleAddNote = () => {
     if (!newNote.trim()) return;
@@ -59,7 +65,7 @@ function ConversationNotes({ person }) {
       <div className="flex items-center justify-between mb-2">
         <h3 className="font-semibold text-gray-900 flex items-center gap-2 text-sm">
           <MessageCircle className="w-3 h-3" />
-          Latest Conversation
+          {hasConversationHistory ? `Conversation History (${totalConversations})` : 'Latest Conversation'}
         </h3>
         <button
           onClick={() => setIsExpanded(!isExpanded)}
@@ -78,13 +84,31 @@ function ConversationNotes({ person }) {
                 {latestConversation.date ? formatDate(latestConversation.date) : 'Recent'}
               </span>
               <span className="text-xs text-blue-600">
-                {latestConversation.type || 'Conversation'}
+                {hasConversationHistory ? `Session ${latestConversation.session_id || 'Unknown'}` : (latestConversation.type || 'Conversation')}
               </span>
             </div>
             <p className="text-xs text-blue-700 leading-relaxed">
-              {latestConversation.summary || latestConversation.notes}
+              {hasConversationHistory 
+                ? (latestConversation.summary || `Duration: ${Math.round(latestConversation.duration || 0)}s | Presence: ${Math.round(latestConversation.presence_time || 0)}s`)
+                : (latestConversation.summary || latestConversation.notes)
+              }
             </p>
-            {latestConversation.keyPoints && latestConversation.keyPoints.length > 0 && (
+            {/* Show topics for conversation history */}
+            {hasConversationHistory && latestConversation.topics && latestConversation.topics.length > 0 && (
+              <div className="mt-2">
+                <div className="text-xs font-medium text-blue-800 mb-1">Topics discussed:</div>
+                <div className="flex flex-wrap gap-1">
+                  {latestConversation.topics.slice(0, 4).map((topic, index) => (
+                    <span key={index} className="inline-flex items-center px-1.5 py-0.5 rounded text-xs bg-blue-200 text-blue-800">
+                      {topic}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
+            
+            {/* Show key points for regular conversation notes */}
+            {!hasConversationHistory && latestConversation.keyPoints && latestConversation.keyPoints.length > 0 && (
               <div className="mt-2">
                 <div className="flex flex-wrap gap-1">
                   {latestConversation.keyPoints.slice(0, 3).map((point, index) => (
@@ -97,8 +121,25 @@ function ConversationNotes({ person }) {
             )}
           </div>
           
-          {/* Next Steps */}
-          {latestConversation.nextSteps && (
+          {/* Show previous conversation topics if available */}
+          {hasConversationHistory && previousTopics.length > 0 && (
+            <div className="bg-gray-50 border border-gray-200 rounded p-2">
+              <h4 className="text-xs font-medium text-gray-800 mb-1">Previous conversation topics:</h4>
+              <div className="flex flex-wrap gap-1">
+                {previousTopics.slice(0, 6).map((topic, index) => (
+                  <span key={index} className="inline-flex items-center px-1.5 py-0.5 rounded text-xs bg-gray-200 text-gray-700">
+                    {topic}
+                  </span>
+                ))}
+                {previousTopics.length > 6 && (
+                  <span className="text-xs text-gray-500">+{previousTopics.length - 6} more</span>
+                )}
+              </div>
+            </div>
+          )}
+          
+          {/* Next Steps for regular conversation notes */}
+          {!hasConversationHistory && latestConversation.nextSteps && (
             <div className="bg-green-50 border border-green-200 rounded p-2">
               <h4 className="text-xs font-medium text-green-800 mb-1">Next Steps:</h4>
               <p className="text-xs text-green-700">{latestConversation.nextSteps}</p>
@@ -112,23 +153,56 @@ function ConversationNotes({ person }) {
       {/* Expanded view showing more conversation history */}
       {isExpanded && (
         <div className="mt-3 pt-3 border-t border-gray-200">
-          <h4 className="text-xs font-medium text-gray-700 mb-2">Conversation History</h4>
+          <h4 className="text-xs font-medium text-gray-700 mb-2">
+            {hasConversationHistory ? 'All Conversations' : 'Conversation History'}
+          </h4>
           <div className="space-y-2 max-h-40 overflow-y-auto">
-            {conversationNotes.slice(1, 4).map((conversation, index) => (
-              <div key={index} className="bg-gray-50 border border-gray-200 rounded p-2">
-                <div className="flex items-center justify-between mb-1">
-                  <span className="text-xs font-medium text-gray-600">
-                    {conversation.date ? formatDate(conversation.date) : `Conversation ${index + 2}`}
-                  </span>
-                  <span className="text-xs text-gray-500">
-                    {conversation.type || 'Call'}
-                  </span>
+            {hasConversationHistory ? (
+              // Show conversation history from cache
+              conversationHistory.slice(1).map((conversation, index) => (
+                <div key={index} className="bg-gray-50 border border-gray-200 rounded p-2">
+                  <div className="flex items-center justify-between mb-1">
+                    <span className="text-xs font-medium text-gray-700">
+                      {formatDate(conversation.date)}
+                    </span>
+                    <span className="text-xs text-gray-500">
+                      {Math.round(conversation.duration || 0)}s
+                    </span>
+                  </div>
+                  {conversation.summary && (
+                    <p className="text-xs text-gray-600 leading-relaxed mb-2">
+                      {conversation.summary}
+                    </p>
+                  )}
+                  {conversation.topics && conversation.topics.length > 0 && (
+                    <div className="flex flex-wrap gap-1">
+                      {conversation.topics.map((topic, topicIndex) => (
+                        <span key={topicIndex} className="inline-flex items-center px-1.5 py-0.5 rounded text-xs bg-gray-200 text-gray-700">
+                          {topic}
+                        </span>
+                      ))}
+                    </div>
+                  )}
                 </div>
-                <p className="text-xs text-gray-700 line-clamp-2">
-                  {conversation.summary || conversation.notes}
-                </p>
-              </div>
-            ))}
+              ))
+            ) : (
+              // Show regular conversation notes
+              conversationNotes.slice(1, 4).map((conversation, index) => (
+                <div key={index} className="bg-gray-50 border border-gray-200 rounded p-2">
+                  <div className="flex items-center justify-between mb-1">
+                    <span className="text-xs font-medium text-gray-600">
+                      {conversation.date ? formatDate(conversation.date) : `Conversation ${index + 2}`}
+                    </span>
+                    <span className="text-xs text-gray-500">
+                      {conversation.type || 'Call'}
+                    </span>
+                  </div>
+                  <p className="text-xs text-gray-700 line-clamp-2">
+                    {conversation.summary || conversation.notes}
+                  </p>
+                </div>
+              ))
+            )}
           </div>
         </div>
       )}

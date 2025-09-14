@@ -143,6 +143,11 @@ async function fetchPeopleFromBackend() {
         interactions: [],
         conversationNotes: [],
         
+        // Conversation history from cache if available
+        conversationHistory: personAnalysis.conversation_history || [],
+        previousConversationTopics: personAnalysis.previous_conversation_topics || [],
+        totalConversations: personAnalysis.total_conversations || 0,
+        
         // LinkedIn URL for profile
         linkedIn: findLinkedInFromSocialMedia(socialMedia),
         
