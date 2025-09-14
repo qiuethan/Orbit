@@ -1,0 +1,130 @@
+{
+    "person_analysis": {
+      "personal_info": {
+        "full_name": "Kris Braun",
+        "age": null,
+        "location": "Waterloo, Ontario, Canada",
+        "nationality": "Canadian",
+        "languages": ["English"],
+        "interests": [
+          "Zero-to-one product creation",
+          "Tech product development",
+          "Team leadership",
+          "Faith-based tech volunteering",
+          "Humanitarian innovation (refugee employment pathways)"
+        ]
+      },
+      "professional_info": {
+        "current_position": "CTO",
+        "company": "runQL",
+        "industry": "Data & AI Software",
+        "previous_positions": [
+          "Product Founder – Plot (2023 – Present, part-time)",
+          "CTO – Collide (2023)",
+          "Senior Product Manager – Google (2020 – 2023)",
+          "VP Engineering – Bonfire Interactive (2019 – 2020)",
+          "Director of Engineering – Bonfire Interactive (2018 – 2019)"
+        ],
+        "skills": [
+          "Product Development",
+          "Team Leadership",
+          "Entrepreneurship",
+          "Web Applications",
+          "Node.js",
+          "Large Language Models (LLM)",
+          "Serverless compute",
+          "PostgreSQL",
+          "React",
+          "TypeScript",
+          "Rails",
+          "C++ (firmware, engines)"
+        ],
+        "achievements": [
+          "Scaled Bonfire’s engineering org from a single team to four, modernizing the tech stack and improving shipping cycles from 8 weeks to 2 weeks.",
+          "At Google, nearly tripled adoption of Workflows to 85k+ customers, significantly increasing usage per customer.",
+          "Co-founded Plot, a workspace app driven by agents for multi-device task management.",
+          "CTO of runQL, developing a multiplayer data explorer for collaborative data science workflows.",
+          "Extensive track record as a zero-to-one product creator, rallying teams around results-focused innovation."
+        ]
+      },
+      "education_info": {
+        "degree": "Bachelor of Mathematics, Computer Science with Software Engineering Option",
+        "institution": "University of Waterloo",
+        "graduation_year": 2001,
+        "honors": ["Graduated with Honours"]
+      },
+      "social_media": [
+        {
+          "platform": "LinkedIn",
+          "username": null,
+          "url": null,
+          "verified": null,
+          "followers_count": 3021
+        }
+      ],
+      "talking_points": {
+        "recent_achievements": [
+          "Became CTO of **runQL** (2023 – Present), focusing on multiplayer data exploration.",
+          "Founded **Plot** in 2023, exploring agent-driven productivity tools.",
+          "Helped scale **TalentLift Canada** as founding board chair, enabling 2,000+ refugees to relocate into Canadian jobs."
+        ],
+        "shared_connections": [
+          "Shivang Bajaj",
+          "Ilya Peskov"
+        ],
+        "common_interests": [
+          "Product creation from zero-to-one",
+          "AI-enabled productivity tools",
+          "Serverless developer products",
+          "Humanitarian tech initiatives"
+        ],
+        "conversation_starters": [
+          "Discuss his role in scaling **Workflows at Google** and bringing it to market.",
+          "Ask about his philosophy on empowering directly responsible individuals in product teams.",
+          "Explore his involvement with **TalentLift Canada** and using tech to connect refugees with job opportunities.",
+          "Talk about the development of **runQL** and its multiplayer approach to data exploration."
+        ],
+        "notable_projects": [
+          "runQL – Multiplayer data explorer for analysts",
+          "Plot – Agent-driven productivity workspace",
+          "Google Workflows – Serverless developer product",
+          "TalentLift Canada – Tech-enabled refugee employment",
+          "Bonfire – Scaled procurement software platform"
+        ]
+      },
+      "public_presence_score": "High",
+      "credibility_indicators": [
+        "CTO of multiple startups (runQL, Collide)",
+        "Senior PM at Google leading serverless developer products",
+        "Board Chair of TalentLift Canada, impactful humanitarian initiative",
+        "Strong technical and product leadership experience"
+      ],
+      "potential_red_flags": [
+        "Frequent role changes in startups could raise questions about long-term stability, but consistent focus on innovation offsets this."
+      ],
+      "overview": "Kris Braun is a Canadian tech product creator and engineering leader with over two decades of experience spanning startups and big tech. Currently CTO of runQL, he is also the founder of Plot, and previously served as Senior Product Manager at Google and VP Engineering at Bonfire Interactive. Known for his zero-to-one product building philosophy, Kris has deep hands-on technical experience (React, Node, LLMs, PostgreSQL, firmware) combined with organizational leadership. Beyond tech, he is Board Chair of TalentLift Canada, helping refugees relocate into Canadian jobs, reflecting his commitment to humanitarian innovation.",
+      "executive_summary": "Kris Braun is a Waterloo-based product creator and CTO with a track record of building and scaling impactful products at startups and Google. With expertise in full-stack engineering, serverless platforms, and AI-driven workflows, he has led teams through growth and transformation. His leadership extends into humanitarian work as Board Chair of TalentLift Canada, blending tech with social impact.",
+      "key_insights": [
+        "Strong zero-to-one product creator across multiple startups.",
+        "Proven big tech impact at Google with Workflows adoption.",
+        "Deeply involved in humanitarian initiatives via TalentLift.",
+        "Blends technical hands-on expertise with leadership and product strategy."
+      ],
+      "confidence_level": "High",
+      "sources_quality": "Strong",
+      "last_updated": "2025-09-13"
+    },
+    "best_match_photo": {
+      "base64_data": null,
+      "source_url": null,
+      "confidence_score": null,
+      "description": "No photo provided"
+    },
+    "metadata": {
+      "llm_provider": "cerebras",
+      "llm_model": "gpt-oss-120b",
+      "face_matches": 0,
+      "total_mentions": 1
+    }
+  }
+  
