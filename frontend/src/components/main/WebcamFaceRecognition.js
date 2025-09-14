@@ -572,29 +572,23 @@ const WebcamFaceRecognition = () => {
         }
       }
       
-      // Draw confidence indicator (small dot)
+      // Draw extremely subtle confidence indicator in bottom right corner
       if (confidence > 0) {
-        const dotColor = confidence > 0.7 ? 'rgba(52, 199, 89, 0.9)' : confidence > 0.5 ? 'rgba(255, 149, 0, 0.9)' : 'rgba(255, 69, 58, 0.9)';
+        const dotColor = confidence > 0.7 ? 'rgba(52, 199, 89, 0.1)' : confidence > 0.5 ? 'rgba(255, 149, 0, 0.1)' : 'rgba(255, 69, 58, 0.1)';
         ctx.fillStyle = dotColor;
         ctx.beginPath();
-        ctx.arc(finalOverlayX + overlayWidth - 15, finalOverlayY + 15, 4, 0, 2 * Math.PI);
+        ctx.arc(finalOverlayX + overlayWidth - 4, finalOverlayY + overlayHeight - 4, 1, 0, 2 * Math.PI);
         ctx.fill();
-        
-        // Add subtle glow
-        ctx.shadowColor = dotColor;
-        ctx.shadowBlur = 8;
-        ctx.fill();
-        ctx.shadowBlur = 0;
       }
       
-      // Draw subtle connection line to face (optional)
+      // Draw extremely subtle connection line from bottom right corner
       if (recognizedNow) {
-        ctx.strokeStyle = 'rgba(52, 199, 89, 0.3)';
-        ctx.lineWidth = 1;
-        ctx.setLineDash([3, 3]);
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
+        ctx.lineWidth = 0.3;
+        ctx.setLineDash([1, 3]);
         ctx.beginPath();
-        ctx.moveTo(faceCenterX, scaledY1);
-        ctx.lineTo(finalOverlayX + overlayWidth / 2, finalOverlayY + overlayHeight);
+        ctx.moveTo(finalOverlayX + overlayWidth - 4, finalOverlayY + overlayHeight - 4);
+        ctx.lineTo(faceCenterX, scaledY1);
         ctx.stroke();
         ctx.setLineDash([]);
       }
@@ -694,29 +688,12 @@ const WebcamFaceRecognition = () => {
 
       {/* Status Information */}
       {isStreamActive && (
-        <div className="absolute top-4 left-4">
-          <div className="bg-black/60 px-3 py-2 rounded-lg backdrop-blur-sm border border-white/20">
-            <p className="text-white/90 text-sm font-medium">
-              🎥 Live Face Recognition Active
+        <div className="absolute top-2 left-2">
+          <div className="bg-black/40 px-2 py-1 rounded-md backdrop-blur-sm border border-white/10">
+            <p className="text-white/70 text-xs">
+              🎥 {connectionMethod.toUpperCase()} | {frameCount} | {detections.length} face{detections.length !== 1 ? 's' : ''}
+              {isConnecting && ' | Connecting...'}
             </p>
-            <p className="text-white/70 text-xs mt-1">
-              Method: {connectionMethod.toUpperCase()} | Frame: {frameCount}
-            </p>
-            {detections.length > 0 && (
-              <p className="text-green-400 text-xs mt-1">
-                ✅ {detections.length} face(s) detected
-              </p>
-            )}
-            {presence.inFrame && (
-              <p className="text-white/70 text-xs mt-1">
-                In frame: {[...presence.inFrame].length}
-              </p>
-            )}
-            {isConnecting && (
-              <p className="text-yellow-400 text-xs mt-1">
-                🔄 Connecting...
-              </p>
-            )}
           </div>
         </div>
       )}

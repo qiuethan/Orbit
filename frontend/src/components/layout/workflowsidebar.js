@@ -30,7 +30,20 @@ export default function PeopleSidebar() {
   const { activePerson, setActivePerson, activeWorkflow, setActiveWorkflow } = useApp();
   const { setActiveWorkflow: setContextActiveWorkflow } = useWorkflow();
   const { isWorkflowPage } = usePageContext();
-  const { getDetectedPersonNames, sidebarLoading } = useDetection();
+  const { getDetectedPersonNames, sidebarLoading, isVisionPage: contextIsVisionPage } = useDetection();
+  
+  // Also check current path directly for reliability
+  const currentPath = typeof window !== 'undefined' ? window.location.pathname : '';
+  const isVisionPageDirect = currentPath === '/vision';
+  
+  // Reset detection state when switching away from vision page
+  useEffect(() => {
+    const isVisionPage = typeof window !== 'undefined' && window.location.pathname === '/vision';
+    if (!isVisionPage && sidebarLoading) {
+      // This will trigger the detection context to reset loading state
+      // The detection context already handles this, but this ensures immediate reset
+    }
+  }, [typeof window !== 'undefined' ? window.location.pathname : '', sidebarLoading]);
   
   // Load people and workflows data from backend
   useEffect(() => {
@@ -71,12 +84,38 @@ export default function PeopleSidebar() {
     loadData();
   }, []);
   
-  // Get data based on current page
-  let displayItems = isWorkflowPage ? personWorkflows : people;
+  // Reload people data if it's empty (in case of state issues)
+  useEffect(() => {
+    if (people.length === 0 && !loading) {
+      console.log('People data is empty, reloading...');
+      const reloadData = async () => {
+        try {
+          const peopleData = await peopleApi.getAll();
+          console.log('Reloaded people data:', peopleData.length, 'people');
+          setPeople(peopleData);
+        } catch (error) {
+          console.error('Error reloading people data:', error);
+        }
+      };
+      reloadData();
+    }
+  }, [people.length, loading]);
   
-  // Filter by detected people when on vision page
-  const isVisionPage = typeof window !== 'undefined' && window.location.pathname === '/vision';
-  if (isVisionPage && !isWorkflowPage) {
+  // Get data based on current page
+  let displayItems = people; // Always show people, workflows are shown in right sidebar
+  
+  // Debug logging
+  console.log('Sidebar state:', { 
+    peopleCount: people.length, 
+    isVisionPage: isVisionPageDirect,
+    contextIsVisionPage,
+    isWorkflowPage,
+    sidebarLoading,
+    currentPath
+  });
+  
+  // Filter by detected people ONLY when on vision page AND it's not a workflow page
+  if (isVisionPageDirect && !isWorkflowPage) {
     const detectedNames = getDetectedPersonNames();
     if (detectedNames.length > 0) {
       if (sidebarLoading) {
@@ -93,13 +132,14 @@ export default function PeopleSidebar() {
         displayItems = filteredPeople;
       }
     } else {
-      // If no people detected, show empty list
-      displayItems = [];
+      // If no people detected, show all people (don't filter)
+      displayItems = people;
     }
   }
+  // For workflow page or other pages, displayItems remains as set above (personWorkflows or people)
 
   // Use custom hook for filtering
-  const filteredItems = useSidebarFiltering(displayItems, searchQuery, filterStatus, isWorkflowPage);
+  const filteredItems = useSidebarFiltering(displayItems, searchQuery, filterStatus, false);
 
   const handleNewPerson = () => {
     createNewPerson(setActivePerson);
@@ -110,14 +150,25 @@ export default function PeopleSidebar() {
     setShowActionMenu(null);
   };
 
-  const handlePersonSelect = (person) => {
+  const handlePersonSelect = async (person) => {
     setActivePerson(person);
     
     // Auto-select person's workflow if it exists
-    const personWorkflow = getWorkflowForPerson(person.id);
-    if (personWorkflow) {
-      setActiveWorkflow(personWorkflow);
-      setContextActiveWorkflow(personWorkflow.id);
+    try {
+      const personWorkflow = await getWorkflowForPerson(person.id);
+      if (personWorkflow) {
+        setActiveWorkflow(personWorkflow);
+        setContextActiveWorkflow(personWorkflow.id);
+      } else {
+        // If no specific workflow for this person, clear active workflow
+        setActiveWorkflow(null);
+        setContextActiveWorkflow(null);
+      }
+    } catch (error) {
+      console.error('Error loading workflow for person:', error);
+      // Clear active workflow on error
+      setActiveWorkflow(null);
+      setContextActiveWorkflow(null);
     }
   };
 
@@ -142,14 +193,14 @@ export default function PeopleSidebar() {
   return (
     <div className="h-full flex flex-col bg-white border-r border-gray-200">
       <SidebarHeader
-        isWorkflowPage={isWorkflowPage}
+        isWorkflowPage={false}
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
         filterStatus={filterStatus}
         setFilterStatus={setFilterStatus}
         onNewPerson={handleNewPerson}
-        isVisionPage={isVisionPage}
-        detectedCount={isVisionPage ? getDetectedPersonNames().length : null}
+        isVisionPage={isVisionPageDirect && !isWorkflowPage}
+        detectedCount={isVisionPageDirect && !isWorkflowPage ? getDetectedPersonNames().length : null}
       />
 
       {/* List */}
@@ -158,50 +209,34 @@ export default function PeopleSidebar() {
           <div className="flex items-center justify-center h-32">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
           </div>
-        ) : isVisionPage && sidebarLoading ? (
+        ) : isVisionPageDirect && !isWorkflowPage && sidebarLoading ? (
           <div className="flex flex-col items-center justify-center h-32 space-y-2">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
             <div className="text-sm text-gray-500">Loading detected people...</div>
           </div>
         ) : filteredItems.length === 0 ? (
           <EmptyState
-            isWorkflowPage={isWorkflowPage}
+            isWorkflowPage={false}
             searchQuery={searchQuery}
             onNewPerson={handleNewPerson}
           />
         ) : (
           <div>
             {filteredItems.map((item, index) => {
-              if (isWorkflowPage) {
-                const workflow = item;
-                const isActive = activeWorkflow && activeWorkflow.id === workflow.id;
-              
+              const person = item;
+              const isActive = activePerson && activePerson.id === person.id;
+            
               return (
-                  <WorkflowItem
-                  key={workflow.id || `workflow-${index}`}
-                    workflow={workflow}
-                    isActive={isActive}
-                    showActionMenu={showActionMenu === workflow.id}
-                    onSelect={handleItemSelect}
-                    onActionMenuToggle={handleActionMenuToggle}
-                  />
-                );
-              } else {
-                const person = item;
-                const isActive = activePerson && activePerson.id === person.id;
-              
-                return (
-                  <PersonItem
-                    key={person.id || `person-${index}`}
-                    person={person}
-                    isActive={isActive}
-                    showActionMenu={showActionMenu === person.id}
-                    onSelect={handleItemSelect}
-                    onActionMenuToggle={handleActionMenuToggle}
-                    onPersonAction={handlePersonActionWithContext}
-                  />
-                );
-              }
+                <PersonItem
+                  key={person.id || `person-${index}`}
+                  person={person}
+                  isActive={isActive}
+                  showActionMenu={showActionMenu === person.id}
+                  onSelect={handlePersonSelect}
+                  onActionMenuToggle={handleActionMenuToggle}
+                  onPersonAction={handlePersonActionWithContext}
+                />
+              );
             })}
           </div>
         )}

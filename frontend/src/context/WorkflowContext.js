@@ -294,6 +294,12 @@ export function WorkflowProvider({ children }) {
         
         console.log('Loading workflows from backend:', Object.keys(mergedWorkflows));
         
+        // Save the merged workflows to localStorage immediately
+        saveToLocalStorage({
+          workflows: mergedWorkflows,
+          activeWorkflowId: savedData.activeWorkflowId || Object.keys(formattedWorkflows)[0]
+        });
+        
         dispatch({
           type: WORKFLOW_ACTIONS.SET_WORKFLOWS,
           payload: {
