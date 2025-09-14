@@ -1,0 +1,73 @@
+{
+  "conversation": {
+    "audio_file": "recorded_conversations/recording_20250914_021817_Webcam_Session_20250914_021817.wav",
+    "transcribed_at": "2025-09-14T02:19:01.197962",
+    "model": "groq-whisper-large-v3-turbo"
+  },
+  "transcription": {
+    "success": true,
+    "text": "According to all known laws of aviation, there's no way a bee should be able to fly. Its wings are too small to get its fat little body off the ground. The bee, of course, flies anyways, because bees don't care about what humans think is impossible. Yellow, black, yellow, black, yellow, black, yellow, black. Ooh, black and yellow. Let's shake it up a little. Barry, breakfast is ready. Coming. Hang on a second. Hello, Barry, Adam. Can't you believe this is happening? I can't. I'll pick you up. Looking sharp. Use the stairs. I'm done. Fuck this.",
+    "language": "English",
+    "segments": [
+      {
+        "start": 0,
+        "end": 11.14,
+        "text": "According to all known laws of aviation, there's no way a bee should be able to fly.",
+        "confidence": -0.15861721
+      },
+      {
+        "start": 11.32,
+        "end": 13.84,
+        "text": "Its wings are too small to get its fat little body off the ground.",
+        "confidence": -0.15861721
+      },
+      {
+        "start": 14.12,
+        "end": 18.08,
+        "text": "The bee, of course, flies anyways, because bees don't care about what humans think is impossible.",
+        "confidence": -0.15861721
+      },
+      {
+        "start": 18.6,
+        "end": 21.06,
+        "text": "Yellow, black, yellow, black, yellow, black, yellow, black.",
+        "confidence": -0.15861721
+      },
+      {
+        "start": 21.24,
+        "end": 23.14,
+        "text": "Ooh, black and yellow. Let's shake it up a little.",
+        "confidence": -0.15861721
+      },
+      {
+        "start": 23.56,
+        "end": 26.44,
+        "text": "Barry, breakfast is ready. Coming. Hang on a second.",
+        "confidence": -0.15861721
+      },
+      {
+        "start": 26.76,
+        "end": 29.82,
+        "text": "Hello, Barry, Adam. Can't you believe this is happening?",
+        "confidence": -0.15861721
+      },
+      {
+        "start": 30,
+        "end": 34.76,
+        "text": "I can't. I'll pick you up. Looking sharp. Use the stairs. I'm done. Fuck this.",
+        "confidence": -0.15346168
+      }
+    ],
+    "word_count": 98,
+    "confidence": -0.15797276875000002,
+    "model": "whisper-large-v3-turbo",
+    "transcribed_at": "2025-09-14T02:19:01.197766",
+    "audio_file": "/Users/ethanqiu/Desktop/HTN2025/Orbit/backend/recorded_conversations/recording_20250914_021817_Webcam_Session_20250914_021817.wav"
+  },
+  "summary": {
+    "total_duration": 34.76,
+    "word_count": 98,
+    "language": "English",
+    "confidence_score": -0.15797276875000002
+  }
+}

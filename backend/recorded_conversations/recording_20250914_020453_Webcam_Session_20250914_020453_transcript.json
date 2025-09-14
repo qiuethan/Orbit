@@ -1,0 +1,79 @@
+{
+  "conversation": {
+    "audio_file": "recorded_conversations/recording_20250914_020453_Webcam_Session_20250914_020453.wav",
+    "transcribed_at": "2025-09-14T02:05:34.418754",
+    "model": "groq-whisper-large-v3-turbo"
+  },
+  "transcription": {
+    "success": true,
+    "text": "I already told you. Yeah, we need to call. We'll call them at like 3 or 4. Okay, let's try it. Ready? According to all known laws of aviation, there is no way a bee should be able to fly. Its wings are too small to get its fat little body off the ground. The bee, of course, flies anyway, because bees don't care what humans think is impossible. Why are you looking at me like that man?",
+    "language": "English",
+    "segments": [
+      {
+        "start": 0,
+        "end": 1.12,
+        "text": "I already told you.",
+        "confidence": -0.29171863
+      },
+      {
+        "start": 1.12,
+        "end": 2.16,
+        "text": "Yeah, we need to call.",
+        "confidence": -0.29171863
+      },
+      {
+        "start": 2.16,
+        "end": 4.56,
+        "text": "We'll call them at like 3 or 4.",
+        "confidence": -0.29171863
+      },
+      {
+        "start": 11.84,
+        "end": 13.6,
+        "text": "Okay, let's try it.",
+        "confidence": -0.29171863
+      },
+      {
+        "start": 13.6,
+        "end": 14.4,
+        "text": "Ready?",
+        "confidence": -0.29171863
+      },
+      {
+        "start": 15.52,
+        "end": 20.16,
+        "text": "According to all known laws of aviation, there is no way a bee should be able to fly.",
+        "confidence": -0.29171863
+      },
+      {
+        "start": 20.16,
+        "end": 23.2,
+        "text": "Its wings are too small to get its fat little body off the ground.",
+        "confidence": -0.29171863
+      },
+      {
+        "start": 23.2,
+        "end": 28.08,
+        "text": "The bee, of course, flies anyway, because bees don't care what humans think is impossible.",
+        "confidence": -0.29171863
+      },
+      {
+        "start": 30,
+        "end": 38.92,
+        "text": "Why are you looking at me like that man?",
+        "confidence": -0.3258274
+      }
+    ],
+    "word_count": 78,
+    "confidence": -0.2955084933333334,
+    "model": "whisper-large-v3-turbo",
+    "transcribed_at": "2025-09-14T02:05:34.418610",
+    "audio_file": "/Users/ethanqiu/Desktop/HTN2025/Orbit/backend/recorded_conversations/recording_20250914_020453_Webcam_Session_20250914_020453.wav"
+  },
+  "summary": {
+    "total_duration": 38.92,
+    "word_count": 78,
+    "language": "English",
+    "confidence_score": -0.2955084933333334
+  }
+}

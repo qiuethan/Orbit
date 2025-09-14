@@ -818,10 +818,10 @@ class WebcamFaceRecognition:
             # Import AudioRecorder
             from recording.recorder import AudioRecorder
             
-            # Initialize audio recorder without transcription
+            # Initialize audio recorder with automatic transcription
             self.audio_recorder = AudioRecorder(
                 output_dir="recorded_conversations", 
-                auto_transcribe=False,  # No transcription needed
+                auto_transcribe=True,  # Enable automatic transcription
                 keep_audio=True  # Keep the audio file
             )
             
@@ -845,7 +845,8 @@ class WebcamFaceRecognition:
     
     def _stop_audio_recording(self):
         """
-        Stop audio recording when webcam stops and generate transcript.
+        Stop audio recording when webcam stops. 
+        AudioRecorder will automatically transcribe with Whisper Large Turbo.
         """
         try:
             if self.audio_recorder and self.is_recording_audio:
@@ -853,13 +854,37 @@ class WebcamFaceRecognition:
                 
                 if result.get("success"):
                     self.logger.info(f"🎙️ Audio recording stopped successfully")
-                    audio_filepath = result.get("filepath")
                     
-                    if audio_filepath:
-                        self.logger.info(f"📁 Audio saved to: {audio_filepath}")
+                    # Log session summary to unknown person log
+                    duration = result.get("duration_seconds", 0)
+                    filepath = result.get("session", {}).get("filepath", "")
+                    transcription = result.get("transcription", {})
+                    
+                    self.logger.info(f"📁 Audio saved to: {filepath}")
+                    self.logger.info(f"⏱️ Duration: {duration:.1f} seconds")
+                    
+                    # Log transcription status
+                    if transcription and transcription.get("success"):
+                        word_count = transcription.get("word_count", 0)
+                        language = transcription.get("language", "unknown")
+                        self.logger.info(f"✅ Auto-transcription complete: {word_count} words ({language})")
                         
-                        # Generate transcript using Whisper Large Turbo
-                        self._generate_transcript(audio_filepath)
+                        # Log to unknown person file
+                        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                        session_summary = f"[{timestamp}] Webcam session completed - Duration: {duration:.1f}s, Transcription: {word_count} words ({language})\n"
+                        
+                        with open(self.unknown_log_path, "a", encoding="utf-8") as f:
+                            f.write(session_summary)
+                    else:
+                        transcription_error = transcription.get("error", "Unknown error") if transcription else "No transcription attempted"
+                        self.logger.warning(f"⚠️ Auto-transcription failed: {transcription_error}")
+                        
+                        # Log transcription failure
+                        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                        error_entry = f"[{timestamp}] Webcam session completed - Duration: {duration:.1f}s, Transcription failed: {transcription_error}\n"
+                        
+                        with open(self.unknown_log_path, "a", encoding="utf-8") as f:
+                            f.write(error_entry)
                 else:
                     error = result.get("error", "Unknown error")
                     self.logger.warning(f"⚠️ Error stopping audio recording: {error}")
@@ -874,71 +899,6 @@ class WebcamFaceRecognition:
             self.is_recording_audio = False
             self.audio_recorder = None
     
-    def _generate_transcript(self, audio_filepath: str):
-        """
-        Generate transcript from audio file using Whisper Large Turbo.
-        
-        Args:
-            audio_filepath: Path to the audio file to transcribe
-        """
-        try:
-            # Import transcriber
-            from recording.transcriber import ConversationTranscriber
-            
-            self.logger.info(f"🤖 Starting transcription with Whisper Large Turbo...")
-            
-            # Initialize transcriber
-            transcriber = ConversationTranscriber()
-            
-            # Generate transcript
-            transcript_result = transcriber.transcribe_file(audio_filepath, language="auto")
-            
-            if transcript_result.get("success"):
-                # Create transcript filename
-                base_filename = audio_filepath.replace(".wav", "")
-                transcript_filepath = f"{base_filename}_transcript.json"
-                
-                # Save transcript to file
-                import json
-                with open(transcript_filepath, "w", encoding="utf-8") as f:
-                    json.dump(transcript_result, f, indent=2, ensure_ascii=False)
-                
-                self.logger.info(f"✅ Transcript generated successfully")
-                self.logger.info(f"📄 Transcript saved to: {transcript_filepath}")
-                
-                # Log transcript summary to unknown person log
-                timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                text_length = len(transcript_result.get("text", ""))
-                duration = transcript_result.get("duration", 0)
-                
-                transcript_summary = f"[{timestamp}] Webcam session transcript generated - Duration: {duration:.1f}s, Text length: {text_length} chars\n"
-                
-                with open(self.unknown_log_path, "a", encoding="utf-8") as f:
-                    f.write(transcript_summary)
-                
-            else:
-                error = transcript_result.get("error", "Unknown transcription error")
-                self.logger.warning(f"⚠️ Transcription failed: {error}")
-                
-                # Log transcription failure
-                timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                error_entry = f"[{timestamp}] Webcam session transcription failed - Error: {error}\n"
-                
-                with open(self.unknown_log_path, "a", encoding="utf-8") as f:
-                    f.write(error_entry)
-                
-        except Exception as e:
-            self.logger.error(f"❌ Error generating transcript: {e}")
-            
-            # Log transcription error
-            try:
-                timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                error_entry = f"[{timestamp}] Webcam session transcription error - Exception: {str(e)}\n"
-                
-                with open(self.unknown_log_path, "a", encoding="utf-8") as f:
-                    f.write(error_entry)
-            except Exception:
-                pass
     
     def get_audio_recording_status(self) -> Dict[str, Any]:
         """
