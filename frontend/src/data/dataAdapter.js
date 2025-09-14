@@ -117,6 +117,18 @@ async function fetchPeopleFromBackend() {
           } : null
         },
         
+        // Professional information for profile display
+        professional: {
+          currentRole: professionalInfo.current_position && professionalInfo.current_position !== 'Unknown' ? professionalInfo.current_position : null,
+          company: professionalInfo.company && professionalInfo.company !== 'Unknown' && professionalInfo.company !== 'Unknown Company' 
+            ? professionalInfo.company 
+            : extractCompanyFromPosition(professionalInfo.current_position),
+          industry: professionalInfo.industry && professionalInfo.industry !== 'Unknown' ? professionalInfo.industry : null,
+          previousPositions: Array.isArray(professionalInfo.previous_positions) ? professionalInfo.previous_positions : [],
+          skills: Array.isArray(professionalInfo.skills) ? professionalInfo.skills.filter(skill => typeof skill === 'string' && skill.trim()) : [],
+          achievements: Array.isArray(professionalInfo.achievements) ? professionalInfo.achievements : []
+        },
+        
         // Talking points for conversation starters
         talkingPoints: {
           recentAchievements: talkingPoints.recent_achievements || [],

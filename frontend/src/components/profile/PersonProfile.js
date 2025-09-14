@@ -431,28 +431,63 @@ export default function PersonProfile({ person }) {
                 </h3>
                 <div className="space-y-2">
                   {/* Current Position */}
-                  {professional.currentRole && (
+                  {professional.currentRole && professional.currentRole !== 'Professional' && (
                     <div className="border-l-2 border-blue-500 pl-2">
                       <p className="font-medium text-gray-900 text-xs">{professional.currentRole}</p>
-                      <p className="text-gray-600 text-xs">{professional.company}</p>
+                      {professional.company && professional.company !== 'Company' && professional.company !== 'Unknown Company' && (
+                        <p className="text-gray-600 text-xs">at {professional.company}</p>
+                      )}
+                      {professional.industry && (
+                        <p className="text-gray-500 text-xs">{professional.industry}</p>
+                      )}
                       <span className="inline-block bg-blue-100 text-blue-700 px-1.5 py-0.5 rounded text-xs mt-1">Current</span>
                     </div>
                   )}
                   
                   {/* Previous Positions */}
-                  {professional.previousPositions?.slice(0, 2).map((position, index) => {
-                    // Parse the position string to extract role, company, and duration
-                    const parts = position.split(' — ');
-                    const role = parts[0] || position;
-                    const details = parts[1] || '';
-                    
-                    return (
-                      <div key={index} className="border-l-2 border-gray-200 pl-2">
-                        <p className="font-medium text-gray-900 text-xs">{role}</p>
-                        <p className="text-gray-600 text-xs">{details}</p>
-                      </div>
-                    );
-                  })}
+                  {professional.previousPositions && professional.previousPositions.length > 0 && 
+                    professional.previousPositions.slice(0, 3).map((position, index) => {
+                      try {
+                        // Parse the position string to extract role, company, and duration
+                        // Format: "Role — Company (Duration)"
+                        const parts = position.split(' — ');
+                        const role = parts[0]?.trim() || position;
+                        const details = parts[1]?.trim() || '';
+                        
+                        // Extract company and duration from details if available
+                        const companyMatch = details.match(/^(.+?)\s*\((.+?)\)$/);
+                        const company = companyMatch ? companyMatch[1] : details;
+                        const duration = companyMatch ? companyMatch[2] : '';
+                        
+                        return (
+                          <div key={index} className="border-l-2 border-gray-200 pl-2">
+                            <p className="font-medium text-gray-900 text-xs">{role}</p>
+                            {company && (
+                              <p className="text-gray-600 text-xs">at {company}</p>
+                            )}
+                            {duration && (
+                              <p className="text-gray-500 text-xs">{duration}</p>
+                            )}
+                          </div>
+                        );
+                      } catch (error) {
+                        console.warn('Error parsing position:', position, error);
+                        return (
+                          <div key={index} className="border-l-2 border-gray-200 pl-2">
+                            <p className="font-medium text-gray-900 text-xs">{position}</p>
+                          </div>
+                        );
+                      }
+                    })
+                  }
+                  
+                  {/* Show message if no professional experience */}
+                  {(!professional.currentRole || professional.currentRole === 'Professional') && 
+                   (!professional.previousPositions || professional.previousPositions.length === 0) && (
+                    <div className="text-gray-500 text-xs italic">
+                      No professional experience data available
+                    </div>
+                  )}
                 </div>
               </div>
 
@@ -640,11 +675,18 @@ export default function PersonProfile({ person }) {
               <div className="bg-white border border-gray-200 rounded-lg p-3">
                 <h3 className="font-medium text-gray-900 mb-1.5 text-sm">Skills</h3>
                 <div className="flex flex-wrap gap-1">
-                  {professional.skills.slice(0, 8).map((skill, index) => (
-                    <span key={index} className="bg-gray-100 text-gray-700 px-2 py-0.5 rounded text-xs">
-                      {skill}
-                    </span>
-                  ))}
+                  {professional.skills.slice(0, 12).map((skill, index) => {
+                    try {
+                      return (
+                        <span key={index} className="bg-gray-100 text-gray-700 px-2 py-0.5 rounded text-xs">
+                          {typeof skill === 'string' ? skill : JSON.stringify(skill)}
+                        </span>
+                      );
+                    } catch (error) {
+                      console.warn('Error rendering skill:', skill, error);
+                      return null;
+                    }
+                  })}
                 </div>
               </div>
             )}
