@@ -219,13 +219,14 @@ const WebcamFaceRecognition = () => {
       const width = scaledX2 - scaledX1;
       const height = scaledY2 - scaledY1;
       
-      // Determine color based on status
+      // Determine color based on status and confidence
       let color, label;
       
       if (detection.is_analyzing) {
         color = '#FFFF00'; // Yellow for analyzing
         label = 'Analyzing...';
-      } else if (detection.name) {
+      } else if (detection.name && detection.similarity && detection.similarity >= 0.8) {
+        // Only show as recognized if similarity is 80% or higher
         color = '#00FF00'; // Green for recognized
         label = `${detection.name}`;
         if (detection.similarity) {
@@ -234,6 +235,10 @@ const WebcamFaceRecognition = () => {
       } else {
         color = '#FF0000'; // Red for unknown
         label = 'Unknown';
+        // Show confidence even for unknown faces for debugging
+        if (detection.similarity && detection.similarity > 0) {
+          label += ` (${(detection.similarity * 100).toFixed(0)}%)`;
+        }
       }
       
       // Draw bounding box
@@ -397,12 +402,12 @@ const WebcamFaceRecognition = () => {
                     className="w-3 h-3 rounded-full"
                     style={{ 
                       backgroundColor: detection.is_analyzing ? '#FFFF00' : 
-                                     detection.name ? '#00FF00' : '#FF0000' 
+                                     (detection.name && detection.similarity >= 0.7) ? '#00FF00' : '#FF0000' 
                     }}
                   />
                   <span className="text-white text-sm">
                     {detection.is_analyzing ? 'Analyzing...' : 
-                     detection.name || 'Unknown Person'}
+                     (detection.name && detection.similarity >= 0.8) ? detection.name : 'Unknown Person'}
                   </span>
                 </div>
                 {detection.similarity && detection.similarity > 0 && (
