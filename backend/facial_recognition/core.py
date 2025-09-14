@@ -19,9 +19,9 @@ class FacialRecognitionModule:
     """
     
     def __init__(self, 
-                recognition_threshold: float = 0.5,
+                recognition_threshold: float = 0.8,
                 cache_path: str = None,
-                model_name: str = "buffalo_l",
+                model_name: str = "buffalo_sc",
                 detection_size: Tuple[int, int] = (640, 640),
                 max_faces: int = 5):
         """
@@ -50,7 +50,8 @@ class FacialRecognitionModule:
                 root="~/.insightface",
                 providers=['CPUExecutionProvider']
             )
-            self.face_analyzer.prepare(ctx_id=0, det_size=detection_size)
+            # Use better detection parameters for accuracy
+            self.face_analyzer.prepare(ctx_id=0, det_size=detection_size, det_thresh=0.6)
             self.logger.info(f"Initialized face analyzer with model {model_name}")
         except Exception as e:
             self.logger.error(f"Error initializing face analyzer: {e}")
@@ -184,31 +185,67 @@ class FacialRecognitionModule:
             target_face = faces[0]
             target_embedding = target_face.embedding
             
+            return self.compare_embedding_with_cached_faces(target_embedding)
+                
+        except Exception as e:
+            self.logger.error(f"Error comparing with cached faces: {e}")
+            return None, 0.0, None
+    
+    def compare_embedding_with_cached_faces(self, target_embedding: np.ndarray) -> Tuple[Optional[str], float, Optional[str]]:
+        """
+        Compare target embedding directly with all cached faces.
+        This is more efficient when you already have the embedding.
+        
+        Args:
+            target_embedding: Face embedding vector
+            
+        Returns:
+            Tuple[hash_name, similarity, json_path]: Best match info or None if no match
+        """
+        try:
+            if target_embedding is None:
+                self.logger.error("Target embedding is None")
+                return None, 0.0, None
+                
             # Find best match among cached faces
             best_match = None
             best_similarity = 0.0
             best_json_path = None
             
+            self.logger.info(f"Comparing embedding with {len(self.known_faces)} cached faces")
+            
+            # Collect ALL similarities for transparency  
+            all_similarities = []
+            
             for hash_name, face_data in self.known_faces.items():
                 cached_embedding = face_data['embedding']
                 similarity = self.recognition._calculate_similarity(target_embedding, cached_embedding)
                 
-                self.logger.info(f"  📊 Comparing with {hash_name}: similarity = {similarity:.4f}")
+                all_similarities.append((hash_name, similarity, face_data.get('json_path')))
                 
                 if similarity > best_similarity:
                     best_similarity = similarity
                     best_match = hash_name
-                    best_json_path = face_data.get('json_path')  # Use .get() to handle missing json_path
+                    best_json_path = face_data.get('json_path')
+            
+            # Sort and log ALL similarities for debugging bias issues
+            all_similarities.sort(key=lambda x: x[1], reverse=True)
+            self.logger.info(f"📊 ALL face similarities:")
+            for i, (name, sim, _) in enumerate(all_similarities):
+                status = "✅" if sim >= self.recognition_threshold else "❌"
+                self.logger.info(f"  {i+1}. {status} {name}: {sim:.4f}")
                     
-            if best_match and best_similarity > self.recognition_threshold:
-                self.logger.info(f"Found match: {best_match} with similarity {best_similarity:.4f}")
+            self.logger.info(f"Best match: {best_match} with similarity {best_similarity:.4f} (threshold: {self.recognition_threshold})")
+                    
+            if best_match and best_similarity >= self.recognition_threshold:
+                self.logger.info(f"✅ Found match above threshold: {best_match} with similarity {best_similarity:.4f}")
                 return best_match, best_similarity, best_json_path
             else:
-                self.logger.info(f"No sufficient match found (best similarity: {best_similarity:.4f})")
+                self.logger.info(f"❌ No sufficient match found (best similarity: {best_similarity:.4f} < threshold: {self.recognition_threshold})")
                 return None, best_similarity, None
                 
         except Exception as e:
-            self.logger.error(f"Error comparing with cached faces: {e}")
+            self.logger.error(f"Error comparing embedding with cached faces: {e}")
             return None, 0.0, None
             
     def process_image(self, image_path: str) -> Dict[str, Any]:

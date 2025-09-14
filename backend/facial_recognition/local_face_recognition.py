@@ -77,7 +77,7 @@ def recognize(target_image_path: str, candidate_image_paths: List[str] = None) -
             
             # Initialize facial recognition module
             face_module = FacialRecognitionModule(
-                recognition_threshold=0.6,  # Adjust threshold as needed
+                recognition_threshold=0.6,  # 60% confidence threshold
                 cache_path=cache_dir
             )
             

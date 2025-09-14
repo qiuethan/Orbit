@@ -45,8 +45,9 @@ class WebcamFaceRecognition:
         cache_dir = os.path.join(backend_dir, "cache")
         
         self.face_module = FacialRecognitionModule(
-            recognition_threshold=0.6,
-            cache_path=cache_dir
+            recognition_threshold=0.8,
+            cache_path=cache_dir,
+            model_name="buffalo_sc"
         )
         
         # Webcam setup
@@ -61,7 +62,7 @@ class WebcamFaceRecognition:
         # Face tracking for one-time analysis
         self.tracked_faces = {}  # Track faces that have been analyzed
         self.face_analysis_status = {}  # Track analysis status per face
-        self.analysis_cooldown = 5.0  # Seconds before re-analyzing same area
+        self.analysis_cooldown = 1.0  # Seconds before re-analyzing same area
         
         self.logger.info("WebcamFaceRecognition initialized")
     
@@ -248,16 +249,9 @@ class WebcamFaceRecognition:
                 import tempfile
                 import cv2
                 
-                # Save face region as temporary image for recognition
-                with tempfile.NamedTemporaryFile(suffix='.jpg', delete=False) as tmp_file:
-                    cv2.imwrite(tmp_file.name, face_region)
-                    
-                    # Use the existing compare_with_cached_faces method
-                    person_id, similarity, json_path = self.face_module.compare_with_cached_faces(tmp_file.name)
-                    
-                    # Clean up temp file
-                    import os
-                    os.unlink(tmp_file.name)
+                # Use the embedding directly instead of saving/loading temp image
+                # This is much more efficient and accurate
+                person_id, similarity, json_path = self.face_module.compare_embedding_with_cached_faces(face_embedding)
                 
                 result = {
                     'name': person_id,
@@ -326,8 +320,8 @@ class WebcamFaceRecognition:
         # Detect faces
         detections = self.detect_faces_in_frame(frame)
         
-        # Create annotated frame
-        annotated_frame = frame.copy()
+        # Do not draw overlays on backend; return raw frame and data only
+        annotated_frame = frame
         detections_data = []
         
         for detection in detections:
@@ -344,17 +338,7 @@ class WebcamFaceRecognition:
                 color = (0, 0, 255)  # Red for unknown
                 label = "Unknown"
             
-            # Draw bounding box
-            cv2.rectangle(annotated_frame, (x1, y1), (x2, y2), color, 2)
-            
-            # Draw label background
-            label_size = cv2.getTextSize(label, cv2.FONT_HERSHEY_SIMPLEX, 0.6, 2)[0]
-            cv2.rectangle(annotated_frame, (x1, y1 - label_size[1] - 10), 
-                         (x1 + label_size[0], y1), color, -1)
-            
-            # Draw label text
-            cv2.putText(annotated_frame, label, (x1, y1 - 5), 
-                       cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 2)
+            # Backend no longer draws; frontend overlays boxes/labels
             
             # Prepare detection data for frontend (ensure JSON serializable)
             detection_data = {
