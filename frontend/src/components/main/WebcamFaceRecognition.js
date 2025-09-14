@@ -9,7 +9,9 @@ const WebcamFaceRecognition = () => {
   const [detections, setDetections] = useState([]);
   const [isConnecting, setIsConnecting] = useState(false);
   const [frameCount, setFrameCount] = useState(0);
+  const [presence, setPresence] = useState({ inFrame: new Set(), events: [] });
   const [connectionMethod, setConnectionMethod] = useState('sse'); // 'sse' or 'polling'
+  const [trackLabels, setTrackLabels] = useState({}); // { [trackId]: { label: string, recognized: boolean } }
   
   const canvasRef = useRef(null);
   const imageRef = useRef(null);
@@ -18,6 +20,75 @@ const WebcamFaceRecognition = () => {
   const retryTimeoutRef = useRef(null);
   const retryAttempts = useRef(0);
   const maxRetryAttempts = 5;
+
+  // Polling fallback for when SSE fails
+  const startPolling = useCallback(() => {
+    if (pollingIntervalRef.current) {
+      clearInterval(pollingIntervalRef.current);
+    }
+
+    console.log('🔄 Starting polling mode...');
+    setIsConnecting(false);
+    
+    const pollFrame = async () => {
+      try {
+        const response = await fetch('http://localhost:8000/webcam/live-frame');
+        if (response.ok) {
+          const data = await response.json();
+          setFrameData(data.frame);
+          const dets = data.detections || [];
+          setDetections(dets);
+          setTrackLabels((prev) => {
+            const next = { ...prev };
+            const seen = new Set();
+            dets.forEach((d) => {
+              const tid = d.track_id ?? `idx_${Math.random().toString(36).slice(2)}`;
+              seen.add(tid);
+              if (d.recognized && d.name) {
+                if (!next[tid] || next[tid]?.label !== d.name) {
+                  next[tid] = { label: d.name, recognized: true };
+                } else if (next[tid] && next[tid].recognized !== true) {
+                  next[tid] = { ...next[tid], recognized: true };
+                }
+              } else if (!next[tid]) {
+                next[tid] = { label: 'Unknown', recognized: false };
+              }
+            });
+            Object.keys(next).forEach((key) => {
+              if (!seen.has(isNaN(Number(key)) ? key : Number(key))) {
+                delete next[key];
+              }
+            });
+            return next;
+          });
+          if (Array.isArray(data.presence_events)) {
+            setPresence(prev => {
+              const nextInFrame = new Set(prev.inFrame);
+              const evts = [];
+              data.presence_events.forEach(evt => {
+                if (evt.event === 'entered') nextInFrame.add(evt.track_id);
+                if (evt.event === 'left') nextInFrame.delete(evt.track_id);
+                evts.push(evt);
+              });
+              return { inFrame: nextInFrame, events: evts };
+            });
+          }
+          setError(null);
+        } else {
+          throw new Error(`HTTP ${response.status}`);
+        }
+      } catch (err) {
+        console.error('Polling error:', err);
+        setError(`Polling failed: ${err.message}`);
+      }
+    };
+
+    // Initial frame
+    pollFrame();
+    
+    // Poll every 100ms (10 FPS)
+    pollingIntervalRef.current = setInterval(pollFrame, 100);
+  }, []);
 
   // Server-Sent Events connection for reliable streaming
   const connectSSE = useCallback(() => {
@@ -50,8 +121,44 @@ const WebcamFaceRecognition = () => {
           
           if (data.type === 'frame') {
             setFrameData(data.frame);
-            setDetections(data.detections || []);
+            const dets = data.detections || [];
+            setDetections(dets);
+            setTrackLabels((prev) => {
+              const next = { ...prev };
+              const seen = new Set();
+              dets.forEach((d) => {
+                const tid = d.track_id ?? `idx_${Math.random().toString(36).slice(2)}`;
+                seen.add(tid);
+                if (d.recognized && d.name) {
+                  if (!next[tid] || next[tid]?.label !== d.name) {
+                    next[tid] = { label: d.name, recognized: true };
+                  } else if (next[tid] && next[tid].recognized !== true) {
+                    next[tid] = { ...next[tid], recognized: true };
+                  }
+                } else if (!next[tid]) {
+                  next[tid] = { label: 'Unknown', recognized: false };
+                }
+              });
+              Object.keys(next).forEach((key) => {
+                if (!seen.has(isNaN(Number(key)) ? key : Number(key))) {
+                  delete next[key];
+                }
+              });
+              return next;
+            });
             setFrameCount(data.frame_count || 0);
+            if (Array.isArray(data.presence_events)) {
+              setPresence(prev => {
+                const nextInFrame = new Set(prev.inFrame);
+                const evts = [];
+                data.presence_events.forEach(evt => {
+                  if (evt.event === 'entered') nextInFrame.add(evt.track_id);
+                  if (evt.event === 'left') nextInFrame.delete(evt.track_id);
+                  evts.push(evt);
+                });
+                return { inFrame: nextInFrame, events: evts };
+              });
+            }
             setError(null);
           } else if (data.type === 'status') {
             console.log('SSE status:', data.message);
@@ -91,40 +198,7 @@ const WebcamFaceRecognition = () => {
       setConnectionMethod('polling');
       startPolling();
     }
-  }, []);
-
-  // Polling fallback for when SSE fails
-  const startPolling = useCallback(() => {
-    if (pollingIntervalRef.current) {
-      clearInterval(pollingIntervalRef.current);
-    }
-
-    console.log('🔄 Starting polling mode...');
-    setIsConnecting(false);
-    
-    const pollFrame = async () => {
-      try {
-        const response = await fetch('http://localhost:8000/webcam/live-frame');
-        if (response.ok) {
-          const data = await response.json();
-          setFrameData(data.frame);
-          setDetections(data.detections || []);
-          setError(null);
-        } else {
-          throw new Error(`HTTP ${response.status}`);
-        }
-      } catch (err) {
-        console.error('Polling error:', err);
-        setError(`Polling failed: ${err.message}`);
-      }
-    };
-
-    // Initial frame
-    pollFrame();
-    
-    // Poll every 100ms (10 FPS)
-    pollingIntervalRef.current = setInterval(pollFrame, 100);
-  }, []);
+  }, [startPolling]);
 
   // Disconnect all streams
   const disconnectStream = useCallback(() => {
@@ -145,6 +219,8 @@ const WebcamFaceRecognition = () => {
     
     setFrameData(null);
     setDetections([]);
+    setPresence({ inFrame: new Set(), events: [] });
+    setTrackLabels({});
     setFrameCount(0);
     retryAttempts.current = 0;
   }, []);
@@ -220,26 +296,11 @@ const WebcamFaceRecognition = () => {
       const height = scaledY2 - scaledY1;
       
       // Determine color based on status and confidence
-      let color, label;
-      
-      if (detection.is_analyzing) {
-        color = '#FFFF00'; // Yellow for analyzing
-        label = 'Analyzing...';
-      } else if (detection.name && detection.similarity && detection.similarity >= 0.8) {
-        // Only show as recognized if similarity is 80% or higher
-        color = '#00FF00'; // Green for recognized
-        label = `${detection.name}`;
-        if (detection.similarity) {
-          label += ` (${(detection.similarity * 100).toFixed(0)}%)`;
-        }
-      } else {
-        color = '#FF0000'; // Red for unknown
-        label = 'Unknown';
-        // Show confidence even for unknown faces for debugging
-        if (detection.similarity && detection.similarity > 0) {
-          label += ` (${(detection.similarity * 100).toFixed(0)}%)`;
-        }
-      }
+      const tid = detection.track_id ?? null;
+      const tracked = tid != null ? trackLabels[tid] : null;
+      const recognizedNow = Boolean(detection.recognized || (tracked && tracked.recognized));
+      const label = (tracked && tracked.label) || (detection.recognized ? detection.name : 'Unknown');
+      const color = recognizedNow ? '#00FF00' : '#FF0000';
       
       // Draw bounding box
       ctx.strokeStyle = color;
@@ -372,6 +433,11 @@ const WebcamFaceRecognition = () => {
                 ✅ {detections.length} face(s) detected
               </p>
             )}
+            {presence.inFrame && (
+              <p className="text-white/70 text-xs mt-1">
+                In frame: {[...presence.inFrame].length}
+              </p>
+            )}
             {isConnecting && (
               <p className="text-yellow-400 text-xs mt-1">
                 🔄 Connecting...
@@ -395,28 +461,33 @@ const WebcamFaceRecognition = () => {
         <div className="absolute bottom-4 left-4 max-w-sm">
           <div className="bg-black/60 p-4 rounded-lg backdrop-blur-sm border border-white/10">
             <h3 className="text-white font-medium mb-2">Detected Faces:</h3>
-            {detections.map((detection, index) => (
-              <div key={index} className="mb-2 last:mb-0">
-                <div className="flex items-center gap-2">
-                  <div 
-                    className="w-3 h-3 rounded-full"
-                    style={{ 
-                      backgroundColor: detection.is_analyzing ? '#FFFF00' : 
-                                     (detection.name && detection.similarity >= 0.7) ? '#00FF00' : '#FF0000' 
-                    }}
-                  />
-                  <span className="text-white text-sm">
-                    {detection.is_analyzing ? 'Analyzing...' : 
-                     (detection.name && detection.similarity >= 0.8) ? detection.name : 'Unknown Person'}
-                  </span>
-                </div>
-                {detection.similarity && detection.similarity > 0 && (
-                  <div className="text-white/60 text-xs ml-5">
-                    Confidence: {(detection.similarity * 100).toFixed(0)}%
+            {detections.map((detection, index) => {
+              const tid = detection.track_id ?? `idx_${index}`;
+              const tracked = trackLabels[tid];
+              const recognizedNow = Boolean(detection.recognized || (tracked && tracked.recognized));
+              const label = (tracked && tracked.label) || (detection.recognized ? detection.name : 'Unknown Person');
+              return (
+                <div key={tid} className="mb-2 last:mb-0">
+                  <div className="flex items-center gap-2">
+                    <div 
+                      className="w-3 h-3 rounded-full"
+                      style={{ backgroundColor: recognizedNow ? '#00FF00' : '#FF0000' }}
+                    />
+                    <span className="text-white text-sm">{label}</span>
                   </div>
-                )}
+                  {detection.similarity && detection.similarity > 0 && (
+                    <div className="text-white/60 text-xs ml-5">
+                      Confidence: {(detection.similarity * 100).toFixed(0)}%
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+            {presence.events && presence.events.length > 0 && (
+              <div className="mt-2 text-white/60 text-xs">
+                Last events: {presence.events.map((e) => `${e.event}#${e.track_id}`).join(', ')}
               </div>
-            ))}
+            )}
           </div>
         </div>
       )}

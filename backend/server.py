@@ -832,7 +832,8 @@ async def get_webcam_frame():
             "status": "success",
             "frame": f"data:image/jpeg;base64,{frame_base64}",
             "detections": detections,
-            "timestamp": time.time()
+            "timestamp": time.time(),
+            "presence_events": webcam.get_presence_events()
         }
         
     except Exception as e:
@@ -875,7 +876,8 @@ async def webcam_stream_sse():
                         "frame": f"data:image/jpeg;base64,{frame_base64}",
                         "detections": detections,
                         "timestamp": time.time(),
-                        "frame_count": frame_count
+                        "frame_count": frame_count,
+                        "presence_events": webcam.get_presence_events()
                     }
                     
                     # Debug detection data to ensure JSON serialization works
@@ -938,7 +940,8 @@ async def get_live_frame_with_detections():
             "status": "success",
             "frame": f"data:image/jpeg;base64,{frame_base64}",
             "detections": detections,
-            "timestamp": time.time()
+            "timestamp": time.time(),
+            "presence_events": webcam.get_presence_events()
         }
         
     except Exception as e:

@@ -1,0 +1,136 @@
+{
+    "person_analysis": {
+      "personal_info": {
+        "full_name": "Jessica (Jiajing) Chen",
+        "age": null,
+        "location": "Canada",
+        "nationality": "Canadian",
+        "languages": ["English", "Mandarin (likely, based on background)"],
+        "interests": [
+          "Machine Learning",
+          "Reinforcement Learning",
+          "Quantitative Finance",
+          "AI/ML Infrastructure",
+          "Student Leadership",
+          "Robotics",
+          "Music (violin, guitar)",
+          "Dance"
+        ]
+      },
+      "professional_info": {
+        "current_position": "VP Academics",
+        "company": "University of Toronto Machine Intelligence Student Team (UTMIST)",
+        "industry": "AI/ML Research and Student Organization",
+        "previous_positions": [
+          "AI Engineer Intern – RBC Capital Markets (2025)",
+          "Quantitative Trading Analyst – RBC Capital Markets (2024 – 2025)",
+          "Undergraduate Research Assistant – University of Alberta (2023 – 2024, 2 terms)",
+          "Project Developer – UTMIST (2023 – 2024)",
+          "Academic Director – UTMIST (2024 – 2025)",
+          "R&D Team Member – UofT Robotics Association (2024)"
+        ],
+        "skills": [
+          "Python",
+          "Machine Learning",
+          "Reinforcement Learning",
+          "Deep Learning",
+          "Quantitative Analysis",
+          "Data Analysis",
+          "Unity Visualizations",
+          "Leadership and Academic Program Development"
+        ],
+        "achievements": [
+          "Recipient of the **NSERC Undergraduate Student Research Award** at University of Alberta.",
+          "Integrated deterministic randomness into a model-based reinforcement learning framework to improve reproducibility for research.",
+          "Helped lead UTMIST’s **academic programs and AI workshops**, shaping one of North America’s largest AI/ML student organizations.",
+          "Built experience in both **quantitative trading (RBC)** and **research-driven reinforcement learning (UofA)**.",
+          "Contributed to robotics R&D through **Pacbot Algorithm team** at UTRA."
+        ]
+      },
+      "education_info": {
+        "degree": "Bachelor of Science in Computer Science (Specialist), Minor in Statistical Science and Mathematics",
+        "institution": "University of Toronto",
+        "graduation_year": 2025,
+        "honors": [
+          "EPSB Division Math/Science/Technologies Award (2021)",
+          "Math Award (2021)",
+          "Full IB Diploma (41/45)"
+        ],
+        "secondary_education": "Lillian Osborne High School (2018 – 2021)"
+      },
+      "social_media": [
+        {
+          "platform": "LinkedIn",
+          "username": null,
+          "url": null,
+          "verified": null,
+          "followers_count": 420
+        }
+      ],
+      "talking_points": {
+        "recent_achievements": [
+          "Promoted to **VP Academics at UTMIST**, leading academic programs and workshops.",
+          "Completed an **AI Engineering internship at RBC Capital Markets**, bridging ML research with quantitative finance applications.",
+          "Contributed to UTMIST’s **Tenstorrent cluster deployment** project, enabling students to run Llama models on custom hardware."
+        ],
+        "shared_connections": [
+          "Steric Tsui",
+          "Abdul Fatir",
+          "132+ mutual connections in AI/ML and UofT community"
+        ],
+        "common_interests": [
+          "Reinforcement learning research",
+          "AI in finance",
+          "AI hardware acceleration",
+          "Quantitative analysis",
+          "Leadership in AI student communities"
+        ],
+        "conversation_starters": [
+          "Ask about her reinforcement learning research at University of Alberta and reproducibility in RL experiments.",
+          "Discuss her transition from **academic ML research** to **quantitative finance at RBC**.",
+          "Explore her leadership at UTMIST and building one of North America’s largest AI student organizations.",
+          "Bring up her work on the Tenstorrent AI cluster and its role in ML projects."
+        ],
+        "notable_projects": [
+          "Model-Based RL Framework (UofA Research)",
+          "Tenstorrent Quietbox AI Cluster Deployment (UTMIST)",
+          "Pacbot Robotics Algorithms (UTRA)",
+          "Quantitative Trading Strategies (RBC)"
+        ]
+      },
+      "public_presence_score": "Medium",
+      "credibility_indicators": [
+        "VP Academics at UTMIST, a major AI student org",
+        "NSERC Research Award recipient",
+        "Quantitative trading experience at RBC Capital Markets",
+        "Hands-on ML and RL research background"
+      ],
+      "potential_red_flags": [
+        "Still early in career – most experience is academic or internship-based."
+      ],
+      "overview": "Jessica (Jiajing) Chen is a Computer Science student at the University of Toronto (graduating 2025) with a strong background in reinforcement learning research, student leadership, and quantitative finance. She has held roles at RBC Capital Markets as a Quant Trading Analyst and AI Engineer, contributed to reinforcement learning reproducibility research at University of Alberta, and now serves as VP Academics at UTMIST, where she drives AI/ML workshops and academic programming. Jessica balances technical depth in ML and RL with leadership and organizational impact in the AI student ecosystem.",
+      "executive_summary": "Jessica Chen is a rising AI and quantitative finance professional, blending research and industry experience with leadership. Currently VP Academics at UTMIST, she has worked on reinforcement learning reproducibility at UofA, quantitative trading at RBC, and robotics research at UofT. With an academic foundation in CS, stats, and math, she is poised for future opportunities at the intersection of AI research and applied finance.",
+      "key_insights": [
+        "Deep reinforcement learning research background with a focus on reproducibility.",
+        "Hands-on financial industry experience at RBC Capital Markets.",
+        "Leadership in AI student organizations through UTMIST.",
+        "Cross-disciplinary profile: ML research, finance applications, and robotics exposure."
+      ],
+      "confidence_level": "High",
+      "sources_quality": "Strong",
+      "last_updated": "2025-09-13"
+    },
+    "best_match_photo": {
+      "base64_data": null,
+      "source_url": null,
+      "confidence_score": null,
+      "description": "No photo provided"
+    },
+    "metadata": {
+      "llm_provider": "cerebras",
+      "llm_model": "gpt-oss-120b",
+      "face_matches": 0,
+      "total_mentions": 1
+    }
+  }
+  

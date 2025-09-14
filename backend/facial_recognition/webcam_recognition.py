@@ -28,6 +28,7 @@ class FaceDetection:
     json_path: Optional[str] = None
     similarity: float = 0.0
     is_analyzing: bool = False
+    track_id: Optional[int] = None
 
 class WebcamFaceRecognition:
     """
@@ -45,9 +46,10 @@ class WebcamFaceRecognition:
         cache_dir = os.path.join(backend_dir, "cache")
         
         self.face_module = FacialRecognitionModule(
-            recognition_threshold=0.8,
+            recognition_threshold=0.7,
             cache_path=cache_dir,
-            model_name="buffalo_sc"
+            model_name="buffalo_sc",
+            prefer_deepface=True
         )
         
         # Webcam setup
@@ -59,10 +61,14 @@ class WebcamFaceRecognition:
         self.analysis_thread = None
         self.analysis_results = {}  # Cache for analysis results
         
-        # Face tracking for one-time analysis
-        self.tracked_faces = {}  # Track faces that have been analyzed
-        self.face_analysis_status = {}  # Track analysis status per face
-        self.analysis_cooldown = 1.0  # Seconds before re-analyzing same area
+        # Face tracking/presence
+        self.tracked_faces = {}  # legacy cooldown per face_key
+        self.face_analysis_status = {}  # analysis status per face_key
+        self.analysis_cooldown = 1.0  # Seconds before re-analyzing same area (per request)
+        self.next_track_id = 1
+        self.active_tracks = {}  # track_id -> {bbox, last_seen, name, similarity, recognized}
+        self.track_timeout = 1.5  # seconds without seeing -> consider left
+        self.presence_events = []  # buffered presence events to emit via SSE
         
         self.logger.info("WebcamFaceRecognition initialized")
     
@@ -146,9 +152,15 @@ class WebcamFaceRecognition:
             detections = []
             current_time = time.time()
             
+            # Assign tracks based on IoU/centroid distance
+            detected_bboxes = []
+            for face in faces:
+                detected_bboxes.append([int(x) for x in face.bbox.astype(int)])
+            assignments = self._assign_tracks(detected_bboxes)
+
             for i, face in enumerate(faces):
                 # Get bounding box (ensure Python native types)
-                bbox = [int(x) for x in face.bbox.astype(int)]  # [x1, y1, x2, y2] - convert to Python ints
+                bbox = [int(x) for x in face.bbox.astype(int)]  # [x1, y1, x2, y2]
                 confidence = float(face.det_score) if hasattr(face, 'det_score') else 0.0
                 
                 # Create face detection (already converted to Python types)
@@ -157,12 +169,14 @@ class WebcamFaceRecognition:
                     confidence=confidence  # Already converted to Python float
                 )
                 
-                # Create a stable face ID based on position (with some tolerance for movement)
-                center_x = (bbox[0] + bbox[2]) // 2
-                center_y = (bbox[1] + bbox[3]) // 2
-                face_id = f"face_{center_x//100}_{center_y//100}"  # Grid-based tracking with 100px tolerance for more stability
+                # Track assignment
+                track_id = assignments.get(i)
+                face_id = f"track_{track_id}" if track_id is not None else f"face_{i}"
+                detection.track_id = track_id
                 
                 # Check if we have a result for this face
+                last_analysis = self.tracked_faces.get(face_id, 0)
+                # Attach previous result if exists
                 if face_id in self.analysis_results:
                     result = self.analysis_results[face_id]
                     detection.name = result.get('name')
@@ -170,22 +184,19 @@ class WebcamFaceRecognition:
                     detection.similarity = float(result.get('similarity', 0.0))
                     detection.is_analyzing = False
                     self.logger.debug(f"Face {face_id} has result: {detection.name} ({detection.similarity:.2f})")
-                elif face_id in self.face_analysis_status:
+                if face_id in self.face_analysis_status:
                     # Analysis is in progress
                     detection.is_analyzing = True
                     self.logger.debug(f"Face {face_id} is being analyzed...")
+                # Re-analyze every cooldown seconds regardless of previous result
+                if current_time - last_analysis > self.analysis_cooldown:
+                    self._queue_face_for_analysis(face_id, frame, face, bbox)
+                    detection.is_analyzing = True
+                    self.face_analysis_status[face_id] = current_time
+                    self.tracked_faces[face_id] = current_time
+                    self.logger.info(f"Queuing face {face_id} for analysis (periodic)")
                 else:
-                    # New face - check if we should analyze it
-                    last_analysis = self.tracked_faces.get(face_id, 0)
-                    if current_time - last_analysis > self.analysis_cooldown:
-                        # Queue for analysis (one-time only)
-                        self._queue_face_for_analysis(face_id, frame, face, bbox)
-                        detection.is_analyzing = True
-                        self.face_analysis_status[face_id] = current_time
-                        self.tracked_faces[face_id] = current_time
-                        self.logger.info(f"Queuing new face {face_id} for analysis")
-                    else:
-                        self.logger.debug(f"Face {face_id} still in cooldown ({current_time - last_analysis:.1f}s < {self.analysis_cooldown}s)")
+                    self.logger.debug(f"Face {face_id} cooldown: {(current_time - last_analysis):.1f}s < {self.analysis_cooldown}s")
                 
                 detections.append(detection)
                 
@@ -245,49 +256,42 @@ class WebcamFaceRecognition:
                 
                 self.logger.info(f"Analyzing face {face_id}")
                 
-                # Run recognition by comparing with cached faces
-                import tempfile
-                import cv2
-                
-                # Use the embedding directly instead of saving/loading temp image
-                # This is much more efficient and accurate
-                person_id, similarity, json_path = self.face_module.compare_embedding_with_cached_faces(face_embedding)
-                
+                # Prefer DeepFace image-to-image verify across the cache for highest accuracy
+                try:
+                    match_name, score, json_path, verified = self.face_module.compare_face_with_cached_images(face_region)
+                    # If verified but label is a hash, translate to display name
+                    if verified and match_name and match_name in self.face_module.known_faces:
+                        dn = self.face_module.known_faces[match_name].get('display_name')
+                        if dn:
+                            match_name = dn
+                except Exception as e:
+                    self.logger.error(f"DeepFace compare error: {e}")
+                    match_name, score, json_path, verified = None, 0.0, None, False
+
+                # If DeepFace did not verify, fall back to embedding similarity (InsightFace)
+                if not verified:
+                    try:
+                        person_id, similarity, json_path_fallback = self.face_module.compare_embedding_with_cached_faces(face_embedding)
+                        # keep the better score
+                        if similarity > score:
+                            # Map hash/person_id to display name if available
+                            if person_id and person_id in self.face_module.known_faces:
+                                display_name = self.face_module.known_faces[person_id].get('display_name')
+                                match_name = display_name or person_id
+                            else:
+                                match_name = person_id
+                            score = similarity
+                            json_path = json_path_fallback
+                            verified = bool(person_id and similarity >= self.face_module.recognition_threshold)
+                    except Exception as e:
+                        self.logger.debug(f"Embedding fallback compare failed: {e}")
+
+                # Prepare result; only set name if verified; keep similarity for UI
                 result = {
-                    'name': person_id,
-                    'similarity': float(similarity),  # Ensure Python float
+                    'name': match_name if verified else None,
+                    'similarity': float(score),
                     'json_path': json_path
                 }
-                
-                # Load name from JSON if available
-                if json_path:
-                    try:
-                        with open(json_path, 'r') as f:
-                            data = json.load(f)
-                        
-                        # Extract name from analysis data (try both formats)
-                        llm_analysis = data.get('llm_analysis', {})
-                        structured_data = llm_analysis.get('structured_data', {})
-                        personal_info = structured_data.get('personal_info', {})
-                        full_name = personal_info.get('full_name')
-                        
-                        # Try alternative format (person_analysis)
-                        if not full_name:
-                            person_analysis = data.get('person_analysis', {})
-                            personal_info = person_analysis.get('personal_info', {})
-                            full_name = personal_info.get('full_name')
-                        
-                        if full_name:
-                            result['name'] = full_name
-                            self.logger.info(f"Found person name: {full_name}")
-                        else:
-                            self.logger.warning(f"No full_name found in JSON: {json_path}")
-                            self.logger.debug(f"Available data: {personal_info}")
-                            
-                    except Exception as e:
-                        self.logger.error(f"Error reading JSON {json_path}: {e}")
-                else:
-                    self.logger.warning(f"No JSON path available for {person_id}")
                 
                 # Store result and remove from analyzing status
                 self.analysis_results[face_id] = result
@@ -341,16 +345,114 @@ class WebcamFaceRecognition:
             # Backend no longer draws; frontend overlays boxes/labels
             
             # Prepare detection data for frontend (ensure JSON serializable)
+            # Determine recognition state
+            recognized = bool(detection.name and detection.similarity and detection.similarity >= 0.7)
+
             detection_data = {
                 'bbox': [int(x) for x in detection.bbox],  # Ensure Python ints
                 'confidence': float(detection.confidence),  # Ensure Python float
                 'name': detection.name,
                 'similarity': float(detection.similarity) if detection.similarity else 0.0,
-                'is_analyzing': bool(detection.is_analyzing)
+                'is_analyzing': bool(detection.is_analyzing),
+                'recognized': recognized,
+                'track_id': int(detection.track_id) if detection.track_id is not None else None
             }
             detections_data.append(detection_data)
         
         return annotated_frame, detections_data
+
+    def _assign_tracks(self, bboxes: List[List[int]]) -> Dict[int, int]:
+        """
+        Assign detected bboxes to existing tracks using IoU and centroid distance.
+        Returns mapping: detection_index -> track_id. Emits 'entered'/'left' presence events.
+        """
+        current_time = time.time()
+        assignments: Dict[int, int] = {}
+        used_tracks: set[int] = set()
+
+        # Build simple cost matrix using 1 - IoU (prefer high IoU) with fallback to center distance
+        def iou(boxA, boxB):
+            xA = max(boxA[0], boxB[0]); yA = max(boxA[1], boxB[1])
+            xB = min(boxA[2], boxB[2]); yB = min(boxA[3], boxB[3])
+            inter = max(0, xB - xA) * max(0, yB - yA)
+            areaA = max(0, boxA[2]-boxA[0]) * max(0, boxA[3]-boxA[1])
+            areaB = max(0, boxB[2]-boxB[0]) * max(0, boxB[3]-boxB[1])
+            union = areaA + areaB - inter
+            return inter / union if union > 0 else 0.0
+
+        # Try greedy matching to existing tracks
+        track_items = list(self.active_tracks.items())
+        for det_idx, box in enumerate(bboxes):
+            best_track = None
+            best_score = -1.0
+            for track_id, t in track_items:
+                if track_id in used_tracks:
+                    continue
+                score = iou(box, t['bbox'])
+                if score > best_score:
+                    best_score = score
+                    best_track = track_id
+            # Accept match if IoU high enough or centers close
+            def center(b):
+                return ((b[0]+b[2])//2, (b[1]+b[3])//2)
+            cx, cy = center(box)
+            accepted = False
+            if best_track is not None and best_score >= 0.3:
+                accepted = True
+            else:
+                # Fallback to nearest center distance
+                min_dist = 1e9; min_track = None
+                for track_id, t in track_items:
+                    if track_id in used_tracks:
+                        continue
+                    tx, ty = center(t['bbox'])
+                    d = (tx - cx)**2 + (ty - cy)**2
+                    if d < min_dist:
+                        min_dist = d; min_track = track_id
+                if min_track is not None and min_dist <= (120**2):
+                    best_track = min_track
+                    accepted = True
+            if accepted and best_track is not None:
+                assignments[det_idx] = best_track
+                used_tracks.add(best_track)
+                # Update track
+                self.active_tracks[best_track]['bbox'] = box
+                self.active_tracks[best_track]['last_seen'] = current_time
+            else:
+                # New track
+                track_id = self.next_track_id
+                self.next_track_id += 1
+                self.active_tracks[track_id] = {
+                    'bbox': box,
+                    'last_seen': current_time,
+                    'name': None,
+                    'similarity': 0.0,
+                    'recognized': False
+                }
+                assignments[det_idx] = track_id
+                used_tracks.add(track_id)
+                # Presence: entered
+                self.presence_events.append({'event': 'entered', 'track_id': track_id, 'timestamp': current_time})
+
+        # Handle tracks that have not been seen recently -> left
+        to_delete = []
+        for track_id, t in self.active_tracks.items():
+            if current_time - t['last_seen'] > self.track_timeout:
+                self.presence_events.append({'event': 'left', 'track_id': track_id, 'timestamp': current_time})
+                to_delete.append(track_id)
+        for tid in to_delete:
+            try:
+                del self.active_tracks[tid]
+            except Exception:
+                pass
+
+        return assignments
+
+    def get_presence_events(self) -> List[Dict]:
+        """Return and clear pending presence events."""
+        events = self.presence_events[:]
+        self.presence_events = []
+        return events
     
     def get_frame_with_detections(self) -> Tuple[bool, Optional[np.ndarray], List[Dict]]:
         """
