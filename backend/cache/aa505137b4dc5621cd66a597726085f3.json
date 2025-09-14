@@ -1,0 +1,127 @@
+{
+    "person_analysis": {
+      "personal_info": {
+        "full_name": "Brad Murray",
+        "age": null,
+        "location": "Waterloo, Ontario, Canada",
+        "nationality": null,
+        "languages": [],
+        "interests": [
+          "Chat and messaging platforms",
+          "Wearable technology and firmware",
+          "Engineering leadership and culture building",
+          "System debugging and scaling",
+          "Startup and product development"
+        ]
+      },
+      "professional_info": {
+        "current_position": "Head of Engineering, Beeper (Automattic)",
+        "company": "Automattic",
+        "industry": "Messaging / SaaS / Consumer Tech",
+        "previous_positions": [
+          "Co-founder & CTO — Beeper (Mar 2021 – Mar 2024)",
+          "Senior Engineering Manager — Faire (2019 – 2021)",
+          "Senior Frontend Developer — Faire (Jan 2019 – Jun 2019)",
+          "Director, Embedded Software — Fitbit (Jul 2018 – Sep 2018)",
+          "Senior Manager, Embedded Software — Fitbit (2016 – 2018)",
+          "Firmware Engineering Manager & GM Canadian Office — Pebble Tech (2012 – 2016)"
+        ],
+        "skills": [
+          "Engineering leadership",
+          "Embedded software development",
+          "C++",
+          "UDP",
+          "Firmware systems",
+          "Frontend development (Typescript + React)",
+          "Product scaling and debugging",
+          "Cross-functional team management"
+        ],
+        "achievements": [
+          "Head of Engineering at Beeper post-acquisition by Automattic, continuing to lead innovation in multi-platform chat.",
+          "Co-founded Beeper, building a unified chat platform recognized as the future of messaging.",
+          "At Faire, helped define engineering manager and tech lead roles, scaled engineering culture, and launched international retailer support and major brand-side initiatives.",
+          "At Fitbit, managed SDK development and integration across North America after Pebble acquisition.",
+          "At Pebble, served as first firmware developer and later platform lead, personally writing large parts of Pebble OS and leading engineering teams during massive Kickstarter-driven growth."
+        ]
+      },
+      "education_info": {
+        "current_institution": null,
+        "degree": "BASc, Computer Engineering",
+        "field_of_study": "Computer Engineering",
+        "graduation_year": 2009,
+        "previous_education": [
+          "University of Waterloo (2004 – 2009)"
+        ]
+      },
+      "social_media": [
+        {
+          "platform": "LinkedIn",
+          "username": null,
+          "url": null,
+          "verified": null,
+          "followers_count": 1269
+        }
+      ],
+      "talking_points": {
+        "recent_achievements": [
+          "Became Head of Engineering at Beeper within Automattic in 2024.",
+          "Hosted a Pebble OS deep dive series in 2025, revisiting lessons in debugging, scaling, and system design.",
+          "Oversaw Beeper’s transition from independent startup to Automattic’s portfolio."
+        ],
+        "shared_connections": [
+          "Ishan Baliyan"
+        ],
+        "common_interests": [
+          "Engineering leadership and culture building",
+          "Cross-platform chat and communication tools",
+          "Wearables and embedded systems",
+          "Open-source and SaaS growth"
+        ],
+        "conversation_starters": [
+          "Ask about Beeper’s acquisition by Automattic and how it’s shaping the future of chat.",
+          "Discuss lessons learned scaling Pebble from Kickstarter campaign to acquisition by Fitbit.",
+          "Explore his transition from firmware engineering at Pebble to frontend/backend leadership at Faire and Beeper.",
+          "Ask about his thoughts on engineering culture and what makes a team high-performing."
+        ],
+        "notable_projects": [
+          "Beeper — Unified chat app consolidating 15+ platforms into one.",
+          "Pebble OS — Personally contributed to core firmware, bootloader, and system services.",
+          "Faire Summer Market — First online tradeshow for brands and retailers.",
+          "Fitbit Ionic SDK — Led integration and release post-Pebble acquisition."
+        ]
+      },
+      "public_presence_score": "High",
+      "credibility_indicators": [
+        "Head of Engineering at Automattic’s Beeper",
+        "Co-founder of Beeper, acquired by Automattic",
+        "Founding firmware engineer at Pebble, key contributor to PebbleOS",
+        "Strong LinkedIn presence with 1,200+ followers",
+        "Extensive leadership across startups and scale-ups (Pebble, Faire, Fitbit, Beeper)"
+      ],
+      "potential_red_flags": null,
+      "overview": "Brad Murray is a Canadian engineering leader and entrepreneur, currently serving as Head of Engineering at Beeper, now part of Automattic. He co-founded Beeper, a unified chat platform, and previously played a pivotal role in building Pebble from its Kickstarter origins to acquisition by Fitbit. His career spans embedded systems, frontend/backend development, and engineering leadership, with a strong track record of scaling teams, fostering engineering culture, and delivering products users love.",
+      "executive_summary": "Brad Murray is Head of Engineering at Beeper within Automattic, where he continues to lead development of a unified messaging platform. He co-founded Beeper in 2021 and was instrumental in scaling it to acquisition. Before that, he held senior roles at Faire and Fitbit, and was a foundational engineering leader at Pebble, contributing heavily to Pebble OS and scaling the company through its early explosive growth.",
+      "key_insights": [
+        "Blends deep technical expertise (firmware, frontend/backend) with leadership in scaling teams.",
+        "Entrepreneurial track record: co-founded Beeper, integral to Pebble’s success.",
+        "Strong advocate for engineering culture, processes, and high-performing teams.",
+        "Experienced across consumer tech, SaaS, and embedded systems."
+      ],
+      "confidence_level": "High",
+      "sources_quality": "Good",
+      "last_updated": "2025-09-13"
+    },
+    "best_match_photo": {
+      "base64_data": null,
+      "source_url": null,
+      "confidence_score": null,
+      "description": "No photo provided"
+    },
+    "metadata": {
+      "llm_provider": "cerebras",
+      "llm_model": "gpt-oss-120b",
+      "face_matches": 0,
+      "total_mentions": 1
+    }
+  }
+  

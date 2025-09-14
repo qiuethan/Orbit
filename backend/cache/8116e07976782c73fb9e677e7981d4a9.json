@@ -1,0 +1,128 @@
+{
+  "person_analysis": {
+    "personal_info": {
+      "full_name": "Albert Chen",
+      "age": null,
+      "location": "Toronto, Ontario, Canada",
+      "nationality": null,
+      "languages": ["English", "Chinese (Traditional)"],
+      "interests": [
+        "Venture capital and early-stage startups",
+        "Medical engineering and BioMEMS",
+        "Systems and product engineering",
+        "Optics and photonics",
+        "Community building and mentoring",
+        "Sustainable energy and electrification"
+      ]
+    },
+    "professional_info": {
+      "current_position": "Venture Partner",
+      "company": "Two Small Fish Ventures",
+      "industry": "Venture Capital / Technology / Engineering Leadership",
+      "previous_positions": [
+        "Director of Engineering — Metergy Solutions (Nov 2023 – Jan 2025, Markham, ON)",
+        "Chief Technology Officer — Forcen Inc. (Jul 2021 – Nov 2023, Toronto, ON)",
+        "Vice President of Engineering — Forcen Inc. (Jul 2020 – Jul 2021)",
+        "Lead Engineer, Product Development & Systems Engineering — Forcen Inc. (Jul 2019 – Jul 2020)",
+        "R&D Systems Engineer — Excelitas Technologies (Mar 2019 – Jul 2019)",
+        "R&D Optics Design Engineer — Excelitas Technologies (Jul 2018 – Feb 2019)",
+        "R&D Optical Engineer — North (acquired by Google) (Mar 2017 – Jul 2018)"
+      ],
+      "skills": [
+        "Technology leadership",
+        "Systems engineering",
+        "Product development",
+        "Optical engineering",
+        "Medical devices and MEMS",
+        "Community building",
+        "Startup operations"
+      ],
+      "achievements": [
+        "Venture Partner backing startups in AI, energy, and next-gen science tools",
+        "CTO at Forcen, scaling robotics and edge AI systems with 20+ engineers",
+        "Engineering leadership at Metergy, driving innovation in smart energy metering",
+        "Optical engineering contributions at North (smart glasses acquired by Google)",
+        "Published 15+ research papers and patents in BioMEMS and medical engineering",
+        "Recipient of NSERC JELF ($100k) and NSERC Postgraduate Scholarship"
+      ]
+    },
+    "education_info": {
+      "current_institution": null,
+      "degree": "Doctor of Philosophy (Ph.D.)",
+      "field_of_study": "BioMEMS, Acoustics, Medical Engineering",
+      "graduation_year": "2016",
+      "previous_education": [
+        "University of Waterloo — Ph.D. in BioMEMS, Acoustics, Medical Engineering (2010–2016)",
+        "University of Waterloo — B.A.Sc. Systems Design Engineering (undergraduate)",
+        "National Taiwan University — Exchange in Electrical Engineering",
+        "UC Irvine — Certificate of Optical Engineering (2018–2020)"
+      ]
+    },
+    "social_media": [
+      {
+        "platform": "LinkedIn",
+        "username": null,
+        "url": null,
+        "verified": null,
+        "followers_count": 2365
+      }
+    ],
+    "talking_points": {
+      "recent_achievements": [
+        "Joined Two Small Fish Ventures as Venture Partner (Jan 2025)",
+        "Announced investments in FUTURi Power (energy optimization) and Axiomatic AI (scientific productivity tools)",
+        "Oversaw engineering strategy at Metergy Solutions before transitioning to venture capital"
+      ],
+      "shared_connections": ["Ryan Junejo", "Alex Morales"],
+      "common_interests": [
+        "AI-driven startups and deeptech",
+        "Next-gen energy management systems",
+        "Optical systems and photonics",
+        "Scaling engineering teams in startups"
+      ],
+      "conversation_starters": [
+        "Ask about how his engineering leadership at Forcen shaped edge AI product development.",
+        "Discuss lessons from transitioning from CTO/Director roles into venture capital.",
+        "Explore Two Small Fish’s investment thesis around AI and sustainable energy.",
+        "Talk about his research background in BioMEMS and its connection to modern medtech startups."
+      ],
+      "notable_projects": [
+        "Forcen — Robotics and edge AI sensing company (CTO, VP Engineering, Lead Engineer).",
+        "Metergy Solutions — Smart metering and energy management at scale.",
+        "North (Google acquisition) — Pioneering work on holographic optical elements for smart glasses.",
+        "Publications — Fabrication of MEMS ultrasound transducers, micromirror control systems."
+      ]
+    },
+    "public_presence_score": "High",
+    "credibility_indicators": [
+      "Ph.D. from University of Waterloo in BioMEMS and medical engineering",
+      "CTO experience at a robotics/AI startup (Forcen)",
+      "Director-level leadership at Metergy (Brookfield-backed company)",
+      "Venture partner at a leading Canadian early-stage VC (Two Small Fish)",
+      "Multiple patents and peer-reviewed publications"
+    ],
+    "potential_red_flags": null,
+    "overview": "Albert Chen is a venture partner at Two Small Fish Ventures, leveraging a background in systems engineering, optics, and medical devices to identify and support high-impact startups in AI, energy, and advanced technologies. With a Ph.D. from the University of Waterloo and leadership experience scaling engineering teams at Forcen and Metergy, Albert combines technical depth with entrepreneurial leadership.",
+    "executive_summary": "A technologist turned venture partner, Albert Chen bridges deep engineering expertise with startup growth and investment. His career spans robotics, optics, smart energy, and now venture capital, where he focuses on transformative startups. With patents, publications, and executive leadership under his belt, he brings both credibility and a vision for impactful technology ecosystems.",
+    "key_insights": [
+      "Strong foundation in engineering leadership across medtech, robotics, optics, and energy.",
+      "Academic pedigree (Ph.D., multiple publications, NSERC-funded) translates into deep technical evaluation skills for venture investing.",
+      "Credible community builder and mentor with a history of scaling teams and guiding student projects."
+    ],
+    "confidence_level": "High",
+    "sources_quality": "Good",
+    "last_updated": "2025-09-13"
+  },
+  "best_match_photo": {
+    "base64_data": null,
+    "source_url": null,
+    "confidence_score": null,
+    "description": "No photo provided"
+  },
+  "metadata": {
+    "llm_provider": "cerebras",
+    "llm_model": "gpt-oss-120b",
+    "face_matches": 0,
+    "total_mentions": 1
+  }
+}

@@ -44,7 +44,7 @@ class ConversationTranscriber:
                 self.logger.error(f"Failed to initialize Groq client: {e}")
                 self.groq_client = None
     
-    def transcribe_file(self, audio_path: str, language: str = "en") -> Dict[str, Any]:
+    def transcribe_file(self, audio_path: str, language: str = "auto") -> Dict[str, Any]:
         """
         Transcribe an audio file using Groq Whisper Large.
         
@@ -68,8 +68,8 @@ class ConversationTranscriber:
                 # Use Groq's standard Whisper model
                 transcription = self.groq_client.audio.transcriptions.create(
                     file=audio_file,
-                    model="whisper-large-v3",
-                    language=language if language != "auto" else None,
+                    model="whisper-large-v3-turbo",
+                    language=None if language == "auto" else language,
                     response_format="verbose_json",
                     temperature=0.0
                 )
@@ -99,11 +99,11 @@ class ConversationTranscriber:
             result = {
                 "success": True,
                 "text": transcription.text.strip(),
-                "language": getattr(transcription, 'language', language),
+                "language": getattr(transcription, 'language', None) or (None if language == "auto" else language),
                 "segments": segments,
                 "word_count": len(transcription.text.split()),
                 "confidence": sum(s.get("confidence", 0) for s in segments) / len(segments) if segments else 0,
-                "model": "whisper-large-v3",
+                "model": "whisper-large-v3-turbo",
                 "transcribed_at": datetime.now().isoformat(),
                 "audio_file": audio_path
             }
@@ -134,11 +134,18 @@ class ConversationTranscriber:
                 return result
                 
             # Add conversation-specific metadata
+            # Normalize audio_file to be relative to backend directory for portability
+            backend_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+            try:
+                rel_audio_path = os.path.relpath(audio_path, start=backend_dir)
+            except Exception:
+                rel_audio_path = audio_path
+
             conversation_data = {
                 "conversation": {
-                    "audio_file": audio_path,
+                    "audio_file": rel_audio_path,
                     "transcribed_at": datetime.now().isoformat(),
-                    "model": "groq-whisper-large-v3"
+                    "model": "groq-whisper-large-v3-turbo"
                 },
                 "transcription": result,
                 "summary": {

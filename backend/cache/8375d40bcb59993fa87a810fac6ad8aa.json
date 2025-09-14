@@ -1,0 +1,125 @@
+{
+    "person_analysis": {
+      "personal_info": {
+        "full_name": "Braden Ream",
+        "age": null,
+        "location": "Toronto, Ontario, Canada (splits time between San Francisco and Toronto)",
+        "nationality": null,
+        "languages": [],
+        "interests": [
+          "Conversational AI",
+          "AI agent platforms",
+          "Entrepreneurship",
+          "Startup investing",
+          "Leadership in tech and automation"
+        ]
+      },
+      "professional_info": {
+        "current_position": "CEO & Cofounder",
+        "company": "Voiceflow",
+        "industry": "Conversational AI / SaaS / Customer Support Automation",
+        "previous_positions": [
+          "Board Member — NEXT Canada (Sep 2021 – Present)",
+          "Angel Investor (Jan 2021 – Present)",
+          "Analyst — RBC (2017 – 2018)",
+          "Founder — Flare Software, Inc. (2015 – 2018)"
+        ],
+        "skills": [
+          "Leadership",
+          "Entrepreneurship",
+          "Conversational AI",
+          "Venture Investing",
+          "Business Strategy",
+          "Team Building"
+        ],
+        "achievements": [
+          "CEO & Cofounder of Voiceflow, building one of the leading AI agent platforms for customer support and automation.",
+          "Voiceflow reached 500K+ users and 4,000+ customers, raising $35M+ from investors including Google, Craft Ventures, Felicis, and True Ventures.",
+          "Recognized as Forbes 30 under 30 honoree.",
+          "Angel investor in numerous early-stage startups and funds (VendorPM, Secoda, MoonPay, StadiumLive, Weekend Fund, Ripple Ventures, Union VC, etc.).",
+          "Previously founded Flare Software, building a social networking app with 4K monthly active users at peak."
+        ]
+      },
+      "education_info": {
+        "current_institution": null,
+        "degree": "Bachelor's degree (incomplete, dropped out to start Voiceflow)",
+        "field_of_study": "Business (Ivey Business School, Western University)",
+        "graduation_year": null,
+        "previous_education": [
+          "Ivey Business School at Western University — Dean's List, Academic Scholarship, Jackson Family Entrepreneurship Scholarship"
+        ]
+      },
+      "social_media": [
+        {
+          "platform": "LinkedIn",
+          "username": null,
+          "url": null,
+          "verified": null,
+          "followers_count": 30744
+        }
+      ],
+      "talking_points": {
+        "recent_achievements": [
+          "Launched Voiceflow’s AI Agent generation tool, now generating ~1K agents per day.",
+          "Released new transcript and evaluation features to analyze, debug, and improve AI agents.",
+          "Expanded Voiceflow customer base to 4,000+ organizations, including JP Morgan, Home Depot, Amazon, and government agencies."
+        ],
+        "shared_connections": [
+          "Ganesh Asapu",
+          "Ryan Junejo",
+          "10 others"
+        ],
+        "common_interests": [
+          "Scaling AI startups",
+          "Automating customer support with AI",
+          "Angel investing in early-stage founders",
+          "Entrepreneurship education (NEXT Canada, W5 Association)"
+        ],
+        "conversation_starters": [
+          "Ask about Voiceflow’s growth journey from early conversational design to a full AI agent platform.",
+          "Discuss how AI agent generation is changing the customer support industry.",
+          "Explore his angel investing thesis and what he looks for in early founders.",
+          "Talk about his decision to drop out of Ivey to pursue Voiceflow full-time."
+        ],
+        "notable_projects": [
+          "Voiceflow — AI agent building platform for customer support, with 500K+ users and 4,000+ customers.",
+          "Angel investments in startups like MoonPay, Secoda, StadiumLive, VendorPM.",
+          "NEXT Canada Board Member, supporting entrepreneurship education.",
+          "Flare Software — Early startup, built a social networking app with thousands of monthly users."
+        ]
+      },
+      "public_presence_score": "Very High",
+      "credibility_indicators": [
+        "CEO & Cofounder of Voiceflow with significant funding and global adoption",
+        "Forbes 30 under 30 honoree",
+        "30K+ LinkedIn followers",
+        "Active angel investor in multiple high-growth startups",
+        "Visible thought leader in AI and automation (frequent posts, product launches)"
+      ],
+      "potential_red_flags": null,
+      "overview": "Braden Ream is the CEO and Cofounder of Voiceflow, a leading AI agent platform for customer support automation. Recognized as Forbes 30 under 30, he has scaled Voiceflow to over 500K users and 4,000 customers globally, raising $35M+ from top-tier investors. He is also an active angel investor and board member at NEXT Canada, with a passion for supporting early-stage founders. His career reflects a strong balance of entrepreneurship, product innovation, and ecosystem building.",
+      "executive_summary": "Braden Ream is a Canadian entrepreneur and Forbes 30 under 30 honoree, best known as CEO & Cofounder of Voiceflow, where he is building the world’s leading AI agent automation platform. With extensive experience in startup building, leadership, and angel investing, Braden has positioned himself as a major voice in AI-driven customer support and early-stage entrepreneurship.",
+      "key_insights": [
+        "Strong entrepreneurial background, building Voiceflow into a top global AI agent platform.",
+        "Deeply networked in the startup ecosystem as an angel investor and NEXT Canada board member.",
+        "Well-recognized thought leader with a high public presence and strong credibility.",
+        "Represents the new wave of AI founders bridging customer needs with cutting-edge automation technology."
+      ],
+      "confidence_level": "Very High",
+      "sources_quality": "Excellent",
+      "last_updated": "2025-09-13"
+    },
+    "best_match_photo": {
+      "base64_data": null,
+      "source_url": null,
+      "confidence_score": null,
+      "description": "No photo provided"
+    },
+    "metadata": {
+      "llm_provider": "cerebras",
+      "llm_model": "gpt-oss-120b",
+      "face_matches": 0,
+      "total_mentions": 1
+    }
+  }
+  

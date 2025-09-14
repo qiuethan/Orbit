@@ -40,11 +40,15 @@ from output_schema import OutputSchemaManager  # noqa: E402
 from facial_recognition.local_face_recognition import recognize  # noqa: E402
 from analysis_pipeline.main_pipeline import run_on_server_startup  # noqa: E402
 from facial_recognition.webcam_recognition import get_webcam_instance, start_webcam_recognition, stop_webcam_recognition  # noqa: E402
+from recording.recorder import AudioRecorder  # noqa: E402
 
 app = FastAPI(title="Orbit Face Analysis Server")
 
 # Global variable to store startup analysis result
 _startup_analysis_result = None
+
+# Global voice recorder instance
+_voice_recorder = None
 
 # Add CORS middleware
 app.add_middleware(
@@ -615,7 +619,7 @@ async def health():
 @app.post("/webcam/start")
 async def start_webcam(camera_index: int = 0):
     """
-    Start webcam facial recognition.
+    Start webcam facial recognition and voice recording.
     
     Args:
         camera_index: Camera index (default: 0)
@@ -623,10 +627,30 @@ async def start_webcam(camera_index: int = 0):
     Returns:
         JSON response with status
     """
+    global _voice_recorder
     try:
         success = start_webcam_recognition(camera_index)
         if success:
-            return {"status": "success", "message": f"Webcam started on camera {camera_index}"}
+            # Start voice recording when webcam starts
+            if _voice_recorder is None:
+                _voice_recorder = AudioRecorder(auto_transcribe=True, keep_audio=False)
+            
+            # Start recording with timestamp-based title
+            from datetime import datetime
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            recording_result = _voice_recorder.start(title=f"Webcam_Session_{timestamp}")
+            
+            voice_status = "started" if recording_result.get("success") else "failed"
+            voice_message = recording_result.get("message", "Voice recording status unknown")
+            
+            return {
+                "status": "success", 
+                "message": f"Webcam started on camera {camera_index}",
+                "voice_recording": {
+                    "status": voice_status,
+                    "message": voice_message
+                }
+            }
         else:
             raise HTTPException(status_code=500, detail="Failed to start webcam")
     except Exception as e:
@@ -636,16 +660,153 @@ async def start_webcam(camera_index: int = 0):
 @app.post("/webcam/stop")
 async def stop_webcam():
     """
-    Stop webcam facial recognition.
+    Stop webcam facial recognition and voice recording.
     
     Returns:
         JSON response with status
     """
+    global _voice_recorder
     try:
         stop_webcam_recognition()
-        return {"status": "success", "message": "Webcam stopped"}
+        
+        # Stop voice recording when webcam stops
+        voice_result = {"status": "not_started", "message": "No voice recording was active"}
+        if _voice_recorder is not None:
+            try:
+                stop_result = _voice_recorder.stop()
+                if stop_result.get("success"):
+                    voice_result = {
+                        "status": "stopped",
+                        "message": "Voice recording stopped and transcribed",
+                        "transcription": stop_result.get("transcription", {})
+                    }
+                else:
+                    voice_result = {
+                        "status": "error",
+                        "message": f"Failed to stop voice recording: {stop_result.get('error', 'Unknown error')}"
+                    }
+            except Exception as e:
+                voice_result = {
+                    "status": "error", 
+                    "message": f"Error stopping voice recording: {e}"
+                }
+        
+        return {
+            "status": "success", 
+            "message": "Webcam stopped",
+            "voice_recording": voice_result
+        }
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error stopping webcam: {e}")
+
+
+@app.post("/voice/start")
+async def start_voice_recording(title: str = None):
+    """
+    Start voice recording manually.
+    
+    Args:
+        title: Optional title for the recording session
+        
+    Returns:
+        JSON response with recording status
+    """
+    global _voice_recorder
+    try:
+        if _voice_recorder is None:
+            _voice_recorder = AudioRecorder(auto_transcribe=True, keep_audio=False)
+        
+        # Generate title if not provided
+        if not title:
+            from datetime import datetime
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            title = f"Manual_Recording_{timestamp}"
+        
+        result = _voice_recorder.start(title=title)
+        return {
+            "status": "success" if result.get("success") else "error",
+            "message": result.get("message", "Voice recording started"),
+            "session": result.get("session", {})
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error starting voice recording: {e}")
+
+
+@app.post("/voice/stop")
+async def stop_voice_recording():
+    """
+    Stop voice recording manually.
+    
+    Returns:
+        JSON response with transcription results
+    """
+    global _voice_recorder
+    try:
+        if _voice_recorder is None:
+            return {"status": "error", "message": "No voice recording active"}
+        
+        result = _voice_recorder.stop()
+        if result.get("success"):
+            return {
+                "status": "success",
+                "message": "Voice recording stopped and transcribed",
+                "transcription": result.get("transcription", {}),
+                "session": result.get("session", {})
+            }
+        else:
+            return {
+                "status": "error",
+                "message": f"Failed to stop recording: {result.get('error', 'Unknown error')}"
+            }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error stopping voice recording: {e}")
+
+
+@app.get("/voice/status")
+async def get_voice_recording_status():
+    """
+    Get current voice recording status.
+    
+    Returns:
+        JSON response with recording status
+    """
+    global _voice_recorder
+    try:
+        if _voice_recorder is None:
+            return {"status": "inactive", "message": "No voice recorder initialized"}
+        
+        status = _voice_recorder.status()
+        return {
+            "status": "active" if status.get("is_recording") else "inactive",
+            "is_recording": status.get("is_recording", False),
+            "session": status.get("session"),
+            "current_duration": status.get("current_duration", 0)
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error getting voice status: {e}")
+
+
+@app.get("/voice/transcripts")
+async def list_voice_transcripts():
+    """
+    List all voice transcripts in recorded_conversations.
+    
+    Returns:
+        JSON response with list of transcripts
+    """
+    global _voice_recorder
+    try:
+        if _voice_recorder is None:
+            _voice_recorder = AudioRecorder(auto_transcribe=True, keep_audio=False)
+        
+        result = _voice_recorder.list_recordings()
+        return {
+            "status": "success",
+            "recordings": result.get("recordings", []),
+            "count": result.get("count", 0)
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error listing transcripts: {e}")
 
 
 @app.get("/webcam/frame")

@@ -23,10 +23,16 @@ class AudioRecorder:
     
     def __init__(self, output_dir: str = "recorded_conversations", auto_transcribe: bool = True, keep_audio: bool = False):
         """Initialize recorder."""
-        self.output_dir = output_dir
+        # Resolve output directory to backend absolute path to ensure files save correctly
+        backend_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        if os.path.isabs(output_dir):
+            resolved_output_dir = output_dir
+        else:
+            resolved_output_dir = os.path.join(backend_dir, output_dir)
+        self.output_dir = resolved_output_dir
         self.auto_transcribe = auto_transcribe
         self.keep_audio = keep_audio  # Whether to keep audio files after transcription
-        os.makedirs(output_dir, exist_ok=True)
+        os.makedirs(self.output_dir, exist_ok=True)
         
         # Recording state
         self.is_recording = False
@@ -151,10 +157,7 @@ class AudioRecorder:
             self.current_session["file_size"] = file_size
             self.current_session["max_amplitude"] = float(max_amplitude)
             
-            # Save metadata
-            metadata_path = filepath.replace('.wav', '_metadata.json')
-            with open(metadata_path, 'w') as f:
-                json.dump(self.current_session, f, indent=2)
+            # Skip saving metadata - we only want transcripts
             
             print(f"✅ Recording saved: {filepath}")
             print(f"📊 Duration: {duration:.1f}s, Size: {file_size} bytes")
@@ -177,16 +180,11 @@ class AudioRecorder:
                     print(f"✅ Transcription complete: {word_count} words ({language})")
                     print(f"📝 Preview: {transcription_result.get('transcript_text', '')[:100]}...")
                     
-                    # Delete audio file if not keeping it
+                    # Delete audio file after successful transcription
                     if not self.keep_audio:
                         try:
                             os.remove(filepath)
                             print(f"🗑️ Audio file deleted (transcript saved)")
-                            
-                            # Also delete metadata file
-                            if os.path.exists(metadata_path):
-                                os.remove(metadata_path)
-                                
                         except Exception as e:
                             print(f"⚠️ Could not delete audio file: {e}")
                             

@@ -1,0 +1,133 @@
+{
+  "person_analysis": {
+    "personal_info": {
+      "full_name": "Artem Alekhin",
+      "age": null,
+      "location": "Canada",
+      "nationality": null,
+      "languages": [
+        "English (Full professional proficiency)",
+        "Russian (Native or bilingual proficiency)"
+      ],
+      "interests": [
+        "Web development (front-end and back-end)",
+        "Startup building and entrepreneurship",
+        "Voice and video survey technologies",
+        "AI-powered feedback and research tools",
+        "Collaborative and innovative product development"
+      ]
+    },
+    "professional_info": {
+      "current_position": "Co-Founder & CTO",
+      "company": "Voiceform",
+      "industry": "AI / SaaS / Voice & Video Research",
+      "previous_positions": [
+        "Software Engineer II — Super.com (Jul 2021 – Nov 2021)",
+        "Software Engineer — Super.com (Feb 2019 – Jul 2021)",
+        "Co-Founder — HabFit (Jan 2021 – Aug 2021, Toronto)",
+        "Full Stack Developer — BridgeRock Technologies (Jun 2018 – Jan 2019)",
+        ".NET Developer — Emex (Oct 2015 – Sep 2016)",
+        "Intern — Emex (Sep 2015 – Oct 2015)"
+      ],
+      "skills": [
+        "Full-stack development",
+        "CSS",
+        "HTML",
+        "Database design",
+        "Product design",
+        "Startup leadership",
+        "AI-integrated applications"
+      ],
+      "achievements": [
+        "Co-founded Voiceform, building AI-powered voice and video survey tools adopted across industries",
+        "Led product and technical strategy at Voiceform, integrating with Jotform and acquiring Phonic users",
+        "Co-founded HabFit, a fitness-tech platform lowering the cost of personal coaching by 80%+",
+        "Helped build and scale Snapcommerce (Super.com), contributing to its $85M fundraising",
+        "Experience across multiple roles in software development (front-end, back-end, and full-stack)"
+      ]
+    },
+    "education_info": {
+      "current_institution": null,
+      "degree": null,
+      "field_of_study": null,
+      "graduation_year": null,
+      "previous_education": [
+        "University of California, Berkeley — Berkeley Skydeck Accelerator (Nov 2021 – Apr 2022)",
+        "University of Toronto — Leap Startup League, ICUBE UTM (Sep 2020 – Jan 2021)"
+      ]
+    },
+    "social_media": [
+      {
+        "platform": "LinkedIn",
+        "username": null,
+        "url": null,
+        "verified": null,
+        "followers_count": 1907
+      },
+      {
+        "platform": "Website",
+        "username": null,
+        "url": "Personal/Company website listed",
+        "verified": null,
+        "followers_count": null
+      }
+    ],
+    "talking_points": {
+      "recent_achievements": [
+        "Voiceform integrated with Jotform (2025), expanding its ecosystem",
+        "Acquisition/transition of Phonic users into Voiceform’s platform",
+        "Exhibited at IIEX, showcasing AI-moderated interviews combined with quantitative surveys"
+      ],
+      "shared_connections": ["Muhammad Choudhary", "Sicong (Sheldon) Huang"],
+      "common_interests": [
+        "Startup growth and accelerators (Skydeck, ICUBE)",
+        "AI-driven voice and video applications",
+        "Survey research and qualitative data capture",
+        "Full-stack development and technical design"
+      ],
+      "conversation_starters": [
+        "Ask about Voiceform’s journey from founding to integrating with Jotform and absorbing Phonic users.",
+        "Discuss the technical challenges of building AI-powered voice and video surveys.",
+        "Explore how his engineering background shaped his approach to product design and scaling.",
+        "Talk about his experience moving from developer roles at Emex and BridgeRock to startup co-founder."
+      ],
+      "notable_projects": [
+        "Voiceform — AI-powered voice and video survey platform, improving engagement and data quality.",
+        "HabFit — Fitness-tech platform connecting users with affordable personalized coaching.",
+        "Super.com (formerly Snapcommerce) — Contributed as Software Engineer during rapid growth ($85M funding).",
+        "BridgeRock & Emex — Early roles as full-stack and .NET developer, building technical foundation."
+      ]
+    },
+    "public_presence_score": "High",
+    "credibility_indicators": [
+      "Co-founder & CTO of Voiceform, active in the AI survey-tech industry",
+      "Strong LinkedIn presence with 1,900+ followers",
+      "Track record of co-founding and scaling multiple startups (Voiceform, HabFit)",
+      "Technical endorsements from colleagues (HTML, CSS, full-stack development)"
+    ],
+    "potential_red_flags": null,
+    "overview": "Artem Alekhin is the Co-Founder & CTO of Voiceform, an AI-powered voice and video survey company transforming qualitative research and customer engagement. With experience as a software engineer at Super.com and previous startup co-founder (HabFit), Artem combines strong full-stack engineering expertise with entrepreneurial leadership. His journey has been shaped by participation in accelerators like UC Berkeley Skydeck and ICUBE UTM, and his current work at Voiceform highlights his focus on integrating AI into accessible, intuitive research tools.",
+    "executive_summary": "Artem Alekhin is a Canadian entrepreneur and technologist, currently serving as Co-Founder and CTO of Voiceform. He has extensive experience in full-stack development and startup building, with previous roles at Super.com and early ventures like HabFit. Today, he is leading Voiceform’s product and technical growth, focusing on AI-driven feedback and survey technologies.",
+    "key_insights": [
+      "Strong blend of technical expertise and startup leadership, transitioning from developer roles to co-founder.",
+      "Leads innovation in AI-powered survey research, integrating voice, video, and probing AI features.",
+      "Actively engaged in startup accelerators, expanding professional network and growth trajectory.",
+      "Multilingual (English and Russian), strengthening cross-cultural collaboration capabilities."
+    ],
+    "confidence_level": "High",
+    "sources_quality": "Good",
+    "last_updated": "2025-09-13"
+  },
+  "best_match_photo": {
+    "base64_data": null,
+    "source_url": null,
+    "confidence_score": null,
+    "description": "No photo provided"
+  },
+  "metadata": {
+    "llm_provider": "cerebras",
+    "llm_model": "gpt-oss-120b",
+    "face_matches": 0,
+    "total_mentions": 1
+  }
+}

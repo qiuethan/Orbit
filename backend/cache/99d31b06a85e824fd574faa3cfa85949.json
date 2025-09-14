@@ -1,0 +1,117 @@
+{
+  "person_analysis": {
+    "personal_info": {
+      "full_name": "Alroy Almeida",
+      "age": null,
+      "location": "Canada",
+      "nationality": null,
+      "languages": null,
+      "interests": [
+        "Startup acceleration and venture building",
+        "Deep tech and hardware innovation",
+        "Mechatronics engineering",
+        "Community building for founders",
+        "Electronics design and rapid prototyping"
+      ]
+    },
+    "professional_info": {
+      "current_position": "Director @ Velocity",
+      "company": "University of Waterloo",
+      "industry": "Startup Incubation / Venture Building / Deep Tech",
+      "previous_positions": [
+        "Board of Directors — intelliFLEX Innovation Alliance (Jan 2020 – Jan 2024)",
+        "CEO & Co-founder — Voltera (Jun 2013 – Oct 2022, Kitchener, ON)",
+        "Advisory Board Member — intelliFLEX Innovation Alliance (Jun 2017 – Dec 2018)",
+        "Hardware Developer — Schneider Electric (May 2012 – Aug 2012)"
+      ],
+      "skills": [
+        "Hardware engineering",
+        "PCB design",
+        "Mechatronics",
+        "Product development",
+        "Startup leadership",
+        "Community building"
+      ],
+      "achievements": [
+        "Leading deep tech strategy at Velocity, Waterloo’s flagship incubator with 500+ companies generating $40B+ in enterprise value",
+        "Scaled Voltera from founding through 9+ years, building benchtop electronics printers used globally",
+        "Recognized with University of Waterloo Engineering awards: P&P Engineering Leadership Award and Best Overall Capstone Project (2013)",
+        "Board leadership at intelliFLEX, driving adoption of printable and flexible electronics in Canada"
+      ]
+    },
+    "education_info": {
+      "current_institution": null,
+      "degree": "Bachelor of Applied Science (BASc)",
+      "field_of_study": "Mechatronics Engineering",
+      "graduation_year": "2013",
+      "previous_education": [
+        "University of Waterloo — Mechatronics Engineering, BASc (2008–2013); active in Engineering Society, WEEF, and graduation leadership"
+      ]
+    },
+    "social_media": [
+      {
+        "platform": "LinkedIn",
+        "username": null,
+        "url": null,
+        "verified": null,
+        "followers_count": 1105
+      }
+    ],
+    "talking_points": {
+      "recent_achievements": [
+        "Directing Velocity’s deep tech and overall startup strategy since May 2023",
+        "Highlighted growth of Velocity portfolio to $40B+ in enterprise value",
+        "Celebrated recent startups like Airfairness and Real Life Robotics from the Velocity ecosystem"
+      ],
+      "shared_connections": ["Ryan Junejo", "Alex Morales"],
+      "common_interests": [
+        "Founder support and startup scaling",
+        "Deep tech and electronics innovation",
+        "Hardware prototyping and mechatronics",
+        "Startup communities at Waterloo"
+      ],
+      "conversation_starters": [
+        "Ask about Voltera’s journey building benchtop electronics printers and lessons scaling a hardware startup.",
+        "Discuss Velocity’s approach to accelerating deep tech founders and scaling community impact.",
+        "Explore insights from intelliFLEX on driving adoption of flexible/printable electronics.",
+        "Chat about how engineering leadership at Waterloo shaped his founder journey."
+      ],
+      "notable_projects": [
+        "Velocity — Waterloo’s incubator supporting 500+ startups ($40B+ enterprise value).",
+        "Voltera — Benchtop electronics printers for rapid iteration in hardware development.",
+        "intelliFLEX Innovation Alliance — Board member guiding adoption of printable electronics."
+      ]
+    },
+    "public_presence_score": "High",
+    "credibility_indicators": [
+      "Director at Velocity, leading a globally recognized incubator",
+      "Founder/CEO of Voltera with nearly a decade of hardware innovation",
+      "Multiple engineering leadership awards from University of Waterloo",
+      "Active ecosystem builder through intelliFLEX and mentoring"
+    ],
+    "potential_red_flags": null,
+    "overview": "Alroy Almeida is the Director at Velocity, the University of Waterloo’s flagship incubator, where he leads deep tech strategy and supports founders in scaling globally impactful companies. He previously co-founded Voltera, a hardware startup designing benchtop electronics printers, and has served on the board of intelliFLEX Innovation Alliance. With a BASc in Mechatronics Engineering from Waterloo, Alroy brings together technical expertise, startup leadership, and a community-first mindset.",
+    "executive_summary": "With nearly a decade of founder experience at Voltera and current leadership at Velocity, Alroy Almeida is a cornerstone of the Canadian deep tech startup ecosystem. His career bridges mechatronics, hardware design, and venture acceleration, making him a key builder of communities where founders grow further, faster.",
+    "key_insights": [
+      "Deep experience scaling a hardware startup from university project to global adoption.",
+      "Current leadership role at one of Canada’s top startup incubators (Velocity).",
+      "Strong community and ecosystem focus, actively supporting deep tech founders.",
+      "Blend of technical depth in mechatronics and electronics with leadership in venture and innovation strategy."
+    ],
+    "confidence_level": "High",
+    "sources_quality": "Good",
+    "last_updated": "2025-09-13"
+  },
+  "best_match_photo": {
+    "base64_data": null,
+    "source_url": null,
+    "confidence_score": null,
+    "description": "No photo provided"
+  },
+  "metadata": {
+    "llm_provider": "cerebras",
+    "llm_model": "gpt-oss-120b",
+    "face_matches": 0,
+    "total_mentions": 1
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "conversation": {
+    "audio_file": "recorded_conversations/recording_20250913_201808_Transcription_Test.wav",
+    "transcribed_at": "2025-09-13T20:18:17.359564",
+    "model": "groq-whisper-large-v3"
+  },
+  "transcription": {
+    "success": true,
+    "text": "Once upon a time, I was to Hackenworth, and I did very good on my",
+    "language": "English",
+    "segments": [
+      {
+        "start": 0,
+        "end": 5.5,
+        "text": "Once upon a time, I was to Hackenworth, and I did very good on my",
+        "confidence": -0.39036283
+      }
+    ],
+    "word_count": 15,
+    "confidence": -0.39036283,
+    "model": "whisper-large-v3",
+    "transcribed_at": "2025-09-13T20:18:17.359546",
+    "audio_file": "recorded_conversations/recording_20250913_201808_Transcription_Test.wav"
+  },
+  "summary": {
+    "total_duration": 5.5,
+    "word_count": 15,
+    "language": "English",
+    "confidence_score": -0.39036283
+  }
+}

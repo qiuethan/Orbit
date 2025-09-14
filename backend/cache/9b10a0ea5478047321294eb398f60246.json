@@ -1,0 +1,123 @@
+{
+  "person_analysis": {
+    "personal_info": {
+      "full_name": "Alexei Schiopu",
+      "age": null,
+      "location": "Moraga, California, United States",
+      "nationality": null,
+      "languages": null,
+      "interests": [
+        "Construction technology",
+        "Startup building and scaling",
+        "Product management and engineering leadership",
+        "Electrical engineering",
+        "Logistics technology",
+        "Rugby and athletics"
+      ]
+    },
+    "professional_info": {
+      "current_position": "Founder & CEO",
+      "company": "VAWN",
+      "industry": "Construction Technology / SaaS",
+      "previous_positions": [
+        "Head of EPD — Pallet (2024–2025, San Francisco Bay Area)",
+        "Head of Engineering — Pallet (May 2024)",
+        "Director of Engineering — Lattice (2021–2023)",
+        "Director of Engineering — PlanGrid (2018–2021, Autodesk acquisition)",
+        "Engineering Manager — PlanGrid (2016–2018)",
+        "Software Engineer — PlanGrid (2012–2016)"
+      ],
+      "skills": [
+        "Team leadership",
+        "Engineering management",
+        "Systems engineering",
+        "Product development",
+        "Scaling startups",
+        "Construction technology platforms"
+      ],
+      "achievements": [
+        "Founded VAWN to automate estimating and pre-construction analysis for contractors and subcontractors",
+        "Led engineering, product, design, and QA at Pallet, reducing incidents by 90% and contributing to $27M Series B fundraising (backed by General Catalyst, Bain, Bessemer)",
+        "Scaled Lattice’s engineering function, supporting ARR growth from $40M to $110M",
+        "Employee #3 at PlanGrid, instrumental in scaling to $100M+ ARR and Autodesk’s largest acquisition (2019)",
+        "Published case studies and technical insights on construction productivity and continuous deployment"
+      ]
+    },
+    "education_info": {
+      "current_institution": null,
+      "degree": "Bachelor of Applied Science",
+      "field_of_study": "Electrical Engineering",
+      "graduation_year": "2013",
+      "previous_education": [
+        "University of Waterloo (B.A.Sc. Electrical Engineering, with Distinction, 2008–2013; Varsity Rugby)"
+      ]
+    },
+    "social_media": [
+      {
+        "platform": "LinkedIn",
+        "username": null,
+        "url": null,
+        "verified": null,
+        "followers_count": 1734
+      }
+    ],
+    "talking_points": {
+      "recent_achievements": [
+        "Launched VAWN (Jul 2025) to address inefficiencies in pre-construction estimating",
+        "Head of EPD at Pallet, improved product reliability and helped secure Series B fundraising",
+        "Scaled engineering at Lattice during a high-growth phase"
+      ],
+      "shared_connections": null,
+      "common_interests": [
+        "Scaling SaaS startups",
+        "Engineering culture and leadership",
+        "Automation in construction and logistics",
+        "Electrical engineering background"
+      ],
+      "conversation_starters": [
+        "Ask about lessons learned scaling PlanGrid from early employee to Autodesk acquisition.",
+        "Discuss how VAWN is tackling pre-construction estimating with automation.",
+        "Explore leadership strategies from Pallet’s Series B journey.",
+        "Talk about transitioning from engineering roles to CEO-level startup leadership."
+      ],
+      "notable_projects": [
+        "VAWN — Automated estimating tool for contractors/subcontractors",
+        "Pallet — Logistics SaaS platform (EPD leadership, Series B scaling)",
+        "Lattice — Employee engagement and HR platform ($40M to $110M ARR growth)",
+        "PlanGrid — Construction productivity software, scaled to $100M ARR and acquired by Autodesk"
+      ]
+    },
+    "public_presence_score": "High",
+    "credibility_indicators": [
+      "Founder & CEO of a venture-backed construction tech startup",
+      "Leadership experience across multiple high-growth SaaS companies",
+      "Key early employee at PlanGrid, pivotal in Autodesk acquisition",
+      "Strong LinkedIn presence (1,700+ followers)",
+      "Published case studies on construction productivity and web deployment"
+    ],
+    "potential_red_flags": null,
+    "overview": "Alexei Schiopu is the Founder & CEO of VAWN, a construction tech startup focused on automating pre-construction estimating. Previously, he held senior leadership roles at Pallet and Lattice and spent nearly a decade scaling PlanGrid from its earliest days to Autodesk’s acquisition. With a background in electrical engineering from the University of Waterloo, Alexei combines technical expertise with startup leadership to tackle high-impact problems in construction and logistics.",
+    "executive_summary": "From apprentice electrician to early PlanGrid employee to founder of VAWN, Alexei Schiopu brings a rare blend of technical, operational, and leadership experience. His career reflects a consistent focus on scaling high-growth companies in construction and logistics, with proven results in ARR growth, acquisitions, and fundraising.",
+    "key_insights": [
+      "Entrepreneurial leader with deep experience in scaling engineering organizations",
+      "Brings construction industry credibility from nearly a decade at PlanGrid",
+      "Focuses on operational excellence and product-market fit in high-stakes industries",
+      "Has successfully transitioned from engineering execution to executive leadership"
+    ],
+    "confidence_level": "High",
+    "sources_quality": "Good",
+    "last_updated": "2025-09-13"
+  },
+  "best_match_photo": {
+    "base64_data": null,
+    "source_url": null,
+    "confidence_score": null,
+    "description": "No photo provided"
+  },
+  "metadata": {
+    "llm_provider": "cerebras",
+    "llm_model": "gpt-oss-120b",
+    "face_matches": 0,
+    "total_mentions": 1
+  }
+}

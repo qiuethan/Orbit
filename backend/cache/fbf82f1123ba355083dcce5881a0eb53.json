@@ -1,0 +1,125 @@
+{
+  "person_analysis": {
+    "personal_info": {
+      "full_name": "Andrew Miklas",
+      "age": null,
+      "location": "San Francisco, California, United States",
+      "nationality": null,
+      "languages": null,
+      "interests": [
+        "Venture capital and early-stage startups",
+        "B2B SaaS and product-led growth",
+        "Engineering leadership and scaling teams",
+        "Distributed systems and operating systems",
+        "Startup ecosystems in Silicon Valley and beyond"
+      ]
+    },
+    "professional_info": {
+      "current_position": "General Partner",
+      "company": "Y Combinator",
+      "industry": "Venture Capital / Technology / SaaS",
+      "previous_positions": [
+        "Visiting Group Partner — Y Combinator (Apr 2024 – Apr 2025)",
+        "Founder — Functional Capital (Jan 2022 – Apr 2025, San Francisco)",
+        "Venture Partner — S28 Capital (Dec 2017 – May 2023, San Francisco)",
+        "CTO & Co-Founder — PagerDuty (Jan 2009 – Aug 2016, San Francisco)",
+        "Intern Software Development Engineer — Amazon (2005)"
+      ],
+      "skills": [
+        "Python",
+        "Ruby on Rails",
+        "Software engineering management",
+        "Product-led growth strategy",
+        "Early-stage investing",
+        "Distributed systems"
+      ],
+      "achievements": [
+        "General Partner at Y Combinator, guiding top early-stage founders",
+        "Co-founder and CTO of PagerDuty, scaled from inception to $100M+ ARR before IPO",
+        "Founder of Functional Capital, invested in Retool, Sentry, Aurora Solar, RudderStack, OpsLevel, and others",
+        "Venture Partner at S28 Capital, specializing in SaaS and B2B growth",
+        "Research contributions in privacy-oriented and tamper-resistant network tracing (USENIX, HotNets)"
+      ]
+    },
+    "education_info": {
+      "current_institution": null,
+      "degree": ["BSE, Software Engineering", "MSc, Computer Science"],
+      "field_of_study": [
+        "Software Engineering (Waterloo)",
+        "Computer Science (Toronto)"
+      ],
+      "graduation_year": ["2006 (Waterloo)", "2008 (Toronto)"],
+      "previous_education": [
+        "University of Waterloo — BSE, Software Engineering (2001–2006)",
+        "University of Toronto — MSc, Computer Science (2006–2008)"
+      ]
+    },
+    "social_media": [
+      {
+        "platform": "LinkedIn",
+        "username": null,
+        "url": null,
+        "verified": null,
+        "followers_count": 1537
+      }
+    ],
+    "talking_points": {
+      "recent_achievements": [
+        "Promoted to General Partner at Y Combinator (May 2025)",
+        "Founded Functional Capital, investing in notable B2B SaaS startups",
+        "Mentored founders as Visiting Group Partner at YC (2024–2025)"
+      ],
+      "shared_connections": ["William Cielen", "Li Dekai"],
+      "common_interests": [
+        "B2B SaaS growth strategies",
+        "Technical products for developers",
+        "Startup scaling from engineering roots",
+        "Early-stage investing and founder mentorship"
+      ],
+      "conversation_starters": [
+        "Ask about lessons from scaling PagerDuty from an idea to an IPO-ready business.",
+        "Discuss his investment focus on developer-first and product-led SaaS companies.",
+        "Explore trends he’s seeing at YC with early-stage technical founders.",
+        "Talk about his transition from operator (CTO) to investor and mentor."
+      ],
+      "notable_projects": [
+        "PagerDuty — Co-founded incident response SaaS, designed initial alert dispatch system.",
+        "Functional Capital — Seed investments in Retool, Sentry, Aurora Solar, RudderStack, and more.",
+        "Research publications — Bunker (privacy-oriented network tracing), Tamper Resistant Network Tracing.",
+        "YC Group Partner/General Partner — Working directly with new cohorts of founders."
+      ]
+    },
+    "public_presence_score": "High",
+    "credibility_indicators": [
+      "General Partner at Y Combinator, globally recognized accelerator",
+      "Co-founder of PagerDuty, one of the most successful SaaS IPOs",
+      "Portfolio of high-growth SaaS investments (Retool, Sentry, Aurora Solar, etc.)",
+      "Strong LinkedIn following and professional presence (1,500+ followers)",
+      "Peer endorsements for technical and leadership skills"
+    ],
+    "potential_red_flags": null,
+    "overview": "Andrew Miklas is a General Partner at Y Combinator, a co-founder and former CTO of PagerDuty, and an experienced venture investor. With a background in software engineering and distributed systems, Andrew has transitioned from building highly reliable systems at Amazon and PagerDuty to mentoring and investing in early-stage B2B startups through YC and Functional Capital.",
+    "executive_summary": "Andrew combines technical depth as a software engineer with proven entrepreneurial success and venture experience. From co-founding PagerDuty and scaling it to IPO to investing in developer-first companies, he now serves as General Partner at Y Combinator, where he shapes the next generation of founders.",
+    "key_insights": [
+      "Deep operator experience scaling PagerDuty into a market leader in incident response SaaS.",
+      "Now leverages that background to mentor technical founders and invest in PLG B2B companies.",
+      "Academic grounding in software engineering and computer science contributes to technical credibility in venture decisions.",
+      "Bridges both technical and financial expertise across startup lifecycles."
+    ],
+    "confidence_level": "High",
+    "sources_quality": "Good",
+    "last_updated": "2025-09-13"
+  },
+  "best_match_photo": {
+    "base64_data": null,
+    "source_url": null,
+    "confidence_score": null,
+    "description": "No photo provided"
+  },
+  "metadata": {
+    "llm_provider": "cerebras",
+    "llm_model": "gpt-oss-120b",
+    "face_matches": 0,
+    "total_mentions": 1
+  }
+}
