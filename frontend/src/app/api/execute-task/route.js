@@ -15,8 +15,8 @@ export async function POST(request) {
         case 'email':
           result = await simulateEmailTask(config);
           break;
-        case 'slack':
-          result = await simulateSlackTask(config);
+        case 'linkedin_connect':
+          result = await simulateLinkedInTask(config);
           break;
         case 'phone':
           result = await simulatePhoneTask(config);
@@ -79,15 +79,16 @@ export async function POST(request) {
     };
   }
   
-  // Simulate Slack task execution
-  async function simulateSlackTask(config) {
-    console.log(`💬 Posting to Slack channel ${config.channel}`);
-    console.log(`💬 Message: ${config.message}`);
+  // Simulate LinkedIn task execution
+  async function simulateLinkedInTask(config) {
+    console.log(`🔗 LinkedIn ${config.action} to ${config.profile}`);
+    console.log(`🔗 Message: ${config.message}`);
     
     return {
-      message: `Slack message posted to ${config.channel}`,
+      message: `LinkedIn ${config.action} request sent to ${config.profile}`,
       data: {
-        channel: config.channel,
+        action: config.action,
+        profile: config.profile,
         message: config.message,
         timestamp: new Date().toISOString()
       }

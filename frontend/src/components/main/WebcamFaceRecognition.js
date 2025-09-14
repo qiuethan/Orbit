@@ -569,6 +569,19 @@ const WebcamFaceRecognition = () => {
           ctx.font = `${locationResult.fontSize}px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif`;
           ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
           ctx.fillText(locationResult.text, textStartX, currentY);
+          currentY += locationResult.fontSize + 3;
+        }
+        
+        // Draw confidence score (line 4) - always show if available
+        if (confidence > 0) {
+          const confidenceText = `Confidence Score: ${(confidence * 100).toFixed(0)}%`;
+          const confidenceResult = fitText(confidenceText, debugAvailableWidth, 10);
+          const confidenceColor = confidence > 0.7 ? 'rgba(52, 199, 89, 0.8)' : 
+                                 confidence > 0.5 ? 'rgba(255, 204, 0, 0.8)' : 'rgba(255, 59, 48, 0.8)';
+          
+          ctx.font = `${confidenceResult.fontSize}px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif`;
+          ctx.fillStyle = confidenceColor;
+          ctx.fillText(confidenceResult.text, textStartX, currentY);
         }
       }
       
@@ -707,115 +720,7 @@ const WebcamFaceRecognition = () => {
         </div>
       )}
 
-      {/* People Currently In Frame Panel */}
-      {detections.length > 0 ? (
-        <div className="absolute bottom-4 left-4 max-w-sm">
-          <div className="bg-black/80 p-4 rounded-xl backdrop-blur-md border border-white/20 shadow-2xl">
-            <h3 className="text-white font-semibold mb-3 flex items-center gap-2">
-              <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-              People in Frame ({detections.length})
-            </h3>
-            <div className="space-y-3">
-            {detections.map((detection, index) => {
-              const tid = detection.track_id ?? `idx_${index}`;
-              const tracked = trackLabels[tid];
-              const recognizedNow = Boolean(detection.recognized || (tracked && tracked.recognized));
-              const label = (tracked && tracked.label) || (detection.recognized ? detection.name : 'Unknown Person');
-                const personData = tracked?.personData;
-                const confidence = detection.confidence || detection.similarity || 0;
-                
-              return (
-                  <div key={tid} className="bg-white/10 rounded-lg p-3 border border-white/20">
-                    <div className="flex items-start gap-3">
-                      {/* Status indicator */}
-                      <div className="flex-shrink-0">
-                        <div 
-                          className="w-3 h-3 rounded-full mt-1"
-                          style={{ backgroundColor: recognizedNow ? '#34C759' : '#FF3B30' }}
-                        />
-                      </div>
-                      
-                      {/* Person info */}
-                      <div className="flex-1 min-w-0">
-                        <div className="text-white font-medium text-sm mb-1">{label}</div>
-                        
-                        {tracked?.isLoading ? (
-                          <div className="text-white/60 text-xs flex items-center gap-1">
-                            <div className="animate-spin w-3 h-3 border border-white/40 border-t-white rounded-full"></div>
-                            Loading details...
-                          </div>
-                        ) : personData ? (
-                          <div className="space-y-1">
-                            {personData.title && personData.title !== 'Professional' && (
-                              <div className="text-white/80 text-xs">{personData.title}</div>
-                            )}
-                            {personData.company && personData.company !== 'Company' && (
-                              <div className="text-white/70 text-xs">{personData.company}</div>
-                            )}
-                            {personData.location && (
-                              <div className="text-white/60 text-xs">{personData.location}</div>
-                            )}
-                            {personData.avatar && (
-                              <div className="mt-2">
-                                <img 
-                                  src={personData.avatar} 
-                                  alt={name}
-                                  className="w-8 h-8 rounded-full object-cover border border-white/20"
-                                  onError={(e) => {
-                                    e.target.style.display = 'none';
-                                  }}
-                                />
-                              </div>
-                            )}
-                          </div>
-                        ) : (
-                          <div className="text-white/60 text-xs">Unknown person</div>
-                        )}
-                        
-                        {confidence > 0 && (
-                          <div className="mt-2 flex items-center gap-2">
-                            <div className="text-white/60 text-xs">
-                              Confidence: {(confidence * 100).toFixed(0)}%
-                  </div>
-                            <div className={`w-2 h-2 rounded-full ${
-                              confidence > 0.7 ? 'bg-green-400' : 
-                              confidence > 0.5 ? 'bg-yellow-400' : 'bg-red-400'
-                            }`}></div>
-                    </div>
-                  )}
-                      </div>
-                    </div>
-                </div>
-              );
-            })}
-            </div>
-            
-            {/* Presence events summary */}
-            {presence.events && presence.events.length > 0 && (
-              <div className="mt-3 pt-3 border-t border-white/20">
-                <div className="text-white/60 text-xs">
-                  Recent activity: {presence.events.slice(-2).map((e) => `${e.event}`).join(', ')}
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
-      ) : isStreamActive ? (
-        <div className="absolute bottom-4 left-4 max-w-sm">
-          <div className="bg-black/60 p-4 rounded-xl backdrop-blur-md border border-white/20 shadow-2xl">
-            <h3 className="text-white font-semibold mb-2 flex items-center gap-2">
-              <div className="w-2 h-2 bg-gray-400 rounded-full animate-pulse"></div>
-              No People Detected
-            </h3>
-            <div className="text-white/70 text-sm">
-              <p>Camera is active and monitoring for faces...</p>
-              <p className="text-xs text-white/50 mt-1">
-                Make sure you're visible in the camera frame
-              </p>
-            </div>
-          </div>
-        </div>
-      ) : null}
+      {/* Debug panel hidden - confidence scores now shown in glass design above heads */}
     </div>
   );
 };
