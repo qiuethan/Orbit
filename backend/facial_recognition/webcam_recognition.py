@@ -76,6 +76,12 @@ class WebcamFaceRecognition:
         self.track_timeout = 1.5  # seconds without seeing -> consider left
         self.presence_events = []  # buffered presence events to emit via SSE
         
+        # Frame presence tracking for conversation participants
+        self.session_participants = {}  # track_id -> participant info
+        self.frame_presence_log = []  # comprehensive log of all frame appearances
+        self.session_start_time = None  # when camera session started
+        self.total_session_participants = set()  # all unique participants in session
+        
         # Unknown person logging
         self.unknown_person_timeout = 5.0  # Log after 5 seconds of being unknown
         self.unknown_tracks = {}  # track_id -> first_unknown_time
@@ -142,6 +148,10 @@ class WebcamFaceRecognition:
             
             self.is_running = True
             
+            # Initialize session tracking
+            self.session_start_time = datetime.now()
+            self._initialize_session_tracking()
+            
             # Start analysis worker thread
             self.analysis_thread = threading.Thread(target=self._analysis_worker, daemon=True)
             self.analysis_thread.start()
@@ -188,6 +198,12 @@ class WebcamFaceRecognition:
         
         # Stop audio recording
         self._stop_audio_recording()
+        
+        # Finalize session tracking and save comprehensive log
+        self._finalize_session_tracking()
+        
+        # Automatically process conversation integration
+        self._process_conversation_integration()
             
         self.logger.info("Webcam stopped")
     
@@ -311,6 +327,364 @@ class WebcamFaceRecognition:
         except Exception as e:
             self.logger.error(f"Error queuing face for analysis: {e}")
     
+    def _initialize_session_tracking(self):
+        """
+        Initialize session tracking when camera starts.
+        """
+        try:
+            # Clear previous session data
+            self.session_participants = {}
+            self.frame_presence_log = []
+            self.total_session_participants = set()
+            
+            # Log session start
+            session_info = {
+                "event": "session_start",
+                "timestamp": self.session_start_time.isoformat(),
+                "session_id": self.session_start_time.strftime("%Y%m%d_%H%M%S"),
+                "message": "Camera session started - tracking all frame appearances"
+            }
+            
+            self.frame_presence_log.append(session_info)
+            
+            # Write initial log entry
+            timestamp = self.session_start_time.strftime("%Y-%m-%d %H:%M:%S")
+            initial_entry = f"[{timestamp}] FRAME PRESENCE TRACKING SESSION STARTED\n"
+            
+            with open(self.unknown_log_path, "a", encoding="utf-8") as f:
+                f.write(initial_entry)
+            
+            self.logger.info("🎬 Frame presence tracking session initialized")
+            
+        except Exception as e:
+            self.logger.error(f"❌ Error initializing session tracking: {e}")
+    
+    def _finalize_session_tracking(self):
+        """
+        Finalize session tracking and save comprehensive log when camera stops.
+        """
+        try:
+            if self.session_start_time is None:
+                return
+            
+            session_end_time = datetime.now()
+            session_duration = (session_end_time - self.session_start_time).total_seconds()
+            
+            # Final session info
+            session_summary = {
+                "event": "session_end",
+                "timestamp": session_end_time.isoformat(),
+                "session_duration_seconds": session_duration,
+                "total_unique_participants": len(self.total_session_participants),
+                "participant_details": dict(self.session_participants),
+                "message": f"Camera session ended after {session_duration:.1f} seconds with {len(self.total_session_participants)} unique participants"
+            }
+            
+            self.frame_presence_log.append(session_summary)
+            
+            # Save comprehensive session log
+            self._save_session_presence_log()
+            
+            # Write summary to unknown person log
+            timestamp = session_end_time.strftime("%Y-%m-%d %H:%M:%S")
+            summary_entry = f"[{timestamp}] FRAME PRESENCE SESSION ENDED - Duration: {session_duration:.1f}s, Participants: {len(self.total_session_participants)}\n"
+            
+            # List all participants
+            for track_id in self.total_session_participants:
+                participant = self.session_participants.get(track_id, {})
+                name = participant.get('name', 'Unknown')
+                total_time = participant.get('total_presence_time', 0)
+                appearances = participant.get('appearance_count', 0)
+                participant_entry = f"[{timestamp}] Participant {track_id}: {name} - {total_time:.1f}s total, {appearances} appearances\n"
+                summary_entry += participant_entry
+            
+            with open(self.unknown_log_path, "a", encoding="utf-8") as f:
+                f.write(summary_entry)
+            
+            self.logger.info(f"🎬 Frame presence tracking session finalized: {len(self.total_session_participants)} participants, {session_duration:.1f}s duration")
+            
+        except Exception as e:
+            self.logger.error(f"❌ Error finalizing session tracking: {e}")
+    
+    def _save_session_presence_log(self):
+        """
+        Save comprehensive session presence log to file.
+        """
+        try:
+            session_id = self.session_start_time.strftime("%Y%m%d_%H%M%S") if self.session_start_time else "unknown"
+            log_filename = f"frame_presence_session_{session_id}.json"
+            log_path = os.path.join(self.logs_dir, log_filename)
+            
+            # Create comprehensive log data
+            log_data = {
+                "session_metadata": {
+                    "session_id": session_id,
+                    "start_time": self.session_start_time.isoformat() if self.session_start_time else None,
+                    "end_time": datetime.now().isoformat(),
+                    "duration_seconds": (datetime.now() - self.session_start_time).total_seconds() if self.session_start_time else 0,
+                    "total_unique_participants": len(self.total_session_participants),
+                    "log_type": "frame_presence_tracking"
+                },
+                "participants_summary": dict(self.session_participants),
+                "frame_presence_events": self.frame_presence_log,
+                "participant_statistics": self._calculate_participant_statistics()
+            }
+            
+            with open(log_path, "w", encoding="utf-8") as f:
+                json.dump(log_data, f, indent=2, ensure_ascii=False)
+            
+            self.logger.info(f"📁 Session presence log saved: {log_filename}")
+            
+        except Exception as e:
+            self.logger.error(f"❌ Error saving session presence log: {e}")
+    
+    def _calculate_participant_statistics(self) -> Dict[str, Any]:
+        """
+        Calculate statistics about participant presence.
+        """
+        try:
+            stats = {
+                "total_participants": len(self.total_session_participants),
+                "recognized_participants": 0,
+                "unknown_participants": 0,
+                "average_presence_time": 0.0,
+                "most_present_participant": None,
+                "total_session_time": (datetime.now() - self.session_start_time).total_seconds() if self.session_start_time else 0
+            }
+            
+            if not self.session_participants:
+                return stats
+            
+            total_presence_time = 0
+            max_presence_time = 0
+            max_presence_participant = None
+            
+            for track_id, participant in self.session_participants.items():
+                presence_time = participant.get('total_presence_time', 0)
+                total_presence_time += presence_time
+                
+                if presence_time > max_presence_time:
+                    max_presence_time = presence_time
+                    max_presence_participant = {
+                        "track_id": track_id,
+                        "name": participant.get('name', 'Unknown'),
+                        "total_time": presence_time
+                    }
+                
+                if participant.get('name'):
+                    stats["recognized_participants"] += 1
+                else:
+                    stats["unknown_participants"] += 1
+            
+            stats["average_presence_time"] = total_presence_time / len(self.session_participants)
+            stats["most_present_participant"] = max_presence_participant
+            
+            return stats
+            
+        except Exception as e:
+            self.logger.error(f"❌ Error calculating participant statistics: {e}")
+            return {}
+    
+    def _track_frame_presence(self, detections_data: List[Dict]):
+        """
+        Track all users present in the current frame.
+        
+        Args:
+            detections_data: List of detection data from current frame
+        """
+        try:
+            current_time = datetime.now()
+            frame_timestamp = current_time.isoformat()
+            
+            # Track each detected person
+            for detection in detections_data:
+                track_id = detection.get('track_id')
+                if track_id is None:
+                    continue
+                
+                # Add to total session participants
+                self.total_session_participants.add(track_id)
+                
+                # Get or initialize participant info
+                if track_id not in self.session_participants:
+                    self.session_participants[track_id] = {
+                        "track_id": track_id,
+                        "name": None,
+                        "first_seen": frame_timestamp,
+                        "last_seen": frame_timestamp,
+                        "total_presence_time": 0.0,
+                        "appearance_count": 1,
+                        "recognition_status": "unknown",
+                        "similarity_scores": [],
+                        "cache_id": None
+                    }
+                    
+                    # Log new participant appearance
+                    presence_event = {
+                        "event": "participant_first_appearance",
+                        "timestamp": frame_timestamp,
+                        "track_id": track_id,
+                        "name": detection.get('name'),
+                        "recognized": detection.get('recognized', False),
+                        "similarity": detection.get('similarity', 0.0)
+                    }
+                    self.frame_presence_log.append(presence_event)
+                    
+                    self.logger.info(f"👤 New participant in frame: Track {track_id}")
+                
+                else:
+                    # Update existing participant
+                    participant = self.session_participants[track_id]
+                    
+                    # Calculate time since last seen
+                    try:
+                        last_seen_dt = datetime.fromisoformat(participant['last_seen'])
+                        time_diff = (current_time - last_seen_dt).total_seconds()
+                        
+                        # If they were away for more than track_timeout, count as new appearance
+                        if time_diff > self.track_timeout:
+                            participant['appearance_count'] += 1
+                            
+                            reappearance_event = {
+                                "event": "participant_reappeared",
+                                "timestamp": frame_timestamp,
+                                "track_id": track_id,
+                                "name": detection.get('name'),
+                                "away_duration": time_diff
+                            }
+                            self.frame_presence_log.append(reappearance_event)
+                            
+                        # Add to total presence time
+                        participant['total_presence_time'] += min(time_diff, 1.0)  # Cap at 1 second per frame
+                        
+                    except Exception:
+                        # Fallback if timestamp parsing fails
+                        participant['total_presence_time'] += 0.1
+                
+                # Update participant info
+                participant = self.session_participants[track_id]
+                participant['last_seen'] = frame_timestamp
+                
+                # Update recognition info if available
+                if detection.get('name'):
+                    if participant['name'] != detection['name']:
+                        # Recognition status changed
+                        recognition_event = {
+                            "event": "participant_recognized",
+                            "timestamp": frame_timestamp,
+                            "track_id": track_id,
+                            "previous_name": participant['name'],
+                            "new_name": detection['name'],
+                            "similarity": detection.get('similarity', 0.0)
+                        }
+                        self.frame_presence_log.append(recognition_event)
+                        
+                        self.logger.info(f"✅ Participant {track_id} recognized as: {detection['name']}")
+                    
+                    participant['name'] = detection['name']
+                    participant['recognition_status'] = "recognized"
+                    
+                    # Track similarity scores for analysis
+                    similarity = detection.get('similarity', 0.0)
+                    if similarity > 0:
+                        participant['similarity_scores'].append(similarity)
+                        # Keep only last 10 scores
+                        participant['similarity_scores'] = participant['similarity_scores'][-10:]
+                
+                elif detection.get('is_analyzing'):
+                    participant['recognition_status'] = "analyzing"
+                else:
+                    participant['recognition_status'] = "unknown"
+            
+        except Exception as e:
+            self.logger.error(f"❌ Error tracking frame presence: {e}")
+    
+    def get_session_participants_summary(self) -> Dict[str, Any]:
+        """
+        Get current session participants summary.
+        
+        Returns:
+            Dict with session participant information
+        """
+        try:
+            if self.session_start_time is None:
+                return {"error": "No active session"}
+            
+            current_duration = (datetime.now() - self.session_start_time).total_seconds()
+            
+            return {
+                "session_active": True,
+                "session_duration": current_duration,
+                "total_participants": len(self.total_session_participants),
+                "current_participants": len([p for p in self.session_participants.values() 
+                                           if (datetime.now() - datetime.fromisoformat(p['last_seen'])).total_seconds() <= self.track_timeout]),
+                "recognized_participants": len([p for p in self.session_participants.values() if p.get('name')]),
+                "participants": dict(self.session_participants),
+                "statistics": self._calculate_participant_statistics()
+            }
+            
+        except Exception as e:
+            self.logger.error(f"❌ Error getting session summary: {e}")
+            return {"error": str(e)}
+    
+    def _process_conversation_integration(self):
+        """
+        Process conversation integration after session ends.
+        Links conversation topics with participants and updates cache files.
+        """
+        try:
+            if self.session_start_time is None:
+                self.logger.warning("⚠️ No session data available for conversation integration")
+                return
+            
+            session_id = self.session_start_time.strftime("%Y%m%d_%H%M%S")
+            
+            # Give time for transcription to complete
+            import time
+            time.sleep(5)  # Wait longer for transcription to finish
+            
+            self.logger.info("🔗 Starting conversation integration...")
+            
+            # Import and run conversation integration
+            try:
+                from conversation_integration import process_conversation_session
+                
+                result = process_conversation_session(session_id)
+                
+                if result["success"]:
+                    self.logger.info(f"✅ Conversation integration completed successfully")
+                    self.logger.info(f"📝 Topics extracted: {', '.join(result['conversation_topics'][:3])}...")
+                    self.logger.info(f"👥 Participants updated: {result['participants_processed']}")
+                    
+                    # Log to unknown person file for visibility
+                    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                    integration_entry = f"[{timestamp}] CONVERSATION INTEGRATION COMPLETED - Topics: {len(result['conversation_topics'])}, Updated: {result['participants_processed']} participants\n"
+                    
+                    for participant in result["updated_participants"]:
+                        participant_entry = f"[{timestamp}] Cache updated for {participant['name']} ({participant['cache_hash']})\n"
+                        integration_entry += participant_entry
+                    
+                    with open(self.unknown_log_path, "a", encoding="utf-8") as f:
+                        f.write(integration_entry)
+                    
+                else:
+                    self.logger.warning(f"⚠️ Conversation integration failed: {result['error']}")
+                    
+                    # Log failure
+                    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                    error_entry = f"[{timestamp}] CONVERSATION INTEGRATION FAILED - {result['error']}\n"
+                    
+                    with open(self.unknown_log_path, "a", encoding="utf-8") as f:
+                        f.write(error_entry)
+                
+            except ImportError as e:
+                self.logger.error(f"❌ Failed to import conversation integration: {e}")
+            except Exception as e:
+                self.logger.error(f"❌ Conversation integration error: {e}")
+                
+        except Exception as e:
+            self.logger.error(f"❌ Error in conversation integration process: {e}")
+
     def _analysis_worker(self):
         """
         Background worker thread for face analysis.
@@ -1168,6 +1542,9 @@ class WebcamFaceRecognition:
         # Update unknown person tracking based on current detections
         self._update_unknown_person_tracking(detections_data, frame)
         
+        # Track frame presence for all participants
+        self._track_frame_presence(detections_data)
+        
         return annotated_frame, detections_data
 
     def _assign_tracks(self, bboxes: List[List[int]]) -> Dict[int, int]:
@@ -1283,6 +1660,39 @@ class WebcamFaceRecognition:
         
         annotated_frame, detections = self.process_frame_with_analysis(frame)
         return True, annotated_frame, detections
+    
+    def get_frame_presence_summary(self) -> Dict[str, Any]:
+        """
+        Get comprehensive frame presence summary for logging purposes.
+        This is the main method to get all users who appeared in frames.
+        
+        Returns:
+            Dict with all frame presence data
+        """
+        return self.get_session_participants_summary()
+    
+    def export_session_participants_for_conversation_linking(self) -> List[str]:
+        """
+        Export participant identifiers for conversation linking.
+        
+        Returns:
+            List of participant identifiers (names or track_ids) who appeared in session
+        """
+        try:
+            participants = []
+            
+            for track_id, participant in self.session_participants.items():
+                # Prefer name if recognized, otherwise use track_id
+                if participant.get('name'):
+                    participants.append(participant['name'])
+                else:
+                    participants.append(f"Track_{track_id}")
+            
+            return participants
+            
+        except Exception as e:
+            self.logger.error(f"❌ Error exporting participants for conversation linking: {e}")
+            return []
 
 
 # Global webcam instance

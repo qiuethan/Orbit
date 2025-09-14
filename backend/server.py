@@ -3,7 +3,7 @@ import sys
 import asyncio
 import time
 import logging
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Optional, List
 import uuid
 import json
 import base64
@@ -807,6 +807,368 @@ async def list_voice_transcripts():
         }
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error listing transcripts: {e}")
+
+
+@app.post("/voice/summarize/{transcript_filename}")
+async def summarize_transcript(transcript_filename: str, custom_instructions: Optional[str] = None):
+    """
+    Summarize a specific transcript file using Cerebras LLM.
+    
+    Args:
+        transcript_filename: Name of the transcript file (without path)
+        custom_instructions: Optional additional instructions for summarization
+        
+    Returns:
+        JSON response with summary results
+    """
+    try:
+        # Import summarizer
+        from recording.summarizer import summarize_conversation
+        
+        # Construct full path to transcript file
+        backend_dir = os.path.dirname(os.path.abspath(__file__))
+        transcript_path = os.path.join(backend_dir, "recorded_conversations", transcript_filename)
+        
+        if not os.path.exists(transcript_path):
+            raise HTTPException(status_code=404, detail=f"Transcript file not found: {transcript_filename}")
+        
+        # Summarize the conversation
+        result = summarize_conversation(
+            transcript_path, 
+            custom_instructions=custom_instructions,
+            temperature=0.3,
+            max_tokens=1024
+        )
+        
+        if result["success"]:
+            return {
+                "status": "success",
+                "summary": result["summary_data"],
+                "topics": result.get("topics", []),  # Include topics list
+                "summary_file": os.path.basename(result.get("summary_file", "")),
+                "model_info": result["model_info"]
+            }
+        else:
+            raise HTTPException(status_code=500, detail=result["error"])
+            
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error summarizing transcript: {e}")
+
+
+@app.get("/voice/topics/{transcript_filename}")
+async def get_conversation_topics(transcript_filename: str):
+    """
+    Get just the 5 main topics from a conversation transcript.
+    
+    Args:
+        transcript_filename: Name of the transcript file (without path)
+        
+    Returns:
+        JSON response with list of 5 topics
+    """
+    try:
+        # Import summarizer
+        from recording.summarizer import summarize_conversation
+        
+        # Construct full path to transcript file
+        backend_dir = os.path.dirname(os.path.abspath(__file__))
+        transcript_path = os.path.join(backend_dir, "recorded_conversations", transcript_filename)
+        
+        if not os.path.exists(transcript_path):
+            raise HTTPException(status_code=404, detail=f"Transcript file not found: {transcript_filename}")
+        
+        # Check if summary already exists
+        summary_path = transcript_path.replace('_transcript.json', '_summary.json')
+        
+        if os.path.exists(summary_path):
+            # Load existing summary and extract topics
+            try:
+                with open(summary_path, 'r', encoding='utf-8') as f:
+                    summary_data = json.load(f)
+                    topics = summary_data.get("summary", {}).get("topics", [])
+                    
+                    if topics and len(topics) == 5:
+                        return {
+                            "status": "success",
+                            "topics": topics,
+                            "source": "existing_summary"
+                        }
+            except Exception:
+                pass  # Fall back to generating new summary
+        
+        # Generate new summary to get topics
+        result = summarize_conversation(
+            transcript_path, 
+            temperature=0.3,
+            max_tokens=1024
+        )
+        
+        if result["success"]:
+            return {
+                "status": "success",
+                "topics": result.get("topics", []),
+                "source": "new_summary"
+            }
+        else:
+            raise HTTPException(status_code=500, detail=result["error"])
+            
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error getting topics: {e}")
+
+
+@app.post("/voice/summarize-all")
+async def summarize_all_transcripts(custom_instructions: Optional[str] = None):
+    """
+    Summarize all transcript files in the recorded_conversations folder.
+    
+    Args:
+        custom_instructions: Optional additional instructions for summarization
+        
+    Returns:
+        JSON response with batch summary results
+    """
+    try:
+        # Import summarizer
+        from recording.summarizer import summarize_all_conversations
+        
+        # Get conversations directory
+        backend_dir = os.path.dirname(os.path.abspath(__file__))
+        conversations_dir = os.path.join(backend_dir, "recorded_conversations")
+        
+        if not os.path.exists(conversations_dir):
+            raise HTTPException(status_code=404, detail="Recorded conversations directory not found")
+        
+        # Summarize all conversations
+        result = summarize_all_conversations(
+            conversations_dir,
+            custom_instructions=custom_instructions,
+            temperature=0.3,
+            max_tokens=1024
+        )
+        
+        if result["success"]:
+            return {
+                "status": "success",
+                "folder": os.path.basename(result["folder"]),
+                "processed": result["processed"],
+                "failed": result["failed"],
+                "summary_count": result["summary_count"],
+                "error_count": result["error_count"]
+            }
+        else:
+            raise HTTPException(status_code=500, detail=result["error"])
+            
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error summarizing transcripts: {e}")
+
+
+@app.get("/voice/summaries")
+async def list_voice_summaries():
+    """
+    List all voice conversation summaries in recorded_conversations.
+    
+    Returns:
+        JSON response with list of summaries
+    """
+    try:
+        backend_dir = os.path.dirname(os.path.abspath(__file__))
+        conversations_dir = os.path.join(backend_dir, "recorded_conversations")
+        
+        if not os.path.exists(conversations_dir):
+            raise HTTPException(status_code=404, detail="Recorded conversations directory not found")
+        
+        # Find all summary files
+        summary_files = []
+        for filename in os.listdir(conversations_dir):
+            if filename.endswith("_summary.json"):
+                filepath = os.path.join(conversations_dir, filename)
+                try:
+                    # Get file stats
+                    stat = os.stat(filepath)
+                    
+                    # Load summary for preview
+                    with open(filepath, 'r', encoding='utf-8') as f:
+                        summary_data = json.load(f)
+                    
+                    summary_files.append({
+                        "filename": filename,
+                        "created_at": summary_data.get("summary", {}).get("created_at", ""),
+                        "model": summary_data.get("summary", {}).get("model", ""),
+                        "original_duration": summary_data.get("summary", {}).get("original_duration", 0),
+                        "original_word_count": summary_data.get("summary", {}).get("original_word_count", 0),
+                        "file_size": stat.st_size,
+                        "modified": datetime.fromtimestamp(stat.st_mtime).isoformat()
+                    })
+                except Exception as e:
+                    # Include file even if we can't parse it
+                    summary_files.append({
+                        "filename": filename,
+                        "error": f"Could not parse summary file: {e}"
+                    })
+        
+        # Sort by creation time, newest first
+        summary_files.sort(key=lambda x: x.get("created_at", ""), reverse=True)
+        
+        return {
+            "status": "success",
+            "summaries": summary_files,
+            "count": len(summary_files)
+        }
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error listing summaries: {e}")
+
+
+@app.post("/conversation/link-to-people")
+async def link_conversation_to_people(
+    conversation_file: str, 
+    detected_people: List[str]
+):
+    """
+    Link conversation topics to detected people from a webcam session.
+    
+    Args:
+        conversation_file: Name of the conversation summary file
+        detected_people: List of person identifiers detected in the video
+        
+    Returns:
+        JSON response with linking results
+    """
+    try:
+        from conversation_tracker import link_conversation_to_people
+        
+        # Construct full path to conversation file
+        backend_dir = os.path.dirname(os.path.abspath(__file__))
+        conversation_path = os.path.join(backend_dir, "recorded_conversations", conversation_file)
+        
+        if not os.path.exists(conversation_path):
+            raise HTTPException(status_code=404, detail=f"Conversation file not found: {conversation_file}")
+        
+        # Link conversation to people
+        result = link_conversation_to_people(conversation_path, detected_people)
+        
+        if result["success"]:
+            return {
+                "status": "success",
+                "session_id": result["session_id"],
+                "topics": result["topics"],
+                "linked_people": result["linked_people"],
+                "failed_people": result["failed_people"],
+                "message": f"Linked {len(result['linked_people'])} people to conversation"
+            }
+        else:
+            raise HTTPException(status_code=500, detail=result["error"])
+            
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error linking conversation: {e}")
+
+
+@app.get("/conversation/person/{person_identifier}")
+async def get_person_conversation_history(person_identifier: str):
+    """
+    Get conversation history for a specific person.
+    
+    Args:
+        person_identifier: Unique identifier for the person
+        
+    Returns:
+        JSON response with conversation history
+    """
+    try:
+        from conversation_tracker import get_person_topics
+        
+        result = get_person_topics(person_identifier)
+        
+        if result["found"]:
+            return {
+                "status": "success",
+                "person": result
+            }
+        else:
+            raise HTTPException(status_code=404, detail="No conversation history found for this person")
+            
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error getting person history: {e}")
+
+
+@app.post("/conversation/add-to-person")
+async def add_conversation_to_person(
+    person_identifier: str,
+    topics: List[str],
+    session_id: Optional[str] = None,
+    duration: Optional[float] = None,
+    summary: Optional[str] = None
+):
+    """
+    Manually add conversation topics to a person's history.
+    
+    Args:
+        person_identifier: Unique identifier for the person
+        topics: List of conversation topics
+        session_id: Optional session identifier
+        duration: Optional conversation duration
+        summary: Optional conversation summary
+        
+    Returns:
+        JSON response with success status
+    """
+    try:
+        from conversation_tracker import add_conversation_to_person
+        
+        success = add_conversation_to_person(
+            person_identifier=person_identifier,
+            conversation_topics=topics,
+            session_id=session_id,
+            duration=duration,
+            summary=summary
+        )
+        
+        if success:
+            return {
+                "status": "success",
+                "message": f"Added conversation record to {person_identifier}"
+            }
+        else:
+            raise HTTPException(status_code=500, detail="Failed to add conversation record")
+            
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error adding conversation: {e}")
+
+
+@app.get("/conversation/people")
+async def list_people_with_conversations():
+    """
+    Get a list of all people who have conversation history.
+    
+    Returns:
+        JSON response with list of people and their conversation stats
+    """
+    try:
+        from conversation_tracker import ConversationTracker
+        
+        tracker = ConversationTracker()
+        people = tracker.get_all_people_with_conversations()
+        
+        return {
+            "status": "success",
+            "people": people,
+            "count": len(people)
+        }
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error listing people: {e}")
 
 
 @app.get("/webcam/frame")

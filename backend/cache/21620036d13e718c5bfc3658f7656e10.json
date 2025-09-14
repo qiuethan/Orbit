@@ -83,7 +83,10 @@
         "Started as Engineering Director — Industry Collaborations and as ML Engineer at UTMIST (Summer 2025)",
         "Completed SWE co-op at General Dynamics Mission Systems–Canada (Java-based mission-critical apps)"
       ],
-      "shared_connections": ["Albert Huynh", "Abdul Fatir"],
+      "shared_connections": [
+        "Albert Huynh",
+        "Abdul Fatir"
+      ],
       "common_interests": [
         "Applied ML and computer vision",
         "Full-stack product building",
@@ -121,7 +124,46 @@
     ],
     "confidence_level": "High",
     "sources_quality": "Good",
-    "last_updated": "2025-09-13"
+    "last_updated": "2025-09-14T04:06:22.436775",
+    "conversation_history": [
+      {
+        "date": "2025-09-14T04:03:14.381417",
+        "session_id": "20250914_040256",
+        "topics": [
+          "Hope for success",
+          "Potential disappointment",
+          "Uncertainty",
+          "Farewell"
+        ],
+        "duration": 12.447602,
+        "presence_time": 10.121745,
+        "recognition_status": "recognized",
+        "source": "webcam_conversation_integration"
+      },
+      {
+        "date": "2025-09-14T04:06:22.436755",
+        "session_id": "20250914_040605",
+        "topics": [
+          "Apples",
+          "Liking apples",
+          "Disliking apples"
+        ],
+        "duration": 11.181201,
+        "presence_time": 8.814141,
+        "recognition_status": "recognized",
+        "source": "webcam_conversation_integration"
+      }
+    ],
+    "previous_conversation_topics": [
+      "Hope for success",
+      "Potential disappointment",
+      "Uncertainty",
+      "Farewell",
+      "Apples",
+      "Liking apples",
+      "Disliking apples"
+    ],
+    "total_conversations": 2
   },
   "best_match_photo": {
     "base64_data": null,
@@ -133,6 +175,8 @@
     "llm_provider": "cerebras",
     "llm_model": "gpt-oss-120b",
     "face_matches": 0,
-    "total_mentions": 1
+    "total_mentions": 1,
+    "last_conversation_update": "2025-09-14T04:06:22.436780",
+    "conversation_integration_version": "1.0"
   }
 }

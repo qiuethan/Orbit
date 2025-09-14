@@ -24,11 +24,18 @@ except ImportError:
     pass
 
 class ConversationTranscriber:
-    """Transcribes audio files using Groq Whisper Large."""
+    """Transcribes audio files using Groq Whisper Large and optionally summarizes them."""
     
-    def __init__(self, api_key: Optional[str] = None):
-        """Initialize transcriber with Groq API key."""
+    def __init__(self, api_key: Optional[str] = None, auto_summarize: bool = True):
+        """
+        Initialize transcriber with Groq API key and optional summarization.
+        
+        Args:
+            api_key: Groq API key (will use env var if not provided)
+            auto_summarize: Whether to automatically summarize transcripts
+        """
         self.logger = logging.getLogger("transcriber")
+        self.auto_summarize = auto_summarize
         
         # Get API key from parameter or environment
         self.api_key = api_key or os.getenv("GROQ_API_KEY")
@@ -43,6 +50,17 @@ class ConversationTranscriber:
             except Exception as e:
                 self.logger.error(f"Failed to initialize Groq client: {e}")
                 self.groq_client = None
+        
+        # Initialize summarizer if auto-summarization is enabled
+        self.summarizer = None
+        if self.auto_summarize:
+            try:
+                from .summarizer import ConversationSummarizer
+                self.summarizer = ConversationSummarizer(temperature=0.3)
+                self.logger.info("Conversation summarizer initialized")
+            except Exception as e:
+                self.logger.warning(f"Could not initialize summarizer: {e}")
+                self.auto_summarize = False
     
     def transcribe_file(self, audio_path: str, language: str = "auto") -> Dict[str, Any]:
         """
@@ -165,6 +183,25 @@ class ConversationTranscriber:
                     
                 self.logger.info(f"Transcript saved: {transcript_path}")
                 conversation_data["transcript_file"] = transcript_path
+                
+                # Auto-summarize if enabled
+                if self.auto_summarize and self.summarizer:
+                    try:
+                        self.logger.info("Creating conversation summary...")
+                        summary_result = self.summarizer.summarize_transcript_file(
+                            transcript_path, 
+                            save_summary=True
+                        )
+                        
+                        if summary_result.get("success"):
+                            summary_file = summary_result.get("summary_file", "")
+                            self.logger.info(f"Summary saved: {summary_file}")
+                            conversation_data["summary_file"] = summary_file
+                        else:
+                            self.logger.warning(f"Summary failed: {summary_result.get('error', 'Unknown error')}")
+                            
+                    except Exception as e:
+                        self.logger.warning(f"Auto-summarization failed: {e}")
             
             return {
                 "success": True,
