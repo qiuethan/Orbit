@@ -1,0 +1,21 @@
+{
+  "request_id": "95ff671121bb761b8c3ee1a670078322",
+  "cached_at": "2025-09-14T03:37:40.898498",
+  "source": "unknown_person_search",
+  "track_id": 28,
+  "search_status": "failed",
+  "person_analysis": {
+    "personal_info": {
+      "full_name": "Unknown_Track_28",
+      "description": "Face detected but search failed: Search operations failed: Invalid API token! Get your token at https://facecheck.id/Face-Search/API (INVALID_TOKEN)",
+      "confidence": "low",
+      "source": "facial_detection_only"
+    }
+  },
+  "search_metadata": {
+    "search_error": "Search operations failed: Invalid API token! Get your token at https://facecheck.id/Face-Search/API (INVALID_TOKEN)",
+    "search_timestamp": "2025-09-14T03:37:40.898507",
+    "pipeline_version": "unknown_person_search",
+    "note": "Image saved for future recognition even though search failed"
+  }
+}
