@@ -20,7 +20,10 @@ const HackTheNorthNetworkGraph = () => {
         ]);
 
         // Load network data from JSON file
-        const response = await fetch('./htn-network-data.json');
+        const response = await fetch('/graph.json');
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
         const networkData = await response.json();
 
         const graph = new Graph();
