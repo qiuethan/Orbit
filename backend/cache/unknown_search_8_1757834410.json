@@ -1,0 +1,4 @@
+{
+  "success": false,
+  "error": "Search operations failed: Search error: HTTPSConnectionPool(host='facecheck.id', port=443): Max retries exceeded with url: /api/upload_pic (Caused by NameResolutionError(\"<urllib3.connection.HTTPSConnection object at 0x1244d5a90>: Failed to resolve 'facecheck.id' ([Errno 8] nodename nor servname provided, or not known)\"))"
+}

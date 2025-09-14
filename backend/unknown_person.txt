@@ -2,45 +2,52 @@
 [2025-09-14 02:19:01] Webcam session completed - Duration: 42.3s, Transcription: 98 words (English)
 [2025-09-14 02:20:56] Webcam session completed - Duration: 57.4s, Transcription: 95 words (English)
 [2025-09-14 02:33:50] Webcam session completed - Duration: 108.5s, Transcription: 192 words (English)
-[2025-09-14 03:38:18] Webcam session completed - Duration: 96.4s, Transcription: 183 words (English)
-[2025-09-14 03:48:15] FRAME PRESENCE TRACKING SESSION STARTED
-[2025-09-14 03:48:32] Webcam session completed - Duration: 15.4s, Transcription: 25 words (English)
-[2025-09-14 03:48:32] FRAME PRESENCE SESSION ENDED - Duration: 17.0s, Participants: 1
-[2025-09-14 03:48:32] Participant 1: Ethan Qiu - 14.6s total, 1 appearances
-[2025-09-14 03:55:34] FRAME PRESENCE TRACKING SESSION STARTED
-[2025-09-14 03:55:47] Webcam session completed - Duration: 11.6s, Transcription: 25 words (English)
-[2025-09-14 03:55:47] FRAME PRESENCE SESSION ENDED - Duration: 13.6s, Participants: 2
-[2025-09-14 03:55:47] Participant 1: James Han - 10.4s total, 1 appearances
-[2025-09-14 03:55:47] Participant 2: Ethan Qiu - 10.4s total, 1 appearances
-[2025-09-14 03:58:49] FRAME PRESENCE TRACKING SESSION STARTED
-[2025-09-14 03:59:01] Webcam session completed - Duration: 10.2s, Transcription: 27 words (English)
-[2025-09-14 03:59:01] FRAME PRESENCE SESSION ENDED - Duration: 11.5s, Participants: 2
-[2025-09-14 03:59:01] Participant 1: James Han - 9.0s total, 1 appearances
-[2025-09-14 03:59:01] Participant 2: Ethan Qiu - 9.0s total, 1 appearances
-[2025-09-14 04:01:38] FRAME PRESENCE TRACKING SESSION STARTED
-[2025-09-14 04:01:49] Webcam session completed - Duration: 9.4s, Transcription: 17 words (English)
-[2025-09-14 04:01:49] FRAME PRESENCE SESSION ENDED - Duration: 10.8s, Participants: 2
-[2025-09-14 04:01:49] Participant 1: James Han - 8.3s total, 1 appearances
-[2025-09-14 04:01:49] Participant 2: Ethan Qiu - 8.3s total, 1 appearances
-[2025-09-14 04:02:56] FRAME PRESENCE TRACKING SESSION STARTED
-[2025-09-14 04:03:08] Webcam session completed - Duration: 11.1s, Transcription: 23 words (English)
-[2025-09-14 04:03:08] FRAME PRESENCE SESSION ENDED - Duration: 12.4s, Participants: 2
-[2025-09-14 04:03:08] Participant 1: James Han - 10.1s total, 1 appearances
-[2025-09-14 04:03:08] Participant 2: Ethan Qiu - 10.1s total, 1 appearances
-[2025-09-14 04:03:14] CONVERSATION INTEGRATION COMPLETED - Topics: 4, Updated: 2 participants
-[2025-09-14 04:03:14] Cache updated for James Han (7fbf065383ff07527d3d377cdc280520)
-[2025-09-14 04:03:14] Cache updated for Ethan Qiu (21620036d13e718c5bfc3658f7656e10)
-[2025-09-14 04:05:17] FRAME PRESENCE TRACKING SESSION STARTED
-[2025-09-14 04:05:28] Webcam session completed - Duration: 9.0s, Transcription: 16 words (English)
-[2025-09-14 04:05:28] FRAME PRESENCE SESSION ENDED - Duration: 10.4s, Participants: 2
-[2025-09-14 04:05:28] Participant 1: James Han - 8.2s total, 1 appearances
-[2025-09-14 04:05:28] Participant 2: Ethan Qiu - 8.5s total, 1 appearances
-[2025-09-14 04:05:33] CONVERSATION INTEGRATION FAILED - Transcript file not found
-[2025-09-14 04:06:05] FRAME PRESENCE TRACKING SESSION STARTED
-[2025-09-14 04:06:16] Webcam session completed - Duration: 10.0s, Transcription: 22 words (English)
-[2025-09-14 04:06:16] FRAME PRESENCE SESSION ENDED - Duration: 11.2s, Participants: 2
-[2025-09-14 04:06:16] Participant 1: James Han - 8.8s total, 1 appearances
-[2025-09-14 04:06:16] Participant 2: Ethan Qiu - 8.8s total, 1 appearances
-[2025-09-14 04:06:22] CONVERSATION INTEGRATION COMPLETED - Topics: 3, Updated: 2 participants
-[2025-09-14 04:06:22] Cache updated for James Han (7fbf065383ff07527d3d377cdc280520)
-[2025-09-14 04:06:22] Cache updated for Ethan Qiu (21620036d13e718c5bfc3658f7656e10)
+[2025-09-14 03:10:24] Unknown person detected (Track ID: 8) - present for 5+ seconds
+[2025-09-14 03:10:24] Starting image search for Track ID 8...
+[2025-09-14 03:10:24] Search queued for Track ID 8 (queue size: 1)
+[2025-09-14 03:10:24] Search completed for Track ID 8 - No matches found
+[2025-09-14 03:10:25] Unknown person detected (Track ID: 2) - present for 5+ seconds
+[2025-09-14 03:10:25] Starting image search for Track ID 2...
+[2025-09-14 03:10:25] Search queued for Track ID 2 (queue size: 1)
+[2025-09-14 03:10:26] Search completed for Track ID 2 - No matches found
+[2025-09-14 03:10:29] New cache entry added: 40015f51af8de481d2871896da96ff3a.jpg/.json for Track ID 2
+[2025-09-14 03:12:17] Unknown person detected (Track ID: 2) - present for 5+ seconds
+[2025-09-14 03:12:17] Starting image search for Track ID 2...
+[2025-09-14 03:12:17] Search queued for Track ID 2 (queue size: 1)
+[2025-09-14 03:12:17] Search completed for Track ID 2 - No matches found
+[2025-09-14 03:12:19] New cache entry added: 34084bad7abd8c44d9e8a00fbf027f12.jpg/.json for Track ID 2
+[2025-09-14 03:15:39] Unknown person detected (Track ID: 4) - present for 5+ seconds
+[2025-09-14 03:15:39] Starting image search for Track ID 4...
+[2025-09-14 03:15:39] Search queued for Track ID 4 (queue size: 1)
+[2025-09-14 03:15:39] Search completed for Track ID 4 - No matches found
+[2025-09-14 03:15:41] New cache entry added: 95385e40cc4c635d6ec555225e431281.jpg/.json for Track ID 4
+[2025-09-14 03:19:47] Unknown person detected (Track ID: 8) - present for 5+ seconds
+[2025-09-14 03:19:47] Starting image search for Track ID 8...
+[2025-09-14 03:19:47] Search queued for Track ID 8 (queue size: 1)
+[2025-09-14 03:20:10] Search completed for Track ID 8 - No matches found
+[2025-09-14 03:20:13] New cache entry added: c54a822cd53f55da5ee6f20f380e6edf.jpg/.json for Track ID 8
+[2025-09-14 03:25:23] Unknown person detected (Track ID: 13) - present for 5+ seconds
+[2025-09-14 03:25:23] Starting image search for Track ID 13...
+[2025-09-14 03:25:23] Search queued for Track ID 13 (queue size: 1)
+[2025-09-14 03:25:23] Search completed for Track ID 13 - No matches found
+[2025-09-14 03:25:26] New cache entry added: 3dbec15b8c9340756f78baf7b45d9d74.jpg/.json for Track ID 13
+[2025-09-14 03:27:11] Unknown person detected (Track ID: 16) - present for 5+ seconds
+[2025-09-14 03:27:11] Starting image search for Track ID 16...
+[2025-09-14 03:27:11] Search queued for Track ID 16 (queue size: 1)
+[2025-09-14 03:27:12] Search completed for Track ID 16 - No matches found
+[2025-09-14 03:27:14] New cache entry added: 2b405ed94c37128dbfbad9a235c1c52a.jpg/.json for Track ID 16
+[2025-09-14 03:37:40] Unknown person detected (Track ID: 28) - present for 5+ seconds
+[2025-09-14 03:37:40] Starting image search for Track ID 28...
+[2025-09-14 03:37:40] Search queued for Track ID 28 (queue size: 1)
+[2025-09-14 03:37:40] Search completed for Track ID 28 - No matches found
+[2025-09-14 03:37:43] New cache entry added: 95ff671121bb761b8c3ee1a670078322.jpg/.json for Track ID 28
+[2025-09-14 03:43:07] Unknown person detected (Track ID: 39) - present for 5+ seconds
+[2025-09-14 03:43:07] Starting image search for Track ID 39...
+[2025-09-14 03:43:07] Search queued for Track ID 39 (queue size: 1)
+[2025-09-14 03:43:08] Search completed for Track ID 39 - No matches found
+[2025-09-14 03:43:12] New cache entry added: 604853f7eeff696f81133ca429603870.jpg/.json for Track ID 39
+[2025-09-14 03:48:35] Unknown person detected (Track ID: 42) - present for 5+ seconds
+[2025-09-14 03:48:35] Starting image search for Track ID 42...
+[2025-09-14 03:48:35] Search queued for Track ID 42 (queue size: 1)
+[2025-09-14 03:48:36] Search completed for Track ID 42 - No matches found
+[2025-09-14 03:48:39] New cache entry added: 55b509abcd6e474014a3f282f4a99c69.jpg/.json for Track ID 42
