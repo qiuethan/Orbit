@@ -1,0 +1,132 @@
+{
+    "person_analysis": {
+      "personal_info": {
+        "full_name": "Edward Kim",
+        "age": null,
+        "location": "Kitchener, Ontario, Canada",
+        "nationality": null,
+        "languages": ["English"],
+        "interests": [
+          "Machine Learning",
+          "Large Language Models",
+          "Materials Informatics",
+          "Software Engineering",
+          "STEM Outreach",
+          "Open Science"
+        ]
+      },
+      "professional_info": {
+        "current_position": "Sr. Manager of Technical Staff",
+        "company": "Cohere",
+        "industry": "Artificial Intelligence / Machine Learning",
+        "previous_positions": [
+          "Manager of Technical Staff – Cohere (2022 – 2024)",
+          "Faculty Affiliate Researcher – Vector Institute (2023 – Present)",
+          "Adjunct Professor – University of Toronto (2022 – Present)",
+          "Principal Applied Scientist – Xero (2020 – 2022)",
+          "Senior Data Scientist – Citrine Informatics (2019 – 2020)"
+        ],
+        "skills": [
+          "Large Language Models",
+          "Machine Learning",
+          "Materials Science",
+          "Nanotechnology",
+          "Python",
+          "Research Leadership",
+          "Engineering Management"
+        ],
+        "achievements": [
+          "Currently leads Cohere’s post-training team developing reasoning LLMs.",
+          "Co-authored 20+ research articles with 2,000+ citations, featured in The Verge & MIT News.",
+          "Holds two U.S. patents in AI-driven materials informatics.",
+          "Managed remote and distributed ML teams for 5+ years.",
+          "Delivered AI workshops to hundreds of academic and industry professionals.",
+          "Active adjunct professor at the University of Toronto, bridging AI and materials science."
+        ]
+      },
+      "education_info": {
+        "current_institution": null,
+        "degree": "Doctor of Philosophy (PhD), Materials Science",
+        "field_of_study": "Materials Science, NLP applications",
+        "graduation_year": null,
+        "previous_education": [
+          "Massachusetts Institute of Technology (PhD in Materials Science, minor in Brain & Cognitive Sciences)",
+          "University of Guelph (BS in Nanoscience, minor in Physics, Chancellor’s Scholar)"
+        ]
+      },
+      "social_media": [
+        {
+          "platform": "LinkedIn",
+          "username": null,
+          "url": null,
+          "verified": null,
+          "followers_count": 3394
+        }
+      ],
+      "talking_points": {
+        "recent_achievements": [
+          "Promoted to Senior Manager of Technical Staff at Cohere in 2025.",
+          "Driving Cohere’s efforts in reasoning LLMs, including post-training innovations.",
+          "Hit a milestone of 2,048 academic citations, highlighting his impact in materials NLP research."
+        ],
+        "shared_connections": [
+          "Sina Fallah Ardizi",
+          "Adil Asif"
+        ],
+        "common_interests": [
+          "Scaling large AI models",
+          "Interdisciplinary applications of AI in science",
+          "STEM mentorship and outreach",
+          "Open science collaborations"
+        ],
+        "conversation_starters": [
+          "Ask about his transition from materials informatics research to LLMs at Cohere.",
+          "Discuss Cohere’s Coral project and enterprise AI applications.",
+          "Explore his academic contributions to materials NLP and patents.",
+          "Mention his dual role bridging academia (UofT/Vector) and industry (Cohere)."
+        ],
+        "notable_projects": [
+          "Coral – Cohere’s enterprise knowledge assistant",
+          "Synthetic data generation and evaluation pipelines at Cohere",
+          "AI Reasoning Models research and publications",
+          "Patented ML systems for predictive inorganic synthesis"
+        ]
+      },
+      "public_presence_score": "Medium-High",
+      "credibility_indicators": [
+        "Leadership role at Cohere, a top LLM company",
+        "Strong publication record with 2,000+ citations",
+        "Faculty affiliation at Vector Institute",
+        "Adjunct Professorship at University of Toronto",
+        "Patent holder in applied ML for materials"
+      ],
+      "potential_red_flags": [
+        "Primarily academic/technical profile; less public visibility compared to high-profile startup founders"
+      ],
+      "overview": "Edward Kim is a machine learning leader at Cohere, where he manages teams building reasoning LLMs and synthetic data pipelines. With a PhD from MIT in Materials Science and a background spanning materials informatics, NLP, and large-scale AI systems, Edward bridges academic rigor and industrial innovation. He is also an adjunct professor at the University of Toronto and a faculty affiliate at the Vector Institute, highlighting his dual commitment to research and industry impact. His work has been cited over 2,000 times, and he has contributed patents, publications, and leadership across academia, startups, and enterprise AI.",
+      "executive_summary": "Edward Kim is a machine learning scientist and engineering leader with expertise in both large language models and materials informatics. Currently at Cohere, he manages teams building reasoning-focused LLMs, while also teaching at the University of Toronto and contributing to the Vector Institute. With 20+ publications, 2,000+ citations, and multiple patents, Edward has established himself as a credible researcher and practitioner at the intersection of AI, science, and industry.",
+      "key_insights": [
+        "Edward has transitioned from materials informatics to cutting-edge LLM development, showing adaptability across domains.",
+        "He has credibility as both a researcher (citations, patents, adjunct professorship) and as an industry leader (Cohere, Xero, Citrine).",
+        "His role at Cohere emphasizes reasoning LLMs, positioning him in one of the most competitive frontiers of AI.",
+        "Medium-high public presence, with visibility in academic and AI communities, but less mainstream recognition than founders/investors.",
+        "Balanced career between academia and industry sets him apart as a hybrid researcher-practitioner."
+      ],
+      "confidence_level": "High",
+      "sources_quality": "Excellent",
+      "last_updated": "2025-09-13"
+    },
+    "best_match_photo": {
+      "base64_data": null,
+      "source_url": null,
+      "confidence_score": null,
+      "description": "No photo provided"
+    },
+    "metadata": {
+      "llm_provider": "cerebras",
+      "llm_model": "gpt-oss-120b",
+      "face_matches": 0,
+      "total_mentions": 1
+    }
+  }
+  

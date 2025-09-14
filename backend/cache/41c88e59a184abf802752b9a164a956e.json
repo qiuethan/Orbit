@@ -1,0 +1,120 @@
+{
+    "person_analysis": {
+      "personal_info": {
+        "full_name": "Brandon M.",
+        "age": null,
+        "location": "San Francisco Bay Area",
+        "nationality": null,
+        "languages": [],
+        "interests": [
+          "Autonomous vehicles",
+          "Robotics",
+          "AI-powered automation",
+          "Clean energy and sustainability",
+          "Startup building and advising"
+        ]
+      },
+      "professional_info": {
+        "current_position": "CTO & Co-Founder",
+        "company": "Embark Technology (acquired by Applied Intuition)",
+        "industry": "Autonomous Vehicles / Robotics / AI",
+        "previous_positions": [
+          "Co-Founder — Varden Labs (Aug 2015 – Jun 2016)",
+          "Robotics Engineer — Kindred.ai (May 2015 – Sep 2015)"
+        ],
+        "skills": [
+          "C++",
+          "Programming",
+          "Robotics systems",
+          "Autonomous driving technology",
+          "Startup leadership"
+        ],
+        "achievements": [
+          "Co-founded Embark Technology, a pioneering autonomous trucking company later acquired by Applied Intuition.",
+          "Helped build Embark into one of the first and leading autonomous trucking startups in North America.",
+          "Previously co-founded Varden Labs, focusing on self-driving shuttles and robotics.",
+          "Early career as a Robotics Engineer at Kindred.ai, contributing to intelligent automation systems.",
+          "Recognized by colleagues and managers for rapid learning ability, technical brilliance, and delivering high-impact systems under tight timelines."
+        ]
+      },
+      "education_info": {
+        "current_institution": null,
+        "degree": "BASc, Mechatronics Engineering",
+        "field_of_study": "Mechatronics Engineering",
+        "graduation_year": null,
+        "previous_education": [
+          "University of Waterloo — Mechatronics Engineering"
+        ]
+      },
+      "social_media": [
+        {
+          "platform": "LinkedIn",
+          "username": null,
+          "url": null,
+          "verified": null,
+          "followers_count": 6415
+        }
+      ],
+      "talking_points": {
+        "recent_achievements": [
+          "Led Embark Technology through growth and eventual acquisition by Applied Intuition.",
+          "Active thought leadership on robotics and automation, recently highlighted projects like AI-powered solar installation robots by Luminous.",
+          "Continues to advise and support robotics and automation ventures globally."
+        ],
+        "shared_connections": [
+          "Ishan Baliyan"
+        ],
+        "common_interests": [
+          "AI and robotics for large-scale infrastructure",
+          "Autonomous trucking and logistics",
+          "Sustainable energy and clean tech",
+          "Startup scaling and advising"
+        ],
+        "conversation_starters": [
+          "Ask about Embark’s journey from startup founding to acquisition by Applied Intuition.",
+          "Discuss the role of robotics in accelerating clean energy transitions (e.g., solar farm automation).",
+          "Explore lessons learned from building Varden Labs and early robotics projects.",
+          "Ask about his vision for the future of autonomous trucking and logistics infrastructure."
+        ],
+        "notable_projects": [
+          "Embark Technology — Autonomous trucking pioneer, co-founded and scaled to acquisition.",
+          "Varden Labs — Startup focused on self-driving shuttle technology.",
+          "Kindred.ai — Early robotics and AI automation projects.",
+          "Luminous Robotics — Advocated for AI-powered solar panel installation robots."
+        ]
+      },
+      "public_presence_score": "High",
+      "credibility_indicators": [
+        "CTO & Co-Founder of Embark, acquired by Applied Intuition",
+        "Strong presence in the robotics and autonomous driving ecosystem",
+        "6,400+ LinkedIn followers",
+        "Endorsed by multiple colleagues for C++ and programming skills",
+        "Highly praised by past manager for technical brilliance and adaptability"
+      ],
+      "potential_red_flags": null,
+      "overview": "Brandon M. is a Canadian engineer and entrepreneur, best known as the CTO & Co-Founder of Embark Technology, a leading autonomous trucking startup acquired by Applied Intuition. With a background in mechatronics engineering from the University of Waterloo, he has built a career at the intersection of robotics, AI, and transportation. His entrepreneurial journey began with Varden Labs and continued through Embark, making him a notable figure in robotics and autonomous vehicle innovation.",
+      "executive_summary": "Brandon M. is the CTO & Co-Founder of Embark Technology, where he played a key role in pioneering autonomous trucking before its acquisition by Applied Intuition. With prior experience at Varden Labs and Kindred.ai, he combines deep technical expertise in robotics and C++ programming with startup leadership. He remains active in advising robotics and automation projects worldwide.",
+      "key_insights": [
+        "Proven track record in founding and scaling robotics and autonomous vehicle companies.",
+        "Blend of technical expertise (robotics, C++, mechatronics) and executive leadership.",
+        "Active advocate for applying robotics and AI to large-scale global challenges like logistics and clean energy.",
+        "Strong presence in the startup and automation ecosystem, well-networked through Waterloo and Silicon Valley communities."
+      ],
+      "confidence_level": "High",
+      "sources_quality": "Good",
+      "last_updated": "2025-09-13"
+    },
+    "best_match_photo": {
+      "base64_data": null,
+      "source_url": null,
+      "confidence_score": null,
+      "description": "No photo provided"
+    },
+    "metadata": {
+      "llm_provider": "cerebras",
+      "llm_model": "gpt-oss-120b",
+      "face_matches": 0,
+      "total_mentions": 1
+    }
+  }
+  

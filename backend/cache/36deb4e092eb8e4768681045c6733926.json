@@ -1,0 +1,129 @@
+{
+    "person_analysis": {
+      "personal_info": {
+        "full_name": "Gautam Gupta",
+        "age": null,
+        "location": "New York, New York, United States",
+        "nationality": "Canadian (University of Waterloo alumnus, now US-based)",
+        "languages": ["English", "Hindi (assumed)"],
+        "interests": [
+          "AI-powered finance",
+          "Consumer brands",
+          "Software engineering",
+          "Entrepreneurship",
+          "Open source",
+          "Fintech innovation"
+        ]
+      },
+      "professional_info": {
+        "current_position": "Co-founder & CTO",
+        "company": "Highbeam",
+        "industry": "AI Finance / Consumer Brands / Fintech",
+        "previous_positions": [
+          "Senior Software Engineer – Alloy.ai (2018 – 2021)",
+          "Software Engineer – Venmo (2017)",
+          "Software Engineer – Shopify (2016)",
+          "Software Engineer – Paytm Labs (2015)"
+        ],
+        "skills": [
+          "Software Engineering",
+          "Artificial Intelligence",
+          "Fintech Development",
+          "Entrepreneurship",
+          "Backend Infrastructure",
+          "Open Source Development"
+        ],
+        "achievements": [
+          "Co-founded **Highbeam**, building AI-powered finance agents for consumer brands, helping manage $5B+ in transactions.",
+          "Raised **$30M Series A** (2025) led by Acrew Capital.",
+          "Launched **Highbeam Intelligence**, the first agentic finance platform (AI Analyst, Bookkeeper, Treasury Agent).",
+          "Senior Engineer at Alloy.ai (#12 hire).",
+          "Contributed engineering at **Venmo**, **Shopify**, and **Paytm Labs**.",
+          "Open source contributor since high school; developed plugin with 200K+ downloads acquired by Shareaholic.",
+          "Winner of **Google Code-in 2011**; invited to Google HQ as one of 10 global winners."
+        ]
+      },
+      "education_info": {
+        "current_institution": null,
+        "degree": "Bachelor’s Degree",
+        "field_of_study": "Computer Science",
+        "graduation_year": 2018,
+        "previous_education": [
+          "University of Waterloo – BCS in Computer Science (2014 – 2018)"
+        ]
+      },
+      "social_media": [
+        {
+          "platform": "LinkedIn",
+          "username": null,
+          "url": null,
+          "verified": null,
+          "followers_count": 4665
+        }
+      ],
+      "talking_points": {
+        "recent_achievements": [
+          "Raised $30M Series A at Highbeam (2025).",
+          "Scaled Highbeam to manage $5B+ in transactions.",
+          "Launched AI-powered finance agents platform."
+        ],
+        "shared_connections": [
+          "Naman Mamtani",
+          "Justin Chu",
+          "Other UW/fintech ecosystem mutuals"
+        ],
+        "common_interests": [
+          "AI Agents",
+          "Consumer Brand Finance",
+          "Entrepreneurship",
+          "Open Source"
+        ],
+        "conversation_starters": [
+          "Ask about the launch of Highbeam Intelligence and how agentic finance compares to traditional SaaS dashboards.",
+          "Discuss his experience scaling from engineer at Venmo/Shopify to founder of an AI fintech startup.",
+          "Bring up his early open source success (Google Code-in, Shareaholic acquisition).",
+          "Explore thoughts on AI’s role in automating treasury, bookkeeping, and cash flow planning."
+        ],
+        "notable_projects": [
+          "Highbeam Intelligence – AI finance agents",
+          "Highbeam $30M Series A growth",
+          "Open Source Social Sharing Plugin (200K+ downloads)",
+          "Google Code-in Global Winner (2011)"
+        ]
+      },
+      "public_presence_score": "High",
+      "credibility_indicators": [
+        "Founder & CTO of Highbeam with Series A funding",
+        "Track record at Alloy.ai, Venmo, Shopify, Paytm Labs",
+        "Google Code-in global recognition",
+        "Open source contributor with real-world adoption"
+      ],
+      "potential_red_flags": [
+        "Founder background is strongly technical – may raise questions about depth in finance domain (but mitigated by Highbeam traction)."
+      ],
+      "overview": "Gautam Gupta is the Co-founder & CTO of Highbeam, an AI-powered finance platform for consumer brands that recently raised a $30M Series A. With prior engineering roles at Alloy.ai, Venmo, Shopify, and Paytm Labs, he brings a decade of fintech and software expertise. His early open source contributions and Google Code-in win set the stage for a career blending technical depth with entrepreneurial vision.",
+      "executive_summary": "Gautam Gupta is a Waterloo-trained computer scientist and fintech entrepreneur, now Co-founder & CTO of Highbeam. He has scaled the company into a leading AI-powered finance infrastructure provider, recently securing $30M in Series A funding. With prior experience at top fintech companies and a long-standing open source track record, Gautam blends technical expertise with startup execution.",
+      "key_insights": [
+        "Highbeam is positioning itself as the AI-powered finance stack for consumer brands.",
+        "Raised significant venture backing, indicating investor confidence in product-market fit.",
+        "Deep engineering background provides credibility in building complex fintech infrastructure.",
+        "Open source and early recognition (Google HQ invite) show long-standing technical excellence."
+      ],
+      "confidence_level": "High",
+      "sources_quality": "Excellent",
+      "last_updated": "2025-09-13"
+    },
+    "best_match_photo": {
+      "base64_data": null,
+      "source_url": null,
+      "confidence_score": null,
+      "description": "No photo provided"
+    },
+    "metadata": {
+      "llm_provider": "cerebras",
+      "llm_model": "gpt-oss-120b",
+      "face_matches": 0,
+      "total_mentions": 1
+    }
+  }
+  

@@ -1,0 +1,131 @@
+{
+    "person_analysis": {
+      "personal_info": {
+        "full_name": "Deon Nicholas",
+        "age": null,
+        "location": "San Mateo, California, United States",
+        "nationality": null,
+        "languages": ["English"],
+        "interests": [
+          "Artificial Intelligence",
+          "Agentic AI for Customer Experience",
+          "Angel Investing",
+          "Mathematics and Optimization",
+          "Enterprise Software",
+          "Future of Work and Automation"
+        ]
+      },
+      "professional_info": {
+        "current_position": "Founder, President & Executive Chairman",
+        "company": "Forethought",
+        "industry": "Artificial Intelligence / Customer Experience",
+        "previous_positions": [
+          "CEO & Co-Founder – Forethought (2017 – 2024)",
+          "Software Engineer – Pure Storage (2015 – 2017)",
+          "Software Engineer – Dropbox (2015)",
+          "Full Stack Software Engineer Intern – Palantir Technologies (2014)",
+          "Software Engineering Intern – Facebook (2013)"
+        ],
+        "skills": [
+          "Artificial Intelligence",
+          "Machine Learning",
+          "Algorithms",
+          "C++",
+          "Enterprise Software Development",
+          "Leadership",
+          "Angel Investing"
+        ],
+        "achievements": [
+          "Founded Forethought, a leading Agentic AI company for customer experience, raising $90M+ in venture funding.",
+          "Recognized on Forbes 30 Under 30 (Enterprise Technology, 2019).",
+          "Forethought named to CNBC’s Top 25 Startups for the Enterprise and Forbes AI 50.",
+          "Angel investor in 30+ startups including Anthropic, Cognition (Devin), Bluesky, Private AI, Granica, and Neon.",
+          "Developed data and storage technologies at Meta, Palantir, Dropbox, and Pure Storage.",
+          "Frequent speaker and futurist with media appearances on Bloomberg and CNBC."
+        ]
+      },
+      "education_info": {
+        "current_institution": null,
+        "degree": "Bachelor of Mathematics (with Distinction), Honours Computer Science and Combinatorics/Optimization",
+        "field_of_study": "Computer Science, Combinatorics & Optimization",
+        "graduation_year": 2015,
+        "previous_education": [
+          "University of Waterloo (2011 – 2015)",
+          "Alberta Machine Intelligence Institute (AMII) – AI and Machine Learning research"
+        ]
+      },
+      "social_media": [
+        {
+          "platform": "LinkedIn",
+          "username": null,
+          "url": null,
+          "verified": null,
+          "followers_count": 15043
+        }
+      ],
+      "talking_points": {
+        "recent_achievements": [
+          "Transitioned from CEO to Executive Chairman of Forethought after seven years as co-founder and CEO.",
+          "Forethought recognized for customer support automation and Agentic AI leadership.",
+          "Expanded angel investing portfolio to 30+ companies across AI, enterprise, and Web3."
+        ],
+        "shared_connections": [
+          "Zachary Levesque",
+          "Vivek Alamuri"
+        ],
+        "common_interests": [
+          "Agentic AI research and applications",
+          "Early-stage investing and venture capital",
+          "Customer experience technology",
+          "Scaling enterprise AI startups"
+        ],
+        "conversation_starters": [
+          "Ask about Forethought’s evolution in the Agentic AI landscape and its enterprise adoption.",
+          "Discuss his angel investing thesis and notable investments like Anthropic and Cognition.",
+          "Explore his experience competing at ACM ICPC World Finals and its impact on his career.",
+          "Mention his perspective on the future of customer experience and AI automation."
+        ],
+        "notable_projects": [
+          "Forethought – Agentic AI for CX (Upwork, Grammarly, Airtable, Cotopaxi)",
+          "RocksDB Merge Operator project at Facebook",
+          "Brain Tumour Analysis Project at AMII"
+        ]
+      },
+      "public_presence_score": "High",
+      "credibility_indicators": [
+        "Founder and Executive Chairman of Forethought, a well-funded and recognized AI startup",
+        "Forbes 30 Under 30 honoree",
+        "Angel investor in leading AI and tech companies",
+        "Strong media visibility with appearances on Bloomberg and CNBC",
+        "Academic background with distinction from University of Waterloo and AMII"
+      ],
+      "potential_red_flags": [
+        "May not respond to unsolicited recruiter or sales outreach, as explicitly stated in his profile"
+      ],
+      "overview": "Deon Nicholas is the Founder, President & Executive Chairman of Forethought, a leading company in Agentic AI for customer experience. With a background in mathematics and artificial intelligence from the University of Waterloo and AMII, he has worked at Meta, Palantir, Dropbox, and Pure Storage before founding Forethought. Under his leadership, Forethought has raised $90M+ and earned recognition from Forbes and CNBC. Beyond his work at Forethought, Deon is a prolific angel investor with over 30 portfolio companies, frequently co-investing alongside top-tier VC firms. He is also a public speaker and futurist, known for his commentary on AI’s role in reshaping customer experience and enterprise technology.",
+      "executive_summary": "Deon Nicholas is a Canadian entrepreneur, AI researcher, and investor best known as the founder of Forethought, a customer experience AI company recognized among the top startups globally. With deep technical expertise in machine learning and enterprise software, he has built a career at the intersection of research, engineering, and entrepreneurship. His influence extends beyond Forethought as an angel investor in some of the most prominent AI startups of the decade, including Anthropic and Cognition.",
+      "key_insights": [
+        "Deon bridges academia, industry, and entrepreneurship, combining AI research with practical startup execution.",
+        "Forethought’s positioning in Agentic AI demonstrates his focus on applied AI for real-world enterprise challenges.",
+        "His angel investment track record aligns him with leading venture firms, placing him at the center of the AI startup ecosystem.",
+        "He has built credibility both as a technical engineer (Facebook, Palantir, Dropbox, Pure Storage) and as a visionary founder.",
+        "High media presence strengthens his influence as a thought leader in AI and customer experience."
+      ],
+      "confidence_level": "High",
+      "sources_quality": "Excellent",
+      "last_updated": "2025-09-13"
+    },
+    "best_match_photo": {
+      "base64_data": null,
+      "source_url": null,
+      "confidence_score": null,
+      "description": "No photo provided"
+    },
+    "metadata": {
+      "llm_provider": "cerebras",
+      "llm_model": "gpt-oss-120b",
+      "face_matches": 0,
+      "total_mentions": 1
+    }
+  }
+  

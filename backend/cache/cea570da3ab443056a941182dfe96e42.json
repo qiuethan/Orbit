@@ -1,0 +1,130 @@
+{
+    "person_analysis": {
+      "personal_info": {
+        "full_name": "Eric Diep",
+        "age": null,
+        "location": "Pacific Northwest, USA (Toronto-born)",
+        "nationality": "Canadian",
+        "languages": ["English"],
+        "interests": [
+          "Startups",
+          "Gaming",
+          "Crypto & NFTs",
+          "Mobile Applications",
+          "Consumer Technology",
+          "Angel Investing"
+        ]
+      },
+      "professional_info": {
+        "current_position": "Founder",
+        "company": "manifold.xyz",
+        "industry": "Crypto / Web3 / Gaming",
+        "previous_positions": [
+          "Founder Emeritus – A Thinking Ape (2016 – Present)",
+          "Founder & CTO – A Thinking Ape (2010 – 2015)",
+          "Founder – A Thinking Ape (2010 – 2012)"
+        ],
+        "skills": [
+          "Entrepreneurship",
+          "Game Development",
+          "NFT Infrastructure",
+          "Mobile Applications",
+          "Angel Investing",
+          "Product Development"
+        ],
+        "achievements": [
+          "Founded **Manifold**, backed by a16z crypto and Initialized Capital, building NFT tools for top creators.",
+          "Co-created **RoyaltyRegistry.xyz**, an open-source NFT royalty platform with OpenSea, Coinbase, and SuperRare.",
+          "Co-founded **A Thinking Ape**, one of the earliest top-grossing mobile game studios on Apple and Google Play.",
+          "Led A Thinking Ape to its acquisition by **DECA Games for $105M**.",
+          "Early Y Combinator alum (2007), connected with lifelong co-founders.",
+          "Co-author of the **first US patent for real-time mobile chat systems**."
+        ]
+      },
+      "education_info": {
+        "current_institution": null,
+        "degree": null,
+        "field_of_study": "Mathematics, Fine Arts",
+        "graduation_year": null,
+        "previous_education": [
+          "University of Waterloo – Studied Mathematics & Fine Arts (dropped out for Y Combinator)"
+        ]
+      },
+      "social_media": [
+        {
+          "platform": "LinkedIn",
+          "username": null,
+          "url": null,
+          "verified": null,
+          "followers_count": 652
+        }
+      ],
+      "talking_points": {
+        "recent_achievements": [
+          "Scaled Manifold into one of the leading NFT infrastructure startups.",
+          "Helped standardize NFT royalties across major marketplaces.",
+          "Oversaw A Thinking Ape’s acquisition for $105M."
+        ],
+        "shared_connections": [
+          "Naval Ravikant",
+          "Bill Lee",
+          "Jim Young",
+          "Wilkins Chung",
+          "Kenshi Arasaki"
+        ],
+        "common_interests": [
+          "Web3/NFT tools",
+          "Gaming and entertainment platforms",
+          "Angel investing in consumer tech and crypto",
+          "Early-stage startup ecosystems"
+        ],
+        "conversation_starters": [
+          "Ask about the founding journey of Manifold and its collaboration with OpenSea and Coinbase.",
+          "Discuss the transition from gaming (A Thinking Ape) to Web3 infrastructure.",
+          "Explore his experience as one of the early YC 2007 founders.",
+          "Bring up his patent on real-time mobile chat systems."
+        ],
+        "notable_projects": [
+          "Manifold.xyz – NFT infrastructure platform",
+          "RoyaltyRegistry.xyz – Open-source NFT royalty standard",
+          "A Thinking Ape – Top-grossing mobile gaming studio, acquired for $105M"
+        ]
+      },
+      "public_presence_score": "High",
+      "credibility_indicators": [
+        "Backed by top-tier VCs (a16z crypto, Initialized Capital)",
+        "YC founder (2007 batch)",
+        "Proven exit with $105M acquisition",
+        "Patent holder in mobile communication tech"
+      ],
+      "potential_red_flags": [
+        "Heavy focus on NFT/crypto sector, which can be volatile",
+        "No recent personal content posted publicly (lower direct visibility)"
+      ],
+      "overview": "Eric Diep is a Canadian entrepreneur and founder of Manifold, an NFT infrastructure startup backed by a16z crypto and Initialized Capital. Previously, he co-founded A Thinking Ape, one of the earliest top-grossing mobile gaming studios, which was acquired for $105M. A YC 2007 alum, Eric holds a US patent for real-time mobile chat systems and has become an active angel investor across consumer tech and crypto startups.",
+      "executive_summary": "Eric Diep is a repeat founder and investor, best known for co-founding A Thinking Ape (acquired for $105M) and Manifold (a leading NFT infrastructure company). With a background in mathematics from the University of Waterloo and early experience at Y Combinator, he bridges consumer entertainment, crypto infrastructure, and startup angel investing.",
+      "key_insights": [
+        "Has successfully built companies in both **gaming (A Thinking Ape)** and **Web3 infrastructure (Manifold)**.",
+        "One of the earliest YC founders from Canada (2007), building long-term co-founder relationships.",
+        "Holds a pioneering patent in real-time mobile chat, showing technical as well as entrepreneurial depth.",
+        "Strong VC backing and acquisition track record add credibility.",
+        "Public presence is strong through his ventures, though less so personally compared to more active founders."
+      ],
+      "confidence_level": "High",
+      "sources_quality": "Excellent",
+      "last_updated": "2025-09-13"
+    },
+    "best_match_photo": {
+      "base64_data": null,
+      "source_url": null,
+      "confidence_score": null,
+      "description": "No photo provided"
+    },
+    "metadata": {
+      "llm_provider": "cerebras",
+      "llm_model": "gpt-oss-120b",
+      "face_matches": 0,
+      "total_mentions": 1
+    }
+  }
+  

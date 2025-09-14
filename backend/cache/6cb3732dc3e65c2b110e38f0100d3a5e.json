@@ -1,0 +1,125 @@
+{
+    "person_analysis": {
+      "personal_info": {
+        "full_name": "Chantal Jandard",
+        "age": null,
+        "location": "New York, New York, United States",
+        "nationality": null,
+        "languages": [],
+        "interests": [
+          "Design leadership",
+          "Product design",
+          "User experience (UX)",
+          "Agile collaboration",
+          "Accessibility and inclusive design",
+          "Mentorship and organizational growth",
+          "Cross-cultural exchange (study abroad experience in Singapore)"
+        ]
+      },
+      "professional_info": {
+        "current_position": "Senior Design Manager",
+        "company": "Autodesk",
+        "industry": "Design / Software / SaaS",
+        "previous_positions": [
+          "Design Manager — Autodesk (Jan 2019 – Apr 2021)",
+          "Product Designer — PlanGrid (Aug 2016 – Jan 2019)",
+          "Designer — Design Agency (Oct 2015 – Jul 2016)",
+          "Product Designer — Desire2Learn (Jan 2013 – May 2015)",
+          "Product Designer (Co-op) — Desire2Learn (Sep 2011 – Aug 2012)"
+        ],
+        "skills": [
+          "User Experience",
+          "Product Design",
+          "Leadership",
+          "Accessibility",
+          "Agile collaboration",
+          "Team building",
+          "Corny Jokes (humor skill endorsed by peers)"
+        ],
+        "achievements": [
+          "Promoted from Design Manager to Senior Design Manager at Autodesk, leading teams in creating impactful design solutions.",
+          "Played a key role in design leadership transition during PlanGrid’s acquisition by Autodesk.",
+          "Contributed to accessibility and localization features at D2L, impacting millions of users worldwide.",
+          "Held diverse roles spanning startups, agencies, and large enterprises, showcasing adaptability and leadership.",
+          "Well-regarded for team culture and mentorship, known for blending professionalism with approachability."
+        ]
+      },
+      "education_info": {
+        "current_institution": null,
+        "degree": "Bachelor of Arts, Honours Psychology, Co-op Option",
+        "field_of_study": "Psychology",
+        "graduation_year": 2013,
+        "previous_education": [
+          "University of Waterloo — Honours Psychology",
+          "Nanyang Technological University (Singapore) — Term Abroad (2012)"
+        ]
+      },
+      "social_media": [
+        {
+          "platform": "LinkedIn",
+          "username": null,
+          "url": null,
+          "verified": null,
+          "followers_count": 1808
+        }
+      ],
+      "talking_points": {
+        "recent_achievements": [
+          "Currently leading design teams as Senior Design Manager at Autodesk.",
+          "Actively engaged in design leadership, with a focus on accessibility and complex product workflows.",
+          "Maintains a strong network in the design community and advocates for peer recognition (e.g., recent post supporting engineering manager Mariah)."
+        ],
+        "shared_connections": [],
+        "common_interests": [
+          "Design leadership and mentoring",
+          "Product development in SaaS tools",
+          "Cross-disciplinary collaboration between design and engineering",
+          "Psychology in design thinking"
+        ],
+        "conversation_starters": [
+          "Ask about her transition from hands-on product design to leadership roles at Autodesk.",
+          "Discuss her international experience studying at Nanyang Technological University in Singapore.",
+          "Explore her perspective on accessibility in design, particularly from her work at D2L.",
+          "Mention her unique blend of professionalism and humor (her 'Corny Jokes' skill endorsements show this side)."
+        ],
+        "notable_projects": [
+          "Autodesk — Leading design teams post-PlanGrid acquisition.",
+          "PlanGrid — Designing collaborative construction software before Autodesk acquisition.",
+          "Desire2Learn (D2L) — Built accessible, large-scale e-learning design solutions."
+        ]
+      },
+      "public_presence_score": "Medium",
+      "credibility_indicators": [
+        "Senior leadership role at Autodesk, a globally recognized design and software company",
+        "Strong career progression from product designer to senior manager",
+        "International study experience demonstrating adaptability",
+        "1,800+ followers on LinkedIn with active community engagement",
+        "Endorsed by peers for UX and leadership skills"
+      ],
+      "potential_red_flags": null,
+      "overview": "Chantal Jandard is a design leader and Senior Design Manager at Autodesk, with over a decade of experience in product design and UX across startups, agencies, and enterprise software. With a background in psychology from the University of Waterloo, she brings a user-centered approach to building inclusive, accessible, and impactful design systems. Known for her leadership, mentorship, and approachable personality, she has played pivotal roles at PlanGrid, Autodesk, and Desire2Learn, helping organizations scale their design teams and tackle complex product challenges.",
+      "executive_summary": "Chantal Jandard is a Senior Design Manager at Autodesk, where she leads product design teams and drives accessibility, usability, and innovation in enterprise SaaS products. With roots in psychology and early experience at Desire2Learn, she has built a career spanning design agencies, startups, and global companies. Her leadership style balances strategic oversight with empathy, fostering team growth and strong design culture.",
+      "key_insights": [
+        "Chantal’s career blends psychology and design, making her adept at user-centered problem solving.",
+        "She has a proven track record of growing from individual contributor to senior leadership in major SaaS organizations.",
+        "Accessibility and inclusive design are recurring themes in her work, particularly at D2L.",
+        "Her humor and human approach (endorsed for 'Corny Jokes') help build positive team culture alongside strong professional output."
+      ],
+      "confidence_level": "High",
+      "sources_quality": "Good",
+      "last_updated": "2025-09-13"
+    },
+    "best_match_photo": {
+      "base64_data": null,
+      "source_url": null,
+      "confidence_score": null,
+      "description": "No photo provided"
+    },
+    "metadata": {
+      "llm_provider": "cerebras",
+      "llm_model": "gpt-oss-120b",
+      "face_matches": 0,
+      "total_mentions": 1
+    }
+  }
+  

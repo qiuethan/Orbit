@@ -1,0 +1,124 @@
+{
+    "person_analysis": {
+      "personal_info": {
+        "full_name": "Jacob Willems",
+        "age": null,
+        "location": "Toronto, Ontario, Canada",
+        "nationality": "Canadian",
+        "languages": ["English (native/bilingual)", "French (native/bilingual)"],
+        "interests": [
+          "Engineering",
+          "Startups",
+          "Web3 & Blockchain",
+          "Hackathons",
+          "Community Building",
+          "Partnership Development"
+        ]
+      },
+      "professional_info": {
+        "current_position": "VP, Partnerships",
+        "company": "ETHGlobal",
+        "industry": "Blockchain / Web3 / Community Development",
+        "previous_positions": [
+          "Advisor – Lighter (2022 – 2024)",
+          "Advisor – Lunchclub (2022 – 2024)",
+          "Founding Engineer – Lunchclub (2017 – 2021)",
+          "Advisor – VendorPM (2020 – 2021)",
+          "Advisor – Hack the North (2018 – 2021)",
+          "Director of Sponsorship – Hack the North (2015 – 2018)"
+        ],
+        "skills": [
+          "Partnership Development",
+          "Engineering Leadership",
+          "Fundraising",
+          "Community Building",
+          "HTML",
+          "C++",
+          "Software Development"
+        ],
+        "achievements": [
+          "Built and scaled **ETHGlobal** partnerships since 2017, helping establish it as a leading Web3 hackathon/community platform.",
+          "Founding engineer at **Lunchclub**, scaling the platform during its early growth phase.",
+          "Directed sponsorship for **Hack the North**, Canada’s largest hackathon, securing major partnerships.",
+          "Advised multiple startups including Lighter, VendorPM, and Lunchclub during growth/scale phases."
+        ]
+      },
+      "education_info": {
+        "degree": "Honors Bachelor of Computer Science",
+        "minor": "Classical Studies",
+        "institution": "University of Waterloo",
+        "graduation_year": 2017
+      },
+      "social_media": [
+        {
+          "platform": "LinkedIn",
+          "username": null,
+          "url": null,
+          "verified": null,
+          "followers_count": 1722
+        }
+      ],
+      "talking_points": {
+        "recent_achievements": [
+          "Ongoing leadership role in ETHGlobal partnerships.",
+          "Advisory roles with multiple early-stage companies (Lighter, VendorPM, Lunchclub).",
+          "Scaled hackathon partnerships and sponsorships at Hack the North."
+        ],
+        "shared_connections": [
+          "Zimu Liu"
+        ],
+        "common_interests": [
+          "Blockchain/Web3 ecosystem",
+          "Hackathons & developer communities",
+          "Startup growth strategies",
+          "Engineering and product leadership"
+        ],
+        "conversation_starters": [
+          "Ask about ETHGlobal’s evolution in the Web3 ecosystem and his role in building partnerships.",
+          "Discuss his transition from engineering (Lunchclub founding engineer) to partnerships and advisory roles.",
+          "Bring up Hack the North and how sponsorships were structured to scale one of the largest hackathons.",
+          "Explore his perspective on balancing technical and business roles in startup environments."
+        ],
+        "notable_projects": [
+          "ETHGlobal Web3 hackathon ecosystem",
+          "Lunchclub early engineering team",
+          "Hack the North sponsorship leadership",
+          "Advisory roles at Lighter, VendorPM, and others"
+        ]
+      },
+      "public_presence_score": "Medium",
+      "credibility_indicators": [
+        "VP at ETHGlobal with 8+ years experience",
+        "Founding engineer at Lunchclub",
+        "Leadership at Hack the North",
+        "Advisor to multiple startups"
+      ],
+      "potential_red_flags": [
+        "No recent public posts or visible thought leadership despite high-profile roles."
+      ],
+      "overview": "Jacob W. is a Canadian engineer and startup operator with a unique blend of technical and business experience. He is currently VP of Partnerships at ETHGlobal, where he has helped grow the organization into a global Web3 hackathon and community leader. Previously, he was a founding engineer at Lunchclub and led sponsorships for Hack the North, securing major partnerships. He continues to advise early-stage startups and is active in both engineering and partnership strategy.",
+      "executive_summary": "Jacob W. is a University of Waterloo CS graduate and VP of Partnerships at ETHGlobal. With a foundation as a founding engineer at Lunchclub and sponsorship director at Hack the North, he has bridged engineering and business development across startups and Web3 ecosystems. His career highlights include scaling ETHGlobal partnerships, securing sponsorships for Canada’s largest hackathon, and advising multiple growth-stage companies.",
+      "key_insights": [
+        "Has successfully transitioned from engineering into high-level partnerships and strategy.",
+        "Deep experience in hackathon and developer community ecosystems.",
+        "Advisory track record shows strong ties to early-stage startup growth.",
+        "Blend of technical CS background with business-facing roles makes him versatile."
+      ],
+      "confidence_level": "High",
+      "sources_quality": "Good",
+      "last_updated": "2025-09-13"
+    },
+    "best_match_photo": {
+      "base64_data": null,
+      "source_url": null,
+      "confidence_score": null,
+      "description": "No photo provided"
+    },
+    "metadata": {
+      "llm_provider": "cerebras",
+      "llm_model": "gpt-oss-120b",
+      "face_matches": 0,
+      "total_mentions": 1
+    }
+  }
+  

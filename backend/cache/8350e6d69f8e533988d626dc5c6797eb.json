@@ -1,0 +1,128 @@
+{
+    "person_analysis": {
+      "personal_info": {
+        "full_name": "Ethan Ding",
+        "age": null,
+        "location": "New York, New York, United States",
+        "nationality": "American (likely, based in US)",
+        "languages": ["English", "Mandarin (possible, from volunteering with StarT Foundation 开始)"],
+        "interests": [
+          "Data Science Automation",
+          "SQL & Python Agents",
+          "Startups & Venture Capital",
+          "Growth Strategy",
+          "Dashboards & Analytics",
+          "STEM Education"
+        ]
+      },
+      "professional_info": {
+        "current_position": "Co-Founder & CEO",
+        "company": "TextQL",
+        "industry": "AI / Data Infrastructure / SaaS",
+        "previous_positions": [
+          "Researcher – Contrary Research (2022)",
+          "Fellow – Contrary (2020 – 2022)",
+          "Data – Tackle.io (2021 – 2022)",
+          "Data – Bessemer Venture Partners (2020 – 2022)"
+        ],
+        "skills": [
+          "Entrepreneurship",
+          "Data Infrastructure",
+          "SQL & Python Automation",
+          "Growth Investing",
+          "Product Strategy",
+          "Analytics for SaaS & Databases"
+        ],
+        "achievements": [
+          "Founded **TextQL**, automating the role of a data scientist through SQL and Python agents that integrate with existing dashboards and warehouses.",
+          "Raised funding from **Neo, DCM, Unshackled, Worklife, Firsthand, PageOne, Pioneer**.",
+          "Scaled TextQL to high visibility with over **10,000+ LinkedIn followers**.",
+          "Formerly contributed to **Contrary Research**, producing deep analyses of leading private tech companies.",
+          "Experience at **Bessemer Venture Partners**, helping growth-stage SaaS companies benchmark towards $100M ARR."
+        ]
+      },
+      "education_info": {
+        "current_institution": null,
+        "degree": null,
+        "field_of_study": "Computer Science, Industrial Engineering & Operations Research, Data Science",
+        "graduation_year": null,
+        "previous_education": [
+          "UC Berkeley College of Engineering – CS, IEOR, DS"
+        ]
+      },
+      "social_media": [
+        {
+          "platform": "LinkedIn",
+          "username": null,
+          "url": null,
+          "verified": null,
+          "followers_count": 10637
+        }
+      ],
+      "talking_points": {
+        "recent_achievements": [
+          "Raised venture funding and scaled TextQL.",
+          "Demonstrated TextQL’s AI-driven data querying across 25,000+ table warehouses.",
+          "Launched features like 'AI Slides' – auto-generating presentations from Snowflake data."
+        ],
+        "shared_connections": [
+          "Sheldon Lewis",
+          "Truman Chan",
+          "Other Contrary / Berkeley ecosystem operators"
+        ],
+        "common_interests": [
+          "AI for Data Science Automation",
+          "Venture Capital & Growth Investing",
+          "Enterprise SaaS",
+          "Educational Volunteering"
+        ],
+        "conversation_starters": [
+          "Ask about scaling TextQL and its approach to replacing data science workflows.",
+          "Discuss his time at Bessemer and Contrary analyzing top private tech companies.",
+          "Bring up his philosophy on startup growth and product-market fit from investor and founder perspectives.",
+          "Ask about his volunteering with StarT Foundation and building libraries abroad."
+        ],
+        "notable_projects": [
+          "TextQL – Automated data science with SQL & Python agents",
+          "Contrary Research – Analysis on scaling SaaS from $1M to $100M ARR",
+          "Bessemer Venture Partners benchmarking frameworks",
+          "StarT Foundation – Built a library and taught English to children abroad"
+        ]
+      },
+      "public_presence_score": "High",
+      "credibility_indicators": [
+        "Founder of a venture-backed AI company (TextQL)",
+        "Backed by well-known VCs like Neo, DCM, Worklife",
+        "Strong presence on LinkedIn (10,000+ followers)",
+        "Background with top-tier VC firms (Bessemer, Contrary)"
+      ],
+      "potential_red_flags": [
+        "TextQL is in a competitive AI/analytics automation market, with risk of overlap against incumbents like dbt, Snowflake ecosystem tools, or emerging AI data copilots.",
+        "Playful/irreverent communication style may not resonate in more traditional enterprise contexts."
+      ],
+      "overview": "Ethan Ding is the Co-Founder & CEO of TextQL, a venture-backed startup automating data science through SQL and Python agents for dashboards and warehouses. Previously, he worked in venture research and investing at Bessemer Venture Partners and Contrary, publishing playbooks on scaling SaaS companies. With 10,000+ LinkedIn followers, Ethan has a strong public presence as both founder and thought leader in data infrastructure and AI.",
+      "executive_summary": "Ethan Ding blends founder experience and venture capital expertise. As CEO of TextQL, he is pioneering data science automation backed by top investors, while his background at Bessemer and Contrary gives him a deep perspective on SaaS growth and enterprise analytics. His combination of operator and investor experience positions him as a rising founder in AI/data automation.",
+      "key_insights": [
+        "Has unique dual background as both VC (Bessemer, Contrary) and founder (TextQL).",
+        "Actively building in the AI x data infrastructure space with strong early traction.",
+        "Well-networked with both investors and operators; highly visible online.",
+        "Playful, irreverent brand voice distinguishes him from more buttoned-up founders."
+      ],
+      "confidence_level": "High",
+      "sources_quality": "Excellent",
+      "last_updated": "2025-09-13"
+    },
+    "best_match_photo": {
+      "base64_data": null,
+      "source_url": null,
+      "confidence_score": null,
+      "description": "No photo provided"
+    },
+    "metadata": {
+      "llm_provider": "cerebras",
+      "llm_model": "gpt-oss-120b",
+      "face_matches": 0,
+      "total_mentions": 1
+    }
+  }
+  

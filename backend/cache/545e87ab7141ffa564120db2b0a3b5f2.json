@@ -1,0 +1,133 @@
+{
+    "person_analysis": {
+      "personal_info": {
+        "full_name": "Eve Bouffard",
+        "age": null,
+        "location": "San Francisco Bay Area",
+        "nationality": "Canadian (educated at McGill, originally from Canada)",
+        "languages": ["English", "French"],
+        "interests": [
+          "Product Design",
+          "Startup Operations",
+          "Fintech Research",
+          "VR/AR Applications",
+          "Consulting & Strategy",
+          "STEM Outreach",
+          "International Relations (Model UN)"
+        ]
+      },
+      "professional_info": {
+        "current_position": "Product Designer",
+        "company": "Y Combinator",
+        "industry": "Venture Capital / Startup Acceleration / Product Design",
+        "previous_positions": [
+          "Associate – Y Combinator (2022 – 2024)",
+          "Co-Founder – Fairmount Studios (2021 – 2022)",
+          "Teaching Assistant (UX/UI Design) – McGill University (2021 – 2022)",
+          "Research Assistant (Strategy & Fintech) – McGill University (2021 – 2022)"
+        ],
+        "skills": [
+          "Product Design",
+          "UX/UI",
+          "Product Management",
+          "Strategy Research",
+          "M&A Analysis",
+          "Consulting Leadership"
+        ],
+        "achievements": [
+          "Currently building tools for YC partners, applicants, and founders as part of YC’s Applications Ops team.",
+          "Previously co-founded **Fairmount Studios**, building VR apps and games for the Meta Quest 2 through the Oculus Start Developer program.",
+          "Researched fintech competition and cooperation with Prof. Kwangjun An at McGill.",
+          "Served as sole TA for a master’s-level Intro to UX Design course at McGill while still an undergraduate.",
+          "Graduated from McGill with **Dean's Honour List**, $50K+ in prizes and scholarships.",
+          "Represented New Zealand at the National Model UN in New York, securing Honourable Delegation (top 100 out of 500).",
+          "Spearheaded M&A Trends & Emerging Markets division for **MergerSight Group**, contributing to analyses reaching 95,000+ monthly readers."
+        ]
+      },
+      "education_info": {
+        "current_institution": null,
+        "degree": "Bachelor of Commerce",
+        "field_of_study": "Computer Information Systems",
+        "graduation_year": 2022,
+        "previous_education": [
+          "McGill University – B.Comm in Computer Information Systems (2019 – 2022)",
+          "University of Cambridge – Study Abroad in Economics and Chinese Economics (2019)"
+        ]
+      },
+      "social_media": [
+        {
+          "platform": "LinkedIn",
+          "username": null,
+          "url": null,
+          "verified": null,
+          "followers_count": 2113
+        }
+      ],
+      "talking_points": {
+        "recent_achievements": [
+          "Promoted to Product Designer at YC in 2024.",
+          "Transitioned from associate role into design leadership within YC.",
+          "Previously built and shipped VR applications via Fairmount Studios."
+        ],
+        "shared_connections": [
+          "Luthira Abeykoon",
+          "William Cielen",
+          "Other McGill / YC ecosystem mutuals"
+        ],
+        "common_interests": [
+          "Product Design for Startups",
+          "Fintech Strategy & Research",
+          "Startup Acceleration at YC",
+          "VR/AR Product Development"
+        ],
+        "conversation_starters": [
+          "Ask about her work designing tools for YC’s applicants and partners.",
+          "Discuss lessons from co-founding Fairmount Studios and developing VR apps.",
+          "Bring up her teaching experience in UX/UI while still an undergrad.",
+          "Explore her interest in fintech strategy research and M&A trends."
+        ],
+        "notable_projects": [
+          "YC Applications Ops product design tools",
+          "Fairmount Studios – VR apps for Meta Quest 2",
+          "MergerSight M&A Trends research articles",
+          "National Model UN – Honourable Delegation",
+          "McGill Consulting Association – co-founded partnerships and mentorship programs"
+        ]
+      },
+      "public_presence_score": "Moderate",
+      "credibility_indicators": [
+        "Product Designer at Y Combinator",
+        "Dean’s Honour List graduate at McGill with significant scholarships",
+        "Experience co-founding VR studio and teaching UX/UI",
+        "Public research contributions at MergerSight"
+      ],
+      "potential_red_flags": [
+        "Early-career professional (experience concentrated within last ~4 years)",
+        "VR startup (Fairmount Studios) was short-lived (1 year, student-founded)"
+      ],
+      "overview": "Eve Bouffard is a Canadian product designer currently working at Y Combinator, where she builds tools for applicants, partners, and founders. She previously co-founded Fairmount Studios, a VR development startup, and held research and teaching roles at McGill University. With a strong academic track record, fintech research experience, and international exposure (Cambridge, Model UN), she blends technical product design expertise with a background in strategy, research, and leadership.",
+      "executive_summary": "Eve Bouffard is an emerging product design leader at Y Combinator, combining hands-on experience in VR product development, fintech strategy research, and UX/UI teaching with a strong academic foundation at McGill and Cambridge. Her trajectory reflects a unique blend of design, strategy, and startup operations.",
+      "key_insights": [
+        "Currently in a high-leverage role at YC, designing tools used by partners and founders.",
+        "Brings both design and strategy experience through fintech research and M&A analysis.",
+        "Early leadership experience through teaching and leading student organizations.",
+        "Strong international exposure (Cambridge, Model UN, McGill)."
+      ],
+      "confidence_level": "High",
+      "sources_quality": "Excellent",
+      "last_updated": "2025-09-13"
+    },
+    "best_match_photo": {
+      "base64_data": null,
+      "source_url": null,
+      "confidence_score": null,
+      "description": "No photo provided"
+    },
+    "metadata": {
+      "llm_provider": "cerebras",
+      "llm_model": "gpt-oss-120b",
+      "face_matches": 0,
+      "total_mentions": 1
+    }
+  }
+  
