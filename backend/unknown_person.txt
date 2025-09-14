@@ -62,3 +62,9 @@
 [2025-09-14 04:32:26] Search queued for Track ID 4 (queue size: 1)
 [2025-09-14 04:32:26] Search completed for Track ID 4 - No matches found
 [2025-09-14 04:32:29] New cache entry added: b208061813149e231e14657ac1e13914.jpg/.json for Track ID 4
+[2025-09-14 04:47:49] FRAME PRESENCE TRACKING SESSION STARTED
+[2025-09-14 04:48:21] Webcam session completed - Duration: 30.2s, Transcription: 1 words (English)
+[2025-09-14 04:48:21] FRAME PRESENCE SESSION ENDED - Duration: 31.8s, Participants: 1
+[2025-09-14 04:48:21] Participant 1: Ethan Qiu - 4.9s total, 1 appearances
+[2025-09-14 04:48:26] CONVERSATION INTEGRATION COMPLETED - Topics: 3, Updated: 1 participants
+[2025-09-14 04:48:26] Cache updated for Ethan Qiu (21620036d13e718c5bfc3658f7656e10)

@@ -1,0 +1,19 @@
+{
+  "transcript_file": "recording_20250914_044749_Webcam_Session_20250914_044749_transcript.json",
+  "analyzed_at": "2025-09-14T04:48:26.642584",
+  "summary": {
+    "topics": [
+      "Discussion Point 1",
+      "Discussion Point 2",
+      "Discussion Point 3"
+    ],
+    "summary": "Conversation topics extracted"
+  },
+  "model_info": {
+    "provider": "cerebras",
+    "model": "gpt-oss-120b",
+    "temperature": 0.3
+  },
+  "original_duration": 29.86,
+  "word_count": 1
+}

@@ -1,0 +1,31 @@
+{
+  "conversation": {
+    "audio_file": "recorded_conversations/recording_20250914_044749_Webcam_Session_20250914_044749.wav",
+    "transcribed_at": "2025-09-14T04:48:21.048432",
+    "model": "groq-whisper-large-v3-turbo"
+  },
+  "transcription": {
+    "success": true,
+    "text": ".",
+    "language": "English",
+    "segments": [
+      {
+        "start": 0,
+        "end": 29.86,
+        "text": ".",
+        "confidence": -0.84651065
+      }
+    ],
+    "word_count": 1,
+    "confidence": -0.84651065,
+    "model": "whisper-large-v3-turbo",
+    "transcribed_at": "2025-09-14T04:48:21.048307",
+    "audio_file": "/Users/ethanqiu/Desktop/HTN2025/Orbit/backend/recorded_conversations/recording_20250914_044749_Webcam_Session_20250914_044749.wav"
+  },
+  "summary": {
+    "total_duration": 29.86,
+    "word_count": 1,
+    "language": "English",
+    "confidence_score": -0.84651065
+  }
+}

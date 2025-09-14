@@ -124,7 +124,7 @@
     ],
     "confidence_level": "High",
     "sources_quality": "Good",
-    "last_updated": "2025-09-14T04:06:22.436775",
+    "last_updated": "2025-09-14T04:48:26.649077",
     "conversation_history": [
       {
         "date": "2025-09-14T04:03:14.381417",
@@ -154,6 +154,19 @@
         "presence_time": 8.814141,
         "recognition_status": "recognized",
         "source": "webcam_conversation_integration"
+      },
+      {
+        "date": "2025-09-14T04:48:26.649056",
+        "session_id": "20250914_044749",
+        "topics": [
+          "Discussion Point 1",
+          "Discussion Point 2",
+          "Discussion Point 3"
+        ],
+        "duration": 31.831341,
+        "presence_time": 4.864377,
+        "recognition_status": "recognized",
+        "source": "webcam_conversation_integration"
       }
     ],
     "previous_conversation_topics": [
@@ -163,9 +176,12 @@
       "Farewell",
       "Apples",
       "Liking apples",
-      "Disliking apples"
+      "Disliking apples",
+      "Discussion Point 1",
+      "Discussion Point 2",
+      "Discussion Point 3"
     ],
-    "total_conversations": 2
+    "total_conversations": 3
   },
   "best_match_photo": {
     "base64_data": null,
@@ -178,7 +194,7 @@
     "llm_model": "gpt-oss-120b",
     "face_matches": 0,
     "total_mentions": 1,
-    "last_conversation_update": "2025-09-14T04:06:22.436780",
+    "last_conversation_update": "2025-09-14T04:48:26.649079",
     "conversation_integration_version": "1.0"
   }
 }

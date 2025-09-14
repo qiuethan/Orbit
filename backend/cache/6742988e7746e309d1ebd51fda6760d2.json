@@ -1,6 +1,5 @@
 {
-  "llm_analysis": {
-    "structured_data": {
+  "person_analysis": {
       "personal_info": {
         "full_name": "Advait Maybhate",
         "age": null,
@@ -111,5 +110,4 @@
     "model": "gpt-oss-120b",
     "format": "structured",
     "custom_instructions": null
-  }
 }
