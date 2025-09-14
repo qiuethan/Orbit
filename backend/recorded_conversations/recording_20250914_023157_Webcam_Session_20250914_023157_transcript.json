@@ -1,0 +1,259 @@
+{
+  "conversation": {
+    "audio_file": "recorded_conversations/recording_20250914_023157_Webcam_Session_20250914_023157.wav",
+    "transcribed_at": "2025-09-14T02:33:50.237855",
+    "model": "groq-whisper-large-v3-turbo"
+  },
+  "transcription": {
+    "success": true,
+    "text": "I'm sure you have any ones? The actual cache. I already integrated the API. It's a pulse of the cache. Did you pull my change? Yeah. Can you reload your thing? Did you resolve all the conflict? Do you resolve all the conflicts? Because I think I deleted the code that allows you to do that. Because I needed to preserve the facial recognition code. Yeah, I think I got rid of your code. So be careful. Make sure to keep all... Honestly, this is something that might just have to be redone. No, that's fine. How do I keep your code? I don't know how to do this again right now. What? How do I keep your code? I just said incoming, right? I kept it incoming. You pulled, right? Yeah, I pulled. I just keep coming. Yeah. Okay, so now it's closed. But it's still saying... I think you have to manually go there. I did. No, that doesn't work. Can you hover over it? What does it say? Can you stay here? Oh, I think it's good. I have to add it. That makes sense. Oh, yeah. Yeah. Yeah.",
+    "language": "English",
+    "segments": [
+      {
+        "start": 0,
+        "end": 4.5,
+        "text": "I'm sure you have any ones?",
+        "confidence": -0.51345223
+      },
+      {
+        "start": 10.04,
+        "end": 12.64,
+        "text": "The actual cache. I already integrated the API.",
+        "confidence": -0.51345223
+      },
+      {
+        "start": 13.2,
+        "end": 13.94,
+        "text": "It's a pulse of the cache.",
+        "confidence": -0.51345223
+      },
+      {
+        "start": 18.72,
+        "end": 20.36,
+        "text": "Did you pull my change?",
+        "confidence": -0.51345223
+      },
+      {
+        "start": 21.08,
+        "end": 21.3,
+        "text": "Yeah.",
+        "confidence": -0.51345223
+      },
+      {
+        "start": 21.58,
+        "end": 23.18,
+        "text": "Can you reload your thing?",
+        "confidence": -0.51345223
+      },
+      {
+        "start": 25.54,
+        "end": 26.48,
+        "text": "Did you resolve all the conflict?",
+        "confidence": -0.51345223
+      },
+      {
+        "start": 26.48,
+        "end": 29.96,
+        "text": "Do you resolve all the conflicts?",
+        "confidence": -0.24504125
+      },
+      {
+        "start": 30.26,
+        "end": 32.8,
+        "text": "Because I think I deleted the code that allows you to do that.",
+        "confidence": -0.24504125
+      },
+      {
+        "start": 32.92,
+        "end": 36.2,
+        "text": "Because I needed to preserve the facial recognition code.",
+        "confidence": -0.24504125
+      },
+      {
+        "start": 43.08,
+        "end": 44.62,
+        "text": "Yeah, I think I got rid of your code.",
+        "confidence": -0.24504125
+      },
+      {
+        "start": 44.88,
+        "end": 46.02,
+        "text": "So be careful.",
+        "confidence": -0.24504125
+      },
+      {
+        "start": 46.16,
+        "end": 48.2,
+        "text": "Make sure to keep all...",
+        "confidence": -0.24504125
+      },
+      {
+        "start": 48.2,
+        "end": 50.5,
+        "text": "Honestly, this is something that might just have to be redone.",
+        "confidence": -0.24504125
+      },
+      {
+        "start": 51.8,
+        "end": 52.52,
+        "text": "No, that's fine.",
+        "confidence": -0.24504125
+      },
+      {
+        "start": 53.24,
+        "end": 54.74,
+        "text": "How do I keep your code?",
+        "confidence": -0.24504125
+      },
+      {
+        "start": 54.8,
+        "end": 55.92,
+        "text": "I don't know how to do this again right now.",
+        "confidence": -0.24504125
+      },
+      {
+        "start": 55.92,
+        "end": 56.42,
+        "text": "What?",
+        "confidence": -0.5065431
+      },
+      {
+        "start": 57.22,
+        "end": 58.22,
+        "text": "How do I keep your code?",
+        "confidence": -0.5065431
+      },
+      {
+        "start": 58.72,
+        "end": 59.92,
+        "text": "I just said incoming, right?",
+        "confidence": -0.5065431
+      },
+      {
+        "start": 59.92,
+        "end": 60.72,
+        "text": "I kept it incoming.",
+        "confidence": -0.5065431
+      },
+      {
+        "start": 60.72,
+        "end": 61.72,
+        "text": "You pulled, right?",
+        "confidence": -0.5065431
+      },
+      {
+        "start": 61.72,
+        "end": 62.22,
+        "text": "Yeah, I pulled.",
+        "confidence": -0.5065431
+      },
+      {
+        "start": 62.22,
+        "end": 63.22,
+        "text": "I just keep coming.",
+        "confidence": -0.5065431
+      },
+      {
+        "start": 63.22,
+        "end": 63.72,
+        "text": "Yeah.",
+        "confidence": -0.5065431
+      },
+      {
+        "start": 65.02,
+        "end": 66.22,
+        "text": "Okay, so now it's closed.",
+        "confidence": -0.5065431
+      },
+      {
+        "start": 67.02,
+        "end": 68.22,
+        "text": "But it's still saying...",
+        "confidence": -0.5065431
+      },
+      {
+        "start": 68.22,
+        "end": 69.72,
+        "text": "I think you have to manually go there.",
+        "confidence": -0.5065431
+      },
+      {
+        "start": 72.22,
+        "end": 72.72,
+        "text": "I did.",
+        "confidence": -0.5065431
+      },
+      {
+        "start": 73.72,
+        "end": 74.72,
+        "text": "No, that doesn't work.",
+        "confidence": -0.5065431
+      },
+      {
+        "start": 75.72,
+        "end": 76.72,
+        "text": "Can you hover over it?",
+        "confidence": -0.5065431
+      },
+      {
+        "start": 76.72,
+        "end": 77.22,
+        "text": "What does it say?",
+        "confidence": -0.5065431
+      },
+      {
+        "start": 81.22,
+        "end": 82.22,
+        "text": "Can you stay here?",
+        "confidence": -0.5065431
+      },
+      {
+        "start": 85.92,
+        "end": 87.3,
+        "text": "Oh, I think it's good.",
+        "confidence": -0.7503102
+      },
+      {
+        "start": 87.3,
+        "end": 87.88,
+        "text": "I have to add it.",
+        "confidence": -0.7503102
+      },
+      {
+        "start": 87.88,
+        "end": 88.5,
+        "text": "That makes sense.",
+        "confidence": -0.7503102
+      },
+      {
+        "start": 91.46,
+        "end": 91.84,
+        "text": "Oh, yeah.",
+        "confidence": -0.7503102
+      },
+      {
+        "start": 91.84,
+        "end": 92.3,
+        "text": "Yeah.",
+        "confidence": -0.7503102
+      },
+      {
+        "start": 107.3,
+        "end": 108.2,
+        "text": "Yeah.",
+        "confidence": -0.7503102
+      }
+    ],
+    "word_count": 192,
+    "confidence": -0.4782340746153847,
+    "model": "whisper-large-v3-turbo",
+    "transcribed_at": "2025-09-14T02:33:50.237714",
+    "audio_file": "/Users/ethanqiu/Desktop/HTN2025/Orbit/backend/recorded_conversations/recording_20250914_023157_Webcam_Session_20250914_023157.wav"
+  },
+  "summary": {
+    "total_duration": 108.2,
+    "word_count": 192,
+    "language": "English",
+    "confidence_score": -0.4782340746153847
+  }
+}

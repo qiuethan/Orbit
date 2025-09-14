@@ -700,7 +700,6 @@ async def stop_webcam():
         raise HTTPException(status_code=500, detail=f"Error stopping webcam: {e}")
 
 
-<<<<<<< HEAD
 @app.post("/voice/start")
 async def start_voice_recording(title: str = None):
     """
@@ -907,19 +906,8 @@ async def webcam_stream_sse():
         "Connection": "keep-alive",
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Headers": "Cache-Control"
-=======
-@app.get("/video/status")
-async def video_status():
-    """Get current video stream status"""
-    global camera
-    is_active = camera is not None and camera.isOpened()
-    return {
-        "active": is_active,
-        "message": "Camera is active" if is_active else "Camera is not active"
->>>>>>> 8cd3501 (backend)
     }
     
-<<<<<<< HEAD
     return StreamingResponse(generate_stream(), media_type="text/event-stream", headers=headers)
 
 
@@ -954,24 +942,6 @@ async def get_live_frame_with_detections():
             "detections": detections,
             "timestamp": time.time(),
             "presence_events": webcam.get_presence_events()
-=======
-    success, frame = camera.read()
-    if not success:
-        raise HTTPException(status_code=500, detail="Failed to capture frame")
-    
-    # Encode frame as JPEG optimized for maximum speed
-    ret, buffer = cv2.imencode('.jpg', frame, [cv2.IMWRITE_JPEG_QUALITY, 30])
-    if not ret:
-        raise HTTPException(status_code=500, detail="Failed to encode frame")
-    
-    return StreamingResponse(
-        io.BytesIO(buffer.tobytes()),
-        media_type="image/jpeg",
-        headers={
-            "Cache-Control": "no-cache, no-store, must-revalidate",
-            "Pragma": "no-cache",
-            "Expires": "0"
->>>>>>> 8cd3501 (backend)
         }
         
     except Exception as e:
@@ -1040,103 +1010,6 @@ async def startup_event():
             print("❌ Startup analysis failed")
     except Exception as e:
         print(f"❌ Error in startup analysis: {e}")
-
-
-# Webcam endpoints that match frontend expectations
-@app.get("/webcam/live-frame")
-async def webcam_live_frame():
-    """Get a single frame with face detection data - matches frontend expectations"""
-    global camera
-    if camera is None or not camera.isOpened():
-        raise HTTPException(status_code=400, detail="Camera not started. Call /video/start first")
-    
-    success, frame = camera.read()
-    if not success:
-        raise HTTPException(status_code=500, detail="Failed to capture frame")
-    
-    # Encode frame as base64
-    ret, buffer = cv2.imencode('.jpg', frame, [cv2.IMWRITE_JPEG_QUALITY, 30])
-    if not ret:
-        raise HTTPException(status_code=500, detail="Failed to encode frame")
-    
-    frame_b64 = base64.b64encode(buffer.tobytes()).decode('ascii')
-    frame_data_url = f"data:image/jpeg;base64,{frame_b64}"
-    
-    # For now, return empty detections - this can be enhanced with actual face detection
-    return JSONResponse(content={
-        "frame": frame_data_url,
-        "detections": [],
-        "presence_events": [],
-        "frame_count": 0
-    })
-
-
-@app.get("/webcam/stream")
-async def webcam_stream():
-    """SSE stream for webcam with face detection - matches frontend expectations"""
-    global camera
-    if camera is None or not camera.isOpened():
-        raise HTTPException(status_code=400, detail="Camera not started. Call /video/start first")
-    
-    async def generate_webcam_stream():
-        frame_count = 0
-        try:
-            while camera is not None and camera.isOpened():
-                success, frame = camera.read()
-                if not success:
-                    break
-                
-                # Encode frame as base64
-                ret, buffer = cv2.imencode('.jpg', frame, [cv2.IMWRITE_JPEG_QUALITY, 30])
-                if ret:
-                    frame_b64 = base64.b64encode(buffer.tobytes()).decode('ascii')
-                    frame_data_url = f"data:image/jpeg;base64,{frame_b64}"
-                    
-                    # Create SSE message
-                    data = {
-                        "type": "frame",
-                        "frame": frame_data_url,
-                        "detections": [],  # Empty for now - can be enhanced with face detection
-                        "presence_events": [],
-                        "frame_count": frame_count
-                    }
-                    
-                    yield f"data: {json.dumps(data)}\n\n"
-                    frame_count += 1
-                
-                # Small delay to prevent overwhelming the client
-                await asyncio.sleep(0.1)  # ~10 FPS
-                
-        except Exception as e:
-            error_data = {
-                "type": "error",
-                "message": str(e)
-            }
-            yield f"data: {json.dumps(error_data)}\n\n"
-    
-    return StreamingResponse(
-        generate_webcam_stream(),
-        media_type="text/event-stream",
-        headers={
-            "Cache-Control": "no-cache, no-store, must-revalidate",
-            "Pragma": "no-cache",
-            "Expires": "0",
-            "Connection": "keep-alive"
-        }
-    )
-
-
-@app.post("/webcam/stop")
-async def webcam_stop():
-    """Stop the webcam - matches frontend expectations"""
-    global camera
-    try:
-        if camera is not None:
-            camera.release()
-            camera = None
-        return {"status": "stopped", "message": "Webcam stopped"}
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Failed to stop webcam: {str(e)}")
 
 
 # Note: To keep the server single-threaded and process only one request at a time,
