@@ -221,7 +221,19 @@ export default function PersonProfile({ person }) {
   const scrapedData = person.scrapedData || {};
   const connections = person.connections || [];
   const webMentions = scrapedData.webMentions?.slice(0, 3) || []; // Show top 3
-  const topInsights = [...(scrapedData.keyInsights || []), ...(scrapedData.recentAchievements || [])].slice(0, 6);
+  
+  // Use rich data from backend cache
+  const talkingPoints = person.talkingPoints || {};
+  const analysis = person.analysis || {};
+  const professional = person.professional || {};
+  
+  // Combine insights from multiple sources
+  const topInsights = [
+    ...(analysis.keyInsights || []),
+    ...(talkingPoints.recentAchievements || []),
+    ...(scrapedData.keyInsights || []),
+    ...(scrapedData.recentAchievements || [])
+  ].slice(0, 6);
 
   return (
     <div className="h-full flex flex-col bg-gray-50">
@@ -271,10 +283,10 @@ export default function PersonProfile({ person }) {
       {/* Main Content - Condensed Layout */}
       <div className="flex-1 overflow-y-auto p-4">
         {/* Condensed Content */}
-        <div className="grid grid-cols-12 gap-3 max-w-7xl">
+        <div className="grid grid-cols-12 gap-2 max-w-7xl">
           
           {/* Left Column */}
-          <div className="col-span-12 lg:col-span-8 space-y-3">
+          <div className="col-span-12 lg:col-span-8 space-y-2">
             
             {/* Executive Summary & Key Insights - Combined */}
             <div className="bg-white border border-gray-200 rounded-lg p-3">
@@ -289,18 +301,16 @@ export default function PersonProfile({ person }) {
               )}
               
               {topInsights.length > 0 && (
-                <div>
-                  <h3 className="font-semibold text-gray-900 mb-2 flex items-center gap-2 text-sm">
-                    <Zap className="w-3 h-3" />
-                    Key Insights
-                  </h3>
-                  <div className="flex flex-wrap gap-1">
-                    {topInsights.slice(0, 8).map((insight, index) => (
-                      <span key={index} className="inline-flex items-center px-2 py-1 rounded-full text-xs bg-purple-100 text-purple-700">
-                        {insight}
-                      </span>
+                <div className="mt-1">
+                  <h3 className="font-medium text-gray-900 mb-1.5 text-sm">Key Insights</h3>
+                  <ul className="space-y-1">
+                    {topInsights.slice(0, 6).map((insight, index) => (
+                      <li key={index} className="text-xs text-gray-700 flex items-start gap-2">
+                        <span className="text-gray-400 mt-1">•</span>
+                        <span>{insight}</span>
+                      </li>
                     ))}
-                  </div>
+                  </ul>
                 </div>
               )}
             </div>
@@ -308,66 +318,145 @@ export default function PersonProfile({ person }) {
             {/* Latest Conversation Notes */}
             <ConversationNotes person={person} />
 
-            {/* Web Mentions & Experience - Two Separate Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-              
-              {/* Web Mentions - Left Card */}
-              {webMentions.length > 0 && (
-                <div className="bg-white border border-gray-200 rounded-lg p-3">
-                  <h3 className="font-semibold text-gray-900 mb-2 flex items-center gap-2 text-sm">
-                    <Search className="w-3 h-3" />
-                    Web Mentions ({webMentions.length})
-                  </h3>
-                  <div className="space-y-2">
-                    {webMentions.slice(0, 3).map((mention, index) => (
-                      <div key={index} className="border-l-2 border-blue-200 pl-2">
-                        <div className="flex items-start justify-between">
-                          <div className="flex-1">
-                            <h4 className="font-medium text-gray-900 text-xs line-clamp-1">{mention.title}</h4>
-                            <p className="text-xs text-gray-600 mt-0.5 line-clamp-2">{mention.snippet}</p>
-                            <span className="text-xs text-gray-500">{mention.source}</span>
-                          </div>
-                          <button
-                            onClick={() => window.open(mention.url, '_blank')}
-                            className="text-xs text-blue-600 hover:text-blue-800 flex items-center gap-1 ml-1 flex-shrink-0"
-                          >
-                            <ExternalLink className="w-3 h-3" />
-                          </button>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* Work Experience - Right Card */}
+            {/* Web Mentions - Left Column */}
+            {webMentions.length > 0 && (
               <div className="bg-white border border-gray-200 rounded-lg p-3">
                 <h3 className="font-semibold text-gray-900 mb-2 flex items-center gap-2 text-sm">
-                  <Briefcase className="w-3 h-3" />
-                  Experience
+                  <Search className="w-3 h-3" />
+                  Web Mentions ({webMentions.length})
                 </h3>
                 <div className="space-y-2">
-                  {scrapedData.workHistory?.slice(0, 3).map((work, index) => (
-                    <div key={index} className="text-xs">
-                      <p className="font-medium text-gray-900">{work.title}</p>
-                      <p className="text-gray-600">{work.company}</p>
-                    </div>
-                  ))}
-                  {scrapedData.previousPositions?.slice(0, 2).map((position, index) => (
-                    <div key={index} className="text-xs">
-                      <p className="font-medium text-gray-900">{position}</p>
-                      <p className="text-gray-600">Previous Role</p>
+                  {webMentions.slice(0, 3).map((mention, index) => (
+                    <div key={index} className="border-l-2 border-blue-200 pl-2">
+                      <div className="flex items-start justify-between">
+                        <div className="flex-1">
+                          <h4 className="font-medium text-gray-900 text-xs line-clamp-1">{mention.title}</h4>
+                          <p className="text-xs text-gray-600 mt-0.5 line-clamp-2">{mention.snippet}</p>
+                          <span className="text-xs text-gray-500">{mention.source}</span>
+                        </div>
+                        <button
+                          onClick={() => window.open(mention.url, '_blank')}
+                          className="text-xs text-blue-600 hover:text-blue-800 flex items-center gap-1 ml-1 flex-shrink-0"
+                        >
+                          <ExternalLink className="w-3 h-3" />
+                        </button>
+                      </div>
                     </div>
                   ))}
                 </div>
               </div>
+            )}
+
+            {/* Work Experience & Connections - Two Cards Side by Side */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+              {/* Professional Experience - Left Card */}
+              <div className="bg-white border border-gray-200 rounded-lg p-3">
+                <h3 className="font-semibold text-gray-900 mb-2 flex items-center gap-2 text-sm">
+                  <Briefcase className="w-3 h-3" />
+                  Professional Experience
+                </h3>
+                <div className="space-y-2">
+                  {/* Current Position */}
+                  {professional.currentRole && (
+                    <div className="border-l-2 border-blue-500 pl-2">
+                      <p className="font-medium text-gray-900 text-xs">{professional.currentRole}</p>
+                      <p className="text-gray-600 text-xs">{professional.company}</p>
+                      <span className="inline-block bg-blue-100 text-blue-700 px-1.5 py-0.5 rounded text-xs mt-1">Current</span>
+                    </div>
+                  )}
+                  
+                  {/* Previous Positions */}
+                  {professional.previousPositions?.slice(0, 2).map((position, index) => {
+                    // Parse the position string to extract role, company, and duration
+                    const parts = position.split(' — ');
+                    const role = parts[0] || position;
+                    const details = parts[1] || '';
+                    
+                    return (
+                      <div key={index} className="border-l-2 border-gray-200 pl-2">
+                        <p className="font-medium text-gray-900 text-xs">{role}</p>
+                        <p className="text-gray-600 text-xs">{details}</p>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Shared Connections - Right Card */}
+              {talkingPoints.sharedConnections && talkingPoints.sharedConnections.length > 0 && (
+                <div className="bg-white border border-gray-200 rounded-lg p-3">
+                  <h3 className="font-semibold text-gray-900 mb-2 flex items-center gap-2 text-sm">
+                    <Users className="w-3 h-3" />
+                    Shared Connections ({talkingPoints.sharedConnections.length})
+                  </h3>
+                  <div className="space-y-2">
+                    {talkingPoints.sharedConnections.slice(0, 3).map((connection, index) => {
+                      // Generate mock avatar based on name
+                      const initials = connection.split(' ').map(n => n[0]).join('').toUpperCase();
+                      const avatarBg = ['bg-blue-500', 'bg-green-500', 'bg-purple-500'][index % 3];
+                      
+                      // Generate mock relationship context
+                      const relationships = [
+                        'Former colleague',
+                        'Entrepreneur network',
+                        'Investor relations'
+                      ];
+                      const relationship = relationships[index % relationships.length];
+                      
+                      return (
+                        <div key={index} className="flex items-center gap-2">
+                          <div className={`w-5 h-5 ${avatarBg} rounded-full flex items-center justify-center text-white font-medium text-xs flex-shrink-0`}>
+                            {initials}
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <p className="font-medium text-gray-900 text-xs truncate">{connection}</p>
+                            <p className="text-gray-500 text-xs">{relationship}</p>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
             </div>
 
+
+            {/* Conversation Starters */}
+            {talkingPoints.conversationStarters && talkingPoints.conversationStarters.length > 0 && (
+              <div className="col-span-12 bg-white border border-gray-200 rounded-lg p-3">
+                <h3 className="font-medium text-gray-900 mb-2 text-sm">Conversation Starters</h3>
+                <div className="space-y-1.5">
+                  {talkingPoints.conversationStarters.slice(0, 3).map((starter, index) => (
+                    <div key={index} className="flex items-start gap-2">
+                      <div className="text-gray-400 text-xs font-medium flex-shrink-0 mt-0.5 w-3">
+                        {index + 1}.
+                      </div>
+                      <p className="text-xs text-gray-700 leading-relaxed">{starter}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Recent Achievements */}
+            {talkingPoints.recentAchievements && talkingPoints.recentAchievements.length > 0 && (
+              <div className="col-span-12 bg-white border border-gray-200 rounded-lg p-3">
+                <h3 className="font-medium text-gray-900 mb-2 text-sm">Recent Achievements</h3>
+                <div className="space-y-1.5">
+                  {talkingPoints.recentAchievements.slice(0, 3).map((achievement, index) => (
+                    <div key={index} className="flex items-start gap-2">
+                      <div className="w-1 h-1 bg-blue-500 rounded-full flex-shrink-0 mt-1.5"></div>
+                      <p className="text-xs text-gray-700 leading-relaxed">{achievement}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
 
           </div>
 
           {/* Right Sidebar - Condensed */}
-          <div className="col-span-12 lg:col-span-4 space-y-3">
+          <div className="col-span-12 lg:col-span-4 space-y-2">
             
             {/* Social Links & Stats - Combined */}
             <div className="bg-white border border-gray-200 rounded-lg p-3">
@@ -471,6 +560,55 @@ export default function PersonProfile({ person }) {
                 </div>
               </div>
             )}
+
+            {/* Professional Skills */}
+            {professional.skills && professional.skills.length > 0 && (
+              <div className="bg-white border border-gray-200 rounded-lg p-3">
+                <h3 className="font-medium text-gray-900 mb-1.5 text-sm">Skills</h3>
+                <div className="flex flex-wrap gap-1">
+                  {professional.skills.slice(0, 8).map((skill, index) => (
+                    <span key={index} className="bg-gray-100 text-gray-700 px-2 py-0.5 rounded text-xs">
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
+
+
+            {/* Professional Summary */}
+            {analysis.keyInsights && analysis.keyInsights.length > 0 && (
+              <div className="bg-white border border-gray-200 rounded-lg p-3">
+                <h3 className="font-medium text-gray-900 mb-2 text-sm">Professional Summary</h3>
+                <p className="text-xs text-gray-700 leading-relaxed">
+                  {analysis.keyInsights.join(' ').replace(/Strong entrepreneurial background/g, '**Strong entrepreneurial background**')
+                    .replace(/Deeply networked/g, '**Deeply networked**')
+                    .replace(/Well-recognized thought leader/g, '**Well-recognized thought leader**')
+                    .replace(/leading AI agent platform/g, '**leading AI agent platform**')
+                    .replace(/Forbes 30 under 30/g, '**Forbes 30 under 30**')
+                    .replace(/angel investor/g, '**angel investor**')
+                    .replace(/cutting-edge automation/g, '**cutting-edge automation**')
+                    .split('**').map((part, index) => 
+                      index % 2 === 1 ? <strong key={index}>{part}</strong> : part
+                    )}
+                </p>
+              </div>
+            )}
+
+            {/* Common Interests */}
+            {talkingPoints.commonInterests && talkingPoints.commonInterests.length > 0 && (
+              <div className="bg-white border border-gray-200 rounded-lg p-3">
+                <h3 className="font-medium text-gray-900 mb-1.5 text-sm">Common Interests</h3>
+                <div className="flex flex-wrap gap-1">
+                  {talkingPoints.commonInterests.map((interest, index) => (
+                    <span key={index} className="bg-gray-100 text-gray-700 px-2 py-0.5 rounded text-xs">
+                      {interest}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
+
           </div>
         </div>
       </div>

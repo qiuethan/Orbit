@@ -1,6 +1,6 @@
 // src/context/WorkflowContext.js
 import React, { createContext, useContext, useReducer, useEffect } from 'react';
-import { PERSON_WORKFLOWS } from '../data/personWorkflows';
+import { PERSON_WORKFLOWS, getPersonWorkflowsAsync } from '../data/personWorkflows';
 
 // Action types
 const WORKFLOW_ACTIONS = {
@@ -273,29 +273,59 @@ export function WorkflowProvider({ children }) {
 
   // Load from localStorage and person workflows on mount
   useEffect(() => {
-    const savedData = loadFromLocalStorage();
-    
-    // Convert person workflows to standard workflow format
-    const personWorkflows = Object.values(PERSON_WORKFLOWS).reduce((acc, workflow) => {
-      acc[workflow.id] = workflow;
-      return acc;
-    }, {});
-    
-    // Always start with person workflows, then add any saved dynamic workflows
-    const mergedWorkflows = {
-      ...personWorkflows,
-      ...savedData.workflows
+    const loadWorkflows = async () => {
+      const savedData = loadFromLocalStorage();
+      
+      try {
+        // Get workflows from backend data (async)
+        const personWorkflows = await getPersonWorkflowsAsync();
+        
+        // Convert person workflows to standard workflow format
+        const formattedWorkflows = Object.values(personWorkflows).reduce((acc, workflow) => {
+          acc[workflow.id] = workflow;
+          return acc;
+        }, {});
+        
+        // Always start with person workflows, then add any saved dynamic workflows
+        const mergedWorkflows = {
+          ...formattedWorkflows,
+          ...savedData.workflows
+        };
+        
+        console.log('Loading workflows from backend:', Object.keys(mergedWorkflows));
+        
+        dispatch({
+          type: WORKFLOW_ACTIONS.SET_WORKFLOWS,
+          payload: {
+            workflows: mergedWorkflows,
+            activeWorkflowId: savedData.activeWorkflowId || Object.keys(formattedWorkflows)[0] // Default to first person workflow
+          }
+        });
+      } catch (error) {
+        console.error('Failed to load workflows from backend, using fallback:', error);
+        
+        // Fallback to sync workflows
+        const personWorkflows = Object.values(PERSON_WORKFLOWS).reduce((acc, workflow) => {
+          acc[workflow.id] = workflow;
+          return acc;
+        }, {});
+        
+        const mergedWorkflows = {
+          ...personWorkflows,
+          ...savedData.workflows
+        };
+        
+        dispatch({
+          type: WORKFLOW_ACTIONS.SET_WORKFLOWS,
+          payload: {
+            workflows: mergedWorkflows,
+            activeWorkflowId: savedData.activeWorkflowId || Object.keys(personWorkflows)[0]
+          }
+        });
+      }
     };
     
-    console.log('Loading workflows:', Object.keys(mergedWorkflows));
-    
-    dispatch({
-      type: WORKFLOW_ACTIONS.SET_WORKFLOWS,
-      payload: {
-        workflows: mergedWorkflows,
-        activeWorkflowId: savedData.activeWorkflowId || Object.keys(personWorkflows)[0] // Default to first person workflow
-      }
-    });
+    loadWorkflows();
   }, []);
 
   // Poll for new workflows from API - with exponential backoff on errors
@@ -332,6 +362,12 @@ export function WorkflowProvider({ children }) {
           consecutiveErrors = 0; // Reset error count on success
         }
       } catch (error) {
+        // Don't treat AbortError as a real error - it's expected when component unmounts
+        if (error.name === 'AbortError') {
+          console.log('🔄 Workflow polling aborted (component cleanup)');
+          return;
+        }
+        
         consecutiveErrors++;
         console.error('❌ Error polling for workflows:', error.message);
         

@@ -1,6 +1,9 @@
 // Mock workflow data API - shared between TaskQueue and Flowchart components
 // Note: This is now consolidated with personWorkflows.js
 
+// Import async workflow fetcher
+import { getPersonWorkflowsAsync } from './personWorkflows';
+
 export const MOCK_WORKFLOWS = {
     'workflow-sarah-onboarding': {
       id: 'workflow-sarah-onboarding',
@@ -137,20 +140,39 @@ export const MOCK_WORKFLOWS = {
   
   // API functions to simulate real backend calls
   export const workflowApi = {
-    // Get all workflows
-    getWorkflows: () => {
-      return Promise.resolve(Object.values(MOCK_WORKFLOWS));
+    // Get all workflows (now async to support backend fetching)
+    getWorkflows: async () => {
+      try {
+        const workflows = await getPersonWorkflowsAsync();
+        return Object.values(workflows);
+      } catch (error) {
+        console.error('Error fetching workflows:', error);
+        return Object.values(MOCK_WORKFLOWS);
+      }
     },
   
-    // Get specific workflow by ID
-    getWorkflow: (workflowId) => {
-      return Promise.resolve(MOCK_WORKFLOWS[workflowId] || null);
+    // Get specific workflow by ID (now async to support backend fetching)
+    getWorkflow: async (workflowId) => {
+      try {
+        const workflows = await getPersonWorkflowsAsync();
+        return workflows[workflowId] || null;
+      } catch (error) {
+        console.error('Error fetching workflow:', error);
+        return MOCK_WORKFLOWS[workflowId] || null;
+      }
     },
   
-    // Get active workflow (for task queue)
-    getActiveWorkflow: () => {
-      const activeWorkflow = Object.values(MOCK_WORKFLOWS).find(w => w.status === 'active');
-      return Promise.resolve(activeWorkflow || Object.values(MOCK_WORKFLOWS)[0]);
+    // Get active workflow (for task queue) (now async to support backend fetching)
+    getActiveWorkflow: async () => {
+      try {
+        const workflows = await getPersonWorkflowsAsync();
+        const activeWorkflow = Object.values(workflows).find(w => w.status === 'active');
+        return activeWorkflow || Object.values(workflows)[0] || null;
+      } catch (error) {
+        console.error('Error fetching active workflow:', error);
+        const activeWorkflow = Object.values(MOCK_WORKFLOWS).find(w => w.status === 'active');
+        return activeWorkflow || Object.values(MOCK_WORKFLOWS)[0];
+      }
     },
   
     // Update task status

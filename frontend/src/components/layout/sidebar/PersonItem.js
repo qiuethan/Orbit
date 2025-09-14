@@ -7,7 +7,8 @@ import {
   Linkedin, 
   Edit3, 
   Archive,
-  Users
+  Users,
+  MessageCircle
 } from 'lucide-react';
 import { getStatusBadgeColor, isOverdue } from '../../../utils/personUtils';
 import ActionMenu from './ActionMenu';
@@ -105,6 +106,18 @@ export default function PersonItem({
                   <span className="inline-flex items-center gap-1 text-xs text-gray-400">
                     <Users className="w-3 h-3" />
                     {person.mutualConnections}
+                  </span>
+                )}
+                {person.talkingPoints?.sharedConnections && person.talkingPoints.sharedConnections.length > 0 && (
+                  <span className="inline-flex items-center gap-1 text-xs text-gray-500" title={`${person.talkingPoints.sharedConnections.length} shared connections`}>
+                    <Users className="w-3 h-3" />
+                    {person.talkingPoints.sharedConnections.length}
+                  </span>
+                )}
+                {person.talkingPoints?.conversationStarters && person.talkingPoints.conversationStarters.length > 0 && (
+                  <span className="inline-flex items-center gap-1 text-xs text-gray-500" title={`${person.talkingPoints.conversationStarters.length} conversation starters`}>
+                    <MessageCircle className="w-3 h-3" />
+                    {person.talkingPoints.conversationStarters.length}
                   </span>
                 )}
               </div>

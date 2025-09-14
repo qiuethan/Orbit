@@ -1,10 +1,62 @@
-// Data adapter to transform mock_data.json into our app's format
+// Data adapter to fetch and transform backend cache data into our app's format
+
+// Backend API base URL
+const BACKEND_API_BASE = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:8000';
+
+// Cache for API data to avoid repeated requests
+let cachedPeopleData = null;
+let cacheTimestamp = null;
+const CACHE_DURATION = 30000; // 30 seconds
+
+// Fetch people data from backend API
+async function fetchPeopleFromBackend() {
+  try {
+    console.log('🔄 Fetching people from backend API...');
+    const response = await fetch(`${BACKEND_API_BASE}/people`);
+    if (!response.ok) {
+      throw new Error(`Backend API error: ${response.status}`);
+    }
+    const data = await response.json();
+    console.log('✅ Successfully fetched real data from backend:', Object.keys(data).length, 'people');
+    console.log('📊 Sample person source:', Object.values(data)[0]?.source);
+    return data;
+  } catch (error) {
+    console.error('❌ Failed to fetch people from backend:', error);
+    console.log('🔄 Falling back to mock data...');
+    // Fallback to mock data if backend is unavailable
+    return transformMockDataToPeople();
+  }
+}
+
+// Get cached data or fetch fresh data
+async function getCachedPeopleData() {
+  const now = Date.now();
+  
+  // Return cached data if it's still fresh
+  if (cachedPeopleData && cacheTimestamp && (now - cacheTimestamp) < CACHE_DURATION) {
+    return cachedPeopleData;
+  }
+  
+  // Fetch fresh data
+  const freshData = await fetchPeopleFromBackend();
+  cachedPeopleData = freshData;
+  cacheTimestamp = now;
+  
+  return freshData;
+}
+
+// Main export function for getting people data (now from backend)
+export async function getPeopleFromBackend() {
+  return await getCachedPeopleData();
+}
+
+// Legacy function for fallback to mock data
 import mockData from './mock_data.json';
 
 // Fixed timestamp for deterministic data generation (avoids hydration errors)
 const FIXED_BASE_DATE = new Date('2024-01-01T00:00:00Z').getTime();
 
-// Transform mock data into people format
+// Transform mock data into people format (fallback)
 export function transformMockDataToPeople() {
   const people = {};
   
@@ -332,7 +384,7 @@ function generateMockConnections(personId, index) {
     });
   }
   
-  console.log(`Generated ${connections.length} connections for ${personId}:`, connections);
+  // console.log(`Generated ${connections.length} connections for ${personId}:`, connections);
   return connections;
 }
 
@@ -396,8 +448,8 @@ export function generateWorkflowsFromPeople(people) {
       name: `${person.name} - ${getWorkflowType(person, index)}`,
       description: `${getWorkflowDescription(person, index)}`,
       status: 'active',
-      priority: person.priority,
-      generatedAt: new Date(FIXED_BASE_DATE - index * 24 * 60 * 60 * 1000).toISOString(),
+      priority: person.priority || 'medium',
+      generatedAt: new Date().toISOString(), // Use current date for real data
       tasks: generateTasksForPerson(person, index)
     };
   });
@@ -490,7 +542,33 @@ function generateTasksForPerson(person, index) {
   }));
 }
 
-// Export the transformed data
+// Export the transformed data - now async to support backend fetching
+let peopleDataCache = null;
+let workflowDataCache = null;
+
+export async function getPeopleFromMockDataAsync() {
+  if (!peopleDataCache) {
+    try {
+      // Try to get data from backend first
+      peopleDataCache = await getPeopleFromBackend();
+    } catch (error) {
+      console.warn('Backend unavailable, falling back to mock data:', error);
+      // Fall back to mock data
+      peopleDataCache = transformMockDataToPeople();
+    }
+  }
+  return peopleDataCache;
+}
+
+export async function getWorkflowsFromDataAsync() {
+  if (!workflowDataCache) {
+    const people = await getPeopleFromMockDataAsync();
+    workflowDataCache = generateWorkflowsFromPeople(people);
+  }
+  return workflowDataCache;
+}
+
+// Legacy sync exports (fallback to mock data for compatibility)
 export const PEOPLE_FROM_MOCK_DATA = transformMockDataToPeople();
 export const WORKFLOWS_FROM_MOCK_DATA = generateWorkflowsFromPeople(PEOPLE_FROM_MOCK_DATA);
 

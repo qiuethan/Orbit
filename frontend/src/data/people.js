@@ -1,7 +1,7 @@
-// People data powered by mock_data.json
-import { PEOPLE_FROM_MOCK_DATA } from './dataAdapter';
+// People data powered by backend cache or mock_data.json fallback
+import { PEOPLE_FROM_MOCK_DATA, getPeopleFromMockDataAsync } from './dataAdapter';
 
-// Use the transformed data from mock_data.json
+// Use the transformed data from mock_data.json (fallback)
 export const MOCK_PEOPLE = PEOPLE_FROM_MOCK_DATA;
 
 // Legacy mock data (kept for reference, but replaced by real data)
@@ -422,18 +422,30 @@ export const getStageColor = (stage) => {
 
 // People API functions
 export const peopleApi = {
-  // Get all people
-  getPeople: () => {
-    return Promise.resolve(Object.values(MOCK_PEOPLE));
+  // Get all people (now async to support backend fetching)
+  getPeople: async () => {
+    try {
+      const people = await getPeopleFromMockDataAsync();
+      return Object.values(people);
+    } catch (error) {
+      console.error('Error fetching people:', error);
+      return Object.values(MOCK_PEOPLE);
+    }
   },
 
-  // Get specific person by ID
-  getPerson: (personId) => {
-    return Promise.resolve(MOCK_PEOPLE[personId] || null);
+  // Get specific person by ID (now async to support backend fetching)
+  getPerson: async (personId) => {
+    try {
+      const people = await getPeopleFromMockDataAsync();
+      return people[personId] || null;
+    } catch (error) {
+      console.error('Error fetching person:', error);
+      return MOCK_PEOPLE[personId] || null;
+    }
   },
 
-  // Add new person
-  addPerson: (personData) => {
+  // Add new person (still uses local state for now)
+  addPerson: async (personData) => {
     const newPersonId = `person-${Date.now()}`;
     const newPerson = {
       id: newPersonId,
@@ -442,47 +454,101 @@ export const peopleApi = {
       notes: [],
       interactions: []
     };
-    MOCK_PEOPLE[newPersonId] = newPerson;
-    return Promise.resolve(newPerson);
+    
+    try {
+      const people = await getPeopleFromMockDataAsync();
+      people[newPersonId] = newPerson;
+      return newPerson;
+    } catch (error) {
+      // Fallback to mock data
+      MOCK_PEOPLE[newPersonId] = newPerson;
+      return newPerson;
+    }
   },
 
-  // Update person
-  updatePerson: (personId, updates) => {
-    if (MOCK_PEOPLE[personId]) {
-      MOCK_PEOPLE[personId] = { ...MOCK_PEOPLE[personId], ...updates };
-      return Promise.resolve(MOCK_PEOPLE[personId]);
+  // Update person (still uses local state for now)
+  updatePerson: async (personId, updates) => {
+    try {
+      const people = await getPeopleFromMockDataAsync();
+      if (people[personId]) {
+        people[personId] = { ...people[personId], ...updates };
+        return people[personId];
+      }
+      return null;
+    } catch (error) {
+      // Fallback to mock data
+      if (MOCK_PEOPLE[personId]) {
+        MOCK_PEOPLE[personId] = { ...MOCK_PEOPLE[personId], ...updates };
+        return MOCK_PEOPLE[personId];
+      }
+      return null;
     }
-    return Promise.resolve(null);
   },
 
-  // Add note to person
-  addNote: (personId, noteContent, noteType = 'user') => {
-    if (MOCK_PEOPLE[personId]) {
-      const newNote = {
-        id: `note-${Date.now()}`,
-        type: noteType,
-        content: noteContent,
-        timestamp: new Date().toISOString()
-      };
-      MOCK_PEOPLE[personId].notes.push(newNote);
-      return Promise.resolve(newNote);
+  // Add note to person (still uses local state for now)
+  addNote: async (personId, noteContent, noteType = 'user') => {
+    try {
+      const people = await getPeopleFromMockDataAsync();
+      if (people[personId]) {
+        const newNote = {
+          id: `note-${Date.now()}`,
+          type: noteType,
+          content: noteContent,
+          timestamp: new Date().toISOString()
+        };
+        if (!people[personId].notes) people[personId].notes = [];
+        people[personId].notes.push(newNote);
+        return newNote;
+      }
+      return null;
+    } catch (error) {
+      // Fallback to mock data
+      if (MOCK_PEOPLE[personId]) {
+        const newNote = {
+          id: `note-${Date.now()}`,
+          type: noteType,
+          content: noteContent,
+          timestamp: new Date().toISOString()
+        };
+        if (!MOCK_PEOPLE[personId].notes) MOCK_PEOPLE[personId].notes = [];
+        MOCK_PEOPLE[personId].notes.push(newNote);
+        return newNote;
+      }
+      return null;
     }
-    return Promise.resolve(null);
   },
 
-  // Add interaction to person
-  addInteraction: (personId, interaction) => {
-    if (MOCK_PEOPLE[personId]) {
-      const newInteraction = {
-        id: `interaction-${Date.now()}`,
-        ...interaction,
-        date: new Date().toISOString()
-      };
-      MOCK_PEOPLE[personId].interactions.push(newInteraction);
-      MOCK_PEOPLE[personId].lastContact = new Date().toISOString();
-      return Promise.resolve(newInteraction);
+  // Add interaction to person (still uses local state for now)
+  addInteraction: async (personId, interaction) => {
+    try {
+      const people = await getPeopleFromMockDataAsync();
+      if (people[personId]) {
+        const newInteraction = {
+          id: `interaction-${Date.now()}`,
+          ...interaction,
+          date: new Date().toISOString()
+        };
+        if (!people[personId].interactions) people[personId].interactions = [];
+        people[personId].interactions.push(newInteraction);
+        people[personId].lastContact = new Date().toISOString();
+        return newInteraction;
+      }
+      return null;
+    } catch (error) {
+      // Fallback to mock data
+      if (MOCK_PEOPLE[personId]) {
+        const newInteraction = {
+          id: `interaction-${Date.now()}`,
+          ...interaction,
+          date: new Date().toISOString()
+        };
+        if (!MOCK_PEOPLE[personId].interactions) MOCK_PEOPLE[personId].interactions = [];
+        MOCK_PEOPLE[personId].interactions.push(newInteraction);
+        MOCK_PEOPLE[personId].lastContact = new Date().toISOString();
+        return newInteraction;
+      }
+      return null;
     }
-    return Promise.resolve(null);
   }
 };
 

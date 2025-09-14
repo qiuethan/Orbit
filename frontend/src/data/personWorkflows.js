@@ -1,8 +1,83 @@
-// Consolidated workflows - all workflows for all people powered by mock_data.json
-import { WORKFLOWS_FROM_MOCK_DATA, PEOPLE_FROM_MOCK_DATA } from './dataAdapter';
+// Consolidated workflows - all workflows for all people powered by backend cache or mock_data.json fallback
+import { WORKFLOWS_FROM_MOCK_DATA, PEOPLE_FROM_MOCK_DATA, getWorkflowsFromDataAsync } from './dataAdapter';
 
-// Use the workflows generated from mock_data.json
+// Use the workflows generated from mock_data.json (fallback)
 export const PERSON_WORKFLOWS = WORKFLOWS_FROM_MOCK_DATA;
+
+// Async function to get workflows from backend or fallback
+export async function getPersonWorkflowsAsync() {
+  try {
+    return await getWorkflowsFromDataAsync();
+  } catch (error) {
+    console.error('Error fetching workflows, falling back to mock data:', error);
+    return WORKFLOWS_FROM_MOCK_DATA;
+  }
+}
+
+// Cache to store workflows data
+let workflowsCache = null;
+
+// Get all person workflows (sync version for legacy compatibility)
+export function getAllPersonWorkflows() {
+  // If we have cached data, use it, otherwise use legacy fallback
+  if (workflowsCache) {
+    return Object.values(workflowsCache).map(workflow => {
+      // Try to find the corresponding person from the people cache
+      const person = peopleDataCache ? Object.values(peopleDataCache).find(p => p.id === workflow.personId) : null;
+      return {
+        ...workflow,
+        person: person || {
+          id: workflow.personId,
+          name: 'Unknown Person',
+          avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${workflow.personId}`,
+          title: 'Unknown'
+        }
+      };
+    });
+  }
+  
+  // Fallback to legacy workflows with mock people data
+  return Object.values(PERSON_WORKFLOWS).map(workflow => {
+    const person = PEOPLE_FROM_MOCK_DATA[workflow.personId];
+    return {
+      ...workflow,
+      person: person || {
+        id: workflow.personId,
+        name: 'Unknown Person',
+        avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${workflow.personId}`,
+        title: 'Unknown'
+      }
+    };
+  });
+}
+
+// Get workflow for specific person (sync version for legacy compatibility)
+export function getWorkflowForPerson(personId) {
+  // If we have cached data, use it, otherwise use legacy fallback
+  if (workflowsCache) {
+    return workflowsCache[personId] || null;
+  }
+  return PERSON_WORKFLOWS[personId] || null;
+}
+
+// Update cache when async data is loaded
+export async function updateWorkflowsCache() {
+  try {
+    const workflows = await getPersonWorkflowsAsync();
+    workflowsCache = workflows;
+    return workflows;
+  } catch (error) {
+    console.error('Failed to update workflows cache:', error);
+    return PERSON_WORKFLOWS;
+  }
+}
+
+// Get people data cache for workflow person lookup
+let peopleDataCache = null;
+
+export function setPeopleDataCache(people) {
+  peopleDataCache = people;
+}
 
 // Legacy workflows (kept for reference, but replaced by real data)
 const LEGACY_PERSON_WORKFLOWS = {
@@ -333,22 +408,6 @@ const LEGACY_PERSON_WORKFLOWS = {
     ]
   }
 };
-
-// Helper function to get workflow for a person
-export function getWorkflowForPerson(personId) {
-  return PERSON_WORKFLOWS[personId] || null;
-}
-
-// Helper function to get all person-workflows for display in sidebar
-export function getAllPersonWorkflows() {
-  return Object.values(PERSON_WORKFLOWS).map(workflow => {
-    const person = PEOPLE_FROM_MOCK_DATA[workflow.personId];
-    return {
-      ...workflow,
-      person: person
-    };
-  });
-}
 
 // Alias for backward compatibility - workflows and person workflows are the same now
 export const WORKFLOWS = PERSON_WORKFLOWS;
