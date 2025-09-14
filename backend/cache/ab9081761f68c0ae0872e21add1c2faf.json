@@ -1,0 +1,155 @@
+{
+    "person_analysis": {
+      "personal_info": {
+        "full_name": "Kiarash Sotoudeh",
+        "age": null,
+        "location": "Toronto, Ontario, Canada",
+        "nationality": "Canadian (based on education and career location)",
+        "languages": ["English", "likely Farsi (inferred from name)"],
+        "interests": [
+          "Programming languages and compilers",
+          "Operating systems and computer systems",
+          "Machine learning and AI infrastructure",
+          "Low-level software (Linux kernel, drivers)",
+          "Creative writing (poetry, stories, songs)",
+          "Skateboarding and music (Vic Records involvement)"
+        ]
+      },
+      "professional_info": {
+        "current_position": "Technology Lead",
+        "company": "Computer Science Student Union - University of Toronto",
+        "industry": "Computer Science / Student Organizations / AI Research",
+        "previous_positions": [
+          "Vice President of Infrastructure – UTMIST (2024–2025)",
+          "Cloud Open Source Developer – UTMIST (2023–2024)",
+          "Education Team Lead – UofT AI (2024–2025)",
+          "Software Engineer (Digital Launchpad Associate) – You’re Next Career Network (2024–2025)",
+          "Software Engineering Apprentice – Cash App (2024)",
+          "Software Engineer Intern – AMD (Datacentre GPU Organization, 2024)"
+        ],
+        "skills": [
+          "Programming Languages: Python, C, C++, Java, JavaScript, SQL, Assembly",
+          "AI & ML: Applied ML, Optimization, PyTorch contributions",
+          "Systems: Linux kernel, operating systems, compilers, drivers",
+          "Cloud & Open Source: OpenTelemetry, AI frameworks",
+          "Full-stack Development: Node.js, Firebase, Django",
+          "Leadership: Team management, mentoring, open-source initiatives"
+        ],
+        "achievements": [
+          "Secured **Software Engineer Internship at AMD** (Datacentre GPU Org, working on Instinct accelerators).",
+          "Served as **VP of Infrastructure at UTMIST**, launching 2 open-source initiatives (AI Open Source and AI Software Research).",
+          "Contributed to **PyTorch** via merged PRs in Python and C++.",
+          "Built and deployed software for **You’re Next Career Network**, streamlining registration and login for 300+ participants.",
+          "Helped organize **EigenAI 2024**, UTMIST’s flagship ML conference with 400+ attendees.",
+          "Completed **Cash App apprenticeship**, developing an ESG scoring system with Django and Python.",
+          "President of **Vic Records**, leading a music club with 200+ members and launching new student creative initiatives."
+        ]
+      },
+      "education_info": {
+        "degree": "Bachelor’s Degree in Computer Science",
+        "institution": "University of Toronto (St. George, Victoria College)",
+        "expected_graduation": 2027,
+        "activities": [
+          "UTMIST (VP Infrastructure, Graphic Designer)",
+          "UofT AI (Education Team Lead)",
+          "Computer Science Student Union (Technology Lead)",
+          "Vic Records (President)",
+          "YNCN (Digital Launchpad Associate)",
+          "Creative Writing Club"
+        ],
+        "courses": [
+          "Machine Learning",
+          "Databases",
+          "Data Structures & Algorithms",
+          "Theory of Computation",
+          "Computer Organization (Assembly)",
+          "Software Engineering",
+          "Computer Vision"
+        ],
+        "high_school": {
+          "institution": "Thornhill Secondary School",
+          "grade": "98.2/100",
+          "activities": [
+            "Math Club Executive",
+            "Computer Club Executive",
+            "Robotics Club",
+            "Music Council",
+            "Volunteer Tutor"
+          ]
+        }
+      },
+      "social_media": [
+        {
+          "platform": "LinkedIn",
+          "username": null,
+          "url": null,
+          "verified": null,
+          "followers_count": 3517
+        }
+      ],
+      "talking_points": {
+        "recent_achievements": [
+          "Began **internship at AMD** (May 2024) working on Datacentre GPU accelerators.",
+          "Served as **VP of Infrastructure at UTMIST**, leading open-source AI contributions.",
+          "Presented and contributed to **EigenAI 2024**, UTMIST’s flagship ML event."
+        ],
+        "shared_connections": [
+          "1000+ mutual connections across UofT, UTMIST, and Toronto tech."
+        ],
+        "common_interests": [
+          "AI infrastructure and open-source research",
+          "Compilers and low-level systems development",
+          "Music, writing, and creative expression",
+          "Student leadership and networking events"
+        ],
+        "conversation_starters": [
+          "Ask about his **contributions to PyTorch** and open-source AI frameworks.",
+          "Discuss his experience at **AMD working on GPUs** and datacentre hardware.",
+          "Talk about balancing **systems programming with machine learning research**.",
+          "Explore his leadership in **UTMIST and student organizations** at UofT."
+        ],
+        "notable_projects": [
+          "Laboratory Diagnostic Tool (Java, for healthcare data analysis)",
+          "Sorting Algorithms Visualizer (interactive UI tool)",
+          "Registration platform for YNCN events (Node.js, Firebase)",
+          "ESG scoring system for Cash App (Python, Django)"
+        ]
+      },
+      "public_presence_score": "Medium",
+      "credibility_indicators": [
+        "Strong internship record (AMD, Cash App, YNCN).",
+        "Open-source contributions merged into **PyTorch**.",
+        "Active leadership in **UTMIST** and multiple UofT student organizations.",
+        "Strong academic performance (high school GPA 98.2, selected for Technology Leadership cohort at UofT)."
+      ],
+      "potential_red_flags": [
+        "Still an undergraduate – experience is primarily student-led or internship-based.",
+        "Multiple short-term roles (common for students, but may appear fragmented without narrative)."
+      ],
+      "overview": "Kiarash Sotoudeh is a **Computer Science undergraduate at the University of Toronto** (expected 2027) with strong interests in programming languages, compilers, operating systems, and machine learning. He has hands-on experience in **systems programming and AI infrastructure**, including contributions to PyTorch, an internship at **AMD’s Datacentre GPU Organization**, and a Cash App apprenticeship building ESG scoring tools. As **VP of Infrastructure at UTMIST**, he launched open-source AI initiatives, while also leading in student organizations such as the Computer Science Student Union and Vic Records. Outside of CS, he is a writer and musician, blending technical rigor with creativity.",
+      "executive_summary": "Kiarash Sotoudeh is an ambitious **UofT Computer Science student (2023–2027)** with internships at **AMD and Cash App**, contributions to **PyTorch**, and leadership experience in **UTMIST** and the **Computer Science Student Union**. Focused on systems, compilers, and AI, he combines technical depth with creativity, also serving as **President of Vic Records** and engaging in writing and music.",
+      "key_insights": [
+        "Has real-world industry exposure at **AMD and Cash App**.",
+        "Launched open-source AI initiatives as **VP of Infrastructure at UTMIST**.",
+        "Strong foundation in **systems programming and AI frameworks**.",
+        "Balances technical work with **creative leadership in music and writing**.",
+        "Well-networked at UofT with **1000+ mutual connections** in Toronto tech."
+      ],
+      "confidence_level": "High",
+      "sources_quality": "Strong (LinkedIn profile, UTMIST activity, public posts)",
+      "last_updated": "2025-09-13"
+    },
+    "best_match_photo": {
+      "base64_data": null,
+      "source_url": null,
+      "confidence_score": null,
+      "description": "Young University of Toronto Computer Science student, LinkedIn headshot"
+    },
+    "metadata": {
+      "llm_provider": "cerebras",
+      "llm_model": "gpt-oss-120b",
+      "face_matches": 0,
+      "total_mentions": 1
+    }
+  }
+  

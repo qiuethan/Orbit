@@ -1,0 +1,156 @@
+{
+    "person_analysis": {
+      "personal_info": {
+        "full_name": "Gabriel Thompson",
+        "age": null,
+        "location": "Brooklyn, New York, United States",
+        "nationality": "American (based on education at Stuyvesant HS and U.S.-based roles)",
+        "languages": ["English"],
+        "interests": [
+          "Full-stack web development",
+          "Data science",
+          "Music technology",
+          "Open source software",
+          "Teaching and mentoring in CS"
+        ],
+        "website": "https://www.gabe.biz/",
+        "emails": [
+          "gabrielezrathompson@gmail.com",
+          "thompson@cs.toronto.edu"
+        ]
+      },
+      "professional_info": {
+        "current_position": "Software Engineering Intern",
+        "company": "Stealth Startup (Elad Gil-backed)",
+        "industry": "Software Engineering / Startups",
+        "previous_positions": [
+          "Student Web Developer Team Lead – CSSU (2024–2025)",
+          "Student Web Developer & General Council – CSSU (2024)",
+          "Software Engineering Intern – Snorkle Labs (2024)",
+          "Technical Writer – UTMIST (2024)",
+          "Research Intern – The Graduate Center, CUNY (2023)"
+        ],
+        "skills": [
+          "Languages: Python, TypeScript, JavaScript, SQL, Java",
+          "Frameworks: Next.js, Flask, Prisma, Tailwind, Bootstrap, React",
+          "Databases: PostgreSQL, DynamoDB",
+          "Systems: SQLAlchemy, Alembic, Pydantic",
+          "Cloud/Infra: AWS Lambda, Vercel, GitHub Actions",
+          "Other: Data pipelines, NLP, Ontology mapping, REST APIs"
+        ],
+        "achievements": [
+          "First engineering intern at **seed-stage startup backed by Elad Gil**, contributing to infra and client-facing features.",
+          "Developed **Python/SQLAlchemy + Flask infra** for enterprise equipment rental platform, including auto-generated API schemas and serialization.",
+          "Built **Alembic generator** for 200+ Postgres indices, achieving **10x indexing speedup**.",
+          "At Snorkle Labs, created **text-to-visual GPT-4 medical presentation feature** cited in NIH grant funding review (~$286k request).",
+          "Led team of 14 at CSSU to **redesign website for 5000+ members** with Next.js/Tailwind.",
+          "Built **QR code attendance tracking system** for 400+ orientation attendees (HMAC-secured, live updates every 15s).",
+          "UTMIST Demistify contributor: published **1,000+ word AI research articles**.",
+          "Research at CUNY: contributed to **Wikipron** (250+ languages, ISO 639 phonology features)."
+        ]
+      },
+      "education_info": {
+        "degree": "Bachelor of Science in Computer Science",
+        "institution": "University of Toronto",
+        "expected_graduation": 2027,
+        "activities": [
+          "CSSU (Web Dev Lead, General Council)",
+          "UTMIST (Technical Writer)",
+          "Technology Leadership program (1 of 29 students selected)"
+        ],
+        "relevant_courses": [
+          "MAT137 – Calculus with Proofs",
+          "CSC110/111 – Foundations of CS I/II"
+        ],
+        "high_school": {
+          "institution": "Stuyvesant High School",
+          "years": "2019–2023",
+          "awards": [
+            "Honors in Computer Science",
+            "Golden Ducky Award (CS Community Service)",
+            "Honors in Symphonic Band",
+            "Writing Center Award"
+          ],
+          "relevant_courses": [
+            "AP Computer Science",
+            "Software Development",
+            "Computer Graphics",
+            "AP Calculus BC"
+          ]
+        }
+      },
+      "social_media": [
+        {
+          "platform": "LinkedIn",
+          "username": null,
+          "url": null,
+          "verified": null,
+          "followers_count": 1130
+        }
+      ],
+      "talking_points": {
+        "recent_achievements": [
+          "Joined **Elad Gil-backed stealth startup** as first SWE intern, building infra and client-facing systems.",
+          "Delivered **10k+ uses feature** (file attachment for delivery drivers) within 43 days.",
+          "At Snorkle Labs, work cited in **NIH grant review** as reason for high score.",
+          "Published **AI research summaries** via UTMIST Demistify."
+        ],
+        "shared_connections": [
+          "115+ mutual connections (UofT peers, UTMIST, Toronto CS community)."
+        ],
+        "common_interests": [
+          "Full-stack engineering",
+          "Applied AI in healthcare",
+          "Scaling infra for startups",
+          "CS teaching and mentoring"
+        ],
+        "conversation_starters": [
+          "Ask about his **Snorkle Labs feature demo** (text-to-visual GPT-4 for medical presentations).",
+          "Discuss his role as **first intern hire at Elad Gil-backed startup**.",
+          "Explore his interest in **music technology projects**.",
+          "Talk about his teaching experience at **Stuyvesant CS Dojo**."
+        ],
+        "notable_projects": [
+          "CSSU Orientation Website (Next.js/TypeScript/Prisma, QR-code event logging).",
+          "Once Upon a Chat (UofTHacks 2024 – WhatsApp chat analytics, Firebase + React).",
+          "Wikipron (CUNY – multi-language phonology scraping + ISO 639 integration)."
+        ]
+      },
+      "public_presence_score": "Medium",
+      "credibility_indicators": [
+        "Internship at **Elad Gil-backed stealth startup**.",
+        "Cited contribution in **NIH funding request**.",
+        "Published articles in **UTMIST Demistify**.",
+        "Leadership in CSSU (team of 14 developers)."
+      ],
+      "potential_red_flags": [
+        "Still an undergrad – most roles are short-term internships.",
+        "Profile highlights breadth, but depth of specialization may not yet be clear."
+      ],
+      "overview": "Gabriel Thompson is a **University of Toronto CS undergrad (2023–2027)** and aspiring software engineer with strong experience in **full-stack web development, infra, and applied AI**. He is the **first SWE intern at an Elad Gil-backed stealth startup**, where he has delivered scalable systems for enterprise clients. He previously worked at **Snorkle Labs**, where his GPT-4 medical presentation feature was cited in NIH funding reviews. At UofT, he served as **CSSU Web Dev Lead**, leading a team of 14, and as **UTMIST Technical Writer**, publishing research summaries. He is also active in teaching, volunteering at **Stuyvesant CS Dojo**. Gabriel blends technical rigor with leadership, writing, and teaching experience.",
+      "executive_summary": "Gabriel Thompson is a **UofT Computer Science student (2023–2027)** and SWE Intern at a **stealth startup backed by Elad Gil**. He has delivered impactful systems at early-stage startups, contributed to research (Wikipron, UTMIST), and led teams at CSSU. His projects span infra, NLP, AI applications in healthcare, and event platforms, showcasing strong full-stack and data pipeline skills.",
+      "key_insights": [
+        "Strong **startup experience** early in career (Snorkle Labs, stealth startup).",
+        "Technical range: **infra, full-stack, NLP, AI for healthcare**.",
+        "Leadership in **student organizations (CSSU, UTMIST)**.",
+        "Teaching background at **Stuyvesant HS CS Dojo** shows mentorship skills.",
+        "Credibility boosted by **NIH grant citation**."
+      ],
+      "confidence_level": "High",
+      "sources_quality": "Strong (LinkedIn profile, project demos, UTMIST publications).",
+      "last_updated": "2025-09-13"
+    },
+    "best_match_photo": {
+      "base64_data": null,
+      "source_url": "https://www.gabe.biz/",
+      "confidence_score": 0.9,
+      "description": "Professional headshot of Gabriel Thompson from personal website."
+    },
+    "metadata": {
+      "llm_provider": "cerebras",
+      "llm_model": "gpt-oss-120b",
+      "face_matches": 0,
+      "total_mentions": 1
+    }
+  }
+  
