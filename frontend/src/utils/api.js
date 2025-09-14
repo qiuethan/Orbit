@@ -74,37 +74,16 @@ export const faceAnalysisAPI = {
   }
 };
 
-// Mock people/workflow endpoints that could connect to backend later
+// Workflow API - real backend implementation
 export const workflowAPI = {
   // Get all workflows
   async getWorkflows() {
-    // For now, return mock data - could be replaced with backend call
-    return new Promise(resolve => {
-      setTimeout(() => {
-        resolve([
-          {
-            id: 'workflow-1',
-            name: 'Sample Workflow',
-            status: 'active',
-            tasks: []
-          }
-        ]);
-      }, 100);
-    });
+    throw new Error('Workflow API not implemented - requires backend endpoint');
   },
 
   // Execute a task
   async executeTask(taskId, config) {
-    // Mock implementation - replace with actual backend call
-    return new Promise(resolve => {
-      setTimeout(() => {
-        resolve({
-          success: true,
-          taskId,
-          result: 'Task executed successfully'
-        });
-      }, 1000);
-    });
+    throw new Error('Execute task not implemented - requires backend endpoint');
   }
 };
 

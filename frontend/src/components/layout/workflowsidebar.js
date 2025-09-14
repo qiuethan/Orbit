@@ -22,6 +22,7 @@ export default function PeopleSidebar() {
   const [showActionMenu, setShowActionMenu] = useState(null);
   const [filterStatus, setFilterStatus] = useState('all');
   const [people, setPeople] = useState([]);
+  const [personWorkflows, setPersonWorkflows] = useState([]);
   const [loading, setLoading] = useState(true);
   
   // Get state from context
@@ -36,8 +37,9 @@ export default function PeopleSidebar() {
         setLoading(true);
         
         // Load both people and workflows in parallel
-        const [fetchedPeople] = await Promise.all([
+        const [fetchedPeople, fetchedWorkflows] = await Promise.all([
           peopleApi.getPeople(),
+          getAllPersonWorkflows(),
           updateWorkflowsCache() // This updates the workflows cache
         ]);
         
@@ -53,10 +55,12 @@ export default function PeopleSidebar() {
         setPeopleDataCache(peopleObject);
         
         setPeople(fetchedPeople);
-        console.log('✅ Loaded real data from backend:', fetchedPeople.length, 'people');
+        setPersonWorkflows(fetchedWorkflows);
+        console.log('✅ Loaded real data from backend:', fetchedPeople.length, 'people', fetchedWorkflows.length, 'workflows');
       } catch (error) {
         console.error('Failed to load data from backend:', error);
         setPeople([]);
+        setPersonWorkflows([]);
       } finally {
         setLoading(false);
       }
@@ -66,7 +70,6 @@ export default function PeopleSidebar() {
   }, []);
   
   // Get data based on current page
-  const personWorkflows = getAllPersonWorkflows();
   const displayItems = isWorkflowPage ? personWorkflows : people;
 
   // Use custom hook for filtering
@@ -135,14 +138,14 @@ export default function PeopleSidebar() {
           />
         ) : (
           <div>
-            {filteredItems.map((item) => {
+            {filteredItems.map((item, index) => {
               if (isWorkflowPage) {
                 const workflow = item;
                 const isActive = activeWorkflow && activeWorkflow.id === workflow.id;
               
               return (
                   <WorkflowItem
-                  key={workflow.id}
+                  key={workflow.id || `workflow-${index}`}
                     workflow={workflow}
                     isActive={isActive}
                     showActionMenu={showActionMenu === workflow.id}
@@ -156,7 +159,7 @@ export default function PeopleSidebar() {
               
                 return (
                   <PersonItem
-                    key={person.id}
+                    key={person.id || `person-${index}`}
                     person={person}
                     isActive={isActive}
                     showActionMenu={showActionMenu === person.id}
