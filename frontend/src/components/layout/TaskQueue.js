@@ -21,7 +21,8 @@ import {
   BookOpen, // For Notion icon
   Clock,
   ChevronLeft,
-  ChevronRight
+  ChevronRight,
+  Users
 } from 'lucide-react';
 import { useWorkflow } from '../../context/WorkflowContext';
 import { useSidebar } from '../../app/layout';
@@ -165,7 +166,7 @@ const TaskQueue = ({ activeWorkflow }) => {
       case 'coffee_chat':
         return <MessageSquare className={className} />;
       case 'linkedin_connect':
-        return <img src="/icons/linkedin.png" className={className} alt="LinkedIn" />;
+        return <Users className={className} />;
       case 'follow_up': 
         return <Calendar className={className} />;
       case 'introduction':
@@ -225,7 +226,7 @@ const TaskQueue = ({ activeWorkflow }) => {
                 )}
               </div>
               <p className="text-xs text-gray-500 leading-tight mb-1 truncate">
-                {task.description}
+                {task.description.length > 60 ? task.description.substring(0, 60) + '...' : task.description}
               </p>
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
@@ -255,24 +256,24 @@ const TaskQueue = ({ activeWorkflow }) => {
 
         {/* Show config for current task only */}
         {isCurrent && (
-          <div className="px-3 py-3 border-t border-gray-100 bg-gray-50">
+          <div className="px-3 py-1 border-t border-gray-100 bg-gray-50">
             {/* Save/Reset Controls */}
             {hasUnsavedChanges && (
-              <div className="flex items-center gap-3 mb-4 p-3 bg-amber-50 border border-amber-200 rounded-lg">
+              <div className="flex items-center gap-2 mb-2 p-1.5 bg-amber-50 border border-amber-200 rounded">
                 <div className="flex-1 text-xs text-amber-800">
-                  <span className="font-semibold">Unsaved Changes</span>
-                  <span className="text-xs block mt-1 text-amber-700">Press Cmd+S to save or Esc to reset</span>
+                  <span className="font-medium">Unsaved</span>
+                  <span className="text-xs block text-amber-700">Cmd+S / Esc</span>
                 </div>
                 <button
                   onClick={handleSave}
-                  className="flex items-center gap-2 px-2 py-1.5 bg-blue-600 text-white text-xs font-medium rounded-lg hover:bg-blue-700 transition-colors"
+                  className="flex items-center gap-1 px-1.5 py-0.5 bg-blue-600 text-white text-xs font-medium rounded hover:bg-blue-700 transition-colors"
                 >
                   <Save className="w-3 h-3" />
                   Save
                 </button>
                 <button
                   onClick={handleReset}
-                  className="flex items-center gap-2 px-2 py-1.5 bg-gray-600 text-white text-xs font-medium rounded-lg hover:bg-gray-700 transition-colors"
+                  className="flex items-center gap-1 px-1.5 py-0.5 bg-gray-600 text-white text-xs font-medium rounded hover:bg-gray-700 transition-colors"
                 >
                   <X className="w-3 h-3" />
                   Reset
@@ -280,17 +281,21 @@ const TaskQueue = ({ activeWorkflow }) => {
               </div>
             )}
 
-            <div className="space-y-3 mb-4">
+            <div className="space-y-1.5 mb-2">
               {Object.entries(localConfig || {}).map(([key, value]) => (
                 <div key={key}>
-                  <label className="block text-xs font-semibold text-gray-900 mb-1.5">
+                  <label className="block text-xs font-medium text-gray-700 mb-1">
                     {key === 'recipient' ? 'To' : 
                      key === 'subject' ? 'Subject' :
                      key === 'message' ? 'Message' :
-                     key === 'notes' ? 'Personal Notes' :
-                     key === 'meetingType' ? 'Meeting Type' :
+                     key === 'notes' ? 'Notes' :
+                     key === 'meetingType' ? 'Type' :
                      key === 'duration' ? 'Duration' :
                      key === 'platform' ? 'Platform' :
+                     key === 'action' ? 'Action' :
+                     key === 'profile' ? 'Profile' :
+                     key === 'mutualConnections' ? 'Mutual Connections' :
+                     key === 'achievement' ? 'Achievement' :
                      key.replace(/([A-Z])/g, ' $1').toLowerCase().replace(/^\w/, c => c.toUpperCase())}
                   </label>
                   {key === 'message' || key === 'notes' || key === 'project' || key === 'content' ? (
@@ -298,13 +303,13 @@ const TaskQueue = ({ activeWorkflow }) => {
                       value={value || ''}
                       onChange={(e) => handleInputChange(key, e.target.value)}
                       onBlur={handleBlur}
-                      className="w-full px-2 py-1.5 text-xs border border-gray-300 rounded-lg bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-none transition-colors"
-                      rows={key === 'project' ? 4 : 3}
+                      className="w-full px-1.5 py-0.5 text-xs border border-gray-300 rounded bg-white focus:ring-1 focus:ring-blue-500 focus:border-blue-500 resize-none transition-colors"
+                      rows={1}
                       placeholder={
-                        key === 'message' ? 'Write your message...' :
-                        key === 'notes' ? 'Add personal notes about this outreach...' :
-                        key === 'project' ? 'Enter your project idea or description...' :
-                        key === 'content' ? 'Enter page content...' :
+                        key === 'message' ? 'Message...' :
+                        key === 'notes' ? 'Notes...' :
+                        key === 'project' ? 'Details...' :
+                        key === 'content' ? 'Content...' :
                         `Enter ${key}...`
                       }
                     />
@@ -314,12 +319,15 @@ const TaskQueue = ({ activeWorkflow }) => {
                       value={value || ''}
                       onChange={(e) => handleInputChange(key, e.target.value)}
                       onBlur={handleBlur}
-                      className="w-full px-2 py-1.5 text-xs border border-gray-300 rounded-lg bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                      className="w-full px-1.5 py-0.5 text-xs border border-gray-300 rounded bg-white focus:ring-1 focus:ring-blue-500 focus:border-blue-500 transition-colors"
                       placeholder={
-                        key === 'subject' ? 'Email subject line...' :
-                        key === 'recipient' ? 'Contact name or email...' :
-                        key === 'platform' ? 'Zoom, Teams, Coffee shop...' :
-                        key === 'duration' ? '30 minutes, 1 hour...' :
+                        key === 'subject' ? 'Subject...' :
+                        key === 'recipient' ? 'Name/email...' :
+                        key === 'platform' ? 'Platform...' :
+                        key === 'duration' ? 'Duration...' :
+                        key === 'action' ? 'Action...' :
+                        key === 'profile' ? 'URL...' :
+                        key === 'achievement' ? 'Achievement...' :
                         `Enter ${key}...`
                       }
                     />
@@ -328,23 +336,23 @@ const TaskQueue = ({ activeWorkflow }) => {
               ))}
             </div>
             
-            <div className="flex gap-2">
+            <div className="flex gap-1.5">
               <button
                 onClick={() => onExecute(task)}
                 disabled={executing}
-                className="flex items-center gap-2 px-3 py-1.5 bg-blue-600 text-white text-xs font-medium rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                className="flex items-center gap-1 px-2 py-0.5 bg-blue-600 text-white text-xs font-medium rounded hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
               >
                 <Play className="w-3 h-3" />
-                {executing ? 'Sending...' : 'Send Message'}
+                {executing ? 'Sending...' : 'Execute'}
               </button>
               
               {hasUnsavedChanges && (
                 <button
                   onClick={handleSave}
-                  className="flex items-center gap-2 px-3 py-1.5 bg-green-600 text-white text-xs font-medium rounded-lg hover:bg-green-700 transition-colors"
+                  className="flex items-center gap-1 px-1.5 py-0.5 bg-green-600 text-white text-xs font-medium rounded hover:bg-green-700 transition-colors"
                 >
                   <Save className="w-3 h-3" />
-                  Save Changes
+                  Save
                 </button>
               )}
             </div>

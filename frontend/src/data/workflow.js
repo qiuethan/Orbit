@@ -66,17 +66,18 @@ export const MOCK_WORKFLOWS = {
         },
         {
           id: 'task-4',
-          type: 'slack',
-          title: 'Notify team about new client',
-          description: 'AI suggests updating team channel',
+          type: 'linkedin_connect',
+          title: 'LinkedIn Follow-up',
+          description: 'Connect with client on LinkedIn',
           priority: 'low',
-          estimatedTime: '10 seconds',
+          estimatedTime: '1 min',
           status: 'pending',
           dependencies: [],
           position: { x: 400, y: 100 },
           config: {
-            channel: '#client-updates',
-            message: '🎉 New client alert! Sarah Johnson from TechCorp just signed up. Onboarding process has been initiated. Welcome email sent, follow-up call scheduled.'
+            action: 'connect',
+            message: 'Hi! Excited to work together. Looking forward to connecting professionally.',
+            profile: 'https://linkedin.com/in/client'
           }
         }
       ]
@@ -121,17 +122,18 @@ export const MOCK_WORKFLOWS = {
         },
         {
           id: 'task-7',
-          type: 'slack',
-          title: 'Update sales team',
-          description: 'AI suggests notifying team about follow-up',
+          type: 'linkedin_connect',
+          title: 'LinkedIn Follow-up',
+          description: 'Connect with John on LinkedIn',
           priority: 'low',
-          estimatedTime: '5 seconds',
+          estimatedTime: '1 min',
           status: 'pending',
           dependencies: [],
           position: { x: 400, y: 100 },
           config: {
-            channel: '#sales-updates',
-            message: '📞 Following up with John Smith on proposal. Email sent, call scheduled if no response.'
+            action: 'connect',
+            message: 'Hi John, following up on our proposal discussion. Would love to connect professionally.',
+            profile: 'https://linkedin.com/in/johnsmith'
           }
         }
       ]
@@ -226,17 +228,18 @@ export const MOCK_WORKFLOWS = {
           },
           {
             id: `task-${Date.now()}-2`,
-            type: 'slack',
-            title: 'Notify team about outreach',
-            description: 'AI suggests updating team channel',
+            type: 'linkedin_connect',
+            title: 'LinkedIn Follow-up',
+            description: 'Connect with potential partner on LinkedIn',
             priority: 'low',
-            estimatedTime: '5 seconds',
+            estimatedTime: '1 min',
             status: 'pending',
             dependencies: [],
             position: { x: 400, y: 100 },
             config: {
-              channel: '#outreach-updates',
-              message: '📧 New outreach campaign initiated. Initial email sent to potential partner.'
+              action: 'connect',
+              message: 'Hi! Excited about our potential partnership. Would love to connect professionally.',
+              profile: 'https://linkedin.com/in/partner'
             }
           }
         ]
@@ -302,13 +305,13 @@ export const MOCK_WORKFLOWS = {
       borderColor: 'border-purple-200',
       textColor: 'text-purple-600'
     },
-    slack: {
-      name: 'Slack Message',
-      icon: 'ChatBubbleLeftIcon',
-      color: 'yellow',
-      bgColor: 'bg-yellow-50',
-      borderColor: 'border-yellow-200',
-      textColor: 'text-yellow-600'
+    linkedin_connect: {
+      name: 'LinkedIn Connect',
+      icon: 'UserGroupIcon',
+      color: 'blue',
+      bgColor: 'bg-blue-50',
+      borderColor: 'border-blue-200',
+      textColor: 'text-blue-600'
     }
   };
   

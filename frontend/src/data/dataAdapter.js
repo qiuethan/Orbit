@@ -5,8 +5,24 @@ const BACKEND_API_BASE = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhos
 
 // Cache for API data to avoid repeated requests
 let cachedPeopleData = null;
+let workflowDataCache = null;
 let cacheTimestamp = null;
 const CACHE_DURATION = 30000; // 30 seconds
+
+// Function to clear all caches
+export function clearAllCaches() {
+  cachedPeopleData = null;
+  workflowDataCache = null;
+  cacheTimestamp = null;
+  
+  // Clear localStorage
+  if (typeof window !== 'undefined') {
+    localStorage.removeItem('workflow_app_data');
+    localStorage.removeItem('workflows');
+    localStorage.removeItem('activeWorkflowId');
+    console.log('🧹 All caches and localStorage cleared');
+  }
+}
 
 // Fetch people data from backend API
 async function fetchPeopleFromBackend() {
@@ -299,11 +315,109 @@ function findYouTubeFromSocialMedia(socialMedia) {
   return null;
 }
 
+// Generate relevant tasks based on person data
+function generateRelevantTasks(person, workflowId) {
+  const tasks = [];
+  const firstName = person.name.split(' ')[0];
+  const company = person.company || 'their company';
+  const title = person.title || 'their role';
+  const industry = person.scrapedData?.industry || 'technology';
+  
+  // Task 1: LinkedIn Connection
+  tasks.push({
+    id: `${workflowId}-task-1`,
+    type: 'linkedin_connect',
+    title: `LinkedIn Connect`,
+    description: `Connect with ${firstName} on LinkedIn`,
+    priority: 'high',
+    estimatedTime: '2 min',
+    status: 'pending',
+    order: 1,
+    position: { x: 100, y: 100 },
+    config: {
+      action: 'connect',
+      message: `Hi ${firstName}, I noticed your work at ${company} and would love to connect. I'm particularly interested in your experience in ${industry}.`,
+      profile: person.linkedIn || `https://linkedin.com/in/${firstName.toLowerCase()}`
+    }
+  });
+
+  // Task 2: Email Outreach
+  const emailSubject = person.scrapedData?.keyInsights?.length > 0 
+    ? `Quick question about ${person.scrapedData.keyInsights[0].toLowerCase()}`
+    : `Hi ${firstName}, let's connect`;
+    
+  const emailMessage = person.scrapedData?.talkingPoints?.conversationStarters?.length > 0
+    ? `Hi ${firstName},\n\n${person.scrapedData.talkingPoints.conversationStarters[0]}\n\nI'd love to learn more about your work at ${company}.\n\nBest regards`
+    : `Hi ${firstName},\n\nI came across your profile and was impressed by your work at ${company} in ${industry}.\n\nI'd love to connect and learn more about your experience.\n\nBest regards`;
+
+  tasks.push({
+    id: `${workflowId}-task-2`,
+    type: 'email',
+    title: `Send Email`,
+    description: `Send personalized email to ${firstName}`,
+    priority: 'high',
+    estimatedTime: '3 min',
+    status: 'pending',
+    order: 2,
+    position: { x: 400, y: 100 },
+    config: {
+      recipient: person.email,
+      subject: emailSubject,
+      message: emailMessage
+    }
+  });
+
+  // Task 3: LinkedIn Follow-up
+  tasks.push({
+    id: `${workflowId}-task-3`,
+    type: 'linkedin_connect',
+    title: `LinkedIn Follow-up`,
+    description: `Send follow-up message on LinkedIn`,
+    priority: 'medium',
+    estimatedTime: '1 min',
+    status: 'pending',
+    order: 3,
+    position: { x: 100, y: 250 },
+    config: {
+      action: 'message',
+      message: `Hi ${firstName}, following up on my connection request. I'd love to discuss ${industry} opportunities with you.`,
+      profile: person.linkedIn || `https://linkedin.com/in/${firstName.toLowerCase()}`
+    }
+  });
+
+  // Task 4: Coffee Chat (if high priority or executive)
+  if (person.priority === 'high' || person.scrapedData?.workHistory?.some(role => 
+    role.title.toLowerCase().includes('ceo') || 
+    role.title.toLowerCase().includes('founder') ||
+    role.title.toLowerCase().includes('vp')
+  )) {
+    tasks.push({
+      id: `${workflowId}-task-4`,
+      type: 'coffee_chat',
+      title: `Coffee Chat`,
+      description: `Schedule coffee chat with ${firstName}`,
+      priority: 'medium',
+      estimatedTime: '1 min',
+      status: 'pending',
+      order: 4,
+      position: { x: 400, y: 250 },
+      config: {
+        recipient: person.name,
+        message: `Hi ${firstName}, interested in a coffee chat to discuss ${industry} trends?`,
+        meetingType: 'Coffee Chat',
+        duration: '30 min',
+        platform: 'Zoom'
+      }
+    });
+  }
+
+  return tasks;
+}
+
 // No workflow generation - workflows come from backend
 
 // Export the transformed data - now async to support backend fetching
 let peopleDataCache = null;
-let workflowDataCache = null;
 
 export async function getPeopleFromBackendAsync() {
   if (!peopleDataCache) {
@@ -337,43 +451,11 @@ export async function getWorkflowsFromBackendAsync() {
           {
             id: `note-${Date.now()}`,
             type: 'system',
-            content: `📋 Created personalized workflow for ${person.name}`,
+            content: `Workflow created`,
             timestamp: new Date().toISOString()
           }
         ],
-        tasks: [
-          {
-            id: `${workflowId}-task-1`,
-            type: 'email',
-            title: `Initial outreach to ${person.name}`,
-            description: `Send personalized email to ${person.name}`,
-            priority: 'high',
-            estimatedTime: '30 seconds',
-            status: 'pending',
-            order: 1,
-            position: { x: 100, y: 100 },
-            config: {
-              recipient: person.email,
-              subject: `Hi ${person.name.split(' ')[0]}, Let's Connect!`,
-              message: `Hi ${person.name.split(' ')[0]},\n\nI hope this email finds you well. I came across your profile and was impressed by your work at ${person.company}.\n\nI'd love to connect and learn more about your experience in ${person.title}.\n\nBest regards`
-            }
-          },
-          {
-            id: `${workflowId}-task-2`,
-            type: 'slack',
-            title: `Follow up via Slack`,
-            description: `Send follow-up message on Slack`,
-            priority: 'medium',
-            estimatedTime: '5 seconds',
-            status: 'pending',
-            order: 2,
-            position: { x: 400, y: 100 },
-            config: {
-              channel: 'social',
-              message: `📧 Sent initial outreach email to ${person.name} at ${person.company}. Following up via Slack.`
-            }
-          }
-        ]
+        tasks: generateRelevantTasks(person, workflowId)
       };
     });
   }

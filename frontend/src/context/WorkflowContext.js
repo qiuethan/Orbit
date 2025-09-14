@@ -50,7 +50,7 @@ const getMockSuccessMessage = (taskType, config) => {
     email: `✅ Email sent successfully to ${config.recipient}. Subject: "${config.subject}". Delivery confirmed with 98% open rate prediction.`,
     phone: `📞 Call completed to ${config.recipient}. Contact answered and showed interest in scheduling. Next steps identified.`,
     calendar: `📅 Meeting "${config.title}" scheduled successfully for ${config.date} at ${config.time}. Calendar invites sent to all attendees.`,
-    slack: `💬 Message posted to ${config.channel} successfully. Team notified and 3 members reacted positively. Workflow visibility increased.`
+    linkedin_connect: `🔗 LinkedIn connection request sent to ${config.profile}. Message: "${config.message}". Professional network expanded.`
   };
   return messages[taskType] || `✅ Task completed successfully.`;
 };
@@ -709,9 +709,10 @@ executeTask: async (workflowId, taskId, taskType, config) => {
           payload.event = config.title || config.event || 'Scheduled event';
           break;
         
-        case 'slack':
+        case 'linkedin_connect':
           payload.message = config.message;
-          payload.channel = config.channel || 'social';
+          payload.profile = config.profile;
+          payload.action = config.action || 'connect';
           break;
         
         case 'notion':
@@ -824,17 +825,18 @@ generateWorkflow: async (prompt) => {
         },
         {
           id: `task-${Date.now()}-3`,
-          type: 'slack',
-          title: 'Notify team',
-          description: 'Alert the team about new client',
+          type: 'linkedin_connect',
+          title: 'LinkedIn Follow-up',
+          description: 'Connect with client on LinkedIn',
           priority: 'low',
-          estimatedTime: '5 seconds',
+          estimatedTime: '1 min',
           status: 'pending',
           order: 3,
           position: { x: 700, y: 100 },
           config: {
-            channel: 'social',
-            message: '🎉 New client just signed up! Onboarding workflow initiated and documentation created.'
+            action: 'connect',
+            message: 'Hi! Excited to work together. Looking forward to connecting professionally.',
+            profile: 'https://linkedin.com/in/client'
           }
         }
       ];
@@ -857,17 +859,18 @@ generateWorkflow: async (prompt) => {
         },
         {
           id: `task-${Date.now()}-2`,
-          type: 'slack',
-          title: 'Share project update',
-          description: 'Notify team about new project',
+          type: 'linkedin_connect',
+          title: 'LinkedIn Update',
+          description: 'Share project update on LinkedIn',
           priority: 'medium',
-          estimatedTime: '5 seconds',
+          estimatedTime: '1 min',
           status: 'pending',
           order: 2,
           position: { x: 400, y: 100 },
           config: {
-            channel: 'social',
-            message: `📋 New project plan created: "${prompt.length > 50 ? prompt.substring(0, 50) + '...' : prompt}". Check Notion for details!`
+            action: 'message',
+            message: `Excited to share our new project: "${prompt.length > 50 ? prompt.substring(0, 50) + '...' : prompt}". Check out the details!`,
+            profile: 'https://linkedin.com/in/team'
           }
         }
       ];

@@ -43,8 +43,8 @@ import {
       }
     },
     {
-      type: 'linkedin',
-      label: 'LinkedIn Outreach',
+      type: 'linkedin_connect',
+      label: 'LinkedIn Connect',
       icon: UserGroupIcon,
       category: 'Social Networking',
       defaultConfig: {
@@ -62,6 +62,41 @@ import {
         action: 'follow',
         message: 'Great content! Looking forward to your updates.',
         profile: 'https://instagram.com/username'
+      }
+    },
+    {
+      type: 'coffee_chat',
+      label: 'Coffee Chat',
+      icon: CalendarIcon,
+      category: 'Scheduling',
+      defaultConfig: {
+        recipient: 'Contact Name',
+        message: 'Hi [Name], would you be interested in a quick coffee chat?',
+        meetingType: 'Coffee Chat',
+        duration: '30 minutes',
+        platform: 'In-person or Zoom'
+      }
+    },
+    {
+      type: 'introduction',
+      label: 'Request Introduction',
+      icon: UserGroupIcon,
+      category: 'Networking',
+      defaultConfig: {
+        recipient: 'Contact Name',
+        message: 'Hi [Name], I noticed we have mutual connections. Would you be open to a brief conversation?',
+        mutualConnections: 0
+      }
+    },
+    {
+      type: 'event_follow_up',
+      label: 'Event Follow-up',
+      icon: CalendarIcon,
+      category: 'Follow-up',
+      defaultConfig: {
+        recipient: 'Contact Name',
+        message: 'Hi [Name], congratulations on [achievement]! I\'d love to learn more about your approach.',
+        achievement: 'Recent achievement'
       }
     },
   ];
