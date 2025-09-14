@@ -1,0 +1,78 @@
+{
+  "nodes": [
+    {
+      "id": "4c44433afdab2438ff62ffa284e0a63d",
+      "name": "Danielle Strachman",
+      "source": "/home/paulc/Code/Orbit/backend/cache/4c44433afdab2438ff62ffa284e0a63d.json"
+    },
+    {
+      "id": "4c59a22ca2a950b083a6f85e25186fda",
+      "name": "Advait Maybhate",
+      "source": "/home/paulc/Code/Orbit/backend/cache/4c59a22ca2a950b083a6f85e25186fda.json"
+    },
+    {
+      "id": "99abc42331ec3196aa1fc6055486f0ab",
+      "name": "Tom Alterman",
+      "source": "/home/paulc/Code/Orbit/backend/cache/99abc42331ec3196aa1fc6055486f0ab.json"
+    },
+    {
+      "id": "fb3b864f409b423ab4c2fa0d25e3abf7",
+      "name": "Richard Junghyun Han",
+      "source": "/home/paulc/Code/Orbit/backend/cache/fb3b864f409b423ab4c2fa0d25e3abf7.json"
+    }
+  ],
+  "edges": [
+    {
+      "source": "4c44433afdab2438ff62ffa284e0a63d",
+      "target": "99abc42331ec3196aa1fc6055486f0ab",
+      "label": "Both hold senior leadership positions (Founder/GP vs Head of Product) in technology‑focused companies",
+      "similarities": [
+        "Both hold senior leadership positions (Founder/GP vs Head of Product) in technology‑focused companies"
+      ],
+      "confidence": 0.78,
+      "llm_raw": "{\n  \"label\": \"Senior leadership & mentorship in tech\",\n  \"similarities\": [\n    \"Both hold senior leadership positions (Founder/GP vs Head of Product) in technology‑focused companies\",\n    \"Both have mentorship/coaching experience (Danielle mentors entrepreneurs; Tom mentors teams and coaches\"\n  ],\n  \"confidence\": 0.78\n}"
+    },
+    {
+      "source": "4c59a22ca2a950b083a6f85e25186fda",
+      "target": "fb3b864f409b423ab4c2fa0d25e3abf7",
+      "label": "Both reside in New York, USA",
+      "similarities": [
+        "Both reside in New York, USA"
+      ],
+      "confidence": 0.85,
+      "llm_raw": "{\n  \"label\": \"Both based in New York, USA\",\n  \"similarities\": [\"Both reside in New York, USA\"],\n  \"confidence\": 0.85\n}"
+    },
+    {
+      "source": "4c44433afdab2438ff62ffa284e0a63d",
+      "target": "fb3b864f409b423ab4c2fa0d25e3abf7",
+      "label": "Both have finance-oriented interests: venture capital (A) and finance (B)",
+      "similarities": [
+        "Both have finance-oriented interests: venture capital (A) and finance (B)"
+      ],
+      "confidence": 0.6,
+      "llm_raw": "{\n  \"label\": \"Finance-related interests (venture capital & finance)\",\n  \"similarities\": [\n    \"Both have finance-oriented interests: venture capital (A) and finance (B)\"\n  ],\n  \"confidence\": 0.6\n}"
+    },
+    {
+      "source": "4c59a22ca2a950b083a6f85e25186fda",
+      "target": "99abc42331ec3196aa1fc6055486f0ab",
+      "label": "Both have AI as a key interest (AI integration vs AI in healthcare)",
+      "similarities": [
+        "Both have AI as a key interest (AI integration vs AI in healthcare)"
+      ],
+      "confidence": 0.86,
+      "llm_raw": "{\n  \"label\": \"AI focus and software industry overlap\",\n  \"similarities\": [\n    \"Both have AI as a key interest (AI integration vs AI in healthcare)\",\n    \"Both work in the software sector (Developer Tools at Warp vs SaaS at Asana)\"\n  ],\n  \"confidence\": 0.86\n}"
+    }
+  ],
+  "meta": {
+    "n": 4,
+    "edges_requested": 6,
+    "edges_created": 4,
+    "cache_dir": "/home/paulc/Code/Orbit/backend/cache",
+    "llm": {
+      "provider": "cerebras",
+      "model": "gpt-oss-120b",
+      "temperature": 0.2,
+      "available": true
+    }
+  }
+}

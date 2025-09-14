@@ -44,7 +44,7 @@ export default function PersonItem({
         isActive ? 'bg-blue-50' : ''
       )}
     >
-      <div className="px-3 py-2">
+      <div className="px-3 py-1.5">
         {/* Main content row */}
         <div className="flex items-start gap-3">
           {/* Avatar */}
@@ -52,7 +52,7 @@ export default function PersonItem({
             <img 
               src={person.avatar} 
               alt={person.name}
-              className="w-8 h-8 rounded-full object-cover"
+              className="w-7 h-7 rounded-full object-cover"
             />
             {isOverdueFollowUp && (
               <div className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 bg-red-500 rounded-full border border-white"></div>
@@ -62,7 +62,7 @@ export default function PersonItem({
           {/* Content */}
           <div className="flex-1 min-w-0">
             {/* Name and action button row */}
-            <div className="flex items-start justify-between mb-1">
+            <div className="flex items-start justify-between mb-0.5">
               <div className="min-w-0 flex-1">
                 <h3 className="font-medium text-gray-900 text-sm leading-tight truncate">
                   {person.name}
@@ -82,16 +82,16 @@ export default function PersonItem({
             </div>
 
             {/* Title and company */}
-            <p className="text-xs text-gray-500 leading-tight mb-1 truncate">
+            <p className="text-xs text-gray-500 leading-tight mb-0.5 truncate">
               {person.title} · {person.company}
             </p>
 
             {/* LLM Description */}
             {person.llmDescription && (
-              <p className="text-xs text-gray-600 leading-relaxed mb-2 overflow-hidden"
+              <p className="text-xs text-gray-600 leading-tight mb-1 overflow-hidden"
                  style={{ 
                    display: '-webkit-box',
-                   WebkitLineClamp: 2,
+                   WebkitLineClamp: 1,
                    WebkitBoxOrient: 'vertical'
                  }}>
                 {person.llmDescription}

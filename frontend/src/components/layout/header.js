@@ -9,7 +9,11 @@ import { MagnifyingGlassIcon } from '@heroicons/react/20/solid'
 import { 
   Bars3Icon, 
   BellIcon, 
-  XMarkIcon
+  XMarkIcon,
+  UsersIcon,
+  Cog6ToothIcon,
+  EyeIcon,
+  ChartBarIcon
 } from '@heroicons/react/24/outline'
 
 const user = {
@@ -19,10 +23,10 @@ const user = {
 }
 
 const navigation = [
-  { name: 'Automation', href: '/', current: true },
-  { name: 'Vision', href: '/vision', current: false },
-  { name: 'Graph', href: '/graph', current: false },
-  { name: 'Contacts', href: '/dashboard', current: false },
+  { name: 'People', href: '/dashboard', icon: UsersIcon, current: false },
+  { name: 'Automation', href: '/', icon: Cog6ToothIcon, current: true },
+  { name: 'Vision', href: '/vision', icon: EyeIcon, current: false },
+  { name: 'Graph', href: '/graph', icon: ChartBarIcon, current: false },
 ]
 
 const userNavigation = [
@@ -66,20 +70,24 @@ export default function Header() {
                 </div>
             {/* Desktop Navigation */}
             <nav className="hidden lg:flex space-x-1">
-              {navigation.map((item) => (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  className={classNames(
-                    pathname === item.href 
-                      ? 'bg-blue-50 text-blue-700 border-b-2 border-blue-500' 
-                      : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50 border-b-2 border-transparent',
-                    'px-3 py-2 rounded-t-md text-sm font-medium transition-all duration-200'
-                  )}
-                >
-                  {item.name}
-                </Link>
-              ))}
+              {navigation.map((item) => {
+                const IconComponent = item.icon;
+                return (
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    className={classNames(
+                      pathname === item.href 
+                        ? 'bg-blue-50 text-blue-700 border-b-2 border-blue-500' 
+                        : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50 border-b-2 border-transparent',
+                      'px-3 py-2 rounded-t-md text-sm font-medium transition-all duration-200 flex items-center gap-2'
+                    )}
+                  >
+                    <IconComponent className="w-4 h-4" />
+                    {item.name}
+                  </Link>
+                );
+              })}
             </nav>
           </div>
 
@@ -179,21 +187,25 @@ export default function Header() {
       <DisclosurePanel className="lg:hidden border-t border-gray-200">
         <div className="px-4 pt-2 pb-3 space-y-1">
           {/* Mobile Navigation */}
-          {navigation.map((item) => (
-            <DisclosureButton
-              key={item.name}
-              as={Link}
-              href={item.href}
-              className={classNames(
-                pathname === item.href 
-                  ? 'bg-blue-50 text-blue-700 border-l-4 border-blue-500' 
-                  : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900 border-l-4 border-transparent',
-                'block px-3 py-2 rounded-r-md text-base font-medium transition-all duration-200'
-              )}
-            >
-              {item.name}
-            </DisclosureButton>
-          ))}
+          {navigation.map((item) => {
+            const IconComponent = item.icon;
+            return (
+              <DisclosureButton
+                key={item.name}
+                as={Link}
+                href={item.href}
+                className={classNames(
+                  pathname === item.href 
+                    ? 'bg-blue-50 text-blue-700 border-l-4 border-blue-500' 
+                    : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900 border-l-4 border-transparent',
+                  'block px-3 py-2 rounded-r-md text-base font-medium transition-all duration-200 flex items-center gap-3'
+                )}
+              >
+                <IconComponent className="w-5 h-5" />
+                {item.name}
+              </DisclosureButton>
+            );
+          })}
         </div>
 
         {/* Mobile User Section */}

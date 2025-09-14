@@ -5,8 +5,8 @@ import NotesSection from '../components/main/NotesSection';
 export default function HomePage() {
   return (
     <div className="h-full flex flex-col">
-      {/* Flowchart Section - Smaller top section */}
-      <div className="h-156 border-b border-gray-200">
+      {/* Flowchart Section - Fixed height to prevent scrolling */}
+      <div className="h-120 border-b border-gray-200">
         <WorkflowFlowchart />
       </div>
       

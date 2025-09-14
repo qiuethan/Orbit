@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, createContext, useContext } from 'react';
 import './globals.css';
 
 // Import your main components
@@ -9,6 +9,17 @@ import PeopleSidebar from '../components/layout/workflowsidebar';
 import TaskQueue from '../components/layout/TaskQueue';
 import { WorkflowProvider } from '../context/WorkflowContext';
 import { AppProvider } from '../context/AppContext';
+
+// Create a context for sidebar collapse state
+const SidebarContext = createContext();
+
+export const useSidebar = () => {
+  const context = useContext(SidebarContext);
+  if (!context) {
+    throw new Error('useSidebar must be used within a SidebarProvider');
+  }
+  return context;
+};
 
 export default function RootLayout({ children }) {
   return (
@@ -25,8 +36,10 @@ export default function RootLayout({ children }) {
 }
 
 function LayoutContent({ children }) {
+  const [isRightSidebarCollapsed, setIsRightSidebarCollapsed] = useState(false);
+
   return (
-    <>
+    <SidebarContext.Provider value={{ isRightSidebarCollapsed, setIsRightSidebarCollapsed }}>
       {/* Header */}
       <Header />
       
@@ -44,11 +57,13 @@ function LayoutContent({ children }) {
         </div>
 
         {/* Right Panel - Task Queue */}
-        <div className="w-96 bg-white border-l border-gray-200">
+        <div className={`bg-white border-l border-gray-200 transition-all duration-300 ${
+          isRightSidebarCollapsed ? 'w-16' : 'w-96'
+        }`}>
           <TaskQueue />
         </div>
         
       </div>
-    </>
+    </SidebarContext.Provider>
   );
 }

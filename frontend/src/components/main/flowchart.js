@@ -187,8 +187,8 @@ const WorkflowFlowContent = () => {
             <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center mb-3 mx-auto">
               ⚡
             </div>
-            <h3 className="font-medium text-gray-900 mb-1">No workflow selected</h3>
-            <p className="text-sm text-gray-500">Select a workflow to view the flow diagram</p>
+            <h3 className="font-medium text-gray-900 mb-1">No action sequence selected</h3>
+            <p className="text-sm text-gray-500">Select an action sequence to view the flow diagram</p>
           </div>
         </div>
       </div>

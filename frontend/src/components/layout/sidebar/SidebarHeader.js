@@ -20,7 +20,7 @@ export default function SidebarHeader({
             <Users className="w-5 h-5 text-gray-700" />
           )}
           <span className="text-lg font-semibold text-gray-900">
-            {isWorkflowPage ? 'Workflows' : 'Contacts'}
+            {isWorkflowPage ? 'Actions' : 'Contacts'}
           </span>
         </div>
         <button
@@ -57,7 +57,7 @@ export default function SidebarHeader({
         </div>
         <input
           type="search"
-          placeholder={isWorkflowPage ? "Search workflows..." : "Search contacts..."}
+          placeholder={isWorkflowPage ? "Search actions..." : "Search contacts..."}
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           className="block w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg bg-white text-sm placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-colors"

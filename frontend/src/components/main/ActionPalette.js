@@ -38,7 +38,7 @@ const ActionPalette = ({ onDragStart }) => {
   const actionsByCategory = getActionsByCategory();
 
   return (
-    <div className="w-80 bg-white border-r border-gray-200 overflow-y-auto">
+    <div className="w-64 bg-white border-r border-gray-200 overflow-y-auto">
       {/* Header */}
       <div className="bg-white border-b border-gray-200 px-6 py-4">
         <div className="flex items-center justify-between">
@@ -46,7 +46,7 @@ const ActionPalette = ({ onDragStart }) => {
             <span className="text-lg font-semibold text-gray-900">Actions</span>
           </div>
         </div>
-        <p className="text-sm text-gray-500 mt-1">Drag actions to create workflow</p>
+        <p className="text-sm text-gray-500 mt-1">Drag actions to create automations</p>
       </div>
       
       {/* Action Categories */}

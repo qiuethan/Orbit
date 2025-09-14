@@ -19,14 +19,20 @@ import {
   HardDrive,
   Save,
   BookOpen, // For Notion icon
-  Clock
+  Clock,
+  ChevronLeft,
+  ChevronRight
 } from 'lucide-react';
 import { useWorkflow } from '../../context/WorkflowContext';
+import { useSidebar } from '../../app/layout';
 
 const TaskQueue = ({ activeWorkflow }) => {
   const [executing, setExecuting] = useState(false);
   const [localConfig, setLocalConfig] = useState({});
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
+  
+  // Get sidebar collapse state
+  const { isRightSidebarCollapsed, setIsRightSidebarCollapsed } = useSidebar();
   
   // Get data and actions from context
   const {
@@ -142,8 +148,8 @@ const TaskQueue = ({ activeWorkflow }) => {
           <div className="w-20 h-20 bg-gray-100 border border-gray-200 rounded-2xl flex items-center justify-center mb-6 mx-auto">
             <MessageSquare className="w-10 h-10 text-gray-500" />
           </div>
-          <h3 className="font-semibold text-gray-900 mb-2 text-lg">No Contact Selected</h3>
-          <p className="text-sm text-gray-600">Select a contact to see networking tasks</p>
+          <h3 className="font-semibold text-gray-900 mb-2 text-base">No Contact Selected</h3>
+          <p className="text-xs text-gray-600">Select a contact to see networking tasks</p>
         </div>
       </div>
     );
@@ -206,7 +212,7 @@ const TaskQueue = ({ activeWorkflow }) => {
             </div>
             <div className="flex-1 min-w-0">
               <div className="flex items-start justify-between mb-1">
-                <h3 className="font-medium text-gray-900 text-sm leading-tight truncate">
+                <h3 className="font-medium text-gray-900 text-xs leading-tight truncate">
                   {task.title}
                 </h3>
                 {isFailed && (
@@ -253,20 +259,20 @@ const TaskQueue = ({ activeWorkflow }) => {
             {/* Save/Reset Controls */}
             {hasUnsavedChanges && (
               <div className="flex items-center gap-3 mb-4 p-3 bg-amber-50 border border-amber-200 rounded-lg">
-                <div className="flex-1 text-sm text-amber-800">
+                <div className="flex-1 text-xs text-amber-800">
                   <span className="font-semibold">Unsaved Changes</span>
                   <span className="text-xs block mt-1 text-amber-700">Press Cmd+S to save or Esc to reset</span>
                 </div>
                 <button
                   onClick={handleSave}
-                  className="flex items-center gap-2 px-3 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors"
+                  className="flex items-center gap-2 px-2 py-1.5 bg-blue-600 text-white text-xs font-medium rounded-lg hover:bg-blue-700 transition-colors"
                 >
                   <Save className="w-3 h-3" />
                   Save
                 </button>
                 <button
                   onClick={handleReset}
-                  className="flex items-center gap-2 px-3 py-2 bg-gray-600 text-white text-sm font-medium rounded-lg hover:bg-gray-700 transition-colors"
+                  className="flex items-center gap-2 px-2 py-1.5 bg-gray-600 text-white text-xs font-medium rounded-lg hover:bg-gray-700 transition-colors"
                 >
                   <X className="w-3 h-3" />
                   Reset
@@ -277,7 +283,7 @@ const TaskQueue = ({ activeWorkflow }) => {
             <div className="space-y-3 mb-4">
               {Object.entries(localConfig || {}).map(([key, value]) => (
                 <div key={key}>
-                  <label className="block text-sm font-semibold text-gray-900 mb-2">
+                  <label className="block text-xs font-semibold text-gray-900 mb-1.5">
                     {key === 'recipient' ? 'To' : 
                      key === 'subject' ? 'Subject' :
                      key === 'message' ? 'Message' :
@@ -292,7 +298,7 @@ const TaskQueue = ({ activeWorkflow }) => {
                       value={value || ''}
                       onChange={(e) => handleInputChange(key, e.target.value)}
                       onBlur={handleBlur}
-                      className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-none transition-colors"
+                      className="w-full px-2 py-1.5 text-xs border border-gray-300 rounded-lg bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-none transition-colors"
                       rows={key === 'project' ? 4 : 3}
                       placeholder={
                         key === 'message' ? 'Write your message...' :
@@ -308,7 +314,7 @@ const TaskQueue = ({ activeWorkflow }) => {
                       value={value || ''}
                       onChange={(e) => handleInputChange(key, e.target.value)}
                       onBlur={handleBlur}
-                      className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                      className="w-full px-2 py-1.5 text-xs border border-gray-300 rounded-lg bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
                       placeholder={
                         key === 'subject' ? 'Email subject line...' :
                         key === 'recipient' ? 'Contact name or email...' :
@@ -326,7 +332,7 @@ const TaskQueue = ({ activeWorkflow }) => {
               <button
                 onClick={() => onExecute(task)}
                 disabled={executing}
-                className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                className="flex items-center gap-2 px-3 py-1.5 bg-blue-600 text-white text-xs font-medium rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
               >
                 <Play className="w-3 h-3" />
                 {executing ? 'Sending...' : 'Send Message'}
@@ -335,7 +341,7 @@ const TaskQueue = ({ activeWorkflow }) => {
               {hasUnsavedChanges && (
                 <button
                   onClick={handleSave}
-                  className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white text-sm font-medium rounded-lg hover:bg-green-700 transition-colors"
+                  className="flex items-center gap-2 px-3 py-1.5 bg-green-600 text-white text-xs font-medium rounded-lg hover:bg-green-700 transition-colors"
                 >
                   <Save className="w-3 h-3" />
                   Save Changes
@@ -353,6 +359,69 @@ const TaskQueue = ({ activeWorkflow }) => {
     );
   };
 
+  // Collapsed view - just icons
+  if (isRightSidebarCollapsed) {
+    return (
+      <div className="h-full flex flex-col bg-white">
+        {/* Collapsed Header */}
+        <div className="bg-white border-b border-gray-200 p-3">
+          <div className="flex items-center justify-center">
+            <button
+              onClick={() => setIsRightSidebarCollapsed(false)}
+              className="p-2 hover:bg-gray-100 rounded-lg transition-colors group"
+              title="Expand sidebar"
+            >
+              <ChevronLeft className="w-5 h-5 text-gray-600 group-hover:text-gray-900" />
+            </button>
+          </div>
+        </div>
+
+        {/* Collapsed Icons */}
+        <div className="flex-1 flex flex-col items-center py-4 space-y-4">
+          {/* Completed Tasks Icon */}
+          {completedTasks.length > 0 && (
+            <div className="flex flex-col items-center group cursor-pointer" title={`${completedTasks.length} completed tasks`}>
+              <div className="p-3 bg-green-100 rounded-lg group-hover:bg-green-200 transition-colors">
+                <Check className="w-5 h-5 text-green-600" />
+              </div>
+              <span className="text-xs font-medium text-green-600 mt-1">{completedTasks.length}</span>
+            </div>
+          )}
+
+          {/* Failed Tasks Icon */}
+          {failedTasks.length > 0 && (
+            <div className="flex flex-col items-center group cursor-pointer" title={`${failedTasks.length} failed tasks`}>
+              <div className="p-3 bg-red-100 rounded-lg group-hover:bg-red-200 transition-colors">
+                <AlertTriangle className="w-5 h-5 text-red-600" />
+              </div>
+              <span className="text-xs font-medium text-red-600 mt-1">{failedTasks.length}</span>
+            </div>
+          )}
+
+          {/* Current Task Icon */}
+          {currentTask && (
+            <div className="flex flex-col items-center group cursor-pointer" title="Current task">
+              <div className="p-3 bg-blue-100 rounded-lg group-hover:bg-blue-200 transition-colors">
+                <Play className="w-5 h-5 text-blue-600" />
+              </div>
+              <span className="text-xs font-medium text-blue-600 mt-1">1</span>
+            </div>
+          )}
+
+          {/* Pending Tasks Icon */}
+          {pendingTasks.length > 1 && (
+            <div className="flex flex-col items-center group cursor-pointer" title={`${pendingTasks.length - 1} pending tasks`}>
+              <div className="p-3 bg-gray-100 rounded-lg group-hover:bg-gray-200 transition-colors">
+                <Clock className="w-5 h-5 text-gray-600" />
+              </div>
+              <span className="text-xs font-medium text-gray-600 mt-1">{pendingTasks.length - 1}</span>
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="h-full flex flex-col bg-white">
       {/* Header - cleaner design matching sidebar */}
@@ -363,19 +432,28 @@ const TaskQueue = ({ activeWorkflow }) => {
               <Activity className="w-5 h-5 text-gray-600" />
             </div>
             <div>
-              <h3 className="font-medium text-gray-900 text-base">Networking Tasks</h3>
+              <h3 className="font-medium text-gray-900 text-sm">Networking Tasks</h3>
               {workflowData && (
-                <p className="text-sm text-gray-500 truncate max-w-60">
+                <p className="text-xs text-gray-500 truncate max-w-60">
                   {workflowData.name}
                 </p>
               )}
             </div>
             {hasUnsavedChanges && (
-              <span className="inline-flex items-center px-2 py-1 bg-amber-100 text-amber-800 border border-amber-200 text-xs font-medium rounded-full">
+              <span className="inline-flex items-center px-1.5 py-0.5 bg-amber-100 text-amber-800 border border-amber-200 text-xs font-medium rounded-full">
                 Unsaved Changes
               </span>
             )}
           </div>
+          
+          {/* Collapse button */}
+          <button
+            onClick={() => setIsRightSidebarCollapsed(true)}
+            className="p-2 hover:bg-gray-100 rounded-lg transition-colors group"
+            title="Collapse sidebar"
+          >
+            <ChevronRight className="w-5 h-5 text-gray-600 group-hover:text-gray-900" />
+          </button>
         </div>
       </div>
 
@@ -387,7 +465,7 @@ const TaskQueue = ({ activeWorkflow }) => {
               <div className="p-1 bg-green-100 rounded">
                 <Check className="w-4 h-4 text-green-600" />
               </div>
-              <h4 className="text-sm font-semibold text-gray-900">
+              <h4 className="text-xs font-semibold text-gray-900">
                 Completed Outreach ({completedTasks.length})
               </h4>
             </div>
@@ -410,7 +488,7 @@ const TaskQueue = ({ activeWorkflow }) => {
               <div className="p-1 bg-red-100 rounded">
                 <AlertTriangle className="w-4 h-4 text-red-600" />
               </div>
-              <h4 className="text-sm font-semibold text-gray-900">
+              <h4 className="text-xs font-semibold text-gray-900">
                 Failed Outreach ({failedTasks.length})
               </h4>
             </div>
@@ -434,7 +512,7 @@ const TaskQueue = ({ activeWorkflow }) => {
               <div className="p-1 bg-blue-100 rounded">
                 <Play className="w-4 h-4 text-blue-600" />
               </div>
-              <h4 className="text-sm font-semibold text-gray-900">
+              <h4 className="text-xs font-semibold text-gray-900">
                 Next Outreach
               </h4>
             </div>
@@ -449,8 +527,8 @@ const TaskQueue = ({ activeWorkflow }) => {
             <div className="w-24 h-24 bg-green-50 border border-green-200 rounded-2xl flex items-center justify-center mx-auto mb-6">
               <Check className="w-12 h-12 text-green-600" />
             </div>
-            <h3 className="font-semibold text-gray-900 mb-2 text-lg">All networking tasks completed!</h3>
-            <p className="text-sm text-gray-600">You're all caught up with your outreach</p>
+            <h3 className="font-semibold text-gray-900 mb-2 text-base">All networking tasks completed!</h3>
+            <p className="text-xs text-gray-600">You're all caught up with your outreach</p>
           </div>
         )}
 
@@ -461,7 +539,7 @@ const TaskQueue = ({ activeWorkflow }) => {
               <div className="p-1 bg-gray-100 rounded">
                 <Clock className="w-4 h-4 text-gray-600" />
               </div>
-              <h4 className="text-sm font-semibold text-gray-900">
+              <h4 className="text-xs font-semibold text-gray-900">
                 Up Next ({pendingTasks.length - 1})
               </h4>
             </div>

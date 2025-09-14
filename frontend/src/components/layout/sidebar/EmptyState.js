@@ -18,14 +18,14 @@ export default function EmptyState({
       </div>
       <div className="text-lg font-medium text-gray-900 mb-2">
         {searchQuery 
-          ? `No ${isWorkflowPage ? 'workflows' : 'contacts'} found`
-          : `No ${isWorkflowPage ? 'workflows' : 'contacts'} yet`
+          ? `No ${isWorkflowPage ? 'actions' : 'contacts'} found`
+          : `No ${isWorkflowPage ? 'actions' : 'contacts'} yet`
         }
       </div>
       <div className="text-sm text-gray-500 mb-6">
         {searchQuery 
           ? 'Try different search terms' 
-          : `${isWorkflowPage ? 'Create your first workflow to get started' : 'Add your first contact to get started'}`
+          : `${isWorkflowPage ? 'Create your first action sequence to get started' : 'Add your first contact to get started'}`
         }
       </div>
       {!searchQuery && (
@@ -34,7 +34,7 @@ export default function EmptyState({
           className="inline-flex items-center gap-x-2 rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 transition-colors shadow-sm"
         >
           <Plus className="w-4 h-4" />
-          {isWorkflowPage ? 'Create Workflow' : 'Add Contact'}
+          {isWorkflowPage ? 'Create Action' : 'Add Contact'}
         </button>
       )}
     </div>

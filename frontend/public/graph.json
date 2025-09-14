@@ -1,0 +1,881 @@
+{
+    "nodes": [
+      {
+        "id": "edwin-ngui",
+        "label": "Edwin Ngui",
+        "type": "person",
+        "size": 20,
+        "color": "#FA4F40",
+        "role": "Full-stack developer",
+        "location": "Waterloo, ON",
+        "company": "Meta",
+        "skills": ["react", "python", "mongodb", "docker"],
+        "interests": ["web", "databases", "ml"],
+        "projects": 11,
+        "followers": 23
+      },
+      {
+        "id": "taisir-hassan",
+        "label": "Taisir Hassan",
+        "type": "person",
+        "size": 18,
+        "color": "#FA4F40",
+        "role": "Full-stack developer",
+        "location": "Toronto, ON",
+        "company": "Shopify",
+        "skills": ["javascript", "react", "node.js", "mongodb"],
+        "interests": ["web", "fintech", "gaming"],
+        "projects": 9,
+        "followers": 8
+      },
+      {
+        "id": "rishi-umaria",
+        "label": "Rishi Umaria",
+        "type": "person",
+        "size": 17,
+        "color": "#FA4F40",
+        "role": "Full-stack developer",
+        "location": "Vancouver, BC",
+        "company": "Microsoft",
+        "skills": ["python", "javascript", "ui", "ux"],
+        "interests": ["blockchain", "cybersecurity", "ml"],
+        "projects": 5,
+        "followers": 7
+      },
+      {
+        "id": "matthew-yang",
+        "label": "Matthew Yang",
+        "type": "person",
+        "size": 16,
+        "color": "#FA4F40",
+        "role": "Full-stack developer",
+        "location": "Toronto, ON",
+        "company": "Google",
+        "skills": ["python", "javascript", "react"],
+        "interests": ["gaming", "education", "ml"],
+        "projects": 6,
+        "followers": 6
+      },
+      {
+        "id": "qasim-l",
+        "label": "qasim l.",
+        "type": "person",
+        "size": 16,
+        "color": "#FA4F40",
+        "role": "Full-stack developer",
+        "location": "Montreal, QC",
+        "company": "Ubisoft",
+        "skills": ["eating"],
+        "interests": ["blockchain", "databases", "ml"],
+        "projects": 7,
+        "followers": 7
+      },
+      {
+        "id": "mohammed-elshrief",
+        "label": "Mohammed Elshrief",
+        "type": "person",
+        "size": 15,
+        "color": "#F59E0B",
+        "role": "Data scientist",
+        "location": "Waterloo, ON",
+        "company": "OpenAI",
+        "skills": ["python", "pytorch", "pandas"],
+        "interests": ["ml", "fintech", "productivity"],
+        "projects": 7,
+        "followers": 3
+      },
+      {
+        "id": "brianna-azan",
+        "label": "Brianna Azan",
+        "type": "person",
+        "size": 14,
+        "color": "#EC4899",
+        "role": "Designer",
+        "location": "Toronto, ON",
+        "company": "Figma",
+        "skills": ["figma", "ui", "ux"],
+        "interests": ["design", "health", "web"],
+        "projects": 2,
+        "followers": 1
+      },
+      {
+        "id": "emily-yu",
+        "label": "Emily Yu",
+        "type": "person",
+        "size": 14,
+        "color": "#EC4899",
+        "role": "Designer",
+        "location": "Vancouver, BC",
+        "company": "Adobe",
+        "skills": ["design"],
+        "interests": ["design", "mobile", "productivity"],
+        "projects": 4,
+        "followers": 3
+      },
+      {
+        "id": "brian-li",
+        "label": "Brian Li",
+        "type": "person",
+        "size": 13,
+        "color": "#F59E0B",
+        "role": "Data scientist",
+        "location": "Toronto, ON",
+        "company": "Databricks",
+        "skills": ["python", "javascript", "react"],
+        "interests": ["ml", "cybersecurity", "iot"],
+        "projects": 4,
+        "followers": 4
+      },
+      {
+        "id": "dennis-yang",
+        "label": "Dennis Yang",
+        "type": "person",
+        "size": 13,
+        "color": "#FA4F40",
+        "role": "Full-stack developer",
+        "location": "Calgary, AB",
+        "company": "Amazon",
+        "skills": ["react", "python", "postgresql"],
+        "interests": ["fintech", "ml", "mobile"],
+        "projects": 2,
+        "followers": 1
+      },
+      {
+        "id": "aaryan-joharapurkar",
+        "label": "Aaryan Joharapurkar",
+        "type": "person",
+        "size": 12,
+        "color": "#FA4F40",
+        "role": "Full-stack developer",
+        "location": "Waterloo, ON",
+        "company": "Tesla",
+        "skills": ["python", "react", "node.js"],
+        "interests": ["productivity", "web", "ml"],
+        "projects": 1,
+        "followers": 3
+      },
+      {
+        "id": "tiara-lanson",
+        "label": "Tiara Lanson",
+        "type": "person",
+        "size": 13,
+        "color": "#06B6D4",
+        "role": "Front-end developer",
+        "location": "Toronto, ON",
+        "company": "Stripe",
+        "skills": ["design"],
+        "interests": ["design", "web", "ml"],
+        "projects": 2,
+        "followers": 1
+      },
+      {
+        "id": "hazel-bains",
+        "label": "Hazel Bains",
+        "type": "person",
+        "size": 13,
+        "color": "#06B6D4",
+        "role": "Front-end developer",
+        "location": "Vancouver, BC",
+        "company": "Netflix",
+        "skills": ["java", "html", "c++"],
+        "interests": ["ml", "automation"],
+        "projects": 1,
+        "followers": 0
+      },
+      {
+        "id": "jashan-khangura",
+        "label": "Jashan Khangura",
+        "type": "person",
+        "size": 12,
+        "color": "#FA4F40",
+        "role": "Full-stack developer",
+        "location": "Surrey, BC",
+        "company": "Slack",
+        "skills": ["html", "css", "javascript"],
+        "interests": ["web", "gaming", "blockchain"],
+        "projects": 4,
+        "followers": 1
+      },
+      {
+        "id": "manveer-sohal",
+        "label": "Manveer Sohal",
+        "type": "person",
+        "size": 12,
+        "color": "#FA4F40",
+        "role": "Full-stack developer",
+        "location": "Brampton, ON",
+        "company": "Unity",
+        "skills": ["react", "python", "mongodb", "unity"],
+        "interests": ["gaming", "databases", "web"],
+        "projects": 3,
+        "followers": 0
+      },
+      {
+        "id": "tom-zhang",
+        "label": "Tom Zhang",
+        "type": "person",
+        "size": 12,
+        "color": "#FA4F40",
+        "role": "Full-stack developer",
+        "location": "Toronto, ON",
+        "company": "Coinbase",
+        "skills": ["python", "javascript", "django"],
+        "interests": ["blockchain", "fintech", "web"],
+        "projects": 3,
+        "followers": 5
+      },
+      {
+        "id": "aditya-sharma",
+        "label": "Aditya Sharma",
+        "type": "person",
+        "size": 12,
+        "color": "#F59E0B",
+        "role": "Data scientist",
+        "location": "Waterloo, ON",
+        "company": "Palantir",
+        "skills": ["ml"],
+        "interests": ["ml", "fintech", "health"],
+        "projects": 7,
+        "followers": 0
+      },
+      {
+        "id": "krish-kochar",
+        "label": "Krish Kochar",
+        "type": "person",
+        "size": 11,
+        "color": "#FA4F40",
+        "role": "Full-stack developer",
+        "location": "Toronto, ON",
+        "company": "Robinhood",
+        "skills": ["python", "react", "node.js"],
+        "interests": ["cybersecurity", "ml", "fintech"],
+        "projects": 1,
+        "followers": 0
+      },
+      {
+        "id": "jane-hou",
+        "label": "Jane Hou",
+        "type": "person",
+        "size": 11,
+        "color": "#EC4899",
+        "role": "Designer",
+        "location": "Vancouver, BC",
+        "company": "Airbnb",
+        "skills": ["figma", "html", "css"],
+        "interests": ["design", "mobile", "web"],
+        "projects": 3,
+        "followers": 1
+      },
+      {
+        "id": "sunny-wu",
+        "label": "Sunny Wu",
+        "type": "person",
+        "size": 11,
+        "color": "#6B7280",
+        "role": "Business",
+        "location": "Toronto, ON",
+        "company": "Goldman Sachs",
+        "skills": ["python", "finance", "business"],
+        "interests": ["fintech", "productivity", "web"],
+        "projects": 1,
+        "followers": 0
+      },
+      {
+        "id": "waterloo",
+        "label": "Waterloo, ON",
+        "type": "location",
+        "size": 15,
+        "color": "#727EE0"
+      },
+      {
+        "id": "toronto",
+        "label": "Toronto, ON",
+        "type": "location",
+        "size": 18,
+        "color": "#727EE0"
+      },
+      {
+        "id": "vancouver",
+        "label": "Vancouver, BC",
+        "type": "location",
+        "size": 16,
+        "color": "#727EE0"
+      },
+      {
+        "id": "montreal",
+        "label": "Montreal, QC",
+        "type": "location",
+        "size": 12,
+        "color": "#727EE0"
+      },
+      {
+        "id": "calgary",
+        "label": "Calgary, AB",
+        "type": "location",
+        "size": 10,
+        "color": "#727EE0"
+      },
+      {
+        "id": "meta",
+        "label": "Meta",
+        "type": "company",
+        "size": 12,
+        "color": "#8B5CF6"
+      },
+      {
+        "id": "google",
+        "label": "Google",
+        "type": "company",
+        "size": 14,
+        "color": "#8B5CF6"
+      },
+      {
+        "id": "microsoft",
+        "label": "Microsoft",
+        "type": "company",
+        "size": 13,
+        "color": "#8B5CF6"
+      },
+      {
+        "id": "amazon",
+        "label": "Amazon",
+        "type": "company",
+        "size": 12,
+        "color": "#8B5CF6"
+      },
+      {
+        "id": "shopify",
+        "label": "Shopify",
+        "type": "company",
+        "size": 11,
+        "color": "#8B5CF6"
+      },
+      {
+        "id": "openai",
+        "label": "OpenAI",
+        "type": "company",
+        "size": 10,
+        "color": "#8B5CF6"
+      },
+      {
+        "id": "react",
+        "label": "React",
+        "type": "skill",
+        "size": 10,
+        "color": "#5DB346"
+      },
+      {
+        "id": "python",
+        "label": "Python",
+        "type": "skill",
+        "size": 12,
+        "color": "#5DB346"
+      },
+      {
+        "id": "javascript",
+        "label": "JavaScript",
+        "type": "skill",
+        "size": 11,
+        "color": "#5DB346"
+      },
+      {
+        "id": "ml",
+        "label": "Machine Learning",
+        "type": "interest",
+        "size": 14,
+        "color": "#10B981"
+      },
+      {
+        "id": "web",
+        "label": "Web Development",
+        "type": "interest",
+        "size": 13,
+        "color": "#10B981"
+      },
+      {
+        "id": "fintech",
+        "label": "Fintech",
+        "type": "interest",
+        "size": 11,
+        "color": "#10B981"
+      },
+      {
+        "id": "design",
+        "label": "Design",
+        "type": "interest",
+        "size": 10,
+        "color": "#10B981"
+      },
+      {
+        "id": "gaming",
+        "label": "Gaming",
+        "type": "interest",
+        "size": 9,
+        "color": "#10B981"
+      }
+    ],
+    "edges": [
+      {
+        "source": "edwin-ngui",
+        "target": "taisir-hassan",
+        "type": "line",
+        "label": "collaborates with",
+        "size": 5
+      },
+      {
+        "source": "taisir-hassan",
+        "target": "rishi-umaria",
+        "type": "line",
+        "label": "collaborates with",
+        "size": 5
+      },
+      {
+        "source": "edwin-ngui",
+        "target": "matthew-yang",
+        "type": "line",
+        "label": "collaborates with",
+        "size": 4
+      },
+      {
+        "source": "qasim-l",
+        "target": "mohammed-elshrief",
+        "type": "line",
+        "label": "collaborates with",
+        "size": 4
+      },
+      {
+        "source": "brianna-azan",
+        "target": "emily-yu",
+        "type": "line",
+        "label": "collaborates with",
+        "size": 4
+      },
+      {
+        "source": "tiara-lanson",
+        "target": "hazel-bains",
+        "type": "line",
+        "label": "collaborates with",
+        "size": 3
+      },
+      {
+        "source": "matthew-yang",
+        "target": "brian-li",
+        "type": "line",
+        "label": "collaborates with",
+        "size": 3
+      },
+      {
+        "source": "rishi-umaria",
+        "target": "krish-kochar",
+        "type": "line",
+        "label": "mentors",
+        "size": 3
+      },
+      {
+        "source": "edwin-ngui",
+        "target": "waterloo",
+        "type": "arrow",
+        "label": "located in",
+        "size": 3
+      },
+      {
+        "source": "mohammed-elshrief",
+        "target": "waterloo",
+        "type": "arrow",
+        "label": "located in",
+        "size": 3
+      },
+      {
+        "source": "aaryan-joharapurkar",
+        "target": "waterloo",
+        "type": "arrow",
+        "label": "located in",
+        "size": 3
+      },
+      {
+        "source": "aditya-sharma",
+        "target": "waterloo",
+        "type": "arrow",
+        "label": "located in",
+        "size": 3
+      },
+      {
+        "source": "taisir-hassan",
+        "target": "toronto",
+        "type": "arrow",
+        "label": "located in",
+        "size": 3
+      },
+      {
+        "source": "matthew-yang",
+        "target": "toronto",
+        "type": "arrow",
+        "label": "located in",
+        "size": 3
+      },
+      {
+        "source": "brianna-azan",
+        "target": "toronto",
+        "type": "arrow",
+        "label": "located in",
+        "size": 3
+      },
+      {
+        "source": "brian-li",
+        "target": "toronto",
+        "type": "arrow",
+        "label": "located in",
+        "size": 3
+      },
+      {
+        "source": "tiara-lanson",
+        "target": "toronto",
+        "type": "arrow",
+        "label": "located in",
+        "size": 3
+      },
+      {
+        "source": "krish-kochar",
+        "target": "toronto",
+        "type": "arrow",
+        "label": "located in",
+        "size": 3
+      },
+      {
+        "source": "sunny-wu",
+        "target": "toronto",
+        "type": "arrow",
+        "label": "located in",
+        "size": 3
+      },
+      {
+        "source": "tom-zhang",
+        "target": "toronto",
+        "type": "arrow",
+        "label": "located in",
+        "size": 3
+      },
+      {
+        "source": "rishi-umaria",
+        "target": "vancouver",
+        "type": "arrow",
+        "label": "located in",
+        "size": 3
+      },
+      {
+        "source": "emily-yu",
+        "target": "vancouver",
+        "type": "arrow",
+        "label": "located in",
+        "size": 3
+      },
+      {
+        "source": "hazel-bains",
+        "target": "vancouver",
+        "type": "arrow",
+        "label": "located in",
+        "size": 3
+      },
+      {
+        "source": "jane-hou",
+        "target": "vancouver",
+        "type": "arrow",
+        "label": "located in",
+        "size": 3
+      },
+      {
+        "source": "qasim-l",
+        "target": "montreal",
+        "type": "arrow",
+        "label": "located in",
+        "size": 3
+      },
+      {
+        "source": "dennis-yang",
+        "target": "calgary",
+        "type": "arrow",
+        "label": "located in",
+        "size": 3
+      },
+      {
+        "source": "edwin-ngui",
+        "target": "meta",
+        "type": "arrow",
+        "label": "interned at",
+        "size": 4
+      },
+      {
+        "source": "taisir-hassan",
+        "target": "shopify",
+        "type": "arrow",
+        "label": "interned at",
+        "size": 4
+      },
+      {
+        "source": "rishi-umaria",
+        "target": "microsoft",
+        "type": "arrow",
+        "label": "interned at",
+        "size": 4
+      },
+      {
+        "source": "matthew-yang",
+        "target": "google",
+        "type": "arrow",
+        "label": "interned at",
+        "size": 4
+      },
+      {
+        "source": "mohammed-elshrief",
+        "target": "openai",
+        "type": "arrow",
+        "label": "interned at",
+        "size": 4
+      },
+      {
+        "source": "dennis-yang",
+        "target": "amazon",
+        "type": "arrow",
+        "label": "interned at",
+        "size": 4
+      },
+      {
+        "source": "edwin-ngui",
+        "target": "react",
+        "type": "arrow",
+        "label": "expert in",
+        "size": 3
+      },
+      {
+        "source": "taisir-hassan",
+        "target": "react",
+        "type": "arrow",
+        "label": "expert in",
+        "size": 3
+      },
+      {
+        "source": "matthew-yang",
+        "target": "react",
+        "type": "arrow",
+        "label": "expert in",
+        "size": 3
+      },
+      {
+        "source": "aaryan-joharapurkar",
+        "target": "react",
+        "type": "arrow",
+        "label": "expert in",
+        "size": 3
+      },
+      {
+        "source": "dennis-yang",
+        "target": "react",
+        "type": "arrow",
+        "label": "expert in",
+        "size": 3
+      },
+      {
+        "source": "edwin-ngui",
+        "target": "python",
+        "type": "arrow",
+        "label": "expert in",
+        "size": 3
+      },
+      {
+        "source": "rishi-umaria",
+        "target": "python",
+        "type": "arrow",
+        "label": "expert in",
+        "size": 3
+      },
+      {
+        "source": "matthew-yang",
+        "target": "python",
+        "type": "arrow",
+        "label": "expert in",
+        "size": 3
+      },
+      {
+        "source": "mohammed-elshrief",
+        "target": "python",
+        "type": "arrow",
+        "label": "expert in",
+        "size": 3
+      },
+      {
+        "source": "brian-li",
+        "target": "python",
+        "type": "arrow",
+        "label": "expert in",
+        "size": 3
+      },
+      {
+        "source": "taisir-hassan",
+        "target": "javascript",
+        "type": "arrow",
+        "label": "expert in",
+        "size": 3
+      },
+      {
+        "source": "matthew-yang",
+        "target": "javascript",
+        "type": "arrow",
+        "label": "expert in",
+        "size": 3
+      },
+      {
+        "source": "jashan-khangura",
+        "target": "javascript",
+        "type": "arrow",
+        "label": "expert in",
+        "size": 3
+      },
+      {
+        "source": "edwin-ngui",
+        "target": "ml",
+        "type": "arrow",
+        "label": "interested in",
+        "size": 2
+      },
+      {
+        "source": "rishi-umaria",
+        "target": "ml",
+        "type": "arrow",
+        "label": "interested in",
+        "size": 2
+      },
+      {
+        "source": "matthew-yang",
+        "target": "ml",
+        "type": "arrow",
+        "label": "interested in",
+        "size": 2
+      },
+      {
+        "source": "mohammed-elshrief",
+        "target": "ml",
+        "type": "arrow",
+        "label": "specializes in",
+        "size": 4
+      },
+      {
+        "source": "brian-li",
+        "target": "ml",
+        "type": "arrow",
+        "label": "specializes in",
+        "size": 4
+      },
+      {
+        "source": "aditya-sharma",
+        "target": "ml",
+        "type": "arrow",
+        "label": "specializes in",
+        "size": 4
+      },
+      {
+        "source": "edwin-ngui",
+        "target": "web",
+        "type": "arrow",
+        "label": "interested in",
+        "size": 3
+      },
+      {
+        "source": "taisir-hassan",
+        "target": "web",
+        "type": "arrow",
+        "label": "interested in",
+        "size": 3
+      },
+      {
+        "source": "tiara-lanson",
+        "target": "web",
+        "type": "arrow",
+        "label": "interested in",
+        "size": 3
+      },
+      {
+        "source": "brianna-azan",
+        "target": "design",
+        "type": "arrow",
+        "label": "specializes in",
+        "size": 4
+      },
+      {
+        "source": "emily-yu",
+        "target": "design",
+        "type": "arrow",
+        "label": "specializes in",
+        "size": 4
+      },
+      {
+        "source": "jane-hou",
+        "target": "design",
+        "type": "arrow",
+        "label": "specializes in",
+        "size": 4
+      },
+      {
+        "source": "qasim-l",
+        "target": "gaming",
+        "type": "arrow",
+        "label": "interested in",
+        "size": 2
+      },
+      {
+        "source": "matthew-yang",
+        "target": "gaming",
+        "type": "arrow",
+        "label": "interested in",
+        "size": 2
+      },
+      {
+        "source": "manveer-sohal",
+        "target": "gaming",
+        "type": "arrow",
+        "label": "interested in",
+        "size": 2
+      },
+      {
+        "source": "jashan-khangura",
+        "target": "gaming",
+        "type": "arrow",
+        "label": "interested in",
+        "size": 2
+      },
+      {
+        "source": "taisir-hassan",
+        "target": "fintech",
+        "type": "arrow",
+        "label": "interested in",
+        "size": 2
+      },
+      {
+        "source": "mohammed-elshrief",
+        "target": "fintech",
+        "type": "arrow",
+        "label": "interested in",
+        "size": 2
+      },
+      {
+        "source": "tom-zhang",
+        "target": "fintech",
+        "type": "arrow",
+        "label": "interested in",
+        "size": 2
+      },
+      {
+        "source": "krish-kochar",
+        "target": "fintech",
+        "type": "arrow",
+        "label": "interested in",
+        "size": 2
+      },
+      {
+        "source": "sunny-wu",
+        "target": "fintech",
+        "type": "arrow",
+        "label": "interested in",
+        "size": 2
+      }
+    ]
+  }
