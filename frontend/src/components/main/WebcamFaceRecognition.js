@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect, useCallback } from 'react';
+import { useDetection } from '../../context/DetectionContext';
 
 const WebcamFaceRecognition = () => {
   const [isStreamActive, setIsStreamActive] = useState(false);
@@ -11,7 +12,10 @@ const WebcamFaceRecognition = () => {
   const [frameCount, setFrameCount] = useState(0);
   const [presence, setPresence] = useState({ inFrame: new Set(), events: [] });
   const [connectionMethod, setConnectionMethod] = useState('sse'); // 'sse' or 'polling'
-  const [trackLabels, setTrackLabels] = useState({}); // { [trackId]: { label: string, recognized: boolean } }
+  const [trackLabels, setTrackLabels] = useState({}); // { [trackId]: { label: string, recognized: boolean, personData: object, isLoading: boolean } }
+  
+  // Get detection context to share data with sidebar
+  const { updateDetections } = useDetection();
   
   const canvasRef = useRef(null);
   const imageRef = useRef(null);
@@ -20,6 +24,53 @@ const WebcamFaceRecognition = () => {
   const retryTimeoutRef = useRef(null);
   const retryAttempts = useRef(0);
   const maxRetryAttempts = 5;
+
+  // Function to get person data from cache by name
+  const getPersonDataFromCache = useCallback(async (personName) => {
+    try {
+      // Fetch the full people data from your backend cache
+      const response = await fetch('http://localhost:8000/list');
+      if (!response.ok) {
+        console.warn('Failed to fetch people data from cache');
+        return null;
+      }
+      
+      const peopleData = await response.json();
+      
+      // Find the person by name in the cache
+      const person = peopleData.find(item => {
+        const fullName = item.person_analysis?.personal_info?.full_name;
+        return fullName && fullName.toLowerCase().includes(personName.toLowerCase());
+      });
+      
+      if (person && person.person_analysis) {
+        const analysis = person.person_analysis;
+        const personalInfo = analysis.personal_info || {};
+        const professionalInfo = analysis.professional_info || {};
+        
+        return {
+          name: personalInfo.full_name || personName,
+          title: professionalInfo.current_position || 'Professional',
+          company: professionalInfo.company || 'Company',
+          email: personalInfo.email || `${personName.toLowerCase().replace(/\s+/g, '.')}@company.com`,
+          location: personalInfo.location || '',
+          industry: professionalInfo.industry || '',
+          confidence: analysis.confidence_level || 'Medium',
+          publicPresenceScore: analysis.public_presence_score || 'Medium',
+          keyInsights: analysis.key_insights || [],
+          talkingPoints: analysis.talking_points || {},
+          socialMedia: analysis.social_media || [],
+          avatar: person.thumbnail_base64 || `https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(personalInfo.full_name || personName)}`,
+          rawData: person // Include full raw data for advanced features
+        };
+      }
+      
+      return null;
+    } catch (error) {
+      console.error('Error fetching person data from cache:', error);
+      return null;
+    }
+  }, []);
 
   // Polling fallback for when SSE fails
   const startPolling = useCallback(() => {
@@ -46,12 +97,28 @@ const WebcamFaceRecognition = () => {
               seen.add(tid);
               if (d.recognized && d.name) {
                 if (!next[tid] || next[tid]?.label !== d.name) {
-                  next[tid] = { label: d.name, recognized: true };
+                    // Initialize with loading state
+                    next[tid] = { 
+                      label: d.name, 
+                      recognized: true,
+                      personData: null,
+                      isLoading: true
+                    };
+                    
+                    // Fetch person data asynchronously with a small delay for better UX
+                    setTimeout(() => {
+                      getPersonDataFromCache(d.name).then(personData => {
+                        setTrackLabels(prev => ({
+                          ...prev,
+                          [tid]: { ...prev[tid], personData, isLoading: false }
+                        }));
+                      });
+                    }, 2500 + Math.random() * 1500); // 2.5-4 second random delay
                 } else if (next[tid] && next[tid].recognized !== true) {
                   next[tid] = { ...next[tid], recognized: true };
                 }
               } else if (!next[tid]) {
-                next[tid] = { label: 'Unknown', recognized: false };
+                  next[tid] = { label: 'Unknown', recognized: false, personData: null, isLoading: false };
               }
             });
             Object.keys(next).forEach((key) => {
@@ -88,7 +155,7 @@ const WebcamFaceRecognition = () => {
     
     // Poll every 100ms (10 FPS)
     pollingIntervalRef.current = setInterval(pollFrame, 100);
-  }, []);
+  }, [getPersonDataFromCache]);
 
   // Server-Sent Events connection for reliable streaming
   const connectSSE = useCallback(() => {
@@ -131,12 +198,28 @@ const WebcamFaceRecognition = () => {
                 seen.add(tid);
                 if (d.recognized && d.name) {
                   if (!next[tid] || next[tid]?.label !== d.name) {
-                    next[tid] = { label: d.name, recognized: true };
+                    // Initialize with loading state
+                    next[tid] = { 
+                      label: d.name, 
+                      recognized: true,
+                      personData: null,
+                      isLoading: true
+                    };
+                    
+                    // Fetch person data asynchronously with a small delay for better UX
+                    setTimeout(() => {
+                      getPersonDataFromCache(d.name).then(personData => {
+                        setTrackLabels(prev => ({
+                          ...prev,
+                          [tid]: { ...prev[tid], personData, isLoading: false }
+                        }));
+                      });
+                    }, 2500 + Math.random() * 1500); // 2.5-4 second random delay
                   } else if (next[tid] && next[tid].recognized !== true) {
                     next[tid] = { ...next[tid], recognized: true };
                   }
                 } else if (!next[tid]) {
-                  next[tid] = { label: 'Unknown', recognized: false };
+                  next[tid] = { label: 'Unknown', recognized: false, personData: null, isLoading: false };
                 }
               });
               Object.keys(next).forEach((key) => {
@@ -198,7 +281,7 @@ const WebcamFaceRecognition = () => {
       setConnectionMethod('polling');
       startPolling();
     }
-  }, [startPolling]);
+  }, [startPolling, getPersonDataFromCache]);
 
   // Disconnect all streams
   const disconnectStream = useCallback(() => {
@@ -261,7 +344,7 @@ const WebcamFaceRecognition = () => {
     setDetections([]);
   }, [disconnectStream]);
 
-  // Draw bounding boxes and labels on canvas
+  // Draw Apple-style glass overlays above detected faces
   const drawDetections = useCallback(() => {
     const canvas = canvasRef.current;
     const image = imageRef.current;
@@ -282,7 +365,7 @@ const WebcamFaceRecognition = () => {
     // Clear canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     
-    // Draw detections
+    // Draw glass overlays for each detection
     detections.forEach((detection) => {
       const [x1, y1, x2, y2] = detection.bbox;
       
@@ -292,45 +375,231 @@ const WebcamFaceRecognition = () => {
       const scaledX2 = x2 * scaleX;
       const scaledY2 = y2 * scaleY;
       
-      const width = scaledX2 - scaledX1;
-      const height = scaledY2 - scaledY1;
+      const faceWidth = scaledX2 - scaledX1;
+      const faceHeight = scaledY2 - scaledY1;
+      const faceCenterX = scaledX1 + faceWidth / 2;
       
-      // Determine color based on status and confidence
+      // Get person info from cache
       const tid = detection.track_id ?? null;
       const tracked = tid != null ? trackLabels[tid] : null;
       const recognizedNow = Boolean(detection.recognized || (tracked && tracked.recognized));
-      const label = (tracked && tracked.label) || (detection.recognized ? detection.name : 'Unknown');
-      const color = recognizedNow ? '#00FF00' : '#FF0000';
+      const personData = tracked?.personData || null;
       
-      // Draw bounding box
-      ctx.strokeStyle = color;
-      ctx.lineWidth = 3;
-      ctx.strokeRect(scaledX1, scaledY1, width, height);
+      // Glass overlay dimensions - dynamic height based on content
+      const overlayWidth = Math.max(280, faceWidth * 1.2);
+      const baseHeight = 60;
+      const lineHeight = 16;
+      const padding = 12;
       
-      // Draw label background
-      ctx.font = '16px Arial';
-      const textMetrics = ctx.measureText(label);
-      const textWidth = textMetrics.width;
-      const textHeight = 20;
+      // Calculate height based on expected content
+      let expectedLines = 1; // Name is always shown
       
-      ctx.fillStyle = color;
-      ctx.fillRect(scaledX1, scaledY1 - textHeight - 5, textWidth + 10, textHeight + 5);
+      if (tracked?.isLoading) {
+        expectedLines += 1; // Loading text
+      } else if (tracked?.personData) {
+        expectedLines += 1; // Title/company
+        if (personData?.location || personData?.industry) {
+          expectedLines += 1; // Location/industry
+        }
+      }
       
-      // Draw label text
-      ctx.fillStyle = '#000000';
-      ctx.fillText(label, scaledX1 + 5, scaledY1 - 8);
+      const overlayHeight = baseHeight + (expectedLines - 1) * lineHeight;
+      const overlayX = faceCenterX - overlayWidth / 2;
+      const overlayY = scaledY1 - overlayHeight - 15; // Position above face
       
-      // Draw confidence score if available
-      if (detection.confidence && detection.confidence > 0) {
-        const confLabel = `Conf: ${(detection.confidence * 100).toFixed(0)}%`;
-        ctx.font = '12px Arial';
-        ctx.fillStyle = color;
-        ctx.fillRect(scaledX1, scaledY2 + 2, ctx.measureText(confLabel).width + 6, 16);
-        ctx.fillStyle = '#000000';
-        ctx.fillText(confLabel, scaledX1 + 3, scaledY2 + 14);
+      // Ensure overlay stays within canvas bounds
+      const finalOverlayX = Math.max(10, Math.min(overlayX, canvas.width - overlayWidth - 10));
+      const finalOverlayY = Math.max(10, overlayY);
+      
+      // Create glass effect with gradient
+      const glassGradient = ctx.createLinearGradient(finalOverlayX, finalOverlayY, finalOverlayX, finalOverlayY + overlayHeight);
+      glassGradient.addColorStop(0, 'rgba(255, 255, 255, 0.25)');
+      glassGradient.addColorStop(0.5, 'rgba(255, 255, 255, 0.1)');
+      glassGradient.addColorStop(1, 'rgba(255, 255, 255, 0.05)');
+      
+      // Draw glass background with rounded corners
+      ctx.fillStyle = glassGradient;
+      ctx.beginPath();
+      ctx.roundRect(finalOverlayX, finalOverlayY, overlayWidth, overlayHeight, 12);
+      ctx.fill();
+      
+      // Draw glass border
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.roundRect(finalOverlayX, finalOverlayY, overlayWidth, overlayHeight, 12);
+      ctx.stroke();
+      
+      // Draw subtle inner shadow
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+      ctx.beginPath();
+      ctx.roundRect(finalOverlayX + 1, finalOverlayY + 1, overlayWidth - 2, overlayHeight - 2, 11);
+      ctx.fill();
+      
+      // Prepare text content from cache data
+      const name = (tracked && tracked.label) || (detection.recognized ? detection.name : 'Unknown Person');
+      const title = personData?.title || 'Professional';
+      const company = personData?.company || '';
+      const location = personData?.location || '';
+      const industry = personData?.industry || '';
+      const confidence = detection.confidence || detection.similarity || 0;
+      const isLoading = tracked?.isLoading || false;
+      
+      // Helper function to fit text within width
+      const fitText = (text, maxWidth, fontSize) => {
+        ctx.font = `${fontSize}px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif`;
+        const textWidth = ctx.measureText(text).width;
+        if (textWidth <= maxWidth) {
+          return { text, fontSize };
+        }
+        
+        // Try progressively smaller font sizes
+        let newFontSize = fontSize;
+        while (newFontSize > 10 && ctx.measureText(text).width > maxWidth) {
+          newFontSize -= 0.5;
+          ctx.font = `${newFontSize}px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif`;
+        }
+        
+        // If still too wide even at minimum font size, then truncate
+        if (ctx.measureText(text).width > maxWidth) {
+          let truncatedText = text;
+          while (ctx.measureText(truncatedText + '...').width > maxWidth && truncatedText.length > 15) {
+            truncatedText = truncatedText.slice(0, -1);
+          }
+          return { text: truncatedText + (truncatedText.length < text.length ? '...' : ''), fontSize: newFontSize };
+        }
+        
+        return { text, fontSize: newFontSize };
+      };
+      
+      const photoSize = 36;
+      const photoX = finalOverlayX + 12;
+      const photoY = finalOverlayY + 12;
+      const textStartX = photoX + photoSize + 8; // Start text after photo + padding
+      const textPadding = 12;
+      const availableWidth = overlayWidth - textStartX - textPadding; // Available width for text
+      
+      // Debug: Let's use most of the overlay width for text
+      const debugAvailableWidth = overlayWidth * 0.8; // Use 80% of overlay width
+      let currentY = finalOverlayY + 20;
+      
+      if (personData && personData.avatar && !isLoading) {
+        // Create a circular clip for the photo
+        ctx.save();
+        ctx.beginPath();
+        ctx.arc(photoX + photoSize / 2, photoY + photoSize / 2, photoSize / 2, 0, Math.PI * 2);
+        ctx.clip();
+        
+        // Draw photo background circle
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
+        ctx.fillRect(photoX, photoY, photoSize, photoSize);
+        
+        // Load and draw the profile image
+        const img = new Image();
+        img.onload = () => {
+          ctx.drawImage(img, photoX, photoY, photoSize, photoSize);
+        };
+        img.onerror = () => {
+          // Fallback to initials if image fails to load
+          ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+          ctx.font = 'bold 14px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+          ctx.textAlign = 'center';
+          ctx.fillText(name.split(' ').map(n => n[0]).join(''), photoX + photoSize / 2, photoY + photoSize / 2 + 5);
+        };
+        img.src = personData.avatar;
+        
+        ctx.restore();
+      } else {
+        // Draw placeholder circle even when loading or no photo
+        ctx.save();
+        ctx.beginPath();
+        ctx.arc(photoX + photoSize / 2, photoY + photoSize / 2, photoSize / 2, 0, Math.PI * 2);
+        ctx.clip();
+        
+        // Draw placeholder background
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
+        ctx.fillRect(photoX, photoY, photoSize, photoSize);
+        
+        // Draw initials or loading indicator
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
+        ctx.font = 'bold 14px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+        ctx.textAlign = 'center';
+        if (isLoading) {
+          ctx.fillText('...', photoX + photoSize / 2, photoY + photoSize / 2 + 5);
+        } else {
+          ctx.fillText(name.split(' ').map(n => n[0]).join(''), photoX + photoSize / 2, photoY + photoSize / 2 + 5);
+        }
+        
+        ctx.restore();
+      }
+      
+      // Draw name (main text) - always show
+      const nameResult = fitText(name, debugAvailableWidth, 16);
+      ctx.font = `bold ${nameResult.fontSize}px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif`;
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
+      ctx.textAlign = 'left';
+      ctx.fillText(nameResult.text, textStartX, currentY);
+      currentY += nameResult.fontSize + 4;
+      
+      // Show loading state with animation
+      if (isLoading) {
+        ctx.font = '11px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
+        
+        // Simple loading animation with dots
+        const dots = Math.floor((Date.now() / 500) % 4);
+        const loadingText = 'Loading details' + '.'.repeat(dots);
+        ctx.fillText(loadingText, textStartX, currentY);
+        currentY += 16;
+      } else if (personData) {
+        // Draw title and company (line 2) - only if person data is loaded
+        if (title !== 'Professional' || company) {
+          const subtitle = company ? `${title} · ${company}` : title;
+          const subtitleResult = fitText(subtitle, debugAvailableWidth, 12);
+          ctx.font = `${subtitleResult.fontSize}px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif`;
+          ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+          ctx.fillText(subtitleResult.text, textStartX, currentY);
+          currentY += subtitleResult.fontSize + 3;
+        }
+        
+        // Draw location/industry (line 3) if available
+        if (location || industry) {
+          const locationInfo = location && industry ? `${location} · ${industry}` : (location || industry);
+          const locationResult = fitText(locationInfo, debugAvailableWidth, 10);
+          ctx.font = `${locationResult.fontSize}px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif`;
+          ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
+          ctx.fillText(locationResult.text, textStartX, currentY);
+        }
+      }
+      
+      // Draw confidence indicator (small dot)
+      if (confidence > 0) {
+        const dotColor = confidence > 0.7 ? 'rgba(52, 199, 89, 0.9)' : confidence > 0.5 ? 'rgba(255, 149, 0, 0.9)' : 'rgba(255, 69, 58, 0.9)';
+        ctx.fillStyle = dotColor;
+        ctx.beginPath();
+        ctx.arc(finalOverlayX + overlayWidth - 15, finalOverlayY + 15, 4, 0, 2 * Math.PI);
+        ctx.fill();
+        
+        // Add subtle glow
+        ctx.shadowColor = dotColor;
+        ctx.shadowBlur = 8;
+        ctx.fill();
+        ctx.shadowBlur = 0;
+      }
+      
+      // Draw subtle connection line to face (optional)
+      if (recognizedNow) {
+        ctx.strokeStyle = 'rgba(52, 199, 89, 0.3)';
+        ctx.lineWidth = 1;
+        ctx.setLineDash([3, 3]);
+        ctx.beginPath();
+        ctx.moveTo(faceCenterX, scaledY1);
+        ctx.lineTo(finalOverlayX + overlayWidth / 2, finalOverlayY + overlayHeight);
+        ctx.stroke();
+        ctx.setLineDash([]);
       }
     });
-  }, [detections]);
+  }, [detections, trackLabels, getPersonDataFromCache]);
 
   // Redraw detections when frame or detections change
   useEffect(() => {
@@ -347,6 +616,11 @@ const WebcamFaceRecognition = () => {
       setTimeout(drawDetections, 50);
     }
   };
+
+  // Update detection context whenever detections or trackLabels change
+  useEffect(() => {
+    updateDetections(detections, trackLabels);
+  }, [detections, trackLabels, updateDetections]);
 
   // Auto-start webcam when component mounts
   useEffect(() => {
@@ -373,15 +647,15 @@ const WebcamFaceRecognition = () => {
               ref={imageRef}
               src={frameData}
               alt="Webcam feed"
-              className="w-full h-full object-contain"
+              className="w-full h-full object-cover rounded-lg"
               onLoad={handleImageLoad}
               onError={() => setError('Failed to load video frame')}
             />
             
-            {/* Overlay canvas for bounding boxes */}
+            {/* Overlay canvas for glass overlays */}
             <canvas
               ref={canvasRef}
-              className="absolute top-0 left-0 w-full h-full pointer-events-none"
+              className="absolute top-0 left-0 w-full h-full pointer-events-none rounded-lg"
             />
           </div>
         ) : (
@@ -456,41 +730,115 @@ const WebcamFaceRecognition = () => {
         </div>
       )}
 
-      {/* Detection Info Panel */}
-      {detections.length > 0 && (
+      {/* People Currently In Frame Panel */}
+      {detections.length > 0 ? (
         <div className="absolute bottom-4 left-4 max-w-sm">
-          <div className="bg-black/60 p-4 rounded-lg backdrop-blur-sm border border-white/10">
-            <h3 className="text-white font-medium mb-2">Detected Faces:</h3>
+          <div className="bg-black/80 p-4 rounded-xl backdrop-blur-md border border-white/20 shadow-2xl">
+            <h3 className="text-white font-semibold mb-3 flex items-center gap-2">
+              <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+              People in Frame ({detections.length})
+            </h3>
+            <div className="space-y-3">
             {detections.map((detection, index) => {
               const tid = detection.track_id ?? `idx_${index}`;
               const tracked = trackLabels[tid];
               const recognizedNow = Boolean(detection.recognized || (tracked && tracked.recognized));
               const label = (tracked && tracked.label) || (detection.recognized ? detection.name : 'Unknown Person');
+                const personData = tracked?.personData;
+                const confidence = detection.confidence || detection.similarity || 0;
+                
               return (
-                <div key={tid} className="mb-2 last:mb-0">
-                  <div className="flex items-center gap-2">
-                    <div 
-                      className="w-3 h-3 rounded-full"
-                      style={{ backgroundColor: recognizedNow ? '#00FF00' : '#FF0000' }}
-                    />
-                    <span className="text-white text-sm">{label}</span>
+                  <div key={tid} className="bg-white/10 rounded-lg p-3 border border-white/20">
+                    <div className="flex items-start gap-3">
+                      {/* Status indicator */}
+                      <div className="flex-shrink-0">
+                        <div 
+                          className="w-3 h-3 rounded-full mt-1"
+                          style={{ backgroundColor: recognizedNow ? '#34C759' : '#FF3B30' }}
+                        />
+                      </div>
+                      
+                      {/* Person info */}
+                      <div className="flex-1 min-w-0">
+                        <div className="text-white font-medium text-sm mb-1">{label}</div>
+                        
+                        {tracked?.isLoading ? (
+                          <div className="text-white/60 text-xs flex items-center gap-1">
+                            <div className="animate-spin w-3 h-3 border border-white/40 border-t-white rounded-full"></div>
+                            Loading details...
+                          </div>
+                        ) : personData ? (
+                          <div className="space-y-1">
+                            {personData.title && personData.title !== 'Professional' && (
+                              <div className="text-white/80 text-xs">{personData.title}</div>
+                            )}
+                            {personData.company && personData.company !== 'Company' && (
+                              <div className="text-white/70 text-xs">{personData.company}</div>
+                            )}
+                            {personData.location && (
+                              <div className="text-white/60 text-xs">{personData.location}</div>
+                            )}
+                            {personData.avatar && (
+                              <div className="mt-2">
+                                <img 
+                                  src={personData.avatar} 
+                                  alt={name}
+                                  className="w-8 h-8 rounded-full object-cover border border-white/20"
+                                  onError={(e) => {
+                                    e.target.style.display = 'none';
+                                  }}
+                                />
+                              </div>
+                            )}
+                          </div>
+                        ) : (
+                          <div className="text-white/60 text-xs">Unknown person</div>
+                        )}
+                        
+                        {confidence > 0 && (
+                          <div className="mt-2 flex items-center gap-2">
+                            <div className="text-white/60 text-xs">
+                              Confidence: {(confidence * 100).toFixed(0)}%
                   </div>
-                  {detection.similarity && detection.similarity > 0 && (
-                    <div className="text-white/60 text-xs ml-5">
-                      Confidence: {(detection.similarity * 100).toFixed(0)}%
+                            <div className={`w-2 h-2 rounded-full ${
+                              confidence > 0.7 ? 'bg-green-400' : 
+                              confidence > 0.5 ? 'bg-yellow-400' : 'bg-red-400'
+                            }`}></div>
                     </div>
                   )}
+                      </div>
+                    </div>
                 </div>
               );
             })}
+            </div>
+            
+            {/* Presence events summary */}
             {presence.events && presence.events.length > 0 && (
-              <div className="mt-2 text-white/60 text-xs">
-                Last events: {presence.events.map((e) => `${e.event}#${e.track_id}`).join(', ')}
+              <div className="mt-3 pt-3 border-t border-white/20">
+                <div className="text-white/60 text-xs">
+                  Recent activity: {presence.events.slice(-2).map((e) => `${e.event}`).join(', ')}
+                </div>
               </div>
             )}
           </div>
         </div>
-      )}
+      ) : isStreamActive ? (
+        <div className="absolute bottom-4 left-4 max-w-sm">
+          <div className="bg-black/60 p-4 rounded-xl backdrop-blur-md border border-white/20 shadow-2xl">
+            <h3 className="text-white font-semibold mb-2 flex items-center gap-2">
+              <div className="w-2 h-2 bg-gray-400 rounded-full animate-pulse"></div>
+              No People Detected
+            </h3>
+            <div className="text-white/70 text-sm">
+              <p>Camera is active and monitoring for faces...</p>
+              <p className="text-xs text-white/50 mt-1">
+                Make sure you're visible in the camera frame
+              </p>
+            </div>
+          </div>
+        </div>
+      ) : null}
     </div>
   );
 };

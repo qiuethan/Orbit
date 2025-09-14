@@ -8,7 +8,9 @@ export default function SidebarHeader({
   setSearchQuery, 
   filterStatus, 
   setFilterStatus, 
-  onNewPerson 
+  onNewPerson,
+  isVisionPage,
+  detectedCount
 }) {
   return (
     <div className="bg-white border-b border-gray-200 px-6 py-4">
@@ -20,20 +22,24 @@ export default function SidebarHeader({
             <Users className="w-5 h-5 text-gray-700" />
           )}
           <span className="text-lg font-semibold text-gray-900">
-            {isWorkflowPage ? 'Actions' : 'Contacts'}
+            {isWorkflowPage ? 'Actions' : 
+             isVisionPage ? `People in Frame (${detectedCount || 0})` : 
+             'Contacts'}
           </span>
         </div>
-        <button
-          onClick={onNewPerson}
-          className="inline-flex items-center gap-x-2 rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 transition-colors shadow-sm"
-        >
-          <Plus className="w-4 h-4" />
-          {isWorkflowPage ? 'New' : 'Add Contact'}
-        </button>
+        {!isVisionPage && (
+          <button
+            onClick={onNewPerson}
+            className="inline-flex items-center gap-x-2 rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 transition-colors shadow-sm"
+          >
+            <Plus className="w-4 h-4" />
+            {isWorkflowPage ? 'New' : 'Add Contact'}
+          </button>
+        )}
       </div>
 
-      {/* Status Filter - only on dashboard page */}
-      {!isWorkflowPage && (
+      {/* Status Filter - only on dashboard page, not on vision page */}
+      {!isWorkflowPage && !isVisionPage && (
         <div className="mb-4">
           <select
             value={filterStatus}
@@ -57,7 +63,9 @@ export default function SidebarHeader({
         </div>
         <input
           type="search"
-          placeholder={isWorkflowPage ? "Search actions..." : "Search contacts..."}
+          placeholder={isWorkflowPage ? "Search actions..." : 
+                      isVisionPage ? "Search detected people..." : 
+                      "Search contacts..."}
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           className="block w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg bg-white text-sm placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-colors"

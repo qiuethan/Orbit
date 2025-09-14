@@ -9,6 +9,7 @@ import PeopleSidebar from '../components/layout/workflowsidebar';
 import TaskQueue from '../components/layout/TaskQueue';
 import { WorkflowProvider } from '../context/WorkflowContext';
 import { AppProvider } from '../context/AppContext';
+import { DetectionProvider } from '../context/DetectionContext';
 
 // Create a context for sidebar collapse state
 const SidebarContext = createContext();
@@ -27,7 +28,9 @@ export default function RootLayout({ children }) {
       <body className="bg-gray-50 min-h-screen">
         <AppProvider>
           <WorkflowProvider>
-            <LayoutContent>{children}</LayoutContent>
+            <DetectionProvider>
+              <LayoutContent>{children}</LayoutContent>
+            </DetectionProvider>
           </WorkflowProvider>
         </AppProvider>
       </body>

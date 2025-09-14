@@ -5,6 +5,7 @@ import { peopleApi } from '../../data/people';
 import { getAllPersonWorkflows, getWorkflowForPerson, updateWorkflowsCache, setPeopleDataCache } from '../../data/personWorkflows';
 import { useApp, usePageContext } from '../../context/AppContext';
 import { useWorkflow } from '../../context/WorkflowContext';
+import { useDetection } from '../../context/DetectionContext';
 import { useSidebarFiltering } from '../../hooks/useSidebarFiltering';
 import { handlePersonAction, createNewPerson } from '../../utils/personUtils';
 
@@ -29,6 +30,7 @@ export default function PeopleSidebar() {
   const { activePerson, setActivePerson, activeWorkflow, setActiveWorkflow } = useApp();
   const { setActiveWorkflow: setContextActiveWorkflow } = useWorkflow();
   const { isWorkflowPage } = usePageContext();
+  const { getDetectedPersonNames, sidebarLoading } = useDetection();
   
   // Load people and workflows data from backend
   useEffect(() => {
@@ -70,7 +72,31 @@ export default function PeopleSidebar() {
   }, []);
   
   // Get data based on current page
-  const displayItems = isWorkflowPage ? personWorkflows : people;
+  let displayItems = isWorkflowPage ? personWorkflows : people;
+  
+  // Filter by detected people when on vision page
+  const isVisionPage = typeof window !== 'undefined' && window.location.pathname === '/vision';
+  if (isVisionPage && !isWorkflowPage) {
+    const detectedNames = getDetectedPersonNames();
+    if (detectedNames.length > 0) {
+      if (sidebarLoading) {
+        // Show loading state - filter but don't show results yet
+        displayItems = [];
+      } else {
+        // Use a more stable filtering approach
+        const filteredPeople = people.filter(person => 
+          detectedNames.some(name => 
+            person.name.toLowerCase().includes(name.toLowerCase()) ||
+            name.toLowerCase().includes(person.name.toLowerCase())
+          )
+        );
+        displayItems = filteredPeople;
+      }
+    } else {
+      // If no people detected, show empty list
+      displayItems = [];
+    }
+  }
 
   // Use custom hook for filtering
   const filteredItems = useSidebarFiltering(displayItems, searchQuery, filterStatus, isWorkflowPage);
@@ -122,6 +148,8 @@ export default function PeopleSidebar() {
         filterStatus={filterStatus}
         setFilterStatus={setFilterStatus}
         onNewPerson={handleNewPerson}
+        isVisionPage={isVisionPage}
+        detectedCount={isVisionPage ? getDetectedPersonNames().length : null}
       />
 
       {/* List */}
@@ -129,6 +157,11 @@ export default function PeopleSidebar() {
         {loading ? (
           <div className="flex items-center justify-center h-32">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
+          </div>
+        ) : isVisionPage && sidebarLoading ? (
+          <div className="flex flex-col items-center justify-center h-32 space-y-2">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
+            <div className="text-sm text-gray-500">Loading detected people...</div>
           </div>
         ) : filteredItems.length === 0 ? (
           <EmptyState
