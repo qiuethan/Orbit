@@ -1,0 +1,123 @@
+{
+    "person_analysis": {
+      "personal_info": {
+        "full_name": "Joieta Choudhury",
+        "age": null,
+        "location": "United States",
+        "nationality": "Canadian (likely, University of Waterloo alum)",
+        "languages": ["English"],
+        "interests": [
+          "Product Management",
+          "Operations",
+          "AI & Social Networking",
+          "Startup Growth",
+          "Event-based Networking Tools",
+          "Science and Business Strategy"
+        ]
+      },
+      "professional_info": {
+        "current_position": "Product & Operations",
+        "company": "Boardy",
+        "industry": "Artificial Intelligence / Social Networking",
+        "previous_positions": [
+          "Co-Founder & Head of Growth – Beavr Design (2023 – 2024)",
+          "Strategic Initiatives Coordinator – University of Waterloo (2021 – 2023)",
+          "Product Manager – Points (a Plusgrade company) (2022)",
+          "Project Manager – Uptake (2021)",
+          "Teaching Assistant – University of Waterloo (2021)"
+        ],
+        "skills": [
+          "Product Management",
+          "Operations Strategy",
+          "Startup Growth",
+          "Event Networking Tools",
+          "Strategic Planning",
+          "Project Management",
+          "AI Product Applications"
+        ],
+        "achievements": [
+          "Currently leading product and operations at **Boardy**, building the world’s first Social AI for event-based networking and introductions.",
+          "Helped Boardy orchestrate over **100+ warm intros at large-scale networking events**, with strong user testimonials highlighting AI-driven personalization.",
+          "Co-founded **Beavr Design**, driving growth and product initiatives.",
+          "Served as a **Product Manager at Points**, focusing on loyalty/points-based products in the travel/fintech space.",
+          "Recognized for **bridging science and business expertise** during her time at the University of Waterloo."
+        ]
+      },
+      "education_info": {
+        "degree": "Bachelor of Science (Honours), Science and Business Co-op",
+        "institution": "University of Waterloo",
+        "graduation_year": 2023,
+        "notes": "Combined technical and business training, with significant co-op and project experience."
+      },
+      "social_media": [
+        {
+          "platform": "LinkedIn",
+          "username": null,
+          "url": null,
+          "verified": null,
+          "followers_count": 918
+        }
+      ],
+      "talking_points": {
+        "recent_achievements": [
+          "Driving product and operational growth at Boardy, scaling its AI-driven networking tool.",
+          "Played a central role in designing AI workflows for event introductions, generating user praise for making networking feel intentional and authentic.",
+          "Transitioned from product roles at Points and Uptake into entrepreneurship and AI-first products."
+        ],
+        "shared_connections": [
+          "Krishiv Thakuria"
+        ],
+        "common_interests": [
+          "AI applications in networking and relationship-building",
+          "Early-stage startup growth",
+          "University of Waterloo community",
+          "Product-led operational strategy"
+        ],
+        "conversation_starters": [
+          "Ask about her role in scaling **Boardy’s Social AI** at major networking events.",
+          "Discuss the challenges of combining product and operations in a fast-paced startup.",
+          "Explore her co-founding journey with **Beavr Design** and lessons in growth strategy.",
+          "Bring up the intersection of science and business in her University of Waterloo background."
+        ],
+        "notable_projects": [
+          "Boardy – world’s first Social AI for networking",
+          "Beavr Design – co-founded design and growth initiative",
+          "Points – product management for loyalty/fintech products",
+          "University of Waterloo – strategic initiatives in science and business"
+        ]
+      },
+      "public_presence_score": "Medium",
+      "credibility_indicators": [
+        "Currently at a high-growth AI startup (Boardy)",
+        "Multiple co-op and product management experiences at reputable organizations",
+        "University of Waterloo Science and Business program alum"
+      ],
+      "potential_red_flags": [
+        "Early career – experience spread across several short-term roles, though consistent with co-op/early startup trajectory."
+      ],
+      "overview": "Joieta Choudhury is a product and operations leader at Boardy, where she is building the world’s first Social AI to transform networking and introductions at events. With prior experience as a co-founder of Beavr Design and product roles at Points, Uptake, and the University of Waterloo, she combines technical, operational, and business acumen. A University of Waterloo Science and Business graduate, she brings a unique blend of analytical thinking and entrepreneurial drive to AI-driven products.",
+      "executive_summary": "Joieta Choudhury is a University of Waterloo alum now shaping the future of social AI as a product and operations lead at Boardy. She has experience co-founding Beavr Design and managing products at Points and Uptake, with a strong foundation in science, business, and strategy. Her recent achievements include helping Boardy power 100+ AI-driven introductions at networking events, with user feedback highlighting its thoughtful and intentional design. Joieta represents the new wave of AI product leaders bridging operations, product growth, and social innovation.",
+      "key_insights": [
+        "Central to the early-stage growth of **Boardy’s Social AI** platform.",
+        "Blends science, business, and product expertise for AI startups.",
+        "Has both corporate and startup experience, giving her versatility in scaling products.",
+        "Visible in the AI networking space through reposts and thought leadership activity."
+      ],
+      "confidence_level": "High",
+      "sources_quality": "Good",
+      "last_updated": "2025-09-13"
+    },
+    "best_match_photo": {
+      "base64_data": null,
+      "source_url": null,
+      "confidence_score": null,
+      "description": "No photo provided"
+    },
+    "metadata": {
+      "llm_provider": "cerebras",
+      "llm_model": "gpt-oss-120b",
+      "face_matches": 0,
+      "total_mentions": 1
+    }
+  }
+  

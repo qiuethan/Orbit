@@ -1,0 +1,137 @@
+{
+    "person_analysis": {
+      "personal_info": {
+        "full_name": "Joowon Kim",
+        "age": null,
+        "location": "New York, New York, United States",
+        "nationality": "American (likely, UIUC graduate with Korean heritage)",
+        "languages": ["English (native/bilingual)", "Korean (full professional proficiency)"],
+        "interests": [
+          "Software Engineering",
+          "AI Infrastructure",
+          "Finance Automation",
+          "Cloud Platforms",
+          "Procurement & Payments Systems",
+          "Tech Communities and Social Media (20k+ followers on X)"
+        ]
+      },
+      "professional_info": {
+        "current_position": "Senior Software Engineer",
+        "company": "Ramp",
+        "industry": "Fintech / SaaS / AI-powered Finance",
+        "previous_positions": [
+          "Software Engineer II – Ramp (2023 – 2024)",
+          "Software Engineer II – Illumio (2023)",
+          "Software Engineer I – Illumio (2022 – 2023)",
+          "AI Software Engineering Intern – Trova AI (2021 – 2022)",
+          "Software Engineering Intern – Illumio (2021)",
+          "Software Engineering Intern – Pure Storage (2020)"
+        ],
+        "skills": [
+          "Python",
+          "Cloud Infrastructure",
+          "Backend API Development",
+          "Data Platforms",
+          "Procurement Workflow Engineering",
+          "Real-Time Systems",
+          "Creative Problem Solving"
+        ],
+        "achievements": [
+          "Building **Bill Pay Platform and Procurement Workflows** at Ramp, contributing to the company’s rapid growth and $22.5B valuation milestone.",
+          "Recognized as a prominent **tech voice on X** with 20k+ followers, combining technical expertise with community influence.",
+          "At Illumio, authored **Nimbus**, a CloudSecure API Gateway to proxy all backend API calls, and developed the company’s first trial engine.",
+          "At Pure Storage, contributed to **real-time data stream compression** systems.",
+          "Multiple academic honors at UIUC including **Engineering Dean’s List** and induction into **Phi Eta Sigma National Honor Society**."
+        ]
+      },
+      "education_info": {
+        "degree": "Bachelor of Science, Computer Science and Economics",
+        "institution": "University of Illinois at Urbana-Champaign",
+        "graduation_year": 2021,
+        "activities": [
+          "Association for Computing Machinery (ACM)",
+          "Reflections | Projections (conference involvement)"
+        ],
+        "honors": [
+          "Engineering Dean’s List (2018)",
+          "Phi Eta Sigma National Honors Society (2018)"
+        ]
+      },
+      "social_media": [
+        {
+          "platform": "LinkedIn",
+          "username": null,
+          "url": null,
+          "verified": null,
+          "followers_count": 1377
+        },
+        {
+          "platform": "X (Twitter)",
+          "username": null,
+          "url": null,
+          "verified": null,
+          "followers_count": 20000
+        }
+      ],
+      "talking_points": {
+        "recent_achievements": [
+          "Leading work on Ramp’s **Bill Pay and Procurement workflows**, key to scaling financial automation.",
+          "Helped Ramp reach a **$22.5B valuation with $500M funding**, reflecting massive fintech growth.",
+          "Blends engineering with public presence as a **notable X tech shitposter (20k+ followers)**."
+        ],
+        "shared_connections": [],
+        "common_interests": [
+          "Fintech scaling",
+          "AI-powered financial systems",
+          "Backend engineering for large-scale data",
+          "Social media and tech community building"
+        ],
+        "conversation_starters": [
+          "Ask about his contributions to Ramp’s financial automation stack.",
+          "Discuss the balance between building scalable backend systems and his public tech presence.",
+          "Explore his learnings from building **Nimbus API Gateway** at Illumio.",
+          "Bring up his dual background in **computer science and economics** from UIUC."
+        ],
+        "notable_projects": [
+          "Ramp – Bill Pay Platform & Procurement Workflows",
+          "Illumio – Nimbus API Gateway & Trial Engine",
+          "Pure Storage – Real-time Data Compression",
+          "Trova AI – Data Sync Engine",
+          "Cryptocurrency Algorithm Bot (UIUC)"
+        ]
+      },
+      "public_presence_score": "High",
+      "credibility_indicators": [
+        "Senior Engineer at Ramp, a $22.5B fintech unicorn",
+        "Strong engineering pedigree with UIUC CS/Econ degree",
+        "Notable visibility on X with 20k+ followers"
+      ],
+      "potential_red_flags": [
+        "Active shitposting persona could blur professional/personal brand lines, though it boosts visibility."
+      ],
+      "overview": "Joowon Kim is a Senior Software Engineer at Ramp, where he builds financial automation systems like bill pay platforms and procurement workflows. With a degree in Computer Science and Economics from UIUC, his career spans impactful backend and infrastructure work at Illumio, Pure Storage, and Trova AI before joining Ramp. Alongside his engineering role, Joowon is also a recognized voice in the tech community, known for his 20k+ following on X, blending technical expertise with humor and insight.",
+      "executive_summary": "Joowon Kim is a New York–based Senior Software Engineer at Ramp, specializing in backend systems for finance automation. Previously at Illumio, Pure Storage, and Trova AI, he built critical infrastructure such as Nimbus API Gateway and real-time data compression tools. A UIUC alum with a CS/Econ background, Joowon also maintains a strong presence on X with 20k+ followers, making him both a builder and visible tech community contributor. His recent work has supported Ramp’s $500M raise and $22.5B valuation, positioning him at the forefront of fintech engineering.",
+      "key_insights": [
+        "Core engineering contributor to Ramp’s procurement and bill pay infrastructure.",
+        "Visible figure in tech Twitter/X spaces, amplifying both personal and company presence.",
+        "Background combines computer science with economics, aligning with fintech specialization.",
+        "Proven track record at scaling systems at Illumio and Pure Storage before Ramp."
+      ],
+      "confidence_level": "High",
+      "sources_quality": "Strong",
+      "last_updated": "2025-09-13"
+    },
+    "best_match_photo": {
+      "base64_data": null,
+      "source_url": null,
+      "confidence_score": null,
+      "description": "No photo provided"
+    },
+    "metadata": {
+      "llm_provider": "cerebras",
+      "llm_model": "gpt-oss-120b",
+      "face_matches": 0,
+      "total_mentions": 1
+    }
+  }
+  

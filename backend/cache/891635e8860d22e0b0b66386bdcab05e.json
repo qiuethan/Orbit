@@ -1,0 +1,127 @@
+{
+    "person_analysis": {
+      "personal_info": {
+        "full_name": "Jen Dewalt",
+        "age": null,
+        "location": "Miami, Florida, United States",
+        "nationality": "American",
+        "languages": ["English"],
+        "interests": [
+          "Full Stack Development",
+          "Product Design",
+          "Entrepreneurship",
+          "Art & Multimedia",
+          "Project Management",
+          "SaaS",
+          "Quantum Computing (early project experience)"
+        ]
+      },
+      "professional_info": {
+        "current_position": "Founder",
+        "company": "Zube",
+        "industry": "Project Management / SaaS",
+        "previous_positions": [
+          "Growth Developer – Wit.ai (2014 – 2015)",
+          "Founder – YumHacker (2013 – 2014)",
+          "Founder – Grapefeed (2011 – 2013)",
+          "Founder – Pivit (2011)"
+        ],
+        "skills": [
+          "JavaScript",
+          "Node.js",
+          "PostgreSQL",
+          "SaaS Product Development",
+          "UX/UI Design",
+          "Brand Strategy",
+          "Project Management",
+          "Growth Hacking"
+        ],
+        "achievements": [
+          "Founded **Zube**, a GitHub-integrated project management platform, serving as both a technical and product leader.",
+          "Led growth at **Wit.ai**, contributing to metrics, branding, developer outreach, and API adoption (pre-Facebook acquisition).",
+          "Created **YumHacker**, a restaurant discovery platform, as a solo founder handling everything from product design to backend systems.",
+          "Built **180 Websites in 180 Days**, a globally recognized coding challenge that helped her transition from art to full-stack software engineering.",
+          "Speaker at **JSConf.ar 2014**, sharing her self-taught developer journey."
+        ]
+      },
+      "education_info": {
+        "degree": "MFA, Visual Art",
+        "institution": "Pratt Institute",
+        "graduation_year": 2008,
+        "previous_degree": "B.A., Studio Art, University of Maryland (2006)",
+        "notes": "Originally trained as an artist before pivoting into software engineering and startups."
+      },
+      "social_media": [
+        {
+          "platform": "LinkedIn",
+          "username": null,
+          "url": null,
+          "verified": null,
+          "followers_count": 964
+        }
+      ],
+      "talking_points": {
+        "recent_achievements": [
+          "Scaling Zube as a project management platform for GitHub-based teams.",
+          "Maintaining visibility in the tech community through her 180 Websites project and speaking engagements.",
+          "Strong background in blending technical development with branding, growth, and customer success."
+        ],
+        "shared_connections": [
+          "Gabriel Thompson"
+        ],
+        "common_interests": [
+          "Startup founding journeys",
+          "Growth and branding strategies in tech",
+          "Developer tools and SaaS products",
+          "Art-meets-technology career pivots"
+        ],
+        "conversation_starters": [
+          "Ask about her experience learning to code through the '180 Websites in 180 Days' project.",
+          "Discuss the challenges of being a technical founder handling both code and customer-facing roles at Zube.",
+          "Bring up her role at Wit.ai and how growth strategies worked at a pre-acquisition AI startup.",
+          "Explore her transition from art and multimedia installations into coding and entrepreneurship."
+        ],
+        "notable_projects": [
+          "Zube – GitHub-integrated project management tool",
+          "180 Websites in 180 Days",
+          "Wit.ai growth initiatives",
+          "YumHacker (restaurant discovery)",
+          "Grapefeed (social news discovery)",
+          "Pivit (early quantum computing startup concept)"
+        ]
+      },
+      "public_presence_score": "Medium",
+      "credibility_indicators": [
+        "Founder of multiple startups with over 15 years of entrepreneurial experience",
+        "Speaker at JSConf.ar and other developer events",
+        "Well-known for 180 Websites in 180 Days project"
+      ],
+      "potential_red_flags": [
+        "Some startups (YumHacker, Grapefeed, Pivit) were short-lived, though valuable for entrepreneurial learning."
+      ],
+      "overview": "Jen Dewalt is a Miami-based serial entrepreneur, software engineer, and designer. Best known for teaching herself to code by creating 180 websites in 180 days, she has since founded Zube, a GitHub-integrated project management platform. Her career spans technical leadership, growth strategy, UX design, and product development. With an MFA in Visual Art and a BA in Studio Art, Jen brings a creative, multidisciplinary approach to tech innovation.",
+      "executive_summary": "Jen Dewalt is a self-taught developer turned serial entrepreneur, now founder of Zube. Her journey from MFA-trained artist to software engineer and startup founder has been marked by adaptability, creativity, and product leadership. She combines technical expertise in JavaScript and SaaS with experience in growth, branding, and UX design. Widely recognized for her 180 Websites in 180 Days project, Jen exemplifies the intersection of creativity and engineering in building user-focused technology products.",
+      "key_insights": [
+        "Transitioned from an art background into software engineering and entrepreneurship.",
+        "Founder of multiple startups, with Zube as her longest-running venture.",
+        "Blends technical expertise with product, branding, and growth leadership.",
+        "Recognized speaker and visible advocate for self-directed learning in coding."
+      ],
+      "confidence_level": "High",
+      "sources_quality": "Good",
+      "last_updated": "2025-09-13"
+    },
+    "best_match_photo": {
+      "base64_data": null,
+      "source_url": null,
+      "confidence_score": null,
+      "description": "No photo provided"
+    },
+    "metadata": {
+      "llm_provider": "cerebras",
+      "llm_model": "gpt-oss-120b",
+      "face_matches": 0,
+      "total_mentions": 1
+    }
+  }
+  
